@@ -14,6 +14,17 @@
 		9CC2B80B1EEE407A0049E269 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CC2B8091EEE407A0049E269 /* LaunchScreen.storyboard */; };
 		9CC2B8161EEE407A0049E269 /* FindFoodFastTogetherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC2B8151EEE407A0049E269 /* FindFoodFastTogetherTests.swift */; };
 		9CC2B8211EEE407A0049E269 /* FindFoodFastTogetherUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC2B8201EEE407A0049E269 /* FindFoodFastTogetherUITests.swift */; };
+		9CC2B8301EF064A90049E269 /* BrowseHostCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC2B82F1EF064A90049E269 /* BrowseHostCollectionViewController.swift */; };
+		9CC2B8331EF065DA0049E269 /* BrowseHostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC2B8321EF065DA0049E269 /* BrowseHostCollectionViewCell.swift */; };
+		9CC2B8351EF0890F0049E269 /* BrowseHostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC2B8341EF0890F0049E269 /* BrowseHostViewController.swift */; };
+		9CC2B8381EF0D7380049E269 /* BrowseHostPeripheralManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC2B8371EF0D7380049E269 /* BrowseHostPeripheralManager.swift */; };
+		9CC2B83A1EF18A370049E269 /* HostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC2B8391EF18A370049E269 /* HostViewController.swift */; };
+		9CC2B83D1EF18CDE0049E269 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC2B83C1EF18CDE0049E269 /* Constants.swift */; };
+		9CC2B8421EF1E9580049E269 /* CBAdvertisementData+LightBlue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC2B83E1EF1E9580049E269 /* CBAdvertisementData+LightBlue.swift */; };
+		9CC2B8431EF1E9580049E269 /* CBCharacteristic+LightBlue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC2B83F1EF1E9580049E269 /* CBCharacteristic+LightBlue.swift */; };
+		9CC2B8441EF1E9580049E269 /* CBService+LightBlue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC2B8401EF1E9580049E269 /* CBService+LightBlue.swift */; };
+		9CC2B8451EF1E9580049E269 /* CBUUID+LightBlue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC2B8411EF1E9580049E269 /* CBUUID+LightBlue.swift */; };
+		9CC2B8491EF784F10049E269 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC2B8481EF784F10049E269 /* StartViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +58,17 @@
 		9CC2B81C1EEE407A0049E269 /* FindFoodFastTogetherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FindFoodFastTogetherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CC2B8201EEE407A0049E269 /* FindFoodFastTogetherUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindFoodFastTogetherUITests.swift; sourceTree = "<group>"; };
 		9CC2B8221EEE407A0049E269 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9CC2B82F1EF064A90049E269 /* BrowseHostCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BrowseHostCollectionViewController.swift; path = ViewControllers/BrowseHostCollectionViewController.swift; sourceTree = "<group>"; };
+		9CC2B8321EF065DA0049E269 /* BrowseHostCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BrowseHostCollectionViewCell.swift; path = Views/BrowseHostCollectionViewCell.swift; sourceTree = "<group>"; };
+		9CC2B8341EF0890F0049E269 /* BrowseHostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BrowseHostViewController.swift; path = ViewControllers/BrowseHostViewController.swift; sourceTree = "<group>"; };
+		9CC2B8371EF0D7380049E269 /* BrowseHostPeripheralManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseHostPeripheralManager.swift; sourceTree = "<group>"; };
+		9CC2B8391EF18A370049E269 /* HostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HostViewController.swift; path = ViewControllers/HostViewController.swift; sourceTree = "<group>"; };
+		9CC2B83C1EF18CDE0049E269 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = Helpers/Constants.swift; sourceTree = "<group>"; };
+		9CC2B83E1EF1E9580049E269 /* CBAdvertisementData+LightBlue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CBAdvertisementData+LightBlue.swift"; path = "Helpers/CBAdvertisementData+LightBlue.swift"; sourceTree = "<group>"; };
+		9CC2B83F1EF1E9580049E269 /* CBCharacteristic+LightBlue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CBCharacteristic+LightBlue.swift"; path = "Helpers/CBCharacteristic+LightBlue.swift"; sourceTree = "<group>"; };
+		9CC2B8401EF1E9580049E269 /* CBService+LightBlue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CBService+LightBlue.swift"; path = "Helpers/CBService+LightBlue.swift"; sourceTree = "<group>"; };
+		9CC2B8411EF1E9580049E269 /* CBUUID+LightBlue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CBUUID+LightBlue.swift"; path = "Helpers/CBUUID+LightBlue.swift"; sourceTree = "<group>"; };
+		9CC2B8481EF784F10049E269 /* StartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StartViewController.swift; path = ViewControllers/StartViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +119,10 @@
 		9CC2B7FF1EEE407A0049E269 /* FindFoodFastTogether */ = {
 			isa = PBXGroup;
 			children = (
+				9CC2B83B1EF18CC60049E269 /* Helpers */,
+				9CC2B8361EF0D7010049E269 /* Managers */,
+				9CC2B8311EF065C70049E269 /* Views */,
+				9CC2B82E1EF064570049E269 /* ViewControllers */,
 				9CC2B8001EEE407A0049E269 /* AppDelegate.swift */,
 				9CC2B8021EEE407A0049E269 /* ViewController.swift */,
 				9CC2B8041EEE407A0049E269 /* Main.storyboard */,
@@ -123,6 +149,45 @@
 				9CC2B8221EEE407A0049E269 /* Info.plist */,
 			);
 			path = FindFoodFastTogetherUITests;
+			sourceTree = "<group>";
+		};
+		9CC2B82E1EF064570049E269 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				9CC2B8481EF784F10049E269 /* StartViewController.swift */,
+				9CC2B82F1EF064A90049E269 /* BrowseHostCollectionViewController.swift */,
+				9CC2B8341EF0890F0049E269 /* BrowseHostViewController.swift */,
+				9CC2B8391EF18A370049E269 /* HostViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		9CC2B8311EF065C70049E269 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9CC2B8321EF065DA0049E269 /* BrowseHostCollectionViewCell.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		9CC2B8361EF0D7010049E269 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				9CC2B8371EF0D7380049E269 /* BrowseHostPeripheralManager.swift */,
+			);
+			name = Managers;
+			sourceTree = "<group>";
+		};
+		9CC2B83B1EF18CC60049E269 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				9CC2B83E1EF1E9580049E269 /* CBAdvertisementData+LightBlue.swift */,
+				9CC2B83F1EF1E9580049E269 /* CBCharacteristic+LightBlue.swift */,
+				9CC2B8401EF1E9580049E269 /* CBService+LightBlue.swift */,
+				9CC2B8411EF1E9580049E269 /* CBUUID+LightBlue.swift */,
+				9CC2B83C1EF18CDE0049E269 /* Constants.swift */,
+			);
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -195,6 +260,11 @@
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = NT8RKCPT5K;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					9CC2B8101EEE407A0049E269 = {
 						CreatedOnToolsVersion = 8.3.3;
@@ -262,8 +332,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9CC2B8421EF1E9580049E269 /* CBAdvertisementData+LightBlue.swift in Sources */,
+				9CC2B8331EF065DA0049E269 /* BrowseHostCollectionViewCell.swift in Sources */,
+				9CC2B8381EF0D7380049E269 /* BrowseHostPeripheralManager.swift in Sources */,
+				9CC2B83A1EF18A370049E269 /* HostViewController.swift in Sources */,
+				9CC2B8451EF1E9580049E269 /* CBUUID+LightBlue.swift in Sources */,
+				9CC2B8431EF1E9580049E269 /* CBCharacteristic+LightBlue.swift in Sources */,
+				9CC2B8351EF0890F0049E269 /* BrowseHostViewController.swift in Sources */,
 				9CC2B8031EEE407A0049E269 /* ViewController.swift in Sources */,
+				9CC2B8491EF784F10049E269 /* StartViewController.swift in Sources */,
+				9CC2B8441EF1E9580049E269 /* CBService+LightBlue.swift in Sources */,
 				9CC2B8011EEE407A0049E269 /* AppDelegate.swift in Sources */,
+				9CC2B8301EF064A90049E269 /* BrowseHostCollectionViewController.swift in Sources */,
+				9CC2B83D1EF18CDE0049E269 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
