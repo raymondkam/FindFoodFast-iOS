@@ -27,10 +27,10 @@
             </objects>
             <point key="canvasLocation" x="-684" y="139"/>
         </scene>
-        <!--Root View Controller-->
+        <!--Start View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="RootViewController" customModule="FindFoodFastTogether" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="StartViewController" customModule="FindFoodFastTogether" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -58,7 +58,10 @@
                                                 </constraints>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" spellCheckingType="no" returnKeyType="done"/>
+                                                <connections>
+                                                    <action selector="handleUsernameTextFieldEditingChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="2mn-RV-9eY"/>
+                                                </connections>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qvA-DB-BSx">
                                                 <rect key="frame" x="0.0" y="50" width="180" height="42"/>
@@ -71,7 +74,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="Hy5-2l-EOU" kind="show" id="d2Y-JU-dAt"/>
+                                                    <segue destination="Hy5-2l-EOU" kind="show" identifier="search" id="d2Y-JU-dAt"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RQb-HP-tcn">
@@ -85,7 +88,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="9VD-ix-Gcb" kind="show" id="AbT-rc-TX8"/>
+                                                    <segue destination="9VD-ix-Gcb" kind="show" identifier="host" id="AbT-rc-TX8"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -101,15 +104,20 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="A5g-EK-DzY"/>
+                    <connections>
+                        <outlet property="hostButton" destination="RQb-HP-tcn" id="r74-NJ-ASb"/>
+                        <outlet property="nameTextField" destination="7R1-wF-5PS" id="im5-EU-HOJ"/>
+                        <outlet property="searchButton" destination="qvA-DB-BSx" id="iG5-ZI-Gmw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="100" y="139"/>
         </scene>
-        <!--View Controller-->
+        <!--Create Host View Controller-->
         <scene sceneID="lNX-ch-xgW">
             <objects>
-                <viewController id="9VD-ix-Gcb" sceneMemberID="viewController">
+                <viewController id="9VD-ix-Gcb" customClass="CreateHostViewController" customModule="FindFoodFastTogether" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="q7T-XM-lLI"/>
                         <viewControllerLayoutGuide type="bottom" id="0bF-DN-WoL"/>
@@ -121,7 +129,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="5OA-rL-k6U">
                                 <rect key="frame" x="24" y="273.5" width="327" height="120.5"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter a session name others can recognize" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="pNz-Sp-oIU">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter a host name others will recognize" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="pNz-Sp-oIU">
                                         <rect key="frame" x="0.0" y="0.0" width="327" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -135,6 +143,9 @@
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                        <connections>
+                                            <action selector="handleHostNameTextFieldEditingChanged:" destination="9VD-ix-Gcb" eventType="editingChanged" id="CUb-OA-Axj"/>
+                                        </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jsP-iN-QOH">
                                         <rect key="frame" x="0.0" y="78.5" width="327" height="42"/>
@@ -146,7 +157,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="52x-uI-iwD" kind="show" id="h6o-RB-BBo"/>
+                                            <segue destination="52x-uI-iwD" kind="show" identifier="hostSession" id="h6o-RB-BBo"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -159,6 +170,10 @@
                             <constraint firstItem="5OA-rL-k6U" firstAttribute="centerY" secondItem="nfv-o0-mg3" secondAttribute="centerY" id="bR1-NV-iTj"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="goButton" destination="jsP-iN-QOH" id="NLC-ok-hlF"/>
+                        <outlet property="hostnameTextField" destination="TBl-hx-gVW" id="jmr-9q-M53"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vdF-Ou-U0x" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -14,9 +14,12 @@ class BrowseHostViewController: UIViewController {
     @IBOutlet weak var loadingView: UIView!
     @IBOutlet weak var containerView: UIView!
     
-    var bluetoothCentralManager: CBCentralManager!
-    var bluetoothDevices: Set<String> = []
-    var findFoodFastPeripheral: CBPeripheral!
+    fileprivate var bluetoothCentralManager: CBCentralManager!
+    fileprivate var bluetoothDevices: Set<String> = []
+    fileprivate var connectedPeripheral: CBPeripheral!
+    fileprivate var discoveredPeripherals: Set<CBPeripheral> = []
+    
+    var username: String?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -24,6 +27,8 @@ class BrowseHostViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationItem.title = username
         
         // fake the loading
         Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { (timer) in
@@ -40,23 +45,25 @@ extension BrowseHostViewController : CBCentralManagerDelegate {
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch central.state {
         case .poweredOn:
+            print("bluetooth powered on, preparing to scan for peripherals")
             central.scanForPeripherals(withServices: [FindFoodFastService.ServiceUUID], options: nil)
+            DispatchQueue.global().asyncAfter(deadline: .now() + 30) {
+                print("30 seconds has passed, stop scanning for peripherals")
+                central.stopScan()
+            }
         default:
             print("default")
         }
     }
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
+        central.stopScan()
         // discover what services are available
         peripheral.discoverServices([FindFoodFastService.ServiceUUID])
     }
     
-    func centralManager(_ central: CBCentralManager, willRestoreState dict: [String : Any]) {
-        
-    }
-    
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
-        
+
     }
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
@@ -64,24 +71,27 @@ extension BrowseHostViewController : CBCentralManagerDelegate {
     }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        print("did discover")
-        if findFoodFastPeripheral != peripheral {
-            findFoodFastPeripheral = peripheral
-            findFoodFastPeripheral.delegate = self
+        guard !discoveredPeripherals.contains(peripheral) else {
+            print("peripheral uuid already exists")
+            return
         }
-        bluetoothCentralManager.connect(findFoodFastPeripheral, options: nil)
+        print("did discover peripheral uuid: \(peripheral.identifier.uuidString)")
+        peripheral.delegate = self
+        discoveredPeripherals.insert(peripheral)
+//        bluetoothCentralManager.connect(peripheral, options: nil)
     }
 }
 
 extension BrowseHostViewController : CBPeripheralDelegate {
-    
+    // MARK: - CBPeripheralDelegate
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
+        print("did discover services \(peripheral)")
         guard error == nil else {
             print("error discovering services: \(String(describing: error?.localizedDescription))")
             return
         }
-        guard let services = peripheral.services else {
-            print("peripheral services not found")
+        guard let services = peripheral.services, services.count > 0 else {
+            print("peripheral services nil or has no services")
             return
         }
         peripheral.discoverCharacteristics([FindFoodFastService.CharacteristicUUIDHostName], for: services.first!)
@@ -90,6 +100,10 @@ extension BrowseHostViewController : CBPeripheralDelegate {
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         guard error == nil else {
             print("error discovering characteristic: \(String(describing: error?.localizedDescription))")
+            return
+        }
+        guard (service.characteristics?.count)! > 0 else {
+            print("no characteristics found for service")
             return
         }
         print("discovered host name characteristic")

@@ -25,6 +25,7 @@
 		9CC2B8441EF1E9580049E269 /* CBService+LightBlue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC2B8401EF1E9580049E269 /* CBService+LightBlue.swift */; };
 		9CC2B8451EF1E9580049E269 /* CBUUID+LightBlue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC2B8411EF1E9580049E269 /* CBUUID+LightBlue.swift */; };
 		9CC2B8491EF784F10049E269 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC2B8481EF784F10049E269 /* StartViewController.swift */; };
+		9CC2B84B1EF8DEB00049E269 /* CreateHostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC2B84A1EF8DEB00049E269 /* CreateHostViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		9CC2B8401EF1E9580049E269 /* CBService+LightBlue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CBService+LightBlue.swift"; path = "Helpers/CBService+LightBlue.swift"; sourceTree = "<group>"; };
 		9CC2B8411EF1E9580049E269 /* CBUUID+LightBlue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CBUUID+LightBlue.swift"; path = "Helpers/CBUUID+LightBlue.swift"; sourceTree = "<group>"; };
 		9CC2B8481EF784F10049E269 /* StartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StartViewController.swift; path = ViewControllers/StartViewController.swift; sourceTree = "<group>"; };
+		9CC2B84A1EF8DEB00049E269 /* CreateHostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CreateHostViewController.swift; path = ViewControllers/CreateHostViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +160,7 @@
 				9CC2B82F1EF064A90049E269 /* BrowseHostCollectionViewController.swift */,
 				9CC2B8341EF0890F0049E269 /* BrowseHostViewController.swift */,
 				9CC2B8391EF18A370049E269 /* HostViewController.swift */,
+				9CC2B84A1EF8DEB00049E269 /* CreateHostViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -338,6 +341,7 @@
 				9CC2B83A1EF18A370049E269 /* HostViewController.swift in Sources */,
 				9CC2B8451EF1E9580049E269 /* CBUUID+LightBlue.swift in Sources */,
 				9CC2B8431EF1E9580049E269 /* CBCharacteristic+LightBlue.swift in Sources */,
+				9CC2B84B1EF8DEB00049E269 /* CreateHostViewController.swift in Sources */,
 				9CC2B8351EF0890F0049E269 /* BrowseHostViewController.swift in Sources */,
 				9CC2B8031EEE407A0049E269 /* ViewController.swift in Sources */,
 				9CC2B8491EF784F10049E269 /* StartViewController.swift in Sources */,

@@ -11,8 +11,11 @@ import CoreBluetooth
 
 class HostViewController: UIViewController {
 
-    var peripheralManager : CBPeripheralManager!
-    var findFoodFastMutableService : CBMutableService!
+    fileprivate var peripheralManager : CBPeripheralManager!
+    fileprivate var findFoodFastMutableService : CBMutableService!
+    
+    var hostname: String?
+    var username: String?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -72,7 +75,7 @@ extension HostViewController : CBPeripheralManagerDelegate {
         }
         if service == findFoodFastMutableService {
             print("starting advertising")
-            peripheralManager.startAdvertising([CBAdvertisementDataServiceUUIDsKey : [service.uuid]])
+            peripheralManager.startAdvertising([CBAdvertisementDataServiceUUIDsKey: [service.uuid], CBAdvertisementDataLocalNameKey: hostname!])
             
         }
     }
