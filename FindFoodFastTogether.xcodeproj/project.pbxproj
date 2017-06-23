@@ -21,10 +21,6 @@
 		9CC2B8351EF0890F0049E269 /* BrowseHostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC2B8341EF0890F0049E269 /* BrowseHostViewController.swift */; };
 		9CC2B83A1EF18A370049E269 /* HostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC2B8391EF18A370049E269 /* HostViewController.swift */; };
 		9CC2B83D1EF18CDE0049E269 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC2B83C1EF18CDE0049E269 /* Constants.swift */; };
-		9CC2B8421EF1E9580049E269 /* CBAdvertisementData+LightBlue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC2B83E1EF1E9580049E269 /* CBAdvertisementData+LightBlue.swift */; };
-		9CC2B8431EF1E9580049E269 /* CBCharacteristic+LightBlue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC2B83F1EF1E9580049E269 /* CBCharacteristic+LightBlue.swift */; };
-		9CC2B8441EF1E9580049E269 /* CBService+LightBlue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC2B8401EF1E9580049E269 /* CBService+LightBlue.swift */; };
-		9CC2B8451EF1E9580049E269 /* CBUUID+LightBlue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC2B8411EF1E9580049E269 /* CBUUID+LightBlue.swift */; };
 		9CC2B8491EF784F10049E269 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC2B8481EF784F10049E269 /* StartViewController.swift */; };
 		9CC2B84B1EF8DEB00049E269 /* CreateHostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC2B84A1EF8DEB00049E269 /* CreateHostViewController.swift */; };
 		9CF38B921EFCD12900A736B0 /* UIView+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF38B911EFCD12900A736B0 /* UIView+Helpers.swift */; };
@@ -77,10 +73,6 @@
 		9CC2B8341EF0890F0049E269 /* BrowseHostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BrowseHostViewController.swift; path = ViewControllers/BrowseHostViewController.swift; sourceTree = "<group>"; };
 		9CC2B8391EF18A370049E269 /* HostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HostViewController.swift; path = ViewControllers/HostViewController.swift; sourceTree = "<group>"; };
 		9CC2B83C1EF18CDE0049E269 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = Helpers/Constants.swift; sourceTree = "<group>"; };
-		9CC2B83E1EF1E9580049E269 /* CBAdvertisementData+LightBlue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CBAdvertisementData+LightBlue.swift"; path = "Helpers/CBAdvertisementData+LightBlue.swift"; sourceTree = "<group>"; };
-		9CC2B83F1EF1E9580049E269 /* CBCharacteristic+LightBlue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CBCharacteristic+LightBlue.swift"; path = "Helpers/CBCharacteristic+LightBlue.swift"; sourceTree = "<group>"; };
-		9CC2B8401EF1E9580049E269 /* CBService+LightBlue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CBService+LightBlue.swift"; path = "Helpers/CBService+LightBlue.swift"; sourceTree = "<group>"; };
-		9CC2B8411EF1E9580049E269 /* CBUUID+LightBlue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CBUUID+LightBlue.swift"; path = "Helpers/CBUUID+LightBlue.swift"; sourceTree = "<group>"; };
 		9CC2B8481EF784F10049E269 /* StartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StartViewController.swift; path = ViewControllers/StartViewController.swift; sourceTree = "<group>"; };
 		9CC2B84A1EF8DEB00049E269 /* CreateHostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CreateHostViewController.swift; path = ViewControllers/CreateHostViewController.swift; sourceTree = "<group>"; };
 		9CF38B911EFCD12900A736B0 /* UIView+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+Helpers.swift"; path = "Helpers/UIView+Helpers.swift"; sourceTree = "<group>"; };
@@ -226,10 +218,6 @@
 		9CC2B83B1EF18CC60049E269 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				9CC2B83E1EF1E9580049E269 /* CBAdvertisementData+LightBlue.swift */,
-				9CC2B83F1EF1E9580049E269 /* CBCharacteristic+LightBlue.swift */,
-				9CC2B8401EF1E9580049E269 /* CBService+LightBlue.swift */,
-				9CC2B8411EF1E9580049E269 /* CBUUID+LightBlue.swift */,
 				9CC2B83C1EF18CDE0049E269 /* Constants.swift */,
 				9CF38B911EFCD12900A736B0 /* UIView+Helpers.swift */,
 			);
@@ -525,16 +513,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9CC2B8421EF1E9580049E269 /* CBAdvertisementData+LightBlue.swift in Sources */,
 				9CC2B8331EF065DA0049E269 /* BrowseHostCollectionViewCell.swift in Sources */,
 				9CC2B83A1EF18A370049E269 /* HostViewController.swift in Sources */,
-				9CC2B8451EF1E9580049E269 /* CBUUID+LightBlue.swift in Sources */,
-				9CC2B8431EF1E9580049E269 /* CBCharacteristic+LightBlue.swift in Sources */,
 				9CC2B84B1EF8DEB00049E269 /* CreateHostViewController.swift in Sources */,
 				9CC2B8351EF0890F0049E269 /* BrowseHostViewController.swift in Sources */,
 				9CC2B8031EEE407A0049E269 /* ViewController.swift in Sources */,
 				9CC2B8491EF784F10049E269 /* StartViewController.swift in Sources */,
-				9CC2B8441EF1E9580049E269 /* CBService+LightBlue.swift in Sources */,
 				9CF38B921EFCD12900A736B0 /* UIView+Helpers.swift in Sources */,
 				9CB181021EFAC7A40085517A /* BluetoothCentralManager.swift in Sources */,
 				9CC2B8011EEE407A0049E269 /* AppDelegate.swift in Sources */,
