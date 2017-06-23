@@ -63,7 +63,7 @@ class BrowseHostCollectionViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
         let browseHostCell = cell as! BrowseHostCollectionViewCell
         browseHostCell.title = (peripheralWithAdvertisementData.1)[CBAdvertisementDataLocalNameKey] as? String
-        browseHostCell.thumbnail = Identicon().icon(from: peripheralWithAdvertisementData.0.identifier.uuidString, size: CGSize(width: 64, height: 64))
+        browseHostCell.thumbnail = GitHubIdenticon().icon(from: peripheralWithAdvertisementData.0.identifier.uuidString, size: CGSize(width: 64, height: 64))
     
         return cell
     }
