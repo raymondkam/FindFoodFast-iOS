@@ -7,19 +7,21 @@
 //
 
 import UIKit
+import CoreBluetooth
 
 private let reuseIdentifier = "BrowseHostCell"
 
 class BrowseHostCollectionViewController: UICollectionViewController {
 
+    var dataSource = [(CBPeripheral, [String : Any])]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-
-        // Do any additional setup after loading the view.
+        NotificationCenter.default.addObserver(self, selector: #selector(self.handleNewBluetoothPeripheralDiscovered), name: NotificationNames.BluetoothDiscoveredNewPeripheral, object: nil)
+        
+        dataSource = Array(BluetoothCentralManager.sharedInstance.savedPeripheralWithAdvertisementData.values)
+        collectionView?.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -27,6 +29,12 @@ class BrowseHostCollectionViewController: UICollectionViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    func handleNewBluetoothPeripheralDiscovered() {
+        print("handle new peripheral discovered")
+        dataSource = Array(BluetoothCentralManager.sharedInstance.savedPeripheralWithAdvertisementData.values)
+        collectionView?.reloadData()
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -45,15 +53,14 @@ class BrowseHostCollectionViewController: UICollectionViewController {
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return dataSource.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let peripheralWithAdvertisementData = dataSource[indexPath.item]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
         let browseHostCell = cell as! BrowseHostCollectionViewCell
-        browseHostCell.title = "test"
-        
-        // Configure the cell
+        browseHostCell.title = (peripheralWithAdvertisementData.1)[CBAdvertisementDataLocalNameKey] as? String
     
         return cell
     }

@@ -25,3 +25,8 @@ struct Segues {
     static let Host = "host"
     static let HostSession = "hostSession"
 }
+
+struct NotificationNames {
+    static let BluetoothPoweredOn = Notification.Name.init("bluetoothPoweredOn")
+    static let BluetoothDiscoveredNewPeripheral = Notification.Name.init("bluetoothDiscoveredNewPeripheral")
+}
