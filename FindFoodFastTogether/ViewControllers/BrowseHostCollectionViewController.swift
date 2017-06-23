@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreBluetooth
+import IGIdenticon
 
 private let reuseIdentifier = "BrowseHostCell"
 
@@ -22,6 +23,7 @@ class BrowseHostCollectionViewController: UICollectionViewController {
         
         dataSource = Array(BluetoothCentralManager.sharedInstance.savedPeripheralWithAdvertisementData.values)
         collectionView?.reloadData()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -61,6 +63,7 @@ class BrowseHostCollectionViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
         let browseHostCell = cell as! BrowseHostCollectionViewCell
         browseHostCell.title = (peripheralWithAdvertisementData.1)[CBAdvertisementDataLocalNameKey] as? String
+        browseHostCell.thumbnail = Identicon().icon(from: peripheralWithAdvertisementData.0.identifier.uuidString, size: CGSize(width: 64, height: 64))
     
         return cell
     }
