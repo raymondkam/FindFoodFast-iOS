@@ -9,14 +9,21 @@
 import Foundation
 import CoreBluetooth
 
+protocol BluetoothCentralManagerDelegate {
+    
+    func bluetoothCentralManagerDidDiscoverHost(_: BluetoothCentralManager, host: Host)
+    func bluetoothCentralManagerDidConnectToHost(_: BluetoothCentralManager, service: CBService, joinSessionCharacteristic: CBCharacteristic)
+}
+
 final class BluetoothCentralManager : NSObject {
     
-    private let ScanDuration = 15.0
-    
+    private var scanTimer = Timer()
+
     fileprivate var centralManager: CBCentralManager!
+    fileprivate var connectedPeripheral: CBPeripheral?
     
-    var savedPeripheralWithAdvertisementData = [String : (CBPeripheral, [String : Any])]()
-    var scanTimer = Timer()
+    var delegate: BluetoothCentralManagerDelegate?
+    var uuidToHosts = [String: Host]()
     
     private override init() {}
     
@@ -26,7 +33,7 @@ final class BluetoothCentralManager : NSObject {
         return instance
     }()
     
-    func scanWithAutoStop() {
+    func scanWithAutoStop(for scanDuration: Double) {
         guard centralManager.state == CBManagerState.poweredOn else {
             print("bluetooth central manager not powered on")
             return
@@ -36,8 +43,8 @@ final class BluetoothCentralManager : NSObject {
         clearSavedPeripherals()
         print("starting scan for peripherals")
         scanTimer.invalidate()
-        scanTimer = Timer.scheduledTimer(withTimeInterval: ScanDuration, repeats: false) { (timer) in
-            print("\(self.ScanDuration) seconds has passed, stop scanning for peripherals")
+        scanTimer = Timer.scheduledTimer(withTimeInterval: scanDuration, repeats: false) { (timer) in
+            print("\(scanDuration) seconds has passed, stop scanning for peripherals")
             self.stopScan()
         }
         centralManager.scanForPeripherals(withServices: [FindFoodFastService.ServiceUUID], options: nil)
@@ -56,8 +63,22 @@ final class BluetoothCentralManager : NSObject {
         centralManager.stopScan()
     }
     
+    func connectToPeripheral(peripheral: CBPeripheral) {
+        print("connecting to peripheral with uuid: \(peripheral.identifier.uuidString)")
+        centralManager.connect(peripheral, options: nil)
+    }
+    
+    func disconnectFromPeripheral() {
+        guard connectedPeripheral != nil else {
+            print("cannot disconnect if no peripheral is connected")
+            return
+        }
+        centralManager.cancelPeripheralConnection(connectedPeripheral!)
+    }
+
+    
     func clearSavedPeripherals() {
-        savedPeripheralWithAdvertisementData.removeAll()
+        uuidToHosts.removeAll()
     }
 }
 
@@ -75,7 +96,9 @@ extension BluetoothCentralManager : CBCentralManagerDelegate {
     }
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        central.stopScan()
+        print("connected to peripheral with uuid: \(peripheral.identifier.uuidString)")
+        stopScan()
+        connectedPeripheral = peripheral
         // discover what services are available
         peripheral.discoverServices([FindFoodFastService.ServiceUUID])
     }
@@ -89,14 +112,20 @@ extension BluetoothCentralManager : CBCentralManagerDelegate {
     }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        guard savedPeripheralWithAdvertisementData[peripheral.identifier.uuidString] == nil else {
-            print("peripheral uuid already exists")
+        let uuidString = peripheral.identifier.uuidString
+        guard uuidToHosts[uuidString] == nil else {
+            print("discovered peripheral uuid already exists")
             return
         }
-        print("did discover peripheral uuid: \(peripheral.identifier.uuidString)")
+        guard advertisementData[CBAdvertisementDataLocalNameKey] != nil else {
+            print("discovered peripheral does not have a name")
+            return
+        }
+        print("did discover peripheral uuid: \(uuidString)")
         peripheral.delegate = self
-        savedPeripheralWithAdvertisementData.updateValue((peripheral, advertisementData), forKey: peripheral.identifier.uuidString)
-        NotificationCenter.default.post(name: NotificationNames.BluetoothDiscoveredNewPeripheral, object: nil)
+        let newHost = Host(peripheral: peripheral, name: advertisementData[CBAdvertisementDataLocalNameKey] as! String)
+        uuidToHosts.updateValue(newHost, forKey: uuidString)
+        delegate?.bluetoothCentralManagerDidDiscoverHost(self, host: newHost)
     }
 }
 
@@ -125,8 +154,12 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
             return
         }
         print("discovered host name characteristic")
-        let name = "RaymondRaymondRaymondRaymondRaymond"
-        peripheral.writeValue(name.data(using: String.Encoding.utf8)!, for: service.characteristics!.first!, type: CBCharacteristicWriteType.withoutResponse)
+        
+        peripheral.setNotifyValue(true, for: service.characteristics!.first!)
+        
+        let joinSessionCharacteristic = service.characteristics?.first(where: { (characteristic) -> Bool in
+            characteristic.uuid == FindFoodFastService.CharacteristicUUIDJoinSession
+        })
     }
     
     func peripheral(_ peripheral: CBPeripheral, didModifyServices invalidatedServices: [CBService]) {

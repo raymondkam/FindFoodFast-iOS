@@ -31,7 +31,7 @@ extension HostViewController : CBPeripheralManagerDelegate {
     func setupPeripheral() {
         findFoodFastMutableService = CBMutableService.init(type: FindFoodFastService.ServiceUUID, primary: true)
         
-        let hostNameCharacteristic = CBMutableCharacteristic.init(type: FindFoodFastService.CharacteristicUUIDHostName, properties: [CBCharacteristicProperties.read, CBCharacteristicProperties.writeWithoutResponse], value: nil, permissions: [CBAttributePermissions.readable, CBAttributePermissions.writeable])
+        let hostNameCharacteristic = CBMutableCharacteristic.init(type: FindFoodFastService.CharacteristicUUIDHostName, properties: [CBCharacteristicProperties.read, CBCharacteristicProperties.writeWithoutResponse, CBCharacteristicProperties.notify], value: nil, permissions: [CBAttributePermissions.readable, CBAttributePermissions.writeable])
         let userDescriptionUuid:CBUUID = CBUUID(string:CBUUIDCharacteristicUserDescriptionString)
         let myDescriptor = CBMutableDescriptor(type:userDescriptionUuid, value:"Host name of FindFoodFast session")
         hostNameCharacteristic.descriptors = [myDescriptor]

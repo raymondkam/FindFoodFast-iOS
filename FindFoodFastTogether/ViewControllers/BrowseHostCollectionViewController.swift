@@ -14,27 +14,10 @@ private let reuseIdentifier = "BrowseHostCell"
 
 class BrowseHostCollectionViewController: UICollectionViewController {
 
-    var dataSource = [(CBPeripheral, [String : Any])]()
+    var dataSource = [Host]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        NotificationCenter.default.addObserver(self, selector: #selector(self.handleNewBluetoothPeripheralDiscovered), name: NotificationNames.BluetoothDiscoveredNewPeripheral, object: nil)
-        
-        dataSource = Array(BluetoothCentralManager.sharedInstance.savedPeripheralWithAdvertisementData.values)
-        collectionView?.reloadData()
-        
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    func handleNewBluetoothPeripheralDiscovered() {
-        print("handle new peripheral discovered")
-        dataSource = Array(BluetoothCentralManager.sharedInstance.savedPeripheralWithAdvertisementData.values)
-        collectionView?.reloadData()
     }
     
     /*
@@ -59,17 +42,22 @@ class BrowseHostCollectionViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let peripheralWithAdvertisementData = dataSource[indexPath.item]
+        let host = dataSource[indexPath.item]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
         let browseHostCell = cell as! BrowseHostCollectionViewCell
-        browseHostCell.title = (peripheralWithAdvertisementData.1)[CBAdvertisementDataLocalNameKey] as? String
-        browseHostCell.thumbnail = GitHubIdenticon().icon(from: peripheralWithAdvertisementData.0.identifier.uuidString, size: CGSize(width: 64, height: 64))
+        browseHostCell.title = host.name
+        browseHostCell.thumbnail = GitHubIdenticon().icon(from: host.peripheral.identifier.uuidString, size: CGSize(width: 64, height: 64))
     
         return cell
     }
 
     // MARK: UICollectionViewDelegate
 
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let host = dataSource[indexPath.item]
+        BluetoothCentralManager.sharedInstance.connectToPeripheral(peripheral: host.peripheral)
+    }
+    
     /*
     // Uncomment this method to specify if the specified item should be highlighted during tracking
     override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
@@ -100,3 +88,15 @@ class BrowseHostCollectionViewController: UICollectionViewController {
     */
 
 }
+
+extension BrowseHostCollectionViewController : BluetoothCentralManagerDelegate {
+    func bluetoothCentralManagerDidDiscoverHost(_: BluetoothCentralManager, host: Host) {
+        dataSource.append(host)
+        collectionView?.reloadData()
+    }
+
+    func bluetoothCentralManagerDidConnectToHost(_: BluetoothCentralManager, service: CBService, joinSessionCharacteristic: CBCharacteristic) {
+        //
+    }
+}
+

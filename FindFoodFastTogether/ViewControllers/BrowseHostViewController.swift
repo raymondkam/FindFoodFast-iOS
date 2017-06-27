@@ -30,8 +30,17 @@ class BrowseHostViewController: UIViewController {
         scanHosts()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier! {
+        case Segues.EmbedBrowseHostCollection:
+            BluetoothCentralManager.sharedInstance.delegate = segue.destination as! BrowseHostCollectionViewController
+        default:
+            print("unrecognized segue identifier")
+        }
+    }
+    
     func scanHosts() {
-        BluetoothCentralManager.sharedInstance.scanWithAutoStop()
+        BluetoothCentralManager.sharedInstance.scanWithAutoStop(for: 30.0)
     }
     
     func showLoadingView() {
