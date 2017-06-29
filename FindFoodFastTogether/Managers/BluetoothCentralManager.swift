@@ -9,7 +9,7 @@
 import Foundation
 import CoreBluetooth
 
-protocol BluetoothCentralManagerDelegate {
+protocol BluetoothCentralManagerDelegate : class {
     
     func bluetoothCentralManagerDidDiscoverHost(_: BluetoothCentralManager, host: Host)
     func bluetoothCentralManagerDidConnectToHost(_: BluetoothCentralManager, service: CBService, joinSessionCharacteristic: CBCharacteristic)
@@ -22,7 +22,7 @@ final class BluetoothCentralManager : NSObject {
     fileprivate var centralManager: CBCentralManager!
     fileprivate var connectedPeripheral: CBPeripheral?
     
-    var delegate: BluetoothCentralManagerDelegate?
+    weak var delegate: BluetoothCentralManagerDelegate?
     var uuidToHosts = [String: Host]()
     
     private override init() {}
