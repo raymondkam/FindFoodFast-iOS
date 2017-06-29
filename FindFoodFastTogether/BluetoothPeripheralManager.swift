@@ -9,14 +9,19 @@
 import Foundation
 import CoreBluetooth
 
+protocol BluetoothPeripheralManagerDelegate : class {
+    func bluetoothPeripheralManagerDidBecomeReadyToAdvertise(_: BluetoothPeripheralManager)
+}
+
 final class BluetoothPeripheralManager : NSObject {
     
     fileprivate var peripheralManager: CBPeripheralManager!
     fileprivate let findFoodFastMutableService = CBMutableService.init(type: FindFoodFastService.ServiceUUID, primary: true)
-    fileprivate var hostname: String?
     
     private override init() {}
-    private var deferPeripheralSetup = false
+    
+    weak var delegate: BluetoothPeripheralManagerDelegate?
+    var isReadyToAdvertise = false
     
     static let sharedInstance: BluetoothPeripheralManager = {
         let instance = BluetoothPeripheralManager()
@@ -24,28 +29,7 @@ final class BluetoothPeripheralManager : NSObject {
         return instance
     }()
     
-    deinit {
-        
-    }
-    
-    func hostSession(name: String) {
-        self.hostname = name
-        if (peripheralManager.state == CBManagerState.poweredOn) {
-            deferPeripheralSetup = false
-            setupPeripheral()
-        } else {
-            // observe when the peripheral powers on and start setup
-            deferPeripheralSetup = true
-            NotificationCenter.default.addObserver(self, selector: #selector(setupPeripheral), name: NotificationNames.PeripheralBluetoothPoweredOn, object: nil)
-        }
-    }
-    
-    func setupPeripheral() {
-        if (deferPeripheralSetup) {
-            // can remove the observer for powering on
-            NotificationCenter.default.removeObserver(self, name: NotificationNames.PeripheralBluetoothPoweredOn, object: nil)
-        }
-        
+    internal func setupPeripheral() {
         let hostNameCharacteristic = CBMutableCharacteristic.init(
                 type: FindFoodFastService.CharacteristicUUIDHostName,
                 properties: [CBCharacteristicProperties.read,
@@ -62,6 +46,16 @@ final class BluetoothPeripheralManager : NSObject {
         
         peripheralManager.add(findFoodFastMutableService)
     }
+    
+    func startAdvertising(hostname: String) {
+        print("peripheral manager: start advertising of find food fast service")
+        peripheralManager.startAdvertising([CBAdvertisementDataServiceUUIDsKey: [findFoodFastMutableService.uuid], CBAdvertisementDataLocalNameKey: hostname])
+    }
+    
+    func stopAdvertising() {
+        print("peripheral manager: stop advertising of find food fast service")
+        peripheralManager.stopAdvertising()
+    }
 }
 
 extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
@@ -69,7 +63,7 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
     func peripheralManagerDidUpdateState(_ peripheral: CBPeripheralManager) {
         switch peripheral.state {
         case .poweredOn:
-            NotificationCenter.default.post(name: NotificationNames.PeripheralBluetoothPoweredOn, object: nil)
+            setupPeripheral()
         default:
             print("default")
         }
@@ -81,11 +75,11 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
     
     func peripheralManagerDidStartAdvertising(_ peripheral: CBPeripheralManager, error: Error?) {
         guard error == nil else {
-            print("error during did start service")
+            print("peripheral manager: error during did start service")
             print(error!)
             return
         }
-        print("Started advertising")
+        print("peripheral manager: did start advertising")
     }
     
     func peripheralManager(_ peripheral: CBPeripheralManager, didReceiveRead request: CBATTRequest) {
@@ -94,14 +88,14 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
     
     func peripheralManager(_ peripheral: CBPeripheralManager, didAdd service: CBService, error: Error?) {
         guard error == nil else {
-            print("error adding the service to peripheral manager")
+            print("peripheral manager: error adding the service to peripheral manager")
             print(error!)
             return
         }
         if service == findFoodFastMutableService {
-            print("starting advertising")
-            peripheralManager.startAdvertising([CBAdvertisementDataServiceUUIDsKey: [service.uuid], CBAdvertisementDataLocalNameKey: hostname!])
-            
+            print("peripheral manager: is ready to advertise")
+            isReadyToAdvertise = true
+            delegate?.bluetoothPeripheralManagerDidBecomeReadyToAdvertise(self)
         }
     }
     

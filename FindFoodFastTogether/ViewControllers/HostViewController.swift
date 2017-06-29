@@ -21,6 +21,9 @@ class HostViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if (BluetoothPeripheralManager.sharedInstance.isReadyToAdvertise) {
+            BluetoothPeripheralManager.sharedInstance.startAdvertising(hostname: hostname!)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -28,6 +31,13 @@ class HostViewController: UIViewController {
         
         if self.isBeingDismissed || self.isMovingFromParentViewController {
             // stop advertising
+            BluetoothPeripheralManager.sharedInstance.stopAdvertising()
         }
+    }
+}
+
+extension HostViewController : BluetoothPeripheralManagerDelegate {
+    func bluetoothPeripheralManagerDidBecomeReadyToAdvertise(_: BluetoothPeripheralManager) {
+        BluetoothPeripheralManager.sharedInstance.startAdvertising(hostname: hostname!)
     }
 }
