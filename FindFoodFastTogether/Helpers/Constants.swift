@@ -29,6 +29,7 @@ struct Segues {
 }
 
 struct NotificationNames {
-    static let BluetoothPoweredOn = Notification.Name.init("bluetoothPoweredOn")
+    static let CentralBluetoothPoweredOn = Notification.Name.init("centralBluetoothPoweredOn")
+    static let PeripheralBluetoothPoweredOn = Notification.Name.init("peripheralBluetoothPoweredOn")
     static let BluetoothDiscoveredNewPeripheral = Notification.Name.init("bluetoothDiscoveredNewPeripheral")
 }

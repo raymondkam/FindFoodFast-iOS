@@ -25,9 +25,13 @@ class BrowseHostViewController: UIViewController {
         
         navigationItem.title = username
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.scanHosts), name: NotificationNames.BluetoothPoweredOn, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.scanHosts), name: NotificationNames.CentralBluetoothPoweredOn, object: nil)
         
         scanHosts()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NotificationNames.CentralBluetoothPoweredOn, object: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

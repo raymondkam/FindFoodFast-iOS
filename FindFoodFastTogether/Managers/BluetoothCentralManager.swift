@@ -89,7 +89,7 @@ extension BluetoothCentralManager : CBCentralManagerDelegate {
         switch central.state {
         case .poweredOn:
             print("bluetooth powered on, preparing to scan for peripherals")
-            NotificationCenter.default.post(name: NotificationNames.BluetoothPoweredOn, object: nil)
+            NotificationCenter.default.post(name: NotificationNames.CentralBluetoothPoweredOn, object: nil)
         default:
             print("bluetooth central state not recognized")
         }
