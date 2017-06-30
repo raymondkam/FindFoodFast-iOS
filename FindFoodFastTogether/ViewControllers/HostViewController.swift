@@ -14,6 +14,8 @@ class HostViewController: UIViewController {
     var hostname: String?
     var username: String?
     
+    var userCollectionViewController: UserCollectionViewController!
+    
     @IBOutlet weak var userContainerViewHeightConstraint: NSLayoutConstraint!
     
     required init?(coder aDecoder: NSCoder) {
@@ -40,7 +42,10 @@ class HostViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier! {
         case Segues.EmbedUserCollection:
-            (segue.destination as! UserCollectionViewController).userContainerViewHeightConstraint = self.userContainerViewHeightConstraint
+            userCollectionViewController = (segue.destination as! UserCollectionViewController)
+            userCollectionViewController.userContainerViewHeightConstraint = self.userContainerViewHeightConstraint
+            let newUser = User(name: username!, uuidString: BluetoothPeripheralManager.sharedInstance.uuidString!)
+            userCollectionViewController.dataSource.append(newUser)
         default:
             print("segue no recognized")
         }
@@ -50,5 +55,11 @@ class HostViewController: UIViewController {
 extension HostViewController : BluetoothPeripheralManagerDelegate {
     func bluetoothPeripheralManagerDidBecomeReadyToAdvertise(_: BluetoothPeripheralManager) {
         BluetoothPeripheralManager.sharedInstance.startAdvertising(hostname: hostname!)
+    }
+    
+    func bluetoothPeripheralManagerDidConnectWithNewUser(_: BluetoothPeripheralManager, uuidString: String) {
+        let newUser = User(name: "new user", uuidString: uuidString)
+        userCollectionViewController.dataSource.append(newUser)
+        userCollectionViewController.collectionView?.reloadData()
     }
 }

@@ -8,9 +8,11 @@
 
 import Foundation
 import CoreBluetooth
+import UIKit
 
 protocol BluetoothPeripheralManagerDelegate : class {
     func bluetoothPeripheralManagerDidBecomeReadyToAdvertise(_: BluetoothPeripheralManager)
+    func bluetoothPeripheralManagerDidConnectWithNewUser(_: BluetoothPeripheralManager, uuidString: String)
 }
 
 final class BluetoothPeripheralManager : NSObject {
@@ -22,6 +24,7 @@ final class BluetoothPeripheralManager : NSObject {
     
     weak var delegate: BluetoothPeripheralManagerDelegate?
     var isReadyToAdvertise = false
+    let uuidString = UIDevice.current.identifierForVendor?.uuidString
     
     static let sharedInstance: BluetoothPeripheralManager = {
         let instance = BluetoothPeripheralManager()
@@ -30,8 +33,8 @@ final class BluetoothPeripheralManager : NSObject {
     }()
     
     internal func setupPeripheral() {
-        let hostNameCharacteristic = CBMutableCharacteristic.init(
-                type: FindFoodFastService.CharacteristicUUIDHostName,
+        let joinSessionCharacteristic = CBMutableCharacteristic.init(
+                type: FindFoodFastService.CharacteristicUUIDJoinSession,
                 properties: [CBCharacteristicProperties.read,
                              CBCharacteristicProperties.writeWithoutResponse,
                              CBCharacteristicProperties.notify],
@@ -40,9 +43,9 @@ final class BluetoothPeripheralManager : NSObject {
                               CBAttributePermissions.writeable]
         )
         let userDescriptionUuid:CBUUID = CBUUID(string:CBUUIDCharacteristicUserDescriptionString)
-        let myDescriptor = CBMutableDescriptor(type:userDescriptionUuid, value:"Host name of FindFoodFast session")
-        hostNameCharacteristic.descriptors = [myDescriptor]
-        findFoodFastMutableService.characteristics = [hostNameCharacteristic]
+        let myDescriptor = CBMutableDescriptor(type:userDescriptionUuid, value:"Know who is connected via subscription to this characteristic")
+        joinSessionCharacteristic.descriptors = [myDescriptor]
+        findFoodFastMutableService.characteristics = [joinSessionCharacteristic]
         
         peripheralManager.add(findFoodFastMutableService)
     }
@@ -104,7 +107,13 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
     }
     
     func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didSubscribeTo characteristic: CBCharacteristic) {
-        
+        switch characteristic.uuid {
+        case FindFoodFastService.CharacteristicUUIDJoinSession:
+            print("peripheral manager: new user connected")
+            delegate?.bluetoothPeripheralManagerDidConnectWithNewUser(self, uuidString: central.identifier.uuidString)
+        default:
+            print("characteristic subscribed to not recognized")
+        }
     }
     
     func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didUnsubscribeFrom characteristic: CBCharacteristic) {

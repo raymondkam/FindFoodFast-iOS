@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import IGIdenticon
 
 class UserCollectionViewController: UICollectionViewController {
     
     weak var userContainerViewHeightConstraint: NSLayoutConstraint!
+    var dataSource = [User]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,12 +41,15 @@ class UserCollectionViewController: UICollectionViewController {
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return dataSource.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: browseHostReuseIdentifier, for: indexPath)
-    
+        let userCell = cell as! BrowseHostCollectionViewCell
+        let user = dataSource[indexPath.item]
+        userCell.thumbnail = GitHubIdenticon().icon(from: user.uuidString, size: CGSize(width: 64, height: 64))
+        userCell.title = user.name
         // Configure the cell
     
         return cell

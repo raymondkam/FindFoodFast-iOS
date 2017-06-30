@@ -141,7 +141,7 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
             print("peripheral services nil or has no services")
             return
         }
-        peripheral.discoverCharacteristics([FindFoodFastService.CharacteristicUUIDHostName], for: services.first!)
+        peripheral.discoverCharacteristics([FindFoodFastService.CharacteristicUUIDJoinSession], for: services.first!)
     }
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
@@ -155,11 +155,14 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
         }
         print("discovered host name characteristic")
         
-        peripheral.setNotifyValue(true, for: service.characteristics!.first!)
+//        peripheral.setNotifyValue(true, for: service.characteristics!.first!)
         
         let joinSessionCharacteristic = service.characteristics?.first(where: { (characteristic) -> Bool in
             characteristic.uuid == FindFoodFastService.CharacteristicUUIDJoinSession
         })
+        if (joinSessionCharacteristic != nil) {
+            peripheral.setNotifyValue(true, for: joinSessionCharacteristic!)
+        }
     }
     
     func peripheral(_ peripheral: CBPeripheral, didModifyServices invalidatedServices: [CBService]) {
