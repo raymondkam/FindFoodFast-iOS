@@ -26,6 +26,7 @@ struct Segues {
     static let Host = "host"
     static let HostSession = "hostSession"
     static let EmbedBrowseHostCollection = "embedBrowseHostCollection"
+    static let EmbedUserCollection = "embedUserCollection"
 }
 
 struct NotificationNames {
@@ -33,3 +34,6 @@ struct NotificationNames {
     static let PeripheralBluetoothPoweredOn = Notification.Name.init("peripheralBluetoothPoweredOn")
     static let BluetoothDiscoveredNewPeripheral = Notification.Name.init("bluetoothDiscoveredNewPeripheral")
 }
+
+let browseHostReuseIdentifier = "BrowseHostCell"
+let suggestionReuseIdentifier = "SuggestionCell"

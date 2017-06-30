@@ -14,6 +14,8 @@ class HostViewController: UIViewController {
     var hostname: String?
     var username: String?
     
+    @IBOutlet weak var userContainerViewHeightConstraint: NSLayoutConstraint!
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -32,6 +34,15 @@ class HostViewController: UIViewController {
         if self.isBeingDismissed || self.isMovingFromParentViewController {
             // stop advertising
             BluetoothPeripheralManager.sharedInstance.stopAdvertising()
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier! {
+        case Segues.EmbedUserCollection:
+            (segue.destination as! UserCollectionViewController).userContainerViewHeightConstraint = self.userContainerViewHeightConstraint
+        default:
+            print("segue no recognized")
         }
     }
 }

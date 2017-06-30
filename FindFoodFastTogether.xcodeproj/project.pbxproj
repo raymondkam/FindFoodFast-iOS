@@ -26,6 +26,8 @@
 		9CF38B921EFCD12900A736B0 /* UIView+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF38B911EFCD12900A736B0 /* UIView+Helpers.swift */; };
 		9CF38B951F00736B00A736B0 /* Host.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF38B941F00736B00A736B0 /* Host.swift */; };
 		9CF38B971F02F54C00A736B0 /* BluetoothPeripheralManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF38B961F02F54C00A736B0 /* BluetoothPeripheralManager.swift */; };
+		9CF38B9B1F05AF4300A736B0 /* SuggestionCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF38B9A1F05AF4300A736B0 /* SuggestionCollectionViewController.swift */; };
+		9CF38B9D1F05B47E00A736B0 /* UserCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF38B9C1F05B47E00A736B0 /* UserCollectionViewController.swift */; };
 		AEBD365121791492223A0DB7 /* Pods_FindFoodFastTogetherUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94A00FFB1968F0ED5309F8C8 /* Pods_FindFoodFastTogetherUITests.framework */; };
 		FBF7B9FDB5FB439886AD711E /* Pods_FindFoodFastTogetherTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31729EDD80E643AFB6FAEF2C /* Pods_FindFoodFastTogetherTests.framework */; };
 /* End PBXBuildFile section */
@@ -80,6 +82,8 @@
 		9CF38B911EFCD12900A736B0 /* UIView+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+Helpers.swift"; path = "Helpers/UIView+Helpers.swift"; sourceTree = "<group>"; };
 		9CF38B941F00736B00A736B0 /* Host.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Host.swift; path = Models/Host.swift; sourceTree = "<group>"; };
 		9CF38B961F02F54C00A736B0 /* BluetoothPeripheralManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothPeripheralManager.swift; sourceTree = "<group>"; };
+		9CF38B9A1F05AF4300A736B0 /* SuggestionCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SuggestionCollectionViewController.swift; path = ViewControllers/SuggestionCollectionViewController.swift; sourceTree = "<group>"; };
+		9CF38B9C1F05B47E00A736B0 /* UserCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserCollectionViewController.swift; path = ViewControllers/UserCollectionViewController.swift; sourceTree = "<group>"; };
 		D5BE291040AD0F4BDFC778CA /* Pods-FindFoodFastTogetherTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FindFoodFastTogetherTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FindFoodFastTogetherTests/Pods-FindFoodFastTogetherTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -200,6 +204,8 @@
 				9CC2B8341EF0890F0049E269 /* BrowseHostViewController.swift */,
 				9CC2B84A1EF8DEB00049E269 /* CreateHostViewController.swift */,
 				9CC2B8391EF18A370049E269 /* HostViewController.swift */,
+				9CF38B9A1F05AF4300A736B0 /* SuggestionCollectionViewController.swift */,
+				9CF38B9C1F05B47E00A736B0 /* UserCollectionViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -529,6 +535,7 @@
 			files = (
 				9CF38B971F02F54C00A736B0 /* BluetoothPeripheralManager.swift in Sources */,
 				9CC2B8331EF065DA0049E269 /* BrowseHostCollectionViewCell.swift in Sources */,
+				9CF38B9B1F05AF4300A736B0 /* SuggestionCollectionViewController.swift in Sources */,
 				9CC2B83A1EF18A370049E269 /* HostViewController.swift in Sources */,
 				9CC2B84B1EF8DEB00049E269 /* CreateHostViewController.swift in Sources */,
 				9CF38B951F00736B00A736B0 /* Host.swift in Sources */,
@@ -537,6 +544,7 @@
 				9CC2B8491EF784F10049E269 /* StartViewController.swift in Sources */,
 				9CF38B921EFCD12900A736B0 /* UIView+Helpers.swift in Sources */,
 				9CB181021EFAC7A40085517A /* BluetoothCentralManager.swift in Sources */,
+				9CF38B9D1F05B47E00A736B0 /* UserCollectionViewController.swift in Sources */,
 				9CC2B8011EEE407A0049E269 /* AppDelegate.swift in Sources */,
 				9CC2B8301EF064A90049E269 /* BrowseHostCollectionViewController.swift in Sources */,
 				9CC2B83D1EF18CDE0049E269 /* Constants.swift in Sources */,
