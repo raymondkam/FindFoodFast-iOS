@@ -12,13 +12,14 @@ import UIKit
 
 protocol BluetoothPeripheralManagerDelegate : class {
     func bluetoothPeripheralManagerDidBecomeReadyToAdvertise(_: BluetoothPeripheralManager)
-    func bluetoothPeripheralManagerDidConnectWithNewUser(_: BluetoothPeripheralManager, uuidString: String)
+    func bluetoothPeripheralManagerDidConnectWith(_: BluetoothPeripheralManager, newUser: User)
 }
 
 final class BluetoothPeripheralManager : NSObject {
     
     fileprivate var peripheralManager: CBPeripheralManager!
     fileprivate let findFoodFastMutableService = CBMutableService.init(type: FindFoodFastService.ServiceUUID, primary: true)
+    fileprivate var uuidStringToUsername = [String: String]()
     
     private override init() {}
     
@@ -34,13 +35,13 @@ final class BluetoothPeripheralManager : NSObject {
     
     internal func setupPeripheral() {
         let joinSessionCharacteristic = CBMutableCharacteristic.init(
-                type: FindFoodFastService.CharacteristicUUIDJoinSession,
-                properties: [CBCharacteristicProperties.read,
-                             CBCharacteristicProperties.writeWithoutResponse,
-                             CBCharacteristicProperties.notify],
-                value: nil,
-                permissions: [CBAttributePermissions.readable,
-                              CBAttributePermissions.writeable]
+            type: FindFoodFastService.CharacteristicUUIDJoinSession,
+            properties: [CBCharacteristicProperties.read,
+                         CBCharacteristicProperties.writeWithoutResponse,
+                         CBCharacteristicProperties.notify],
+            value: nil,
+            permissions: [CBAttributePermissions.readable,
+                          CBAttributePermissions.writeable]
         )
         let userDescriptionUuid:CBUUID = CBUUID(string:CBUUIDCharacteristicUserDescriptionString)
         let myDescriptor = CBMutableDescriptor(type:userDescriptionUuid, value:"Know who is connected via subscription to this characteristic")
@@ -58,6 +59,12 @@ final class BluetoothPeripheralManager : NSObject {
     func stopAdvertising() {
         print("peripheral manager: stop advertising of find food fast service")
         peripheralManager.stopAdvertising()
+    }
+    
+    func resetPeripheral() {
+        uuidStringToUsername.removeAll()
+        peripheralManager.removeAllServices()
+        setupPeripheral()
     }
 }
 
@@ -103,14 +110,35 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
     }
     
     func peripheralManager(_ peripheral: CBPeripheralManager, didReceiveWrite requests: [CBATTRequest]) {
-        
+        print("peripheral manager: did receive write request")
+        requests.forEach { (request) in
+            
+            switch request.characteristic.uuid {
+            case FindFoodFastService.CharacteristicUUIDJoinSession:
+                print("received write to join session characteristic")
+                let uuidString = request.central.identifier.uuidString
+                
+                if let name = uuidStringToUsername[uuidString], name == "" {
+                    if let data = request.value {
+                        let username = String.init(data: data, encoding: String.Encoding.utf8)!
+                        uuidStringToUsername.updateValue(username, forKey: uuidString)
+                        
+                        let newUser = User(name: username, uuidString: uuidString)
+                        print("peripheral manager: new user connected: \(newUser)")
+                        delegate?.bluetoothPeripheralManagerDidConnectWith(self, newUser: newUser)
+                    }
+                }
+            default:
+                print("write to unknown characteristic")
+            }
+            
+        }
     }
     
     func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didSubscribeTo characteristic: CBCharacteristic) {
         switch characteristic.uuid {
         case FindFoodFastService.CharacteristicUUIDJoinSession:
-            print("peripheral manager: new user connected")
-            delegate?.bluetoothPeripheralManagerDidConnectWithNewUser(self, uuidString: central.identifier.uuidString)
+            uuidStringToUsername.updateValue("", forKey: central.identifier.uuidString)
         default:
             print("characteristic subscribed to not recognized")
         }

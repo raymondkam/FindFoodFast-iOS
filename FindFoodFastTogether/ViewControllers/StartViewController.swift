@@ -76,4 +76,13 @@ extension StartViewController : UITextFieldDelegate {
         return true
     }
     
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard (textField.text?.characters.count)! > 2 else {
+            print("don't save name into defaults, nil or too short")
+            return
+        }
+        let userDefaults = UserDefaults.standard
+        userDefaults.set(textField.text!, forKey: UserDefaultsKeys.Username)
+        print("username saved into user defaults")
+    }
 }

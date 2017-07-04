@@ -35,7 +35,10 @@ class HostViewController: UIViewController {
         
         if self.isBeingDismissed || self.isMovingFromParentViewController {
             // stop advertising
-            BluetoothPeripheralManager.sharedInstance.stopAdvertising()
+            let peripheralManager = BluetoothPeripheralManager.sharedInstance
+            peripheralManager.stopAdvertising()
+            peripheralManager.resetPeripheral()
+            
         }
     }
     
@@ -57,8 +60,7 @@ extension HostViewController : BluetoothPeripheralManagerDelegate {
         BluetoothPeripheralManager.sharedInstance.startAdvertising(hostname: hostname!)
     }
     
-    func bluetoothPeripheralManagerDidConnectWithNewUser(_: BluetoothPeripheralManager, uuidString: String) {
-        let newUser = User(name: "new user", uuidString: uuidString)
+    func bluetoothPeripheralManagerDidConnectWith(_: BluetoothPeripheralManager, newUser: User) {
         userCollectionViewController.dataSource.append(newUser)
         userCollectionViewController.collectionView?.reloadData()
     }

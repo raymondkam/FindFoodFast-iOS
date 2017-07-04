@@ -17,3 +17,9 @@ struct User {
         self.uuidString = uuidString
     }
 }
+
+extension User: CustomStringConvertible {
+    var description: String {
+        return "User(name:\(name), uuidString: \(uuidString))"
+    }
+}

@@ -155,13 +155,17 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
         }
         print("discovered host name characteristic")
         
-//        peripheral.setNotifyValue(true, for: service.characteristics!.first!)
-        
-        let joinSessionCharacteristic = service.characteristics?.first(where: { (characteristic) -> Bool in
+        if let joinSessionCharacteristic = service.characteristics?.first(where: { (characteristic) -> Bool in
             characteristic.uuid == FindFoodFastService.CharacteristicUUIDJoinSession
-        })
-        if (joinSessionCharacteristic != nil) {
-            peripheral.setNotifyValue(true, for: joinSessionCharacteristic!)
+        }) {
+            // subscribe to characteristic
+            peripheral.setNotifyValue(true, for: joinSessionCharacteristic)
+            
+            let userDefaults = UserDefaults.standard
+            if let username  = userDefaults.string(forKey: UserDefaultsKeys.Username) {
+                print("retrieved username from user defaults: \(username)")
+                peripheral.writeValue(username.data(using: String.Encoding.utf8)!, for: joinSessionCharacteristic, type: CBCharacteristicWriteType.withoutResponse)
+            }
         }
     }
     
