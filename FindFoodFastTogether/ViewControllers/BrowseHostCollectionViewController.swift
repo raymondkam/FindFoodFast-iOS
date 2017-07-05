@@ -20,15 +20,14 @@ class BrowseHostCollectionViewController: UICollectionViewController {
         super.viewDidLoad()
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+        switch segue.identifier! {
+        case Segues.JoinHost:
+            BluetoothCentralManager.sharedInstance.delegate = (segue.destination as! HostViewController)
+        default:
+            print("segue identifier not recognized")
+        }
     }
-    */
 
     // MARK: UICollectionViewDataSource
 
@@ -94,9 +93,7 @@ extension BrowseHostCollectionViewController : BluetoothCentralManagerDelegate {
         dataSource.append(host)
         collectionView?.reloadData()
     }
-
-    func bluetoothCentralManagerDidConnectToHost(_: BluetoothCentralManager, service: CBService, joinSessionCharacteristic: CBCharacteristic) {
-        //
-    }
+    
+    func bluetoothCentralManagerDidConnectToHost(_: BluetoothCentralManager, users: [User]) {}
 }
 

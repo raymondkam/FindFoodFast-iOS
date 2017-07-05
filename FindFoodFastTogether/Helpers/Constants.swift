@@ -27,6 +27,7 @@ struct Segues {
     static let HostSession = "hostSession"
     static let EmbedBrowseHostCollection = "embedBrowseHostCollection"
     static let EmbedUserCollection = "embedUserCollection"
+    static let JoinHost = "joinHost"
 }
 
 struct NotificationNames {

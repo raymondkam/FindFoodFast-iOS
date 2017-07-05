@@ -13,6 +13,7 @@ import UIKit
 protocol BluetoothPeripheralManagerDelegate : class {
     func bluetoothPeripheralManagerDidBecomeReadyToAdvertise(_: BluetoothPeripheralManager)
     func bluetoothPeripheralManagerDidConnectWith(_: BluetoothPeripheralManager, newUser: User)
+    func bluetoothPeripheralManagerDidDisconnectWith(_: BluetoothPeripheralManager, user: User)
 }
 
 final class BluetoothPeripheralManager : NSObject {
@@ -20,11 +21,21 @@ final class BluetoothPeripheralManager : NSObject {
     fileprivate var peripheralManager: CBPeripheralManager!
     fileprivate let findFoodFastMutableService = CBMutableService.init(type: FindFoodFastService.ServiceUUID, primary: true)
     fileprivate var uuidStringToUsername = [String: String]()
+    fileprivate let joinSessionCharacteristic = CBMutableCharacteristic.init(
+        type: FindFoodFastService.CharacteristicUUIDJoinSession,
+        properties: [CBCharacteristicProperties.read,
+                     CBCharacteristicProperties.writeWithoutResponse,
+                     CBCharacteristicProperties.notify],
+        value: nil,
+        permissions: [CBAttributePermissions.readable,
+                      CBAttributePermissions.writeable]
+    )
     
     private override init() {}
     
     weak var delegate: BluetoothPeripheralManagerDelegate?
     var isReadyToAdvertise = false
+    var subscribedCentrals = [CBCentral]()
     let uuidString = UIDevice.current.identifierForVendor?.uuidString
     
     static let sharedInstance: BluetoothPeripheralManager = {
@@ -34,15 +45,7 @@ final class BluetoothPeripheralManager : NSObject {
     }()
     
     internal func setupPeripheral() {
-        let joinSessionCharacteristic = CBMutableCharacteristic.init(
-            type: FindFoodFastService.CharacteristicUUIDJoinSession,
-            properties: [CBCharacteristicProperties.read,
-                         CBCharacteristicProperties.writeWithoutResponse,
-                         CBCharacteristicProperties.notify],
-            value: nil,
-            permissions: [CBAttributePermissions.readable,
-                          CBAttributePermissions.writeable]
-        )
+        
         let userDescriptionUuid:CBUUID = CBUUID(string:CBUUIDCharacteristicUserDescriptionString)
         let myDescriptor = CBMutableDescriptor(type:userDescriptionUuid, value:"Know who is connected via subscription to this characteristic")
         joinSessionCharacteristic.descriptors = [myDescriptor]
@@ -112,7 +115,6 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
     func peripheralManager(_ peripheral: CBPeripheralManager, didReceiveWrite requests: [CBATTRequest]) {
         print("peripheral manager: did receive write request")
         requests.forEach { (request) in
-            
             switch request.characteristic.uuid {
             case FindFoodFastService.CharacteristicUUIDJoinSession:
                 print("received write to join session characteristic")
@@ -131,20 +133,28 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
             default:
                 print("write to unknown characteristic")
             }
-            
         }
     }
     
     func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didSubscribeTo characteristic: CBCharacteristic) {
         switch characteristic.uuid {
         case FindFoodFastService.CharacteristicUUIDJoinSession:
+            subscribedCentrals.append(central)
             uuidStringToUsername.updateValue("", forKey: central.identifier.uuidString)
+            let userDefaults = UserDefaults.standard
+            if let username  = userDefaults.string(forKey: UserDefaultsKeys.Username) {
+                print("retrieved username from user defaults: \(username)")
+                peripheralManager.updateValue(username.data(using: .utf8)!, for: joinSessionCharacteristic, onSubscribedCentrals: subscribedCentrals)
+            }
         default:
             print("characteristic subscribed to not recognized")
         }
     }
     
     func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didUnsubscribeFrom characteristic: CBCharacteristic) {
-        
+        subscribedCentrals.remove(at: subscribedCentrals.index(of: central)!)
+        let disconnectedUserUuidString = central.identifier.uuidString
+        let disconnectedUser = User(name: uuidStringToUsername[disconnectedUserUuidString]!, uuidString: disconnectedUserUuidString)
+        delegate?.bluetoothPeripheralManagerDidDisconnectWith(self, user: disconnectedUser)
     }
 }

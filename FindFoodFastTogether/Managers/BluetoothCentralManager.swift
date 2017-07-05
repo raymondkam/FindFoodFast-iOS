@@ -8,11 +8,12 @@
 
 import Foundation
 import CoreBluetooth
+import UIKit
 
 protocol BluetoothCentralManagerDelegate : class {
     
     func bluetoothCentralManagerDidDiscoverHost(_: BluetoothCentralManager, host: Host)
-    func bluetoothCentralManagerDidConnectToHost(_: BluetoothCentralManager, service: CBService, joinSessionCharacteristic: CBCharacteristic)
+    func bluetoothCentralManagerDidConnectToHost(_: BluetoothCentralManager, users: [User])
 }
 
 final class BluetoothCentralManager : NSObject {
@@ -21,9 +22,11 @@ final class BluetoothCentralManager : NSObject {
 
     fileprivate var centralManager: CBCentralManager!
     fileprivate var connectedPeripheral: CBPeripheral?
+    fileprivate var subscribedCharacteristics = [CBCharacteristic]()
     
     weak var delegate: BluetoothCentralManagerDelegate?
     var uuidToHosts = [String: Host]()
+    let uuidString = UIDevice.current.identifierForVendor?.uuidString
     
     private override init() {}
     
@@ -73,7 +76,12 @@ final class BluetoothCentralManager : NSObject {
             print("cannot disconnect if no peripheral is connected")
             return
         }
+        subscribedCharacteristics.forEach { (characteristic) in
+            connectedPeripheral?.setNotifyValue(false, for: characteristic)
+        }
+        subscribedCharacteristics.removeAll()
         centralManager.cancelPeripheralConnection(connectedPeripheral!)
+        print("successfully disconnected from peripheral")
     }
 
     
@@ -121,9 +129,10 @@ extension BluetoothCentralManager : CBCentralManagerDelegate {
             print("discovered peripheral does not have a name")
             return
         }
-        print("did discover peripheral uuid: \(uuidString)")
+        let name = advertisementData[CBAdvertisementDataLocalNameKey] as! String
+        print("did discover peripheral name: \(name), uuid: \(uuidString)")
         peripheral.delegate = self
-        let newHost = Host(peripheral: peripheral, name: advertisementData[CBAdvertisementDataLocalNameKey] as! String)
+        let newHost = Host(peripheral: peripheral, name: name)
         uuidToHosts.updateValue(newHost, forKey: uuidString)
         delegate?.bluetoothCentralManagerDidDiscoverHost(self, host: newHost)
     }
@@ -160,11 +169,12 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
         }) {
             // subscribe to characteristic
             peripheral.setNotifyValue(true, for: joinSessionCharacteristic)
+            subscribedCharacteristics.append(joinSessionCharacteristic)
             
             let userDefaults = UserDefaults.standard
             if let username  = userDefaults.string(forKey: UserDefaultsKeys.Username) {
                 print("retrieved username from user defaults: \(username)")
-                peripheral.writeValue(username.data(using: String.Encoding.utf8)!, for: joinSessionCharacteristic, type: CBCharacteristicWriteType.withoutResponse)
+                peripheral.writeValue(username.data(using: .utf8)!, for: joinSessionCharacteristic, type: .withoutResponse)
             }
         }
     }
@@ -198,7 +208,15 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
     }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        
+        switch characteristic.uuid {
+        case FindFoodFastService.CharacteristicUUIDJoinSession:
+            if let username = String.init(data: characteristic.value!, encoding: .utf8) {
+                let user = User(name: username, uuidString: "temp")
+                delegate?.bluetoothCentralManagerDidConnectToHost(self, users: [user])
+            }
+        default:
+            print("characteristic uuid not recognized")
+        }
     }
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverDescriptorsFor characteristic: CBCharacteristic, error: Error?) {

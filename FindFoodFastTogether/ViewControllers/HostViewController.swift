@@ -25,8 +25,10 @@ class HostViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if (BluetoothPeripheralManager.sharedInstance.isReadyToAdvertise) {
-            BluetoothPeripheralManager.sharedInstance.startAdvertising(hostname: hostname!)
+        if hostname != nil {
+            if BluetoothPeripheralManager.sharedInstance.isReadyToAdvertise {
+                BluetoothPeripheralManager.sharedInstance.startAdvertising(hostname: hostname!)
+            }
         }
     }
     
@@ -34,24 +36,50 @@ class HostViewController: UIViewController {
         super.viewWillDisappear(animated)
         
         if self.isBeingDismissed || self.isMovingFromParentViewController {
-            // stop advertising
-            let peripheralManager = BluetoothPeripheralManager.sharedInstance
-            peripheralManager.stopAdvertising()
-            peripheralManager.resetPeripheral()
-            
+            if hostname != nil {
+                // stop advertising
+                let peripheralManager = BluetoothPeripheralManager.sharedInstance
+                peripheralManager.stopAdvertising()
+                peripheralManager.resetPeripheral()
+            } else {
+                // not a host, unsubscribe from characteristic
+                BluetoothCentralManager.sharedInstance.disconnectFromPeripheral()
+            }
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard segue.identifier != nil else {
+            print("segue has no identifier")
+            return
+        }
         switch segue.identifier! {
         case Segues.EmbedUserCollection:
             userCollectionViewController = (segue.destination as! UserCollectionViewController)
             userCollectionViewController.userContainerViewHeightConstraint = self.userContainerViewHeightConstraint
-            let newUser = User(name: username!, uuidString: BluetoothPeripheralManager.sharedInstance.uuidString!)
-            userCollectionViewController.dataSource.append(newUser)
+            if hostname == nil {
+                let userDefaults = UserDefaults.standard
+                if let username  = userDefaults.string(forKey: UserDefaultsKeys.Username) {
+                    let newUser = User(name: username, uuidString: BluetoothCentralManager.sharedInstance.uuidString!)
+                    userCollectionViewController.dataSource.append(newUser)
+                }
+            } else {
+                let newUser = User(name: username!, uuidString: BluetoothPeripheralManager.sharedInstance.uuidString!)
+                userCollectionViewController.dataSource.append(newUser)
+            }
+            
         default:
-            print("segue no recognized")
+            print("segue not recognized")
         }
+    }
+}
+
+extension HostViewController : BluetoothCentralManagerDelegate {
+    func bluetoothCentralManagerDidDiscoverHost(_: BluetoothCentralManager, host: Host) {}
+    
+    func bluetoothCentralManagerDidConnectToHost(_: BluetoothCentralManager, users: [User]) {
+        userCollectionViewController.dataSource.append(contentsOf: users)
+        userCollectionViewController.collectionView?.reloadData()
     }
 }
 
@@ -62,6 +90,14 @@ extension HostViewController : BluetoothPeripheralManagerDelegate {
     
     func bluetoothPeripheralManagerDidConnectWith(_: BluetoothPeripheralManager, newUser: User) {
         userCollectionViewController.dataSource.append(newUser)
+        userCollectionViewController.collectionView?.reloadData()
+    }
+    
+    func bluetoothPeripheralManagerDidDisconnectWith(_: BluetoothPeripheralManager, user: User) {
+        let index = userCollectionViewController.dataSource.index(where: { (aUser) -> Bool in
+            return aUser == user
+        })!
+        userCollectionViewController.dataSource.remove(at: index)
         userCollectionViewController.collectionView?.reloadData()
     }
 }
