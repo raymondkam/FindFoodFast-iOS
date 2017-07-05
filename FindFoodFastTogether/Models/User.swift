@@ -23,3 +23,9 @@ extension User: CustomStringConvertible {
         return "User(name:\(name), uuidString: \(uuidString))"
     }
 }
+
+extension User: Equatable {
+    static func ==(lhs: User, rhs: User) -> Bool {
+        return lhs.name == rhs.name && lhs.uuidString == rhs.uuidString
+    }
+}
