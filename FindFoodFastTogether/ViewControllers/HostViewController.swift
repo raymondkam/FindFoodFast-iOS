@@ -32,18 +32,19 @@ class HostViewController: UIViewController {
         }
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
+    override func viewDidDisappear(_ animated: Bool) {
         if self.isBeingDismissed || self.isMovingFromParentViewController {
             if hostname != nil {
-                // stop advertising
+                // stop advertising if host
                 let peripheralManager = BluetoothPeripheralManager.sharedInstance
+                peripheralManager.delegate = nil
                 peripheralManager.stopAdvertising()
                 peripheralManager.resetPeripheral()
             } else {
                 // not a host, unsubscribe from characteristic
-                BluetoothCentralManager.sharedInstance.disconnectFromPeripheral()
+                let centralManager = BluetoothCentralManager.sharedInstance
+                centralManager.delegate = nil
+                centralManager.disconnectFromPeripheral()
             }
         }
     }
