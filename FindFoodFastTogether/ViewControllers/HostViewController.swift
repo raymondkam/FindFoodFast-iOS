@@ -33,6 +33,8 @@ class HostViewController: UIViewController {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
         if self.isBeingDismissed || self.isMovingFromParentViewController {
             if hostname != nil {
                 // stop advertising if host
