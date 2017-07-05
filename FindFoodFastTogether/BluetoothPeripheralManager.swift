@@ -154,7 +154,9 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
     func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didUnsubscribeFrom characteristic: CBCharacteristic) {
         subscribedCentrals.remove(at: subscribedCentrals.index(of: central)!)
         let disconnectedUserUuidString = central.identifier.uuidString
-        let disconnectedUser = User(name: uuidStringToUsername[disconnectedUserUuidString]!, uuidString: disconnectedUserUuidString)
-        delegate?.bluetoothPeripheralManagerDidDisconnectWith(self, user: disconnectedUser)
+        if let username = uuidStringToUsername[disconnectedUserUuidString] {
+            let disconnectedUser = User(name: username, uuidString: disconnectedUserUuidString)
+            delegate?.bluetoothPeripheralManagerDidDisconnectWith(self, user: disconnectedUser)
+        }
     }
 }

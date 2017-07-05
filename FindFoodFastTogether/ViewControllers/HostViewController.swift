@@ -11,7 +11,7 @@ import CoreBluetooth
 
 class HostViewController: UIViewController {
     
-    var hostname: String?
+    var hostname: String? // only set if you are hosting
     var username: String?
     
     var userCollectionViewController: UserCollectionViewController!
