@@ -60,13 +60,7 @@ class HostViewController: UIViewController {
         case Segues.EmbedUserCollection:
             userCollectionViewController = (segue.destination as! UserCollectionViewController)
             userCollectionViewController.userContainerViewHeightConstraint = self.userContainerViewHeightConstraint
-            if hostname == nil {
-                let userDefaults = UserDefaults.standard
-                if let username  = userDefaults.string(forKey: UserDefaultsKeys.Username) {
-                    let newUser = User(name: username, uuidString: Bluetooth.deviceUuidString!)
-                    userCollectionViewController.dataSource.append(newUser)
-                }
-            } else {
+            if hostname != nil {
                 let newUser = User(name: username!, uuidString: BluetoothPeripheralManager.sharedInstance.uuidString!)
                 userCollectionViewController.dataSource.append(newUser)
             }
