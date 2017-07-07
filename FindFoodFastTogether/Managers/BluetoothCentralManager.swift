@@ -23,6 +23,7 @@ final class BluetoothCentralManager : NSObject {
     fileprivate var centralManager: CBCentralManager!
     fileprivate var connectedPeripheral: CBPeripheral?
     fileprivate var subscribedCharacteristics = [CBCharacteristic]()
+    fileprivate var receivedData: Data?
     
     weak var delegate: BluetoothCentralManagerDelegate?
     var uuidToHosts = [String: Host]()
@@ -208,11 +209,34 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
     }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+        guard error == nil else {
+            print("error receiving update for characteristic: \(String(describing: error?.localizedDescription))")
+            return
+        }
+        
         switch characteristic.uuid {
         case FindFoodFastService.CharacteristicUUIDJoinSession:
-            if let username = String.init(data: characteristic.value!, encoding: .utf8) {
-                let user = User(name: username, uuidString: "temp")
-                delegate?.bluetoothCentralManagerDidConnectToHost(self, users: [user])
+            guard receivedData != nil else {
+                // if receivedData is nil, then we are receiving the first chunk
+                receivedData = characteristic.value!
+                return
+            }
+            
+            let stringFromData = String.init(data: characteristic.value!, encoding: .utf8)
+            if stringFromData == "EOM" {
+                // received all data
+                let uuidStringToUsername = NSKeyedUnarchiver.unarchiveObject(with: receivedData!) as! [String: String]
+                let connectedUsers = uuidStringToUsername.map({ (uuidString, username) -> User in
+                    let user = User(name: username, uuidString: uuidString)
+                    return user
+                })
+                delegate?.bluetoothCentralManagerDidConnectToHost(self, users: connectedUsers)
+                
+                // clear received data for next transmission
+                receivedData = nil
+            } else {
+                // append the data
+                receivedData!.append(characteristic.value!)
             }
         default:
             print("characteristic uuid not recognized")
