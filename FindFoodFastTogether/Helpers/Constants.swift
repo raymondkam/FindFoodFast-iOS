@@ -38,6 +38,7 @@ struct NotificationNames {
 
 let browseHostReuseIdentifier = "BrowseHostCell"
 let suggestionReuseIdentifier = "SuggestionCell"
+let addNewSuggestionReuseIdentifier = "AddNewSuggestionCell"
 
 struct UserDefaultsKeys {
     static let Username = "username"
