@@ -42,3 +42,7 @@ let suggestionReuseIdentifier = "SuggestionCell"
 struct UserDefaultsKeys {
     static let Username = "username"
 }
+
+struct Bluetooth {
+    static let deviceUuidString = UIDevice.current.identifierForVendor?.uuidString
+}

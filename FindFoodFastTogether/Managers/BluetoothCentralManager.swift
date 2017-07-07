@@ -27,7 +27,6 @@ final class BluetoothCentralManager : NSObject {
     
     weak var delegate: BluetoothCentralManagerDelegate?
     var uuidToHosts = [String: Host]()
-    let uuidString = UIDevice.current.identifierForVendor?.uuidString
     
     private override init() {}
     

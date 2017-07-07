@@ -88,13 +88,19 @@ final class BluetoothPeripheralManager : NSObject {
         for result in filteredUuidStringToUsernameArray {
             filteredUuidStringToUsername[result.0] = result.1
         }
+        // add self to the list of users
+        let userDefaults = UserDefaults.standard
+        if let hostUsername  = userDefaults.string(forKey: UserDefaultsKeys.Username) {
+            filteredUuidStringToUsername.updateValue(hostUsername, forKey: Bluetooth.deviceUuidString!)
+        }
+
         dataToSend = NSKeyedArchiver.archivedData(withRootObject: filteredUuidStringToUsername)
         sendDataIndex = 0
         sendData()
     }
     
     /* 
-     * Function modified from https://github.com/0x7fffffff/Core-Bluetooth-Transfer-Demo which is 
+     * Function modified from https://github.com/0x7fffffff/Core-Bluetooth-Transfer-Demo which is
      * a port of Apple's BTLE Transfer demo project into Swift 3.
      */
     fileprivate func sendData() {
@@ -291,7 +297,10 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
         subscribedCentrals.remove(at: subscribedCentrals.index(of: central)!)
         let disconnectedUserUuidString = central.identifier.uuidString
         if let username = uuidStringToUsername[disconnectedUserUuidString] {
-            // create a new user with the username and uuid, would work since 
+            // remove from internal user dictionary
+            uuidStringToUsername[disconnectedUserUuidString] = nil
+            
+            // create a new user with the username and uuid, would work since
             // User is a struct and update UI
             let disconnectedUser = User(name: username, uuidString: disconnectedUserUuidString)
             delegate?.bluetoothPeripheralManagerDidDisconnectWith(self, user: disconnectedUser)

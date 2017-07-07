@@ -63,7 +63,7 @@ class HostViewController: UIViewController {
             if hostname == nil {
                 let userDefaults = UserDefaults.standard
                 if let username  = userDefaults.string(forKey: UserDefaultsKeys.Username) {
-                    let newUser = User(name: username, uuidString: BluetoothCentralManager.sharedInstance.uuidString!)
+                    let newUser = User(name: username, uuidString: Bluetooth.deviceUuidString!)
                     userCollectionViewController.dataSource.append(newUser)
                 }
             } else {
@@ -81,7 +81,7 @@ extension HostViewController : BluetoothCentralManagerDelegate {
     func bluetoothCentralManagerDidDiscoverHost(_: BluetoothCentralManager, host: Host) {}
     
     func bluetoothCentralManagerDidConnectToHost(_: BluetoothCentralManager, users: [User]) {
-        userCollectionViewController.dataSource.append(contentsOf: users)
+        userCollectionViewController.dataSource = users
         userCollectionViewController.collectionView?.reloadData()
     }
 }
