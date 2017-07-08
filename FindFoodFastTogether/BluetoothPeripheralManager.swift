@@ -338,30 +338,39 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
             uuidStringToUsername.updateValue("", forKey: central.identifier.uuidString)
         case FindFoodFastService.CharacteristicUUIDSuggestion:
             // send central the list of current suggestions
-            sendSuggestions()
+            if (suggestions.count > 0) {
+                sendSuggestions()
+            } else {
+                print("session has no suggestions, nothing to send")
+            }
         default:
             print("characteristic subscribed to not recognized")
         }
     }
     
     func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didUnsubscribeFrom characteristic: CBCharacteristic) {
-        guard let index = subscribedCentrals.index(of: central) else {
-            print("index of disconnected central not found")
-            return
-        }
-        subscribedCentrals.remove(at: index)
-        let disconnectedUserUuidString = central.identifier.uuidString
-        if let username = uuidStringToUsername[disconnectedUserUuidString] {
-            // remove from internal user dictionary
-            uuidStringToUsername[disconnectedUserUuidString] = nil
-            
-            // create a new user with the username and uuid, would work since
-            // User is a struct and update UI
-            let disconnectedUser = User(name: username, uuidString: disconnectedUserUuidString)
-            delegate?.bluetoothPeripheralManagerDidDisconnectWith(self, user: disconnectedUser)
-            
-            // send new list of connected users to everyone
-            sendConnectedUsersList()
+        switch characteristic.uuid {
+        case FindFoodFastService.CharacteristicUUIDJoinSession:
+            guard let index = subscribedCentrals.index(of: central) else {
+                print("index of disconnected central not found")
+                return
+            }
+            subscribedCentrals.remove(at: index)
+            let disconnectedUserUuidString = central.identifier.uuidString
+            if let username = uuidStringToUsername[disconnectedUserUuidString] {
+                // remove from internal user dictionary
+                uuidStringToUsername[disconnectedUserUuidString] = nil
+                
+                // create a new user with the username and uuid, would work since
+                // User is a struct and update UI
+                let disconnectedUser = User(name: username, uuidString: disconnectedUserUuidString)
+                delegate?.bluetoothPeripheralManagerDidDisconnectWith(self, user: disconnectedUser)
+                
+                // send new list of connected users to everyone
+                sendConnectedUsersList()
+            }
+        default:
+            print("nothing to clean up for unsubscribing characteristic")
         }
     }
 }
