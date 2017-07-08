@@ -22,6 +22,8 @@ class AddSuggestionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        suggestionTextField.delegate = self
+        suggestionTextField.becomeFirstResponder()
         if (suggestionTextField.text == nil || suggestionTextField.text == "") {
             disableButtons()
         } else {
@@ -79,7 +81,7 @@ class AddSuggestionViewController: UIViewController {
 
 }
 
-extension AddSuggestionViewController : UITextFieldDelegate {
+extension AddSuggestionViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
