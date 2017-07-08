@@ -16,6 +16,14 @@ class StartViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // load previously saved username if it exists
+        let userDefaults = UserDefaults.standard
+        if let savedUsername = userDefaults.string(forKey: UserDefaultsKeys.Username) {
+            print("loaded previously saved username")
+            nameTextField.text = savedUsername
+        }
+        
         nameTextField.delegate = self
         if (nameTextField.text == nil || nameTextField.text == "") {
             disableButtons()
