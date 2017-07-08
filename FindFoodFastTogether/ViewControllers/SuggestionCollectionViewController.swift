@@ -10,27 +10,25 @@ import UIKit
 
 class SuggestionCollectionViewController: UICollectionViewController {
 
+    var dataSource = [Suggestion]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+        switch segue.identifier! {
+        case Segues.AddSuggestionFromCell:
+            fallthrough
+        case Segues.AddSuggestionFromCellButton:
+            (segue.destination as! AddSuggestionViewController).delegate = self
+        default:
+            print("unrecognized segue")
+        }
     }
-    */
 
     // MARK: UICollectionViewDataSource
 
@@ -40,46 +38,29 @@ class SuggestionCollectionViewController: UICollectionViewController {
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return dataSource.count == 0 ? 1 : dataSource.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: addNewSuggestionReuseIdentifier, for: indexPath)
-    
-        // Configure the cell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: dataSource.count == 0 ? addNewSuggestionReuseIdentifier : suggestionReuseIdentifier, for: indexPath)
+        
+        if (dataSource.count > 0) {
+            let suggestion = dataSource[indexPath.item]
+            
+            // regular suggestion cell
+            let suggestionCell = cell as! SuggestionCollectionViewCell
+            suggestionCell.title = suggestion.name
+        }
     
         return cell
     }
+}
 
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
+extension SuggestionCollectionViewController: AddSuggestionDelegate {
     
+    func didAddSuggestion(suggestion: Suggestion) {
+        dataSource.insert(suggestion, at: 0)
+        collectionView?.reloadData()
     }
-    */
-
+    
 }

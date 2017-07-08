@@ -282,6 +282,9 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MW0-aK-g1g">
                                                         <rect key="frame" x="337" y="9" width="22" height="22"/>
                                                         <color key="tintColor" red="0.11339322120000001" green="0.73802603239999998" blue="0.83719235749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <connections>
+                                                            <segue destination="sbG-pv-k6D" kind="show" identifier="addSuggestionFromHostView" id="Qao-oM-Ssd"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -402,6 +405,9 @@
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xh1-8C-dZD">
                                                             <rect key="frame" x="73" y="0.0" width="22" height="22"/>
                                                             <color key="tintColor" red="0.11339322120000001" green="0.73802603239999998" blue="0.83719235749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <connections>
+                                                                <segue destination="sbG-pv-k6D" kind="show" identifier="addSuggestionFromCellButton" id="LE5-MB-4s1"/>
+                                                            </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Looks like there aren't any suggestions yet. Tap to add a suggestion." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c9w-fb-WZs">
                                                             <rect key="frame" x="0.0" y="30" width="168" height="50"/>
@@ -441,14 +447,41 @@
                                         <real key="value" value="8"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <segue destination="sbG-pv-k6D" kind="show" identifier="addSuggestionFromCell" id="JS2-yn-sae"/>
+                                </connections>
                             </collectionViewCell>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SuggestionCell" id="o0d-Dr-tBb">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SuggestionCell" id="o0d-Dr-tBb" customClass="SuggestionCollectionViewCell" customModule="FindFoodFastTogether" customModuleProvider="target">
                                 <rect key="frame" x="256" y="0.0" width="240" height="200"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="240" height="200"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YXj-gT-jea">
+                                            <rect key="frame" x="30" y="89" width="180" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.11339322120000001" green="0.73802603239999998" blue="0.83719235749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </view>
+                                <constraints>
+                                    <constraint firstItem="YXj-gT-jea" firstAttribute="centerX" secondItem="o0d-Dr-tBb" secondAttribute="centerX" id="C3e-y8-Txw"/>
+                                    <constraint firstItem="YXj-gT-jea" firstAttribute="centerY" secondItem="o0d-Dr-tBb" secondAttribute="centerY" id="Fum-T7-l82"/>
+                                    <constraint firstItem="YXj-gT-jea" firstAttribute="width" secondItem="o0d-Dr-tBb" secondAttribute="width" multiplier="0.75" id="kEo-ui-zpz"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="0.5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="0.11339322120000001" green="0.73802603239999998" blue="0.83719235749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="titleLabel" destination="YXj-gT-jea" id="7ei-6m-rpp"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>
@@ -460,6 +493,63 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Guy-eH-0zH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2991" y="330"/>
+        </scene>
+        <!--Add Suggestion View Controller-->
+        <scene sceneID="Vao-g7-Rid">
+            <objects>
+                <viewController id="sbG-pv-k6D" customClass="AddSuggestionViewController" customModule="FindFoodFastTogether" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="kyy-7F-nnD"/>
+                        <viewControllerLayoutGuide type="bottom" id="BsM-Et-QbM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Uqh-ah-mnW">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="x7B-go-0Jt">
+                                <rect key="frame" x="24" y="94" width="327" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="xNd-J4-JRc"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <connections>
+                                    <action selector="handleSuggestionTextFieldChanged:" destination="sbG-pv-k6D" eventType="editingChanged" id="KsA-MI-kTy"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Gm-K5-MEu">
+                                <rect key="frame" x="23.5" y="144" width="327" height="42"/>
+                                <color key="backgroundColor" red="0.11339322120000001" green="0.73802603239999998" blue="0.83719235749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="byi-4l-W5o"/>
+                                </constraints>
+                                <state key="normal" title="Add Suggestion">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="handleAddSuggestion:" destination="sbG-pv-k6D" eventType="touchUpInside" id="RUy-vq-iqR"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="7Gm-K5-MEu" firstAttribute="top" secondItem="x7B-go-0Jt" secondAttribute="bottom" constant="8" id="4lF-bK-JWe"/>
+                            <constraint firstItem="x7B-go-0Jt" firstAttribute="leading" secondItem="Uqh-ah-mnW" secondAttribute="leadingMargin" constant="8" id="AZC-BG-FZH"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="x7B-go-0Jt" secondAttribute="trailing" constant="8" id="Dd5-ke-Rdo"/>
+                            <constraint firstItem="x7B-go-0Jt" firstAttribute="top" secondItem="kyy-7F-nnD" secondAttribute="bottom" constant="30" id="Lzd-Wa-Hjh"/>
+                            <constraint firstItem="7Gm-K5-MEu" firstAttribute="centerX" secondItem="x7B-go-0Jt" secondAttribute="centerX" id="iSq-Xy-dia"/>
+                            <constraint firstItem="7Gm-K5-MEu" firstAttribute="width" secondItem="x7B-go-0Jt" secondAttribute="width" id="k8x-xx-Zc0"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="addSuggestionButton" destination="7Gm-K5-MEu" id="oo3-Us-AML"/>
+                        <outlet property="suggestionTextField" destination="x7B-go-0Jt" id="tcp-KY-tB3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iGH-5g-qvc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2990" y="-151"/>
         </scene>
         <!--User Collection View Controller-->
         <scene sceneID="UE1-OP-pGg">
@@ -681,5 +771,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="oVU-Jn-U1e"/>
+        <segue reference="Qao-oM-Ssd"/>
     </inferredMetricsTieBreakers>
 </document>

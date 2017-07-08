@@ -26,8 +26,12 @@ struct Segues {
     static let Host = "host"
     static let HostSession = "hostSession"
     static let EmbedBrowseHostCollection = "embedBrowseHostCollection"
+    static let EmbedSuggestionCollection = "embedSuggestionCollection"
     static let EmbedUserCollection = "embedUserCollection"
     static let JoinHost = "joinHost"
+    static let AddSuggestionFromHostView = "addSuggestionFromHostView"
+    static let AddSuggestionFromCellButton = "addSuggestionFromCellButton"
+    static let AddSuggestionFromCell = "addSuggestionFromCell"
 }
 
 struct NotificationNames {

@@ -14,7 +14,8 @@ class HostViewController: UIViewController {
     var hostname: String? // only set if you are hosting
     var username: String?
     
-    var userCollectionViewController: UserCollectionViewController!
+    fileprivate var suggestionCollectionViewController: SuggestionCollectionViewController!
+    fileprivate var userCollectionViewController: UserCollectionViewController!
     
     @IBOutlet weak var userContainerViewHeightConstraint: NSLayoutConstraint!
     
@@ -64,7 +65,10 @@ class HostViewController: UIViewController {
                 let newUser = User(name: username!, uuidString: BluetoothPeripheralManager.sharedInstance.uuidString!)
                 userCollectionViewController.dataSource.append(newUser)
             }
-            
+        case Segues.EmbedSuggestionCollection:
+            suggestionCollectionViewController = segue.destination as! SuggestionCollectionViewController
+        case Segues.AddSuggestionFromHostView:
+            (segue.destination as! AddSuggestionViewController).delegate = self
         default:
             print("segue not recognized")
         }
@@ -96,5 +100,12 @@ extension HostViewController : BluetoothPeripheralManagerDelegate {
         })!
         userCollectionViewController.dataSource.remove(at: index)
         userCollectionViewController.collectionView?.reloadData()
+    }
+}
+
+extension HostViewController: AddSuggestionDelegate {
+    func didAddSuggestion(suggestion: Suggestion) {
+        suggestionCollectionViewController.dataSource.insert(suggestion, at: 0)
+        suggestionCollectionViewController.collectionView?.reloadData()
     }
 }
