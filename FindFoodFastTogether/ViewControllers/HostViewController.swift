@@ -107,6 +107,10 @@ extension HostViewController : BluetoothPeripheralManagerDelegate {
         userCollectionViewController.dataSource.remove(at: index)
         userCollectionViewController.collectionView?.reloadData()
     }
+    
+    func bluetoothPeripheralManagerDidReceiveNewSuggestion(_: BluetoothPeripheralManager, suggestion: Suggestion) {
+        suggestionCollectionViewController.addSuggestion(suggestion: suggestion)
+    }
 }
 
 extension HostViewController: AddSuggestionDelegate {

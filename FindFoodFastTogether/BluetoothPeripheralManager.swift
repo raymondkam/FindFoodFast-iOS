@@ -14,6 +14,7 @@ protocol BluetoothPeripheralManagerDelegate : class {
     func bluetoothPeripheralManagerDidBecomeReadyToAdvertise(_: BluetoothPeripheralManager)
     func bluetoothPeripheralManagerDidConnectWith(_: BluetoothPeripheralManager, newUser: User)
     func bluetoothPeripheralManagerDidDisconnectWith(_: BluetoothPeripheralManager, user: User)
+    func bluetoothPeripheralManagerDidReceiveNewSuggestion(_: BluetoothPeripheralManager, suggestion: Suggestion)
 }
 
 final class BluetoothPeripheralManager : NSObject {
@@ -263,10 +264,6 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
         print("peripheral manager: did start advertising")
     }
     
-    func peripheralManager(_ peripheral: CBPeripheralManager, didReceiveRead request: CBATTRequest) {
-        
-    }
-    
     func peripheralManager(_ peripheral: CBPeripheralManager, didAdd service: CBService, error: Error?) {
         guard error == nil else {
             print("peripheral manager: error adding the service to peripheral manager")
@@ -278,6 +275,10 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
             isReadyToAdvertise = true
             delegate?.bluetoothPeripheralManagerDidBecomeReadyToAdvertise(self)
         }
+    }
+    
+    func peripheralManager(_ peripheral: CBPeripheralManager, didReceiveRead request: CBATTRequest) {
+        
     }
     
     func peripheralManager(_ peripheral: CBPeripheralManager, didReceiveWrite requests: [CBATTRequest]) {
@@ -304,6 +305,21 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
                         sendConnectedUsersList()
                     }
                 }
+            case FindFoodFastService.CharacteristicUUIDSuggestion:
+                print("received write for suggestion")
+                guard let data = request.value else {
+                    print("request has nil data")
+                    return
+                }
+                guard let suggestionDictionary = NSKeyedUnarchiver.unarchiveObject(with: data) as? [String: String] else {
+                    print("invalid suggestion unarchived")
+                    return
+                }
+                guard let suggestion = Suggestion(dictionary: suggestionDictionary) else {
+                    print("could not initialize suggestion with dictionary")
+                    return
+                }
+                delegate?.bluetoothPeripheralManagerDidReceiveNewSuggestion(self, suggestion: suggestion)
             default:
                 print("write to unknown characteristic")
             }
