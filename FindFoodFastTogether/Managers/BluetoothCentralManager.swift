@@ -234,7 +234,10 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
             case FindFoodFastService.CharacteristicUUIDJoinSession:
                 print("received list of connected users")
                 // received all data
-                let uuidStringToUsername = NSKeyedUnarchiver.unarchiveObject(with: receivedData!) as! [String: String]
+                guard let uuidStringToUsername = NSKeyedUnarchiver.unarchiveObject(with: receivedData!) as? [String: String] else {
+                    print("was not able to unarchive list of connected users")
+                    return
+                }
                 let connectedUsers = uuidStringToUsername.map({ (uuidString, username) -> User in
                     let user = User(name: username, uuidString: uuidString)
                     return user
@@ -242,7 +245,10 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
                 delegate?.bluetoothCentralManagerDidConnectToHost(self, users: connectedUsers)
             case FindFoodFastService.CharacteristicUUIDSuggestion:
                 print("received list of suggestions")
-                let suggestionDictionaries = NSKeyedUnarchiver.unarchiveObject(with: receivedData!) as! [[String: String]]
+                guard let suggestionDictionaries = NSKeyedUnarchiver.unarchiveObject(with: receivedData!) as? [[String: String]] else {
+                    print("was not able to unarchive list of suggestions")
+                    return
+                }
                 var suggestions = [Suggestion]()
                 for suggestionDictionary in suggestionDictionaries {
                     guard let suggestion = Suggestion(dictionary: suggestionDictionary) else {
