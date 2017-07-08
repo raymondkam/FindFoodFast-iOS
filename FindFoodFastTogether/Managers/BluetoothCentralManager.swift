@@ -11,9 +11,9 @@ import CoreBluetooth
 import UIKit
 
 protocol BluetoothCentralManagerDelegate : class {
-    
     func bluetoothCentralManagerDidDiscoverHost(_: BluetoothCentralManager, host: Host)
     func bluetoothCentralManagerDidConnectToHost(_: BluetoothCentralManager, users: [User])
+    func bluetoothCentralManagerDidReceiveSuggestions(_: BluetoothCentralManager, suggestions: [Suggestion])
 }
 
 final class BluetoothCentralManager : NSObject {
@@ -150,7 +150,7 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
             print("peripheral services nil or has no services")
             return
         }
-        peripheral.discoverCharacteristics([FindFoodFastService.CharacteristicUUIDJoinSession], for: services.first!)
+        peripheral.discoverCharacteristics([FindFoodFastService.CharacteristicUUIDJoinSession, FindFoodFastService.CharacteristicUUIDSuggestion], for: services.first!)
     }
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
@@ -164,17 +164,25 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
         }
         print("discovered host name characteristic")
         
-        if let joinSessionCharacteristic = service.characteristics?.first(where: { (characteristic) -> Bool in
-            characteristic.uuid == FindFoodFastService.CharacteristicUUIDJoinSession
-        }) {
-            // subscribe to characteristic
-            peripheral.setNotifyValue(true, for: joinSessionCharacteristic)
-            subscribedCharacteristics.append(joinSessionCharacteristic)
-            
-            let userDefaults = UserDefaults.standard
-            if let username  = userDefaults.string(forKey: UserDefaultsKeys.Username) {
-                print("retrieved username from user defaults: \(username)")
-                peripheral.writeValue(username.data(using: .utf8)!, for: joinSessionCharacteristic, type: .withoutResponse)
+        guard let characteristics = service.characteristics else {
+            print("no characteristics discovered")
+            return
+        }
+        
+        for characteristic in characteristics {
+            if characteristic.uuid == FindFoodFastService.CharacteristicUUIDJoinSession {
+                // subscribe to characteristic
+                peripheral.setNotifyValue(true, for: characteristic)
+                subscribedCharacteristics.append(characteristic)
+                
+                let userDefaults = UserDefaults.standard
+                if let username  = userDefaults.string(forKey: UserDefaultsKeys.Username) {
+                    print("retrieved username from user defaults: \(username)")
+                    peripheral.writeValue(username.data(using: .utf8)!, for: characteristic, type: .withoutResponse)
+                }
+            } else if characteristic.uuid == FindFoodFastService.CharacteristicUUIDSuggestion {
+                peripheral.setNotifyValue(true, for: characteristic)
+                subscribedCharacteristics.append(characteristic)
             }
         }
     }
@@ -213,16 +221,18 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
             return
         }
         
-        switch characteristic.uuid {
-        case FindFoodFastService.CharacteristicUUIDJoinSession:
-            guard receivedData != nil else {
-                // if receivedData is nil, then we are receiving the first chunk
-                receivedData = characteristic.value!
-                return
-            }
-            
-            let stringFromData = String.init(data: characteristic.value!, encoding: .utf8)
-            if stringFromData == "EOM" {
+        guard receivedData != nil else {
+            // if receivedData is nil, then we are receiving the first chunk
+            receivedData = characteristic.value!
+            return
+        }
+        
+        let stringFromData = String.init(data: characteristic.value!, encoding: .utf8)
+        if stringFromData == "EOM" {
+            // handle data received from different characteristics differently
+            switch characteristic.uuid {
+            case FindFoodFastService.CharacteristicUUIDJoinSession:
+                print("received list of connected users")
                 // received all data
                 let uuidStringToUsername = NSKeyedUnarchiver.unarchiveObject(with: receivedData!) as! [String: String]
                 let connectedUsers = uuidStringToUsername.map({ (uuidString, username) -> User in
@@ -230,15 +240,27 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
                     return user
                 })
                 delegate?.bluetoothCentralManagerDidConnectToHost(self, users: connectedUsers)
-                
-                // clear received data for next transmission
-                receivedData = nil
-            } else {
-                // append the data
-                receivedData!.append(characteristic.value!)
+            case FindFoodFastService.CharacteristicUUIDSuggestion:
+                print("received list of suggestions")
+                let suggestionDictionaries = NSKeyedUnarchiver.unarchiveObject(with: receivedData!) as! [[String: String]]
+                var suggestions = [Suggestion]()
+                for suggestionDictionary in suggestionDictionaries {
+                    guard let suggestion = Suggestion(dictionary: suggestionDictionary) else {
+                        print("couldn't init suggestion with dictionary")
+                        return
+                    }
+                    suggestions.append(suggestion)
+                }
+                delegate?.bluetoothCentralManagerDidReceiveSuggestions(self, suggestions: suggestions)
+            default:
+                print("characteristic uuid not recognized")
             }
-        default:
-            print("characteristic uuid not recognized")
+            
+            // clear received data for next transmission
+            receivedData = nil
+        } else {
+            // append the data
+            receivedData!.append(characteristic.value!)
         }
     }
     

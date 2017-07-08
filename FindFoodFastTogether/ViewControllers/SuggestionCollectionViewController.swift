@@ -11,11 +11,27 @@ import UIKit
 class SuggestionCollectionViewController: UICollectionViewController {
 
     var dataSource = [Suggestion]()
+    var isHosting: Bool!
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 
+    func addSuggestion(suggestion: Suggestion) {
+        dataSource.insert(suggestion, at: 0)
+        collectionView?.reloadData()
+        
+        // also update host
+        if (isHosting) {
+            var suggestionDictionaries = [[String: String]]()
+            for suggestion in dataSource {
+                let suggestionDictionary = suggestion.asDictionary()
+                suggestionDictionaries.append(suggestionDictionary)
+            }
+            BluetoothPeripheralManager.sharedInstance.suggestions = suggestionDictionaries
+        }
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -59,8 +75,7 @@ class SuggestionCollectionViewController: UICollectionViewController {
 extension SuggestionCollectionViewController: AddSuggestionDelegate {
     
     func didAddSuggestion(suggestion: Suggestion) {
-        dataSource.insert(suggestion, at: 0)
-        collectionView?.reloadData()
+        addSuggestion(suggestion: suggestion)
     }
     
 }

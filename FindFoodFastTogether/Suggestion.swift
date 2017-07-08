@@ -15,4 +15,18 @@ struct Suggestion {
     init(name: String) {
         self.name = name
     }
+    
+    init?(dictionary: [String: String]) {
+        guard let name = dictionary["name"] else {
+            print("invalid dictionary passed to Suggestion initializer")
+            return nil
+        }
+        self.name = name
+    }
+    
+    func asDictionary() -> [String: String] {
+        var dict = [String: String]()
+        dict.updateValue(name, forKey: "name")
+        return dict
+    }
 }

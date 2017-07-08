@@ -19,15 +19,24 @@ protocol BluetoothPeripheralManagerDelegate : class {
 final class BluetoothPeripheralManager : NSObject {
     
     fileprivate var peripheralManager: CBPeripheralManager!
-    fileprivate let findFoodFastMutableService = CBMutableService.init(type: FindFoodFastService.ServiceUUID, primary: true)
+    fileprivate let findFoodFastMutableService = CBMutableService(type: FindFoodFastService.ServiceUUID, primary: true)
     fileprivate let joinSessionCharacteristic = CBMutableCharacteristic.init(
         type: FindFoodFastService.CharacteristicUUIDJoinSession,
-        properties: [CBCharacteristicProperties.read,
-                     CBCharacteristicProperties.writeWithoutResponse,
-                     CBCharacteristicProperties.notify],
+        properties: [.read,
+                     .writeWithoutResponse,
+                     .notify],
         value: nil,
-        permissions: [CBAttributePermissions.readable,
-                      CBAttributePermissions.writeable]
+        permissions: [.readable,
+                      .writeable]
+    )
+    fileprivate let suggestionCharacteristic = CBMutableCharacteristic(
+        type: FindFoodFastService.CharacteristicUUIDSuggestion,
+        properties: [.read,
+                     .writeWithoutResponse,
+                     .notify],
+        value: nil,
+        permissions: [.readable,
+                      .writeable]
     )
     fileprivate var uuidStringToUsername = [String: String]()
     
@@ -35,14 +44,17 @@ final class BluetoothPeripheralManager : NSObject {
     fileprivate var dataToSend: Data?
     fileprivate var sendDataIndex: Int?
     fileprivate var maximumBytesInPayload = 512 // 512 bytes is the theoretical maximum
+    fileprivate var currentCharacteristic: CBMutableCharacteristic?
     fileprivate var sendingEOM = false
     
-    private override init() {}
-    
+    // public
     weak var delegate: BluetoothPeripheralManagerDelegate?
     var isReadyToAdvertise = false
     var subscribedCentrals = [CBCentral]()
-    let uuidString = UIDevice.current.identifierForVendor?.uuidString
+    var suggestions = [[String: String]]()
+    
+    // private hidden initializer
+    private override init() {}
     
     static let sharedInstance: BluetoothPeripheralManager = {
         let instance = BluetoothPeripheralManager()
@@ -53,9 +65,13 @@ final class BluetoothPeripheralManager : NSObject {
     internal func setupPeripheral() {
         
         let userDescriptionUuid:CBUUID = CBUUID(string:CBUUIDCharacteristicUserDescriptionString)
-        let myDescriptor = CBMutableDescriptor(type:userDescriptionUuid, value:"Know who is connected via subscription to this characteristic")
-        joinSessionCharacteristic.descriptors = [myDescriptor]
-        findFoodFastMutableService.characteristics = [joinSessionCharacteristic]
+        let joinSessionDescriptor = CBMutableDescriptor(type:userDescriptionUuid, value:"Know who is connected via subscription to this characteristic")
+        joinSessionCharacteristic.descriptors = [joinSessionDescriptor]
+        
+        let suggestionsDescriptor = CBMutableDescriptor(type:userDescriptionUuid, value:"Know what suggestions there are in the session")
+        suggestionCharacteristic.descriptors = [suggestionsDescriptor]
+        
+        findFoodFastMutableService.characteristics = [joinSessionCharacteristic, suggestionCharacteristic]
         
         peripheralManager.add(findFoodFastMutableService)
     }
@@ -80,6 +96,7 @@ final class BluetoothPeripheralManager : NSObject {
      * Sends to subscribers the updated list of users in the host's session
      */
     fileprivate func sendConnectedUsersList() {
+        print("sending list of connected users")
         // make sure uuid string and username are not empty or incomplete
         let filteredUuidStringToUsernameArray = uuidStringToUsername.filter { (uuidString, username) -> Bool in
             return uuidString.characters.count > 0 && username.characters.count > 0
@@ -94,8 +111,18 @@ final class BluetoothPeripheralManager : NSObject {
             filteredUuidStringToUsername.updateValue(hostUsername, forKey: Bluetooth.deviceUuidString!)
         }
 
-        dataToSend = NSKeyedArchiver.archivedData(withRootObject: filteredUuidStringToUsername)
+        send(object: filteredUuidStringToUsername, for: joinSessionCharacteristic)
+    }
+    
+    fileprivate func sendSuggestions() {
+        print("sending suggestions")
+        send(object: suggestions, for: suggestionCharacteristic)
+    }
+    
+    fileprivate func send(object: Any, for characteristic: CBMutableCharacteristic) {
+        dataToSend = NSKeyedArchiver.archivedData(withRootObject: object)
         sendDataIndex = 0
+        currentCharacteristic = characteristic
         sendData()
     }
     
@@ -108,12 +135,16 @@ final class BluetoothPeripheralManager : NSObject {
             print("peripheral manager: no data to send as it is nil")
             return
         }
+        guard currentCharacteristic != nil else {
+            print("no specified characteristic to send to")
+            return
+        }
         
         if sendingEOM {
             // send it
             let didSend = peripheralManager?.updateValue(
                 "EOM".data(using: String.Encoding.utf8)!,
-                for: joinSessionCharacteristic,
+                for: currentCharacteristic!,
                 onSubscribedCentrals: nil
             )
             
@@ -127,6 +158,7 @@ final class BluetoothPeripheralManager : NSObject {
                 
                 // remove data stored in variable
                 dataToSend = nil
+                currentCharacteristic = nil
             }
             
             // It didn't send, so we'll exit and wait for peripheralManagerIsReadyToUpdateSubscribers to call sendData again
@@ -166,7 +198,7 @@ final class BluetoothPeripheralManager : NSObject {
             // Send it
             didSend = peripheralManager!.updateValue(
                 chunk as Data,
-                for: joinSessionCharacteristic,
+                for: currentCharacteristic!,
                 onSubscribedCentrals: nil
             )
             
@@ -191,7 +223,7 @@ final class BluetoothPeripheralManager : NSObject {
                 // Send it
                 let eomSent = peripheralManager!.updateValue(
                     "EOM".data(using: String.Encoding.utf8)!,
-                    for: joinSessionCharacteristic,
+                    for: currentCharacteristic!,
                     onSubscribedCentrals: nil
                 )
                 
@@ -288,13 +320,20 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
             // add placeholder for when central sends over their username to 
             // internal users dictionary
             uuidStringToUsername.updateValue("", forKey: central.identifier.uuidString)
+        case FindFoodFastService.CharacteristicUUIDSuggestion:
+            // send central the list of current suggestions
+            sendSuggestions()
         default:
             print("characteristic subscribed to not recognized")
         }
     }
     
     func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didUnsubscribeFrom characteristic: CBCharacteristic) {
-        subscribedCentrals.remove(at: subscribedCentrals.index(of: central)!)
+        guard let index = subscribedCentrals.index(of: central) else {
+            print("index of disconnected central not found")
+            return
+        }
+        subscribedCentrals.remove(at: index)
         let disconnectedUserUuidString = central.identifier.uuidString
         if let username = uuidStringToUsername[disconnectedUserUuidString] {
             // remove from internal user dictionary
