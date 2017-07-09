@@ -19,6 +19,9 @@ class AddSuggestionViewController: UIViewController {
     
     weak var delegate: AddSuggestionDelegate?
     
+    let SuggestionTextFieldMinCharacterCount = 2
+    let SuggestionTextFieldMaxCharacterCount = 80
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -51,7 +54,7 @@ class AddSuggestionViewController: UIViewController {
     }
     
     @IBAction func handleSuggestionTextFieldChanged(_ sender: Any) {
-        if let count = (sender as! UITextField).text?.characters.count, count > 2 && count <= 29 {
+        if let count = (sender as! UITextField).text?.characters.count, count > SuggestionTextFieldMinCharacterCount && count <= SuggestionTextFieldMaxCharacterCount {
             enableButtons()
         } else {
             disableButtons()
