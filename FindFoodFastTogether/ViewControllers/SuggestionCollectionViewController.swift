@@ -28,7 +28,11 @@ class SuggestionCollectionViewController: UICollectionViewController {
                 let suggestionDictionary = suggestion.asDictionary()
                 suggestionDictionaries.append(suggestionDictionary)
             }
-            BluetoothPeripheralManager.sharedInstance.suggestions = suggestionDictionaries
+            let peripheralManager = BluetoothPeripheralManager.sharedInstance
+            peripheralManager.updateSuggestions(suggestionDictionaries: suggestionDictionaries)
+            
+        } else {
+            BluetoothCentralManager.sharedInstance.sendHostNewSuggestion(suggestion: suggestion)
         }
     }
     

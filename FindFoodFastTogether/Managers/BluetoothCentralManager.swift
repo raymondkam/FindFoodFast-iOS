@@ -23,7 +23,15 @@ final class BluetoothCentralManager : NSObject {
     fileprivate var centralManager: CBCentralManager!
     fileprivate var connectedPeripheral: CBPeripheral?
     fileprivate var subscribedCharacteristics = [CBCharacteristic]()
+    fileprivate var suggestionCharacteristic: CBCharacteristic?
     fileprivate var receivedData: Data?
+    
+    // for writing large payloads to characteristic
+    fileprivate var dataToSend: Data?
+    fileprivate var sendDataIndex: Int?
+    fileprivate var sendingEOM = false
+    fileprivate var sendToCharacteristic: CBCharacteristic?
+    fileprivate let BLEWriteToCharacteristicMaxSize = 20
     
     weak var delegate: BluetoothCentralManagerDelegate?
     var uuidToHosts = [String: Host]()
@@ -87,6 +95,50 @@ final class BluetoothCentralManager : NSObject {
     
     func clearSavedPeripherals() {
         uuidToHosts.removeAll()
+    }
+    
+    func sendHostNewSuggestion(suggestion: Suggestion) {
+        guard let suggestionCharacteristic = suggestionCharacteristic else {
+            print("suggestion characteristic not saved")
+            return
+        }
+        
+        dataToSend  = NSKeyedArchiver.archivedData(withRootObject: suggestion.asDictionary())
+        sendDataIndex = 0
+        sendToCharacteristic = suggestionCharacteristic
+        sendData()
+    }
+    
+    func sendData() {
+        guard sendToCharacteristic != nil else {
+            print("no specified characteristic to send to")
+            return
+        }
+        
+        if sendingEOM {
+            connectedPeripheral?.writeValue("EOM".data(using: .utf8)!, for: sendToCharacteristic!, type: .withResponse)
+        } else {
+            // Make the next chunk
+            
+            // Work out how big it should be
+            var amountToSend = dataToSend!.count - sendDataIndex!;
+            
+            // Can only send maximum of 20 bytes
+            if (amountToSend > BLEWriteToCharacteristicMaxSize) {
+                amountToSend = BLEWriteToCharacteristicMaxSize
+            }
+            
+            // Copy out the data we want
+            let chunk = dataToSend!.withUnsafeBytes{(body: UnsafePointer<UInt8>) in
+                return Data(
+                    bytes: body + sendDataIndex!,
+                    count: amountToSend
+                )
+            }
+            
+            connectedPeripheral?.writeValue(chunk, for: sendToCharacteristic!, type: .withResponse)
+        }
+        
     }
 }
 
@@ -174,6 +226,7 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
                 // subscribe to characteristic
                 peripheral.setNotifyValue(true, for: characteristic)
                 subscribedCharacteristics.append(characteristic)
+                print("subscribed to join session characteristic")
                 
                 let userDefaults = UserDefaults.standard
                 if let username  = userDefaults.string(forKey: UserDefaultsKeys.Username) {
@@ -181,8 +234,12 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
                     peripheral.writeValue(username.data(using: .utf8)!, for: characteristic, type: .withoutResponse)
                 }
             } else if characteristic.uuid == FindFoodFastService.CharacteristicUUIDSuggestion {
+                print("subscribed to suggestions characteristic")
                 peripheral.setNotifyValue(true, for: characteristic)
                 subscribedCharacteristics.append(characteristic)
+                // hold onto the suggestion characteristic so it is easier to 
+                // send suggestions later
+                suggestionCharacteristic = characteristic
             }
         }
     }
@@ -200,7 +257,6 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
     }
     
     func peripheral(_ peripheral: CBPeripheral, didWriteValueFor descriptor: CBDescriptor, error: Error?) {
-        
     }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor descriptor: CBDescriptor, error: Error?) {
@@ -211,8 +267,40 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
         
     }
     
+    /*
+     * Callback for successful write to characteristic, used for writing large
+     * payloads to a characteristic
+     */
     func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
+        if (error != nil) {
+            // retry if there is an error
+            print("peripheral did write value failed, error: \(String(describing: error?.localizedDescription)), retrying in 1 second...")
+            // retry after 1 second
+            DispatchQueue.global().asyncAfter(deadline: .now() + 1 , execute: { [weak self] () in
+                print("retry sending data")
+                self?.sendData()
+            })
+            return
+        }
         
+        print("Sent: \(sendDataIndex! + BLEWriteToCharacteristicMaxSize)/\(dataToSend!.count) bytes")
+        
+        if (sendingEOM) {
+            // finished sending EOM, can clean up
+            sendingEOM = false
+            print("EOM successfully sent")
+            dataToSend = nil
+            sendToCharacteristic = nil
+        } else {
+            // update the index if it was sent
+            sendDataIndex! += BLEWriteToCharacteristicMaxSize
+            
+            if (sendDataIndex! >= dataToSend!.count) {
+                sendingEOM = true
+            }
+            
+            sendData()
+        }
     }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {

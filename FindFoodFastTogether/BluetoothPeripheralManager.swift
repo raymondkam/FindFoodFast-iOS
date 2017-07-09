@@ -33,26 +33,29 @@ final class BluetoothPeripheralManager : NSObject {
     fileprivate let suggestionCharacteristic = CBMutableCharacteristic(
         type: FindFoodFastService.CharacteristicUUIDSuggestion,
         properties: [.read,
-                     .writeWithoutResponse,
+                     .write,
                      .notify],
         value: nil,
         permissions: [.readable,
                       .writeable]
     )
     fileprivate var uuidStringToUsername = [String: String]()
+    fileprivate var suggestionDictionaries = [[String: String]]()
     
     // Variables related to sending data
     fileprivate var dataToSend: Data?
     fileprivate var sendDataIndex: Int?
     fileprivate var maximumBytesInPayload = 512 // 512 bytes is the theoretical maximum
-    fileprivate var currentCharacteristic: CBMutableCharacteristic?
+    fileprivate var sendToCharacteristic: CBMutableCharacteristic?
     fileprivate var sendingEOM = false
+    
+    // Variables related to receiving data
+    fileprivate var receivedData: Data?
     
     // public
     weak var delegate: BluetoothPeripheralManagerDelegate?
     var isReadyToAdvertise = false
     var subscribedCentrals = [CBCentral]()
-    var suggestions = [[String: String]]()
     
     // private hidden initializer
     private override init() {}
@@ -93,6 +96,11 @@ final class BluetoothPeripheralManager : NSObject {
         setupPeripheral()
     }
     
+    func updateSuggestions(suggestionDictionaries: [[String: String]]) {
+        self.suggestionDictionaries = suggestionDictionaries
+        sendSuggestions()
+    }
+    
     /* 
      * Sends to subscribers the updated list of users in the host's session
      */
@@ -117,13 +125,13 @@ final class BluetoothPeripheralManager : NSObject {
     
     fileprivate func sendSuggestions() {
         print("sending suggestions")
-        send(object: suggestions, for: suggestionCharacteristic)
+        send(object: suggestionDictionaries, for: suggestionCharacteristic)
     }
     
     fileprivate func send(object: Any, for characteristic: CBMutableCharacteristic) {
         dataToSend = NSKeyedArchiver.archivedData(withRootObject: object)
         sendDataIndex = 0
-        currentCharacteristic = characteristic
+        sendToCharacteristic = characteristic
         sendData()
     }
     
@@ -136,7 +144,7 @@ final class BluetoothPeripheralManager : NSObject {
             print("peripheral manager: no data to send as it is nil")
             return
         }
-        guard currentCharacteristic != nil else {
+        guard sendToCharacteristic != nil else {
             print("no specified characteristic to send to")
             return
         }
@@ -145,7 +153,7 @@ final class BluetoothPeripheralManager : NSObject {
             // send it
             let didSend = peripheralManager?.updateValue(
                 "EOM".data(using: String.Encoding.utf8)!,
-                for: currentCharacteristic!,
+                for: sendToCharacteristic!,
                 onSubscribedCentrals: nil
             )
             
@@ -159,7 +167,7 @@ final class BluetoothPeripheralManager : NSObject {
                 
                 // remove data stored in variable
                 dataToSend = nil
-                currentCharacteristic = nil
+                sendToCharacteristic = nil
             }
             
             // It didn't send, so we'll exit and wait for peripheralManagerIsReadyToUpdateSubscribers to call sendData again
@@ -199,7 +207,7 @@ final class BluetoothPeripheralManager : NSObject {
             // Send it
             didSend = peripheralManager!.updateValue(
                 chunk as Data,
-                for: currentCharacteristic!,
+                for: sendToCharacteristic!,
                 onSubscribedCentrals: nil
             )
             
@@ -224,7 +232,7 @@ final class BluetoothPeripheralManager : NSObject {
                 // Send it
                 let eomSent = peripheralManager!.updateValue(
                     "EOM".data(using: String.Encoding.utf8)!,
-                    for: currentCharacteristic!,
+                    for: sendToCharacteristic!,
                     onSubscribedCentrals: nil
                 )
                 
@@ -309,17 +317,37 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
                 print("received write for suggestion")
                 guard let data = request.value else {
                     print("request has nil data")
+                    peripheral.respond(to: request, withResult: .requestNotSupported)
                     return
                 }
-                guard let suggestionDictionary = NSKeyedUnarchiver.unarchiveObject(with: data) as? [String: String] else {
-                    print("invalid suggestion unarchived")
+                guard receivedData != nil else {
+                    // if receivedData is nil, then this is the first chunk
+                    receivedData = data
+                    peripheral.respond(to: request, withResult: .success)
                     return
                 }
-                guard let suggestion = Suggestion(dictionary: suggestionDictionary) else {
-                    print("could not initialize suggestion with dictionary")
-                    return
+                
+                let stringFromData = String.init(data: data, encoding: .utf8)
+                if stringFromData == "EOM" {
+                    guard let suggestionDictionary = NSKeyedUnarchiver.unarchiveObject(with: receivedData!) as? [String: String] else {
+                        print("invalid suggestion unarchived")
+                        peripheral.respond(to: request, withResult: .requestNotSupported)
+                        return
+                    }
+                    guard let suggestion = Suggestion(dictionary: suggestionDictionary) else {
+                        print("could not initialize suggestion with dictionary")
+                        peripheral.respond(to: request, withResult: .requestNotSupported)
+                        return
+                    }
+                    delegate?.bluetoothPeripheralManagerDidReceiveNewSuggestion(self, suggestion: suggestion)
+                    
+                    // clear received data for next transmission
+                    receivedData = nil
+                } else {
+                    // not done receiving all data, append the data
+                    receivedData!.append(data)
                 }
-                delegate?.bluetoothPeripheralManagerDidReceiveNewSuggestion(self, suggestion: suggestion)
+                peripheral.respond(to: request, withResult: .success)
             default:
                 print("write to unknown characteristic")
             }
@@ -338,7 +366,7 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
             uuidStringToUsername.updateValue("", forKey: central.identifier.uuidString)
         case FindFoodFastService.CharacteristicUUIDSuggestion:
             // send central the list of current suggestions
-            if (suggestions.count > 0) {
+            if (suggestionDictionaries.count > 0) {
                 sendSuggestions()
             } else {
                 print("session has no suggestions, nothing to send")
