@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct User {
+class User: NSObject {
     var name: String
     var uuidString: String
     
@@ -16,16 +16,16 @@ struct User {
         self.name = name
         self.uuidString = uuidString
     }
-}
-
-extension User: CustomStringConvertible {
-    var description: String {
-        return "User(name:\(name), uuidString: \(uuidString))"
+    
+    override func isEqual(_ object: Any?) -> Bool {
+        guard let user = object as? User else {
+            print("comparing object is not a User")
+            return false
+        }
+        return name == user.name && uuidString == user.uuidString
     }
-}
-
-extension User: Equatable {
-    static func ==(lhs: User, rhs: User) -> Bool {
-        return lhs.name == rhs.name && lhs.uuidString == rhs.uuidString
+    
+    override var description: String {
+        return "User(name:\(name), uuidString: \(uuidString))"
     }
 }

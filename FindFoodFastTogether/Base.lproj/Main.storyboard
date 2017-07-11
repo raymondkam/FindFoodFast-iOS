@@ -366,13 +366,42 @@
                             <constraint firstAttribute="trailing" secondItem="Rv7-ga-oSw" secondAttribute="trailing" id="w1U-9g-gBB"/>
                         </constraints>
                     </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="SpG-9z-DIM">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Start" id="Lc8-RC-CQi">
+                            <color key="tintColor" red="0.11339322120000001" green="0.73802603239999998" blue="0.83719235749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <segue destination="6nl-3E-dDM" kind="show" id="fQm-Q1-IPH"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="startButton" destination="Lc8-RC-CQi" id="s10-uZ-lGL"/>
                         <outlet property="userContainerViewHeightConstraint" destination="Sm3-Ro-vqB" id="ERv-fp-gmx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Qh-dv-Gag" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2086" y="541"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="kpB-rr-K6U">
+            <objects>
+                <viewController id="6nl-3E-dDM" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tIH-VW-LTs"/>
+                        <viewControllerLayoutGuide type="bottom" id="g3g-LV-5Kh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Vf2-sr-Whl">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zFe-lp-te1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2086" y="1274"/>
         </scene>
         <!--Suggestion Collection View Controller-->
         <scene sceneID="jpG-92-CkR">

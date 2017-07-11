@@ -12,7 +12,7 @@ import IGIdenticon
 class UserCollectionViewController: UICollectionViewController {
     
     weak var userContainerViewHeightConstraint: NSLayoutConstraint!
-    var dataSource = [User]()
+    dynamic var dataSource = [User]()
     
     override func viewDidLoad() {
         super.viewDidLoad()

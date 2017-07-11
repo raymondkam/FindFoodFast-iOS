@@ -18,6 +18,7 @@ class HostViewController: UIViewController {
     fileprivate var userCollectionViewController: UserCollectionViewController!
     
     @IBOutlet weak var userContainerViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var startButton: UIBarButtonItem!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -30,6 +31,25 @@ class HostViewController: UIViewController {
             if BluetoothPeripheralManager.sharedInstance.isReadyToAdvertise {
                 BluetoothPeripheralManager.sharedInstance.startAdvertising(hostname: hostname!)
             }
+        } else {
+            // remove the start button if not host
+            navigationItem.rightBarButtonItem = nil
+        }
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "dataSource" {
+            if let connectedUsers = change?[.newKey] as? [User], connectedUsers.count > 1 {
+                startButton.isEnabled = true
+            } else {
+                startButton.isEnabled = false
+            }
+        }
+    }
+    
+    deinit {
+        if hostname != nil {
+            userCollectionViewController.removeObserver(self, forKeyPath: "dataSource")
         }
     }
     
@@ -64,6 +84,7 @@ class HostViewController: UIViewController {
             if hostname != nil {
                 let newUser = User(name: username!, uuidString: Bluetooth.deviceUuidString!)
                 userCollectionViewController.dataSource.append(newUser)
+                userCollectionViewController.addObserver(self, forKeyPath: "dataSource", options: .new, context: nil)
             }
         case Segues.EmbedSuggestionCollection:
             suggestionCollectionViewController = segue.destination as! SuggestionCollectionViewController
