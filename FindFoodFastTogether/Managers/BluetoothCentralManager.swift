@@ -103,7 +103,7 @@ final class BluetoothCentralManager : NSObject {
             return
         }
         
-        dataToSend  = NSKeyedArchiver.archivedData(withRootObject: suggestion.asDictionary())
+        dataToSend  = NSKeyedArchiver.archivedData(withRootObject: suggestion)
         sendDataIndex = 0
         sendToCharacteristic = suggestionCharacteristic
         sendData()
@@ -283,8 +283,6 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
             return
         }
         
-        print("Sent: \(sendDataIndex! + BLEWriteToCharacteristicMaxSize)/\(dataToSend!.count) bytes")
-        
         if (sendingEOM) {
             // finished sending EOM, can clean up
             sendingEOM = false
@@ -294,6 +292,8 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
         } else {
             // update the index if it was sent
             sendDataIndex! += BLEWriteToCharacteristicMaxSize
+            
+            print("Sent: \(sendDataIndex!)/\(dataToSend!.count) bytes")
             
             if (sendDataIndex! >= dataToSend!.count) {
                 sendingEOM = true
@@ -333,17 +333,9 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
                 delegate?.bluetoothCentralManagerDidConnectToHost(self, users: connectedUsers)
             case FindFoodFastService.CharacteristicUUIDSuggestion:
                 print("received list of suggestions")
-                guard let suggestionDictionaries = NSKeyedUnarchiver.unarchiveObject(with: receivedData!) as? [[String: String]] else {
+                guard let suggestions = NSKeyedUnarchiver.unarchiveObject(with: receivedData!) as? [Suggestion] else {
                     print("was not able to unarchive list of suggestions")
                     return
-                }
-                var suggestions = [Suggestion]()
-                for suggestionDictionary in suggestionDictionaries {
-                    guard let suggestion = Suggestion(dictionary: suggestionDictionary) else {
-                        print("couldn't init suggestion with dictionary")
-                        return
-                    }
-                    suggestions.append(suggestion)
                 }
                 delegate?.bluetoothCentralManagerDidReceiveSuggestions(self, suggestions: suggestions)
             default:

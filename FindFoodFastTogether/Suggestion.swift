@@ -9,24 +9,21 @@
 import Foundation
 import UIKit
 
-struct Suggestion {
+class Suggestion: NSObject, NSCoding {
     var name: String
 
     init(name: String) {
         self.name = name
     }
     
-    init?(dictionary: [String: String]) {
-        guard let name = dictionary["name"] else {
-            print("invalid dictionary passed to Suggestion initializer")
+    required init?(coder aDecoder: NSCoder) {
+        guard let name = aDecoder.decodeObject(forKey: "name") as? String else {
             return nil
         }
         self.name = name
     }
     
-    func asDictionary() -> [String: String] {
-        var dict = [String: String]()
-        dict.updateValue(name, forKey: "name")
-        return dict
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(name, forKey: "name")
     }
 }

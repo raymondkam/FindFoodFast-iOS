@@ -23,14 +23,7 @@ class SuggestionCollectionViewController: UICollectionViewController {
         
         // also update host
         if (isHosting) {
-            var suggestionDictionaries = [[String: String]]()
-            for suggestion in dataSource {
-                let suggestionDictionary = suggestion.asDictionary()
-                suggestionDictionaries.append(suggestionDictionary)
-            }
-            let peripheralManager = BluetoothPeripheralManager.sharedInstance
-            peripheralManager.updateSuggestions(suggestionDictionaries: suggestionDictionaries)
-            
+            BluetoothPeripheralManager.sharedInstance.suggestions = dataSource
         } else {
             BluetoothCentralManager.sharedInstance.sendHostNewSuggestion(suggestion: suggestion)
         }

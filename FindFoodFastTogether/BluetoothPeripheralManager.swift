@@ -40,7 +40,17 @@ final class BluetoothPeripheralManager : NSObject {
                       .writeable]
     )
     fileprivate var uuidStringToUsername = [String: String]()
-    fileprivate var suggestionDictionaries = [[String: String]]()
+    fileprivate var _suggestions = [Suggestion]()
+    
+    var suggestions: [Suggestion] {
+        get {
+            return _suggestions
+        }
+        set {
+            _suggestions = newValue
+            sendSuggestions()
+        }
+    }
     
     // Variables related to sending data
     fileprivate var dataToSend: Data?
@@ -96,11 +106,6 @@ final class BluetoothPeripheralManager : NSObject {
         setupPeripheral()
     }
     
-    func updateSuggestions(suggestionDictionaries: [[String: String]]) {
-        self.suggestionDictionaries = suggestionDictionaries
-        sendSuggestions()
-    }
-    
     /* 
      * Sends to subscribers the updated list of users in the host's session
      */
@@ -125,7 +130,7 @@ final class BluetoothPeripheralManager : NSObject {
     
     fileprivate func sendSuggestions() {
         print("sending suggestions")
-        send(object: suggestionDictionaries, for: suggestionCharacteristic)
+        send(object: suggestions, for: suggestionCharacteristic)
     }
     
     fileprivate func send(object: Any, for characteristic: CBMutableCharacteristic) {
@@ -329,13 +334,8 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
                 
                 let stringFromData = String.init(data: data, encoding: .utf8)
                 if stringFromData == "EOM" {
-                    guard let suggestionDictionary = NSKeyedUnarchiver.unarchiveObject(with: receivedData!) as? [String: String] else {
+                    guard let suggestion = NSKeyedUnarchiver.unarchiveObject(with: receivedData!) as? Suggestion else {
                         print("invalid suggestion unarchived")
-                        peripheral.respond(to: request, withResult: .requestNotSupported)
-                        return
-                    }
-                    guard let suggestion = Suggestion(dictionary: suggestionDictionary) else {
-                        print("could not initialize suggestion with dictionary")
                         peripheral.respond(to: request, withResult: .requestNotSupported)
                         return
                     }
@@ -366,7 +366,7 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
             uuidStringToUsername.updateValue("", forKey: central.identifier.uuidString)
         case FindFoodFastService.CharacteristicUUIDSuggestion:
             // send central the list of current suggestions
-            if (suggestionDictionaries.count > 0) {
+            if (suggestions.count > 0) {
                 sendSuggestions()
             } else {
                 print("session has no suggestions, nothing to send")
