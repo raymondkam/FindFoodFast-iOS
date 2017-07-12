@@ -152,9 +152,12 @@ extension HostViewController : BluetoothPeripheralManagerDelegate {
     }
     
     func bluetoothPeripheralManagerDidDisconnectWith(_: BluetoothPeripheralManager, user: User) {
-        let index = userCollectionViewController.dataSource.index(where: { (aUser) -> Bool in
+        guard let index = userCollectionViewController.dataSource.index(where: { (aUser) -> Bool in
             return aUser == user
-        })!
+        }) else {
+            print("disconnected user's index not found")
+            return
+        }
         userCollectionViewController.dataSource.remove(at: index)
         userCollectionViewController.collectionView?.reloadData()
     }
