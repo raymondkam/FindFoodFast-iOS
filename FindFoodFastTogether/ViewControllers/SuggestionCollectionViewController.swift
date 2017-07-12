@@ -10,7 +10,7 @@ import UIKit
 
 class SuggestionCollectionViewController: UICollectionViewController {
 
-    var dataSource = [Suggestion]()
+    dynamic var dataSource = [Suggestion]()
     var isHosting: Bool!
     
     override func viewDidLoad() {

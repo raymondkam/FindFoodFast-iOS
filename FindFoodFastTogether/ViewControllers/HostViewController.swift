@@ -14,6 +14,9 @@ class HostViewController: UIViewController {
     var hostname: String? // only set if you are hosting
     var username: String?
     
+    private var hasEnoughUsers = false
+    private var hasEnoughSuggestions = false
+    
     fileprivate var suggestionCollectionViewController: SuggestionCollectionViewController!
     fileprivate var userCollectionViewController: UserCollectionViewController!
     
@@ -37,19 +40,43 @@ class HostViewController: UIViewController {
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if keyPath == "dataSource" {
-            if let connectedUsers = change?[.newKey] as? [User], connectedUsers.count > 1 {
-                startButton.isEnabled = true
-            } else {
-                startButton.isEnabled = false
+        guard hostname != nil else {
+            print("should not get here if not hosting")
+            return
+        }
+        if object as? UserCollectionViewController == userCollectionViewController {
+            if keyPath == "dataSource" {
+                if let connectedUsers = change?[.newKey] as? [User], connectedUsers.count > 1 {
+                    hasEnoughUsers = true
+                } else {
+                    hasEnoughUsers = false
+                }
             }
+        } else if object as? SuggestionCollectionViewController == suggestionCollectionViewController {
+            if keyPath == "dataSource" {
+                if let suggestions = change?[.newKey] as? [Suggestion], suggestions.count > 1 {
+                    hasEnoughSuggestions = true
+                } else {
+                    hasEnoughSuggestions = false
+                }
+            }
+        }
+        if hasEnoughUsers && hasEnoughSuggestions {
+            startButton.isEnabled = true
+        } else {
+            startButton.isEnabled = false
         }
     }
     
     deinit {
         if hostname != nil {
             userCollectionViewController.removeObserver(self, forKeyPath: "dataSource")
+            suggestionCollectionViewController.removeObserver(self, forKeyPath: "dataSource")
         }
     }
     
@@ -89,6 +116,9 @@ class HostViewController: UIViewController {
         case Segues.EmbedSuggestionCollection:
             suggestionCollectionViewController = segue.destination as! SuggestionCollectionViewController
             suggestionCollectionViewController.isHosting = hostname != nil
+            if hostname != nil {
+                suggestionCollectionViewController.addObserver(self, forKeyPath: "dataSource", options: .new, context: nil)
+            }
         case Segues.AddSuggestionFromHostView:
             (segue.destination as! AddSuggestionViewController).delegate = self
         default:
