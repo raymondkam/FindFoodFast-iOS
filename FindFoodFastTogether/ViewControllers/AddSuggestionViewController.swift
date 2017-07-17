@@ -67,7 +67,7 @@ class AddSuggestionViewController: UIViewController {
             return
         }
         
-        let suggestion = Suggestion(name: suggestionText)
+        let suggestion = Suggestion(name: suggestionText, rating: -1)
         delegate?.didAddSuggestion(suggestion: suggestion)
         navigationController?.popViewController(animated: true)
     }
