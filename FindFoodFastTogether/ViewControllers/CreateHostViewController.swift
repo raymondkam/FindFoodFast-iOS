@@ -25,6 +25,7 @@ class CreateHostViewController: UIViewController {
         }
 
         hostnameTextField.delegate = self
+        hostnameTextField.becomeFirstResponder()
         navigationItem.title = username
     }
     
