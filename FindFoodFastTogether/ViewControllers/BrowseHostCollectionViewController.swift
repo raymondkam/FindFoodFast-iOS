@@ -97,5 +97,7 @@ extension BrowseHostCollectionViewController : BluetoothCentralManagerDelegate {
     func bluetoothCentralManagerDidConnectToHost(_: BluetoothCentralManager, users: [User]) {}
     
     func bluetoothCentralManagerDidReceiveSuggestions(_: BluetoothCentralManager, suggestions: [Suggestion]) {}
+    
+    func bluetoothCentralManagerDidStartVoting(_: BluetoothCentralManager) {}
 }
 

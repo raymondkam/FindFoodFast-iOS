@@ -39,6 +39,14 @@ final class BluetoothPeripheralManager : NSObject {
         permissions: [.readable,
                       .writeable]
     )
+    fileprivate let votingCharacteristic = CBMutableCharacteristic(
+        type: FindFoodFastService.CharacteristicUUIDVoting,
+        properties: [.read,
+                     .write,
+                     .notify],
+        value: nil,
+        permissions: [.readable,
+                      .writeable])
     fileprivate var uuidStringToUsername = [String: String]()
     fileprivate var _suggestions = [Suggestion]()
     
@@ -76,6 +84,8 @@ final class BluetoothPeripheralManager : NSObject {
         return instance
     }()
     
+    // MARK: - Peripheral Control
+    
     internal func setupPeripheral() {
         
         let userDescriptionUuid:CBUUID = CBUUID(string:CBUUIDCharacteristicUserDescriptionString)
@@ -85,7 +95,10 @@ final class BluetoothPeripheralManager : NSObject {
         let suggestionsDescriptor = CBMutableDescriptor(type:userDescriptionUuid, value:"Know what suggestions there are in the session")
         suggestionCharacteristic.descriptors = [suggestionsDescriptor]
         
-        findFoodFastMutableService.characteristics = [joinSessionCharacteristic, suggestionCharacteristic]
+        let votingDescriptor = CBMutableDescriptor(type:userDescriptionUuid, value:"Know when voting begins and where voting results are sent to")
+        votingCharacteristic.descriptors = [votingDescriptor]
+        
+        findFoodFastMutableService.characteristics = [joinSessionCharacteristic, suggestionCharacteristic, votingCharacteristic]
         
         peripheralManager.add(findFoodFastMutableService)
     }
@@ -104,6 +117,12 @@ final class BluetoothPeripheralManager : NSObject {
         uuidStringToUsername.removeAll()
         peripheralManager.removeAllServices()
         setupPeripheral()
+    }
+    
+    // MARK: - Characteristic Data Transfer
+    
+    func startVoting() {
+        peripheralManager.updateValue("start".data(using: .utf8)!, for: votingCharacteristic, onSubscribedCentrals: nil)
     }
     
     /* 
@@ -371,6 +390,8 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
             } else {
                 print("session has no suggestions, nothing to send")
             }
+        case FindFoodFastService.CharacteristicUUIDVoting:
+            print("user subscribed to voting characteristic")
         default:
             print("characteristic subscribed to not recognized")
         }

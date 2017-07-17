@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6DDE0F95F2CCFA752E21E822 /* Pods_FindFoodFastTogether.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A20B9BBA240F833C759749B /* Pods_FindFoodFastTogether.framework */; };
+		9C3A25A41F1698E100B329A3 /* VoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3A25A31F1698E100B329A3 /* VoteViewController.swift */; };
 		9C7ACD981F104C940086157E /* Suggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7ACD971F104C940086157E /* Suggestion.swift */; };
 		9C7ACD9A1F104E260086157E /* SuggestionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7ACD991F104E260086157E /* SuggestionCollectionViewCell.swift */; };
 		9C7ACD9C1F106F990086157E /* AddSuggestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7ACD9B1F106F990086157E /* AddSuggestionViewController.swift */; };
@@ -61,6 +62,7 @@
 		75D7B7D1DB6DCB8F8E1BFBCB /* Pods-FindFoodFastTogetherUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FindFoodFastTogetherUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FindFoodFastTogetherUITests/Pods-FindFoodFastTogetherUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		767810F573EF7D74B8F37EB7 /* Pods-FindFoodFastTogether.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FindFoodFastTogether.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FindFoodFastTogether/Pods-FindFoodFastTogether.debug.xcconfig"; sourceTree = "<group>"; };
 		94A00FFB1968F0ED5309F8C8 /* Pods_FindFoodFastTogetherUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FindFoodFastTogetherUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C3A25A31F1698E100B329A3 /* VoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VoteViewController.swift; path = ViewControllers/VoteViewController.swift; sourceTree = "<group>"; };
 		9C7ACD971F104C940086157E /* Suggestion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Suggestion.swift; sourceTree = "<group>"; };
 		9C7ACD991F104E260086157E /* SuggestionCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SuggestionCollectionViewCell.swift; path = Views/SuggestionCollectionViewCell.swift; sourceTree = "<group>"; };
 		9C7ACD9B1F106F990086157E /* AddSuggestionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddSuggestionViewController.swift; path = ViewControllers/AddSuggestionViewController.swift; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 				9CF38B9A1F05AF4300A736B0 /* SuggestionCollectionViewController.swift */,
 				9CF38B9C1F05B47E00A736B0 /* UserCollectionViewController.swift */,
 				9C7ACD9B1F106F990086157E /* AddSuggestionViewController.swift */,
+				9C3A25A31F1698E100B329A3 /* VoteViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -333,7 +336,7 @@
 				TargetAttributes = {
 					9CC2B7FC1EEE407A0049E269 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = NT8RKCPT5K;
+						DevelopmentTeam = PQZB23WMA7;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -557,6 +560,7 @@
 				9CC2B8491EF784F10049E269 /* StartViewController.swift in Sources */,
 				9CF38B921EFCD12900A736B0 /* UIView+Helpers.swift in Sources */,
 				9CB181021EFAC7A40085517A /* BluetoothCentralManager.swift in Sources */,
+				9C3A25A41F1698E100B329A3 /* VoteViewController.swift in Sources */,
 				9CF38B9D1F05B47E00A736B0 /* UserCollectionViewController.swift in Sources */,
 				9CC2B8011EEE407A0049E269 /* AppDelegate.swift in Sources */,
 				9C7ACD9A1F104E260086157E /* SuggestionCollectionViewCell.swift in Sources */,
@@ -718,8 +722,9 @@
 			baseConfigurationReference = 767810F573EF7D74B8F37EB7 /* Pods-FindFoodFastTogether.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = NT8RKCPT5K;
+				DEVELOPMENT_TEAM = PQZB23WMA7;
 				INFOPLIST_FILE = FindFoodFastTogether/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.raymondkam.FindFoodFastTogether;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -732,8 +737,9 @@
 			baseConfigurationReference = 5A8B1D978F68B049796F0F12 /* Pods-FindFoodFastTogether.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = NT8RKCPT5K;
+				DEVELOPMENT_TEAM = PQZB23WMA7;
 				INFOPLIST_FILE = FindFoodFastTogether/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.raymondkam.FindFoodFastTogether;
 				PRODUCT_NAME = "$(TARGET_NAME)";

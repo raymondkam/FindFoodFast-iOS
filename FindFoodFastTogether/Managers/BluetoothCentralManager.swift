@@ -14,6 +14,7 @@ protocol BluetoothCentralManagerDelegate : class {
     func bluetoothCentralManagerDidDiscoverHost(_: BluetoothCentralManager, host: Host)
     func bluetoothCentralManagerDidConnectToHost(_: BluetoothCentralManager, users: [User])
     func bluetoothCentralManagerDidReceiveSuggestions(_: BluetoothCentralManager, suggestions: [Suggestion])
+    func bluetoothCentralManagerDidStartVoting(_: BluetoothCentralManager)
 }
 
 final class BluetoothCentralManager : NSObject {
@@ -202,7 +203,7 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
             print("peripheral services nil or has no services")
             return
         }
-        peripheral.discoverCharacteristics([FindFoodFastService.CharacteristicUUIDJoinSession, FindFoodFastService.CharacteristicUUIDSuggestion], for: services.first!)
+        peripheral.discoverCharacteristics([FindFoodFastService.CharacteristicUUIDJoinSession, FindFoodFastService.CharacteristicUUIDSuggestion, FindFoodFastService.CharacteristicUUIDVoting], for: services.first!)
     }
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
@@ -240,6 +241,9 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
                 // hold onto the suggestion characteristic so it is easier to 
                 // send suggestions later
                 suggestionCharacteristic = characteristic
+            } else if characteristic.uuid == FindFoodFastService.CharacteristicUUIDVoting {
+                peripheral.setNotifyValue(true, for: characteristic)
+                subscribedCharacteristics.append(characteristic)
             }
         }
     }
@@ -309,44 +313,49 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
             return
         }
         
-        guard receivedData != nil else {
-            // if receivedData is nil, then we are receiving the first chunk
-            receivedData = characteristic.value!
-            return
-        }
-        
-        let stringFromData = String.init(data: characteristic.value!, encoding: .utf8)
-        if stringFromData == "EOM" {
-            // handle data received from different characteristics differently
-            switch characteristic.uuid {
-            case FindFoodFastService.CharacteristicUUIDJoinSession:
-                print("received list of connected users")
-                // received all data
-                guard let uuidStringToUsername = NSKeyedUnarchiver.unarchiveObject(with: receivedData!) as? [String: String] else {
-                    print("was not able to unarchive list of connected users")
-                    return
-                }
-                let connectedUsers = uuidStringToUsername.map({ (uuidString, username) -> User in
-                    let user = User(name: username, uuidString: uuidString)
-                    return user
-                })
-                delegate?.bluetoothCentralManagerDidConnectToHost(self, users: connectedUsers)
-            case FindFoodFastService.CharacteristicUUIDSuggestion:
-                print("received list of suggestions")
-                guard let suggestions = NSKeyedUnarchiver.unarchiveObject(with: receivedData!) as? [Suggestion] else {
-                    print("was not able to unarchive list of suggestions")
-                    return
-                }
-                delegate?.bluetoothCentralManagerDidReceiveSuggestions(self, suggestions: suggestions)
-            default:
-                print("characteristic uuid not recognized")
+        if characteristic.uuid == FindFoodFastService.CharacteristicUUIDVoting {
+            // received the start of voting
+            delegate?.bluetoothCentralManagerDidStartVoting(self)
+        } else {
+            guard receivedData != nil else {
+                // if receivedData is nil, then we are receiving the first chunk
+                receivedData = characteristic.value!
+                return
             }
             
-            // clear received data for next transmission
-            receivedData = nil
-        } else {
-            // append the data
-            receivedData!.append(characteristic.value!)
+            let stringFromData = String.init(data: characteristic.value!, encoding: .utf8)
+            if stringFromData == "EOM" {
+                // handle data received from different characteristics differently
+                switch characteristic.uuid {
+                case FindFoodFastService.CharacteristicUUIDJoinSession:
+                    print("received list of connected users")
+                    // received all data
+                    guard let uuidStringToUsername = NSKeyedUnarchiver.unarchiveObject(with: receivedData!) as? [String: String] else {
+                        print("was not able to unarchive list of connected users")
+                        return
+                    }
+                    let connectedUsers = uuidStringToUsername.map({ (uuidString, username) -> User in
+                        let user = User(name: username, uuidString: uuidString)
+                        return user
+                    })
+                    delegate?.bluetoothCentralManagerDidConnectToHost(self, users: connectedUsers)
+                case FindFoodFastService.CharacteristicUUIDSuggestion:
+                    print("received list of suggestions")
+                    guard let suggestions = NSKeyedUnarchiver.unarchiveObject(with: receivedData!) as? [Suggestion] else {
+                        print("was not able to unarchive list of suggestions")
+                        return
+                    }
+                    delegate?.bluetoothCentralManagerDidReceiveSuggestions(self, suggestions: suggestions)
+                default:
+                    print("characteristic uuid not recognized")
+                }
+                
+                // clear received data for next transmission
+                receivedData = nil
+            } else {
+                // append the data
+                receivedData!.append(characteristic.value!)
+            }
         }
     }
     

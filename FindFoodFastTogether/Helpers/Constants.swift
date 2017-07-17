@@ -11,9 +11,10 @@ import CoreBluetooth
 import UIKit
 
 struct FindFoodFastService {
-    static let ServiceUUID = CBUUID.init(string: "83488d8d-667c-4ba0-8f52-0d8e61e772f6")
-    static let CharacteristicUUIDJoinSession = CBUUID.init(string: "b4cfdcf5-06ed-41c9-a188-bbb9aa95c0c4")
-    static let CharacteristicUUIDSuggestion = CBUUID.init(string: "70f6be9d-a964-440e-9ede-f4ce1df66fc3")
+    static let ServiceUUID = CBUUID(string: "83488d8d-667c-4ba0-8f52-0d8e61e772f6")
+    static let CharacteristicUUIDJoinSession = CBUUID(string: "b4cfdcf5-06ed-41c9-a188-bbb9aa95c0c4")
+    static let CharacteristicUUIDSuggestion = CBUUID(string: "70f6be9d-a964-440e-9ede-f4ce1df66fc3")
+    static let CharacteristicUUIDVoting = CBUUID(string: "4e548314-56f2-4975-905c-940bce856bf6")
 }
 
 struct FindFoodFastColor {
@@ -32,6 +33,7 @@ struct Segues {
     static let AddSuggestionFromHostView = "addSuggestionFromHostView"
     static let AddSuggestionFromCellButton = "addSuggestionFromCellButton"
     static let AddSuggestionFromCell = "addSuggestionFromCell"
+    static let StartVoting = "startVoting"
 }
 
 struct NotificationNames {

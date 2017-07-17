@@ -371,7 +371,7 @@
                         <barButtonItem key="rightBarButtonItem" enabled="NO" title="Start" id="Lc8-RC-CQi">
                             <color key="tintColor" red="0.11339322120000001" green="0.73802603239999998" blue="0.83719235749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
-                                <segue destination="6nl-3E-dDM" kind="show" id="fQm-Q1-IPH"/>
+                                <segue destination="6nl-3E-dDM" kind="show" identifier="startVoting" id="fQm-Q1-IPH"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -385,10 +385,10 @@
             </objects>
             <point key="canvasLocation" x="2086" y="541"/>
         </scene>
-        <!--View Controller-->
+        <!--Vote View Controller-->
         <scene sceneID="kpB-rr-K6U">
             <objects>
-                <viewController id="6nl-3E-dDM" sceneMemberID="viewController">
+                <viewController id="6nl-3E-dDM" customClass="VoteViewController" customModule="FindFoodFastTogether" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="tIH-VW-LTs"/>
                         <viewControllerLayoutGuide type="bottom" id="g3g-LV-5Kh"/>

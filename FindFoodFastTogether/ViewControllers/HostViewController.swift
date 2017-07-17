@@ -100,11 +100,11 @@ class HostViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard segue.identifier != nil else {
+        guard let identifier = segue.identifier else {
             print("segue has no identifier")
             return
         }
-        switch segue.identifier! {
+        switch identifier {
         case Segues.EmbedUserCollection:
             userCollectionViewController = (segue.destination as! UserCollectionViewController)
             userCollectionViewController.userContainerViewHeightConstraint = self.userContainerViewHeightConstraint
@@ -121,6 +121,16 @@ class HostViewController: UIViewController {
             }
         case Segues.AddSuggestionFromHostView:
             (segue.destination as! AddSuggestionViewController).delegate = self
+        case Segues.StartVoting:
+            guard let voteViewController = segue.destination as? VoteViewController else {
+                print("destination controller is not a vote view controller")
+                return
+            }
+            if (hostname != nil) {
+                BluetoothPeripheralManager.sharedInstance.startVoting()
+            }
+            // Pass on the suggestions to be voted on
+            voteViewController.suggestions = suggestionCollectionViewController.dataSource
         default:
             print("segue not recognized")
         }
@@ -138,6 +148,10 @@ extension HostViewController : BluetoothCentralManagerDelegate {
     func bluetoothCentralManagerDidReceiveSuggestions(_: BluetoothCentralManager, suggestions: [Suggestion]) {
         suggestionCollectionViewController.dataSource = suggestions
         suggestionCollectionViewController.collectionView?.reloadData()
+    }
+    
+    func bluetoothCentralManagerDidStartVoting(_: BluetoothCentralManager) {
+        performSegue(withIdentifier: Segues.StartVoting, sender: self)
     }
 }
 
