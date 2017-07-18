@@ -12,6 +12,7 @@
 		9C7ACD981F104C940086157E /* Suggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7ACD971F104C940086157E /* Suggestion.swift */; };
 		9C7ACD9A1F104E260086157E /* SuggestionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7ACD991F104E260086157E /* SuggestionCollectionViewCell.swift */; };
 		9C7ACD9C1F106F990086157E /* AddSuggestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7ACD9B1F106F990086157E /* AddSuggestionViewController.swift */; };
+		9CA76E5D1F1E778300208BB3 /* VoteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA76E5C1F1E778300208BB3 /* VoteCollectionViewCell.swift */; };
 		9CB181021EFAC7A40085517A /* BluetoothCentralManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB181011EFAC7A40085517A /* BluetoothCentralManager.swift */; };
 		9CC2B8011EEE407A0049E269 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC2B8001EEE407A0049E269 /* AppDelegate.swift */; };
 		9CC2B8031EEE407A0049E269 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC2B8021EEE407A0049E269 /* ViewController.swift */; };
@@ -67,6 +68,7 @@
 		9C7ACD991F104E260086157E /* SuggestionCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SuggestionCollectionViewCell.swift; path = Views/SuggestionCollectionViewCell.swift; sourceTree = "<group>"; };
 		9C7ACD9B1F106F990086157E /* AddSuggestionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddSuggestionViewController.swift; path = ViewControllers/AddSuggestionViewController.swift; sourceTree = "<group>"; };
 		9C8177201C3FA285B77819D3 /* Pods-FindFoodFastTogetherTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FindFoodFastTogetherTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FindFoodFastTogetherTests/Pods-FindFoodFastTogetherTests.release.xcconfig"; sourceTree = "<group>"; };
+		9CA76E5C1F1E778300208BB3 /* VoteCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VoteCollectionViewCell.swift; path = Views/VoteCollectionViewCell.swift; sourceTree = "<group>"; };
 		9CB181011EFAC7A40085517A /* BluetoothCentralManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BluetoothCentralManager.swift; path = Managers/BluetoothCentralManager.swift; sourceTree = "<group>"; };
 		9CC2B7FD1EEE407A0049E269 /* FindFoodFastTogether.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FindFoodFastTogether.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CC2B8001EEE407A0049E269 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 			children = (
 				9CC2B8321EF065DA0049E269 /* BrowseHostCollectionViewCell.swift */,
 				9C7ACD991F104E260086157E /* SuggestionCollectionViewCell.swift */,
+				9CA76E5C1F1E778300208BB3 /* VoteCollectionViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -560,6 +563,7 @@
 				9CC2B8491EF784F10049E269 /* StartViewController.swift in Sources */,
 				9CF38B921EFCD12900A736B0 /* UIView+Helpers.swift in Sources */,
 				9CB181021EFAC7A40085517A /* BluetoothCentralManager.swift in Sources */,
+				9CA76E5D1F1E778300208BB3 /* VoteCollectionViewCell.swift in Sources */,
 				9C3A25A41F1698E100B329A3 /* VoteViewController.swift in Sources */,
 				9CF38B9D1F05B47E00A736B0 /* UserCollectionViewController.swift in Sources */,
 				9CC2B8011EEE407A0049E269 /* AppDelegate.swift in Sources */,

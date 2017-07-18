@@ -23,7 +23,9 @@ class BrowseHostCollectionViewController: UICollectionViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier! {
         case Segues.JoinHost:
-            BluetoothCentralManager.sharedInstance.delegate = (segue.destination as! HostViewController)
+            let hostViewController = segue.destination as! HostViewController
+            BluetoothCentralManager.sharedInstance.delegate = hostViewController
+            hostViewController.isHosting = false
         default:
             print("segue identifier not recognized")
         }

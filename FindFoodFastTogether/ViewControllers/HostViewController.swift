@@ -11,6 +11,7 @@ import CoreBluetooth
 
 class HostViewController: UIViewController {
     
+    var isHosting: Bool!
     var hostname: String? // only set if you are hosting
     var username: String?
     
@@ -30,7 +31,7 @@ class HostViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if hostname != nil {
+        if isHosting {
             if BluetoothPeripheralManager.sharedInstance.isReadyToAdvertise {
                 BluetoothPeripheralManager.sharedInstance.startAdvertising(hostname: hostname!)
             }
@@ -45,7 +46,7 @@ class HostViewController: UIViewController {
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        guard hostname != nil else {
+        guard isHosting else {
             print("should not get here if not hosting")
             return
         }
@@ -74,7 +75,7 @@ class HostViewController: UIViewController {
     }
     
     deinit {
-        if hostname != nil {
+        if isHosting {
             userCollectionViewController.removeObserver(self, forKeyPath: "dataSource")
             suggestionCollectionViewController.removeObserver(self, forKeyPath: "dataSource")
         }
@@ -84,7 +85,7 @@ class HostViewController: UIViewController {
         super.viewDidDisappear(animated)
         
         if self.isBeingDismissed || self.isMovingFromParentViewController {
-            if hostname != nil {
+            if isHosting {
                 // stop advertising if host
                 let peripheralManager = BluetoothPeripheralManager.sharedInstance
                 peripheralManager.delegate = nil
@@ -108,15 +109,15 @@ class HostViewController: UIViewController {
         case Segues.EmbedUserCollection:
             userCollectionViewController = (segue.destination as! UserCollectionViewController)
             userCollectionViewController.userContainerViewHeightConstraint = self.userContainerViewHeightConstraint
-            if hostname != nil {
+            if isHosting {
                 let newUser = User(name: username!, uuidString: Bluetooth.deviceUuidString!)
                 userCollectionViewController.dataSource.append(newUser)
                 userCollectionViewController.addObserver(self, forKeyPath: "dataSource", options: .new, context: nil)
             }
         case Segues.EmbedSuggestionCollection:
             suggestionCollectionViewController = segue.destination as! SuggestionCollectionViewController
-            suggestionCollectionViewController.isHosting = hostname != nil
-            if hostname != nil {
+            suggestionCollectionViewController.isHosting = isHosting
+            if isHosting {
                 suggestionCollectionViewController.addObserver(self, forKeyPath: "dataSource", options: .new, context: nil)
             }
         case Segues.AddSuggestionFromHostView:
@@ -126,11 +127,12 @@ class HostViewController: UIViewController {
                 print("destination controller is not a vote view controller")
                 return
             }
-            if (hostname != nil) {
+            if isHosting {
                 BluetoothPeripheralManager.sharedInstance.startVoting()
             }
             // Pass on the suggestions to be voted on
-            voteViewController.suggestions = suggestionCollectionViewController.dataSource
+            voteViewController.dataSource = suggestionCollectionViewController.dataSource
+            voteViewController.isHosting = isHosting
         default:
             print("segue not recognized")
         }

@@ -59,6 +59,7 @@ class CreateHostViewController: UIViewController {
             let hostViewController = (segue.destination as! HostViewController)
             hostViewController.hostname = hostname
             hostViewController.username = username
+            hostViewController.isHosting = true
             BluetoothPeripheralManager.sharedInstance.delegate = hostViewController
         default:
             print("no such segue")
