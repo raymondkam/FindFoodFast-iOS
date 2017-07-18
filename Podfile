@@ -7,6 +7,7 @@ target 'FindFoodFastTogether' do
 
   # Pods for FindFoodFastTogether
   pod 'IGIdenticon'
+  pod 'Cosmos', '~> 11.0'
 
   target 'FindFoodFastTogetherTests' do
     inherit! :search_paths

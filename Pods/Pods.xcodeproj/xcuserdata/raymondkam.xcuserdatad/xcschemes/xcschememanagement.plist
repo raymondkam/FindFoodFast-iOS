@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Cosmos.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>IGIdenticon.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -32,12 +37,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5E0C155A868F2083AEA5462DB01707C4</key>
+		<key>4FDC533A4360A68ABDCE852F04B30927</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>8AC44F5CA9BBA118155AB80CDC849845</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A433BDC17E87240BE99CC8E025DFFB65</key>
 		<dict>
 			<key>primary</key>
 			<true/>
