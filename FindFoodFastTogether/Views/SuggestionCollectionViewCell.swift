@@ -14,10 +14,10 @@ class SuggestionCollectionViewCell: UICollectionViewCell {
     
     var title:String? {
         get {
-            return self.titleLabel.text
+            return titleLabel.text
         }
         set(newTitle) {
-            self.titleLabel.text = newTitle
+            titleLabel.text = newTitle
         }
     }
 }

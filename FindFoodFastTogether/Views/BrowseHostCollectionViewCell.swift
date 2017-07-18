@@ -15,19 +15,19 @@ class BrowseHostCollectionViewCell: UICollectionViewCell {
     
     var title:String? {
         get {
-            return self.titleLabel.text
+            return titleLabel.text
         }
         set(newTitle) {
-            self.titleLabel.text = newTitle
+            titleLabel.text = newTitle
         }
     }
     
     var thumbnail:UIImage? {
         get {
-            return self.thumbnailImageView.image
+            return thumbnailImageView.image
         }
         set(newThumbnail) {
-            self.thumbnailImageView.image = newThumbnail
+            thumbnailImageView.image = newThumbnail
         }
     }
     
