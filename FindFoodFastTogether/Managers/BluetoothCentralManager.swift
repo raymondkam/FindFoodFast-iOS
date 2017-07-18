@@ -33,6 +33,8 @@ final class BluetoothCentralManager : NSObject {
     fileprivate var sendingEOM = false
     fileprivate var sendToCharacteristic: CBCharacteristic?
     fileprivate let BLEWriteToCharacteristicMaxSize = 20
+    fileprivate var retryNumber = 0
+    fileprivate let maxRetryNumber = 5
     
     weak var delegate: BluetoothCentralManagerDelegate?
     var uuidToHosts = [String: Host]()
@@ -277,15 +279,21 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
      */
     func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
         if (error != nil) {
-            // retry if there is an error
-            print("peripheral did write value failed, error: \(String(describing: error?.localizedDescription)), retrying in 1 second...")
-            // retry after 1 second
-            DispatchQueue.global().asyncAfter(deadline: .now() + 1 , execute: { [weak self] () in
-                print("retry sending data")
-                self?.sendData()
-            })
+            if (retryNumber < maxRetryNumber) {
+                // retry packet if there is an error
+                print("peripheral did write value failed, error: \(String(describing: error?.localizedDescription)), retry number \(retryNumber) in 1 second...")
+                // retry after 1 second
+                DispatchQueue.global().asyncAfter(deadline: .now() + 1 , execute: { [weak self] () in
+                    print("retry sending data")
+                    self?.sendData()
+                })
+                retryNumber += 1
+            }
             return
         }
+        
+        // success, reset retry number
+        retryNumber = 0
         
         if (sendingEOM) {
             // finished sending EOM, can clean up
