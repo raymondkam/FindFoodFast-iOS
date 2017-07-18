@@ -20,11 +20,10 @@ class Suggestion: NSObject, NSCoding {
     
     required init?(coder aDecoder: NSCoder) {
         guard let name = aDecoder.decodeObject(forKey: "name") as? String else {
+            print("suggestion init: could not decode name")
             return nil
         }
-        guard let rating = aDecoder.decodeObject(forKey: "rating") as? Int else {
-            return nil
-        }
+        let rating = aDecoder.decodeInteger(forKey: "rating")
         self.name = name
         self.rating = rating
     }
