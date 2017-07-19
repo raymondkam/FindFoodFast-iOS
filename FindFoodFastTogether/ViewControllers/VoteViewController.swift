@@ -33,14 +33,17 @@ class VoteViewController: UIViewController {
             }
         }
     }
-
+    
+    @IBOutlet weak var votesProcessingView: UIStackView!
     @IBOutlet weak var countdownLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
+        // hide the nav bar for the voting process
+        navigationController?.isNavigationBarHidden = true
         
-        navigationItem.hidesBackButton = true
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [weak self] (timer) in
             guard var countdown = self?.countdown else {
                 return
@@ -62,15 +65,7 @@ class VoteViewController: UIViewController {
                 } else {
                     // end timer and submit results
                     timer.invalidate()
-                    guard let isHosting = self?.isHosting else {
-                        print("don't know whether to send or receive results")
-                        return
-                    }
-                    if isHosting {
-                        self?.collectVotes()
-                    } else {
-                        self?.sendVotes()
-                    }
+                    self?.doneVoting()
                 }
             }
         })
@@ -100,6 +95,25 @@ class VoteViewController: UIViewController {
             print("rating for \(suggestion.name) is \(suggestion.rating)")
         }
     }
+    
+    fileprivate func doneVoting() {
+        UIView.animate(withDuration: 0.6, animations: { 
+            self.collectionView.alpha = 0
+            self.countdownLabel.alpha = 0
+            self.votesProcessingView.alpha = 1
+        }) { (finished) in
+            if finished {
+                self.collectionView.isHidden = true
+                self.countdownLabel.isHidden = true
+            }
+        }
+        
+        if isHosting {
+            self.collectVotes()
+        } else {
+            self.sendVotes()
+        }
+    }
 }
 
 extension VoteViewController: UICollectionViewDataSource {
@@ -120,19 +134,11 @@ extension VoteViewController: UICollectionViewDataSource {
                 print("self is nil or data source is nil")
                 return
             }
-            guard let isHosting = self?.isHosting else {
-                print("self is nil or does not know whether is hosting")
-                return
-            }
             suggestion.rating = Int(rating)
             if currentIndex < dataSource.count - 1 {
                 self?.scrollToNextCell()
             } else {
-                if isHosting {
-                    self?.collectVotes()
-                } else {
-                    self?.sendVotes()
-                }
+                self?.doneVoting()
             }
         }
         
