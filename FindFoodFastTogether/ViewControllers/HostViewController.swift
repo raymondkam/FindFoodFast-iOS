@@ -31,6 +31,10 @@ class HostViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        #if DEBUG
+            hasEnoughUsers = true
+        #endif
+        
         if isHosting {
             if BluetoothPeripheralManager.sharedInstance.isReadyToAdvertise {
                 BluetoothPeripheralManager.sharedInstance.startAdvertising(hostname: hostname!)
@@ -55,7 +59,11 @@ class HostViewController: UIViewController {
                 if let connectedUsers = change?[.newKey] as? [User], connectedUsers.count > 1 {
                     hasEnoughUsers = true
                 } else {
-                    hasEnoughUsers = false
+                    #if DEBUG
+                        hasEnoughUsers = true
+                    #else
+                        hasEnoughUsers = false
+                    #endif
                 }
             }
         } else if object as? SuggestionCollectionViewController == suggestionCollectionViewController {
