@@ -138,6 +138,7 @@ extension VoteViewController: UICollectionViewDataSource {
             if currentIndex < dataSource.count - 1 {
                 self?.scrollToNextCell()
             } else {
+                self?.timer.invalidate()
                 self?.doneVoting()
             }
         }
