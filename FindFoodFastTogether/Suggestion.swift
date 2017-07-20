@@ -32,4 +32,16 @@ class Suggestion: NSObject, NSCoding {
         aCoder.encode(name, forKey: "name")
         aCoder.encode(rating, forKey: "rating")
     }
+    
+    override func isEqual(_ object: Any?) -> Bool {
+        guard let suggestion = object as? Suggestion else {
+            return false
+        }
+        
+        return suggestion.name == self.name
+    }
+    
+    override var hashValue: Int {
+        return name.hashValue
+    }
 }

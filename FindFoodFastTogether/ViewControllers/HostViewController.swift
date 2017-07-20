@@ -136,7 +136,9 @@ class HostViewController: UIViewController {
                 return
             }
             if isHosting {
-                BluetoothPeripheralManager.sharedInstance.startVoting()
+                let peripheralManager = BluetoothPeripheralManager.sharedInstance
+                peripheralManager.startVoting()
+                peripheralManager.delegate = voteViewController
             }
             // Pass on the suggestions to be voted on
             voteViewController.dataSource = suggestionCollectionViewController.dataSource
@@ -189,6 +191,8 @@ extension HostViewController : BluetoothPeripheralManagerDelegate {
     func bluetoothPeripheralManagerDidReceiveNewSuggestion(_: BluetoothPeripheralManager, suggestion: Suggestion) {
         suggestionCollectionViewController.addSuggestion(suggestion: suggestion)
     }
+    
+    func bluetoothPeripheralManagerDidReceiveVotedSuggestions(_: BluetoothPeripheralManager, votedSuggestions: [Suggestion], from central: CBCentral) {}
 }
 
 extension HostViewController: AddSuggestionDelegate {

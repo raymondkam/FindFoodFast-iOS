@@ -25,6 +25,7 @@ final class BluetoothCentralManager : NSObject {
     fileprivate var connectedPeripheral: CBPeripheral?
     fileprivate var subscribedCharacteristics = [CBCharacteristic]()
     fileprivate var suggestionCharacteristic: CBCharacteristic?
+    fileprivate var votingCharacteristic: CBCharacteristic?
     fileprivate var receivedData: Data?
     
     // for writing large payloads to characteristic
@@ -109,6 +110,18 @@ final class BluetoothCentralManager : NSObject {
         dataToSend  = NSKeyedArchiver.archivedData(withRootObject: suggestion)
         sendDataIndex = 0
         sendToCharacteristic = suggestionCharacteristic
+        sendData()
+    }
+    
+    func sendHostVotedSuggestions(votedSuggestions: [Suggestion]) {
+        guard let votingCharacteristic = votingCharacteristic else {
+            print("voting characteristic not saved, cannot send voted suggestions")
+            return
+        }
+        
+        dataToSend = NSKeyedArchiver.archivedData(withRootObject: votedSuggestions)
+        sendDataIndex = 0
+        sendToCharacteristic = votingCharacteristic
         sendData()
     }
     
@@ -246,6 +259,8 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
             } else if characteristic.uuid == FindFoodFastService.CharacteristicUUIDVoting {
                 peripheral.setNotifyValue(true, for: characteristic)
                 subscribedCharacteristics.append(characteristic)
+                // hold onto the voting characteristic to send the host their votes
+                votingCharacteristic = characteristic
             }
         }
     }

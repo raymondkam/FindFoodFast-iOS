@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreBluetooth
 
 class VoteViewController: UIViewController {
     
@@ -15,6 +16,9 @@ class VoteViewController: UIViewController {
 
     fileprivate static let InitialCountdown: UInt = 5
     fileprivate let reuseIdentifier = "voteCell"
+    fileprivate var totalRatingSuggestions = Set<Suggestion>()
+    fileprivate var pendingVotesFromCentrals: Set<CBCentral>!
+    fileprivate var submittedHostVotes = false
     fileprivate var timer: Timer!
     fileprivate var currentIndex = 0
     fileprivate var countdown: UInt {
@@ -41,6 +45,11 @@ class VoteViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     
+        if isHosting {
+            // note down the centrals we will need to collect votes from later
+            pendingVotesFromCentrals = Set(BluetoothPeripheralManager.sharedInstance.subscribedCentrals)
+        }
+        
         // hide the nav bar for the voting process
         navigationController?.isNavigationBarHidden = true
         
@@ -82,11 +91,9 @@ class VoteViewController: UIViewController {
     }
     
     fileprivate func collectVotes() {
-        // wait for clients to send votes
-        print("collect votes")
-        for suggestion in dataSource {
-            print("rating for \(suggestion.name) is \(suggestion.rating)")
-        }
+        // save your own votes
+        submittedHostVotes = true
+        processRatingsFromVotedSuggestions(votedSuggestions: dataSource)
     }
     
     fileprivate func sendVotes() {
@@ -94,6 +101,8 @@ class VoteViewController: UIViewController {
         for suggestion in dataSource {
             print("rating for \(suggestion.name) is \(suggestion.rating)")
         }
+        
+        BluetoothCentralManager.sharedInstance.sendHostVotedSuggestions(votedSuggestions: dataSource)
     }
     
     fileprivate func doneVoting() {
@@ -112,6 +121,36 @@ class VoteViewController: UIViewController {
             self.collectVotes()
         } else {
             self.sendVotes()
+        }
+    }
+    
+    fileprivate func processRatingsFromVotedSuggestions(votedSuggestions: [Suggestion]) {
+        for votedSuggestion in votedSuggestions {
+            if let totalRatingSuggestion = totalRatingSuggestions.first(where: { (suggestion) -> Bool in
+                return votedSuggestion == suggestion
+            }) {
+                totalRatingSuggestion.rating += votedSuggestion.rating
+                totalRatingSuggestions.update(with: totalRatingSuggestion)
+            } else {
+                // not in the set of suggestions
+                totalRatingSuggestions.insert(votedSuggestion)
+            }
+        }
+        
+        if pendingVotesFromCentrals.count == 0 && submittedHostVotes {
+            // DONE COLLECTING
+            print("done collecting all votes")
+            findSuggestionWithHighestRating()
+        }
+    }
+    
+    fileprivate func findSuggestionWithHighestRating() {
+        let bestSuggestion = totalRatingSuggestions.max { (a, b) -> Bool in
+            return a.rating < b.rating
+        }
+        
+        if let bestSuggestion = bestSuggestion {
+            print("best name: \(bestSuggestion.name) and rating: \(bestSuggestion.rating)")
         }
     }
 }
@@ -164,4 +203,19 @@ extension VoteViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.size.width - 20, height: 340)
     }
+}
+
+extension VoteViewController: BluetoothPeripheralManagerDelegate {
+    func bluetoothPeripheralManagerDidReceiveVotedSuggestions(_: BluetoothPeripheralManager, votedSuggestions: [Suggestion], from central: CBCentral) {
+        // remove from pending set of centrals
+        pendingVotesFromCentrals.remove(central)
+        
+        processRatingsFromVotedSuggestions(votedSuggestions: votedSuggestions)
+    }
+    
+    // Unused delegate methods
+    func bluetoothPeripheralManagerDidBecomeReadyToAdvertise(_: BluetoothPeripheralManager) {}
+    func bluetoothPeripheralManagerDidConnectWith(_: BluetoothPeripheralManager, newUser: User) {}
+    func bluetoothPeripheralManagerDidDisconnectWith(_: BluetoothPeripheralManager, user: User) {}
+    func bluetoothPeripheralManagerDidReceiveNewSuggestion(_: BluetoothPeripheralManager, suggestion: Suggestion) {}
 }

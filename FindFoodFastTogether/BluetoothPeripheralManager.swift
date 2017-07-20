@@ -15,6 +15,7 @@ protocol BluetoothPeripheralManagerDelegate : class {
     func bluetoothPeripheralManagerDidConnectWith(_: BluetoothPeripheralManager, newUser: User)
     func bluetoothPeripheralManagerDidDisconnectWith(_: BluetoothPeripheralManager, user: User)
     func bluetoothPeripheralManagerDidReceiveNewSuggestion(_: BluetoothPeripheralManager, suggestion: Suggestion)
+    func bluetoothPeripheralManagerDidReceiveVotedSuggestions(_: BluetoothPeripheralManager, votedSuggestions: [Suggestion], from central: CBCentral)
 }
 
 final class BluetoothPeripheralManager : NSObject {
@@ -129,7 +130,7 @@ final class BluetoothPeripheralManager : NSObject {
      * Sends to subscribers the updated list of users in the host's session
      */
     fileprivate func sendConnectedUsersList() {
-        print("sending list of connected users")
+        print("sending list of connected users to clients")
         // make sure uuid string and username are not empty or incomplete
         let filteredUuidStringToUsernameArray = uuidStringToUsername.filter { (uuidString, username) -> Bool in
             return uuidString.characters.count > 0 && username.characters.count > 0
@@ -148,7 +149,7 @@ final class BluetoothPeripheralManager : NSObject {
     }
     
     fileprivate func sendSuggestions() {
-        print("sending suggestions")
+        print("sending suggestions to clients")
         send(object: suggestions, for: suggestionCharacteristic)
     }
     
@@ -340,7 +341,7 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
             case FindFoodFastService.CharacteristicUUIDSuggestion:
                 print("received write for suggestion")
                 guard let data = request.value else {
-                    print("request has nil data")
+                    print("request for suggestion has nil data")
                     peripheral.respond(to: request, withResult: .requestNotSupported)
                     return
                 }
@@ -359,6 +360,33 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
                         return
                     }
                     delegate?.bluetoothPeripheralManagerDidReceiveNewSuggestion(self, suggestion: suggestion)
+                    
+                    // clear received data for next transmission
+                    receivedData = nil
+                } else {
+                    // not done receiving all data, append the data
+                    receivedData!.append(data)
+                }
+                peripheral.respond(to: request, withResult: .success)
+            case FindFoodFastService.CharacteristicUUIDVoting:
+                guard let data = request.value else {
+                    print("voting request has nil data")
+                    return
+                }
+                guard receivedData != nil else {
+                    // if received data is nil, then is first chunk
+                    receivedData = data
+                    peripheral.respond(to: request, withResult: .success)
+                    return
+                }
+                let stringFromData = String.init(data: data, encoding: .utf8)
+                if stringFromData == "EOM" {
+                    guard let votedSuggestions = NSKeyedUnarchiver.unarchiveObject(with: receivedData!) as? [Suggestion] else {
+                        print("invalid voted suggestions unarchived")
+                        peripheral.respond(to: request, withResult: .requestNotSupported)
+                        return
+                    }
+                    delegate?.bluetoothPeripheralManagerDidReceiveVotedSuggestions(self, votedSuggestions: votedSuggestions, from: request.central)
                     
                     // clear received data for next transmission
                     receivedData = nil
