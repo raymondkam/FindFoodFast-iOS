@@ -99,6 +99,7 @@ class VoteViewController: UIViewController {
                 return
             }
             highestRatedSuggestionViewController.highestRatedSuggestion = highestRatedSuggestion
+            highestRatedSuggestionViewController.isHosting = isHosting
         }
     }
 

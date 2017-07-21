@@ -36,6 +36,7 @@ struct Segues {
     static let AddSuggestionFromCell = "addSuggestionFromCell"
     static let StartVoting = "startVoting"
     static let ShowHighestRatedSuggestion = "showHighestRatedSuggestion"
+    static let UnwindToStart = "unwindToStart"
 }
 
 struct NotificationNames {

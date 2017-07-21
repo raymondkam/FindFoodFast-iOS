@@ -125,8 +125,14 @@ final class BluetoothPeripheralManager : NSObject {
         peripheralManager.stopAdvertising()
     }
     
-    func resetPeripheral() {
+    func clearPeripheralData() {
         uuidStringToUsername.removeAll()
+        _suggestions.removeAll()
+        subscribedCentrals.removeAll()
+    }
+    
+    func resetPeripheral() {
+        clearPeripheralData()
         peripheralManager.removeAllServices()
         setupPeripheral()
     }
@@ -436,6 +442,8 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
             }
         case FindFoodFastService.CharacteristicUUIDVoting:
             print("user subscribed to voting characteristic")
+        case FindFoodFastService.CharacteristicUUIDHighestRatedSuggestion:
+            print("user subscribed to highest rated suggestion characteristic")
         default:
             print("characteristic subscribed to not recognized")
         }

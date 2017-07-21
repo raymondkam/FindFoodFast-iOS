@@ -137,6 +137,9 @@ class HostViewController: UIViewController {
             }
             if isHosting {
                 let peripheralManager = BluetoothPeripheralManager.sharedInstance
+                // stop advertising to stop other people from 
+                // joining while voting is in progress
+                peripheralManager.stopAdvertising()
                 peripheralManager.startVoting()
                 peripheralManager.delegate = voteViewController
             } else {

@@ -85,15 +85,15 @@ final class BluetoothCentralManager : NSObject {
     }
     
     func disconnectFromPeripheral() {
-        guard connectedPeripheral != nil else {
+        guard let connectedPeripheral = connectedPeripheral else {
             print("cannot disconnect if no peripheral is connected")
             return
         }
         subscribedCharacteristics.forEach { (characteristic) in
-            connectedPeripheral?.setNotifyValue(false, for: characteristic)
+            connectedPeripheral.setNotifyValue(false, for: characteristic)
         }
         subscribedCharacteristics.removeAll()
-        centralManager.cancelPeripheralConnection(connectedPeripheral!)
+        centralManager.cancelPeripheralConnection(connectedPeripheral)
         print("successfully disconnected from peripheral")
     }
 

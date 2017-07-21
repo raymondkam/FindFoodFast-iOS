@@ -20,6 +20,7 @@ class HighestRatedSuggestionViewController: UIViewController {
     @IBOutlet weak var noImageLabel: UILabel!
     
     var highestRatedSuggestion: Suggestion!
+    var isHosting: Bool!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +39,21 @@ class HighestRatedSuggestionViewController: UIViewController {
         }) { (completed) in
             if completed {
                 print("animation complete")
+            }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let segueIdentifier = segue.identifier else {
+            print("no segue identifier")
+            return
+        }
+        if segueIdentifier == Segues.UnwindToStart {
+            // do clean up of BT managers
+            if (isHosting) {
+                BluetoothPeripheralManager.sharedInstance.clearPeripheralData()
+            } else {
+                BluetoothCentralManager.sharedInstance.disconnectFromPeripheral()
             }
         }
     }
