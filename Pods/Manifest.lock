@@ -1,15 +1,21 @@
 PODS:
   - Cosmos (11.0.3)
+  - GoogleMaps/Base (2.3.1)
+  - GooglePlaces (2.3.1):
+    - GoogleMaps/Base (= 2.3.1)
   - IGIdenticon (0.4)
 
 DEPENDENCIES:
   - Cosmos (~> 11.0)
+  - GooglePlaces
   - IGIdenticon
 
 SPEC CHECKSUMS:
   Cosmos: eb506859929f4add2d2aec822a27efb2f718a95d
+  GoogleMaps: c66a71058b9b1294bcdd5463a68e357fa50c079f
+  GooglePlaces: 4a7b22debfa1af65017b82943431822607e45201
   IGIdenticon: f9bbe354e8a3583f71c391395689a03115fe58c4
 
-PODFILE CHECKSUM: 50680016a1236ef3dab6580fef573d97b71ec427
+PODFILE CHECKSUM: e964e913c7fd1dfce3ce7bd4ceafbd4d733d6200
 
 COCOAPODS: 1.2.1

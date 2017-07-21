@@ -7,41 +7,41 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		015C902B9C0E63DA0519A0D34E10F739 /* CosmosSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80C7306F7F779E8D81C826F0145DB92 /* CosmosSettings.swift */; };
+		015C902B9C0E63DA0519A0D34E10F739 /* CosmosSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B8BF517275F9B61059864DC6253D06 /* CosmosSettings.swift */; };
 		01A621DC3D381D1791A2B55D212044E9 /* Pods-FindFoodFastTogether-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F199158C6E379E6063ADCADC111C5AA8 /* Pods-FindFoodFastTogether-dummy.m */; };
-		0B1060A5F5C4960C6F87F7B985288C7F /* GitHubIdenticon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BCF39B02543899890F85C4CE2ECF42 /* GitHubIdenticon.swift */; };
+		0B1060A5F5C4960C6F87F7B985288C7F /* GitHubIdenticon.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8EBA97796053E619337BC710B62A06 /* GitHubIdenticon.swift */; };
 		0C6D6622005F101C83D8FFE62D3281A6 /* Pods-FindFoodFastTogetherUITests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA16F1C7495CFC2A54CFD298B00A1F8 /* Pods-FindFoodFastTogetherUITests-dummy.m */; };
-		0EC88D04EAE0CD3EFD3C3C89C1B9F45F /* CosmosLocalizedRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7691D1BB2DEF1DAB5520DA2E48F6BB14 /* CosmosLocalizedRating.swift */; };
-		1CD3777DB4F578C622C367FD49E1BCD2 /* CGImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D917B832785155903359701EE3DB2D2 /* CGImageExtension.swift */; };
+		0EC88D04EAE0CD3EFD3C3C89C1B9F45F /* CosmosLocalizedRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6829C7247C6A2D453CDD8C99194DEA9F /* CosmosLocalizedRating.swift */; };
+		1CD3777DB4F578C622C367FD49E1BCD2 /* CGImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85648E46D96D6C8591296503ACB4794 /* CGImageExtension.swift */; };
 		20A61874A1D877709F4CB82FAC47A9F8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC7524F0BE53ABC149C4387DFEFE2B51 /* Foundation.framework */; };
-		25DFA72039CBA011EBA738AA73084A8E /* CosmosSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C00E7FBB2437DC7021F4A281EF505C /* CosmosSize.swift */; };
+		25DFA72039CBA011EBA738AA73084A8E /* CosmosSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AF07D3CAED657674BE754D67F99E48 /* CosmosSize.swift */; };
 		26544A64EAB8E895E15F4B8CB927BE5E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8621F66D446C6F4AC0D7F817144EB150 /* CoreGraphics.framework */; };
-		36FA2F315B1941715CD6ADE73748D0B3 /* JenkinsHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E3BA2D99E86B4EED6BC918BF57468D /* JenkinsHash.swift */; };
-		371F422D050761A63F0156F537B8902D /* CosmosDefaultSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B0CBEC5AA6326B216A39F42BEA3AAC /* CosmosDefaultSettings.swift */; };
-		3DF6ECF23D38E7DA5B5B2B43707F2F4D /* Cosmos-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = CB6B123383A06F348635DA3709A1E913 /* Cosmos-dummy.m */; };
-		424AD9605CBDCD867083B9820784E0AC /* CosmosText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758E9B206378B25AEFB44CE423E51226 /* CosmosText.swift */; };
+		36FA2F315B1941715CD6ADE73748D0B3 /* JenkinsHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DF367E49E189755F07ABB84407E761 /* JenkinsHash.swift */; };
+		371F422D050761A63F0156F537B8902D /* CosmosDefaultSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178188E5AD8773C91692FEC99D29899D /* CosmosDefaultSettings.swift */; };
+		3DF6ECF23D38E7DA5B5B2B43707F2F4D /* Cosmos-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFE519EC073434A23A540A17DFA7703 /* Cosmos-dummy.m */; };
+		424AD9605CBDCD867083B9820784E0AC /* CosmosText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A5D702A164014698A5E3D26BF8AF46 /* CosmosText.swift */; };
 		4591CC5184DDD020F3BC62DA298A6AC9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC7524F0BE53ABC149C4387DFEFE2B51 /* Foundation.framework */; };
-		45F546D14166EDEE46371951EC705C03 /* CosmosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3CB9363544E6FE214D659F18314F50 /* CosmosView.swift */; };
-		476122A4B628953C42DD31973273A76F /* IconGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77BD09B755D44D99A6A22978440FD86 /* IconGenerator.swift */; };
-		4F40A9CBB316E7100828F0C6F5714946 /* CosmosTouch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80963BD0282A76ADA462A0E8DAF11583 /* CosmosTouch.swift */; };
+		45F546D14166EDEE46371951EC705C03 /* CosmosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B5F0E10087D88192287158A75BA9FA /* CosmosView.swift */; };
+		476122A4B628953C42DD31973273A76F /* IconGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC5DDD274281FBBFCD93A730DFDCEB3 /* IconGenerator.swift */; };
+		4F40A9CBB316E7100828F0C6F5714946 /* CosmosTouch.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC210B7B6BBFEE9BB0BB1D77F12D446 /* CosmosTouch.swift */; };
 		51CD901793709F44BA269ED9C11E59F1 /* Pods-FindFoodFastTogetherTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D320AC5DCABAB1C7CF5D9673EEC645C9 /* Pods-FindFoodFastTogetherTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6006213EF7218BC4B0071832FBC68BB9 /* IGIdenticon-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F82EF580DA84C5824F5564E477DC96 /* IGIdenticon-dummy.m */; };
-		7CC5A43D7E1372EB6292FCBC0151A36E /* CosmosAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4440C49AF5C1872DF34FA3BA4EA455DB /* CosmosAccessibility.swift */; };
-		88BA9FFC474BD7B995A0CEA06FF431F7 /* StarFillMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F2E71614EE5B246DD7CFFA4FE48106 /* StarFillMode.swift */; };
+		6006213EF7218BC4B0071832FBC68BB9 /* IGIdenticon-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9810B9B4E4D5811404C8234625440B /* IGIdenticon-dummy.m */; };
+		7CC5A43D7E1372EB6292FCBC0151A36E /* CosmosAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB24C5A89DC4A91D870FD77AA93BF79 /* CosmosAccessibility.swift */; };
+		88BA9FFC474BD7B995A0CEA06FF431F7 /* StarFillMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCBD0948EEFF7C590DB7A4DB5221FF1 /* StarFillMode.swift */; };
 		99DEF1BBBC48F4D66BB8FB3A4FE76408 /* Pods-FindFoodFastTogether-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E82FD805F111840CF375B0E6BC6A080 /* Pods-FindFoodFastTogether-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		99F08F6FE2B165EEBD5E01EDDA176620 /* CosmosRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44022C5CCA349C3CDD30FB002A599152 /* CosmosRating.swift */; };
+		99F08F6FE2B165EEBD5E01EDDA176620 /* CosmosRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2932A1D699F41B4CBBC510803F7CD964 /* CosmosRating.swift */; };
 		A8D0F1C3405DD1451822DBEDCB4925BC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC7524F0BE53ABC149C4387DFEFE2B51 /* Foundation.framework */; };
-		AA0D1E368D1DD9528F3DBBC13FA4DDCC /* Identicon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1641504BE477FA7503BEE12A535751 /* Identicon.swift */; };
-		AA971D9492DD9B9E288045C2C0CC9A99 /* CosmosLayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC29E5C5E85B8D48F5ABB4010A899DAD /* CosmosLayers.swift */; };
-		AD5DA195DDDBF73A0E3F8FFC621C82BC /* CGColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A9DE1A3C84D1EF99E67BB05A95D688 /* CGColorExtension.swift */; };
+		AA0D1E368D1DD9528F3DBBC13FA4DDCC /* Identicon.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17D9564463AAC28FE3E560C484B6C19 /* Identicon.swift */; };
+		AA971D9492DD9B9E288045C2C0CC9A99 /* CosmosLayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04D7139693A1C28CF85C0AB4D294D7E /* CosmosLayers.swift */; };
+		AD5DA195DDDBF73A0E3F8FFC621C82BC /* CGColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308A08FBD831015FD77C1EE1C13D1466 /* CGColorExtension.swift */; };
 		C2BE08B4E1FDE8FD97B67C0C92171737 /* Pods-FindFoodFastTogetherUITests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = E98978D954FBBE82F10DEDEA89845873 /* Pods-FindFoodFastTogetherUITests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C79D2F2FCE3EF9B31D1222E0C4A59DC5 /* RightToLeft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950950A49D3A9ED9AD2319145992ECDB /* RightToLeft.swift */; };
-		C95B658D689425ED9DAA95EB479B44A6 /* StarLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07431B1CC87A6877AB1DDAD435E75809 /* StarLayer.swift */; };
-		DE5E91A47C1BF6869DF17747D61C2FF1 /* Cosmos-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A41E6DA7870A47DB35741864132BC3 /* Cosmos-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E2D8D1AA0D41C73C4B570DE682C05D72 /* CosmosTouchTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F80CAB7CEA056546F2F5F4BBD21E4C /* CosmosTouchTarget.swift */; };
+		C79D2F2FCE3EF9B31D1222E0C4A59DC5 /* RightToLeft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0807C098BC813EF23A293D7C87BC369F /* RightToLeft.swift */; };
+		C95B658D689425ED9DAA95EB479B44A6 /* StarLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384BAC56E76958849CE76E63E6BE3D11 /* StarLayer.swift */; };
+		DE5E91A47C1BF6869DF17747D61C2FF1 /* Cosmos-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D4BD13E9651D36BBB213342F23AAE351 /* Cosmos-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2D8D1AA0D41C73C4B570DE682C05D72 /* CosmosTouchTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919A0E8A6A7C7815718C81C9126E3844 /* CosmosTouchTarget.swift */; };
 		E55E0EC4200299AE72D270D085C2E93B /* Pods-FindFoodFastTogetherTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E1DFB55F5380688ABEE31229FDCAF2D /* Pods-FindFoodFastTogetherTests-dummy.m */; };
-		F485E80DE07F82D570AA460D5E62FC13 /* IGIdenticon-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D070F1F9EE6C8EAF6A31426532F34CE /* IGIdenticon-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F66DE3EF01408C42C115587B201CB541 /* CosmosLayerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CB9F8A932660735EC9D55502F08664 /* CosmosLayerHelper.swift */; };
+		F485E80DE07F82D570AA460D5E62FC13 /* IGIdenticon-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 691DA1AE7AC373922350B4F16DAD2419 /* IGIdenticon-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F66DE3EF01408C42C115587B201CB541 /* CosmosLayerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE037AEFBBE86B27EE0BBBDC089B179D /* CosmosLayerHelper.swift */; };
 		FFD7FBAC5D9EB4DDB5CFCE5A75B14ED0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC7524F0BE53ABC149C4387DFEFE2B51 /* Foundation.framework */; };
 		FFF90C29AF31AD227BB278B7AA0D01F4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC7524F0BE53ABC149C4387DFEFE2B51 /* Foundation.framework */; };
 /* End PBXBuildFile section */
@@ -64,74 +64,77 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		06BCF39B02543899890F85C4CE2ECF42 /* GitHubIdenticon.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GitHubIdenticon.swift; path = Identicon/GitHubIdenticon.swift; sourceTree = "<group>"; };
-		07431B1CC87A6877AB1DDAD435E75809 /* StarLayer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StarLayer.swift; path = Cosmos/StarLayer.swift; sourceTree = "<group>"; };
+		0807C098BC813EF23A293D7C87BC369F /* RightToLeft.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RightToLeft.swift; path = Cosmos/Helpers/RightToLeft.swift; sourceTree = "<group>"; };
 		0E1DFB55F5380688ABEE31229FDCAF2D /* Pods-FindFoodFastTogetherTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-FindFoodFastTogetherTests-dummy.m"; sourceTree = "<group>"; };
+		0EE2022FAF1972734AF58187F56D094D /* IGIdenticon.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = IGIdenticon.modulemap; sourceTree = "<group>"; };
 		11952FF5958891DFAA5EDB64FB7B16F6 /* Pods-FindFoodFastTogether-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-FindFoodFastTogether-frameworks.sh"; sourceTree = "<group>"; };
-		14C00E7FBB2437DC7021F4A281EF505C /* CosmosSize.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosSize.swift; path = Cosmos/CosmosSize.swift; sourceTree = "<group>"; };
+		14DF367E49E189755F07ABB84407E761 /* JenkinsHash.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = JenkinsHash.swift; path = Identicon/JenkinsHash.swift; sourceTree = "<group>"; };
+		178188E5AD8773C91692FEC99D29899D /* CosmosDefaultSettings.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosDefaultSettings.swift; path = Cosmos/CosmosDefaultSettings.swift; sourceTree = "<group>"; };
 		1D93A3F74BC32D247552C79D636C13BB /* Pods_FindFoodFastTogetherTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_FindFoodFastTogetherTests.framework; path = "Pods-FindFoodFastTogetherTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		24F82EF580DA84C5824F5564E477DC96 /* IGIdenticon-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "IGIdenticon-dummy.m"; sourceTree = "<group>"; };
-		2590929373051A4C79F950C7A7D17909 /* Cosmos.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = Cosmos.modulemap; sourceTree = "<group>"; };
-		32B0CBEC5AA6326B216A39F42BEA3AAC /* CosmosDefaultSettings.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosDefaultSettings.swift; path = Cosmos/CosmosDefaultSettings.swift; sourceTree = "<group>"; };
-		38D93AFE94E73095353BD65C2391BA9F /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3FD693FC04417955AA8D4965F8DD4732 /* Cosmos-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Cosmos-prefix.pch"; sourceTree = "<group>"; };
-		44022C5CCA349C3CDD30FB002A599152 /* CosmosRating.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosRating.swift; path = Cosmos/CosmosRating.swift; sourceTree = "<group>"; };
-		4440C49AF5C1872DF34FA3BA4EA455DB /* CosmosAccessibility.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosAccessibility.swift; path = Cosmos/CosmosAccessibility.swift; sourceTree = "<group>"; };
+		2932A1D699F41B4CBBC510803F7CD964 /* CosmosRating.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosRating.swift; path = Cosmos/CosmosRating.swift; sourceTree = "<group>"; };
+		2B842DD6851BB012AAC2674621524F88 /* Cosmos.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = Cosmos.modulemap; sourceTree = "<group>"; };
+		2C9810B9B4E4D5811404C8234625440B /* IGIdenticon-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "IGIdenticon-dummy.m"; sourceTree = "<group>"; };
+		2CD7D46DC06D14D8C5ED6DC432BE16B7 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		308A08FBD831015FD77C1EE1C13D1466 /* CGColorExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CGColorExtension.swift; path = Identicon/CGColorExtension.swift; sourceTree = "<group>"; };
+		384BAC56E76958849CE76E63E6BE3D11 /* StarLayer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StarLayer.swift; path = Cosmos/StarLayer.swift; sourceTree = "<group>"; };
+		3DFE519EC073434A23A540A17DFA7703 /* Cosmos-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Cosmos-dummy.m"; sourceTree = "<group>"; };
+		47B5F0E10087D88192287158A75BA9FA /* CosmosView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosView.swift; path = Cosmos/CosmosView.swift; sourceTree = "<group>"; };
+		4A3C77E97C46B7CC4159D748F96055F5 /* IGIdenticon.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = IGIdenticon.xcconfig; sourceTree = "<group>"; };
 		4C0BD39CC1AEADA9716E10A9F85C58A9 /* Cosmos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Cosmos.framework; path = Cosmos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E82FD805F111840CF375B0E6BC6A080 /* Pods-FindFoodFastTogether-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-FindFoodFastTogether-umbrella.h"; sourceTree = "<group>"; };
 		4E89B8764FD1FD495442E8CD515908BC /* Pods-FindFoodFastTogether-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-FindFoodFastTogether-acknowledgements.plist"; sourceTree = "<group>"; };
 		573FB36CF531E55E4AD055561992076D /* Pods-FindFoodFastTogether.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-FindFoodFastTogether.debug.xcconfig"; sourceTree = "<group>"; };
-		5C1641504BE477FA7503BEE12A535751 /* Identicon.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Identicon.swift; path = Identicon/Identicon.swift; sourceTree = "<group>"; };
+		5DC5DDD274281FBBFCD93A730DFDCEB3 /* IconGenerator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IconGenerator.swift; path = Identicon/IconGenerator.swift; sourceTree = "<group>"; };
+		5E9E8DE1E96EE368388AEBAB8CDB7BBD /* Cosmos-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Cosmos-prefix.pch"; sourceTree = "<group>"; };
 		61AADFF1B9AD4F30C41E59AB1BDC3D8C /* Pods_FindFoodFastTogetherUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_FindFoodFastTogetherUITests.framework; path = "Pods-FindFoodFastTogetherUITests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6829C7247C6A2D453CDD8C99194DEA9F /* CosmosLocalizedRating.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosLocalizedRating.swift; path = Cosmos/CosmosLocalizedRating.swift; sourceTree = "<group>"; };
+		691DA1AE7AC373922350B4F16DAD2419 /* IGIdenticon-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "IGIdenticon-umbrella.h"; sourceTree = "<group>"; };
+		6975F06108050363FF539CC606A84187 /* IGIdenticon-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "IGIdenticon-prefix.pch"; sourceTree = "<group>"; };
+		69A5D702A164014698A5E3D26BF8AF46 /* CosmosText.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosText.swift; path = Cosmos/CosmosText.swift; sourceTree = "<group>"; };
 		6A6F1EEB564562DF4943982FF4BD81B8 /* Pods-FindFoodFastTogetherTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-FindFoodFastTogetherTests-acknowledgements.plist"; sourceTree = "<group>"; };
+		6ABC55122A306F7B2CFCB500F67ED58F /* GooglePlaces.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = GooglePlaces.bundle; path = Frameworks/GooglePlaces.framework/Versions/A/Resources/GooglePlaces.bundle; sourceTree = "<group>"; };
+		6EE7ABF7B8717EE617BE67E78215334D /* GoogleMapsBase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMapsBase.framework; path = Base/Frameworks/GoogleMapsBase.framework; sourceTree = "<group>"; };
 		6FF58031A77D7E26C08174763BA55AE1 /* Pods-FindFoodFastTogetherUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-FindFoodFastTogetherUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		71C34F75BF6233099195BBB12BC5C260 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		758E9B206378B25AEFB44CE423E51226 /* CosmosText.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosText.swift; path = Cosmos/CosmosText.swift; sourceTree = "<group>"; };
-		7691D1BB2DEF1DAB5520DA2E48F6BB14 /* CosmosLocalizedRating.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosLocalizedRating.swift; path = Cosmos/CosmosLocalizedRating.swift; sourceTree = "<group>"; };
-		77F2E71614EE5B246DD7CFFA4FE48106 /* StarFillMode.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StarFillMode.swift; path = Cosmos/StarFillMode.swift; sourceTree = "<group>"; };
-		788BAC8A2712870631439D92F7107DA0 /* Cosmos.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Cosmos.xcconfig; sourceTree = "<group>"; };
 		794C28D863CD277C902E84B7033C0021 /* Pods-FindFoodFastTogetherUITests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-FindFoodFastTogetherUITests-frameworks.sh"; sourceTree = "<group>"; };
-		7D917B832785155903359701EE3DB2D2 /* CGImageExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CGImageExtension.swift; path = Identicon/CGImageExtension.swift; sourceTree = "<group>"; };
+		79DDF3727826C7E779C089F8A9DB1DD0 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7F9E307DD215D139F9AFE5426BCC4883 /* IGIdenticon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = IGIdenticon.framework; path = IGIdenticon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		80963BD0282A76ADA462A0E8DAF11583 /* CosmosTouch.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosTouch.swift; path = Cosmos/CosmosTouch.swift; sourceTree = "<group>"; };
 		8621F66D446C6F4AC0D7F817144EB150 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		883860F794D66195006BD1FCF04ADCBA /* Pods-FindFoodFastTogetherTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-FindFoodFastTogetherTests.release.xcconfig"; sourceTree = "<group>"; };
-		8A7CCE64C00D7E2562BFD20293ED1710 /* IGIdenticon.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = IGIdenticon.xcconfig; sourceTree = "<group>"; };
-		90A9DE1A3C84D1EF99E67BB05A95D688 /* CGColorExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CGColorExtension.swift; path = Identicon/CGColorExtension.swift; sourceTree = "<group>"; };
+		919A0E8A6A7C7815718C81C9126E3844 /* CosmosTouchTarget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosTouchTarget.swift; path = Cosmos/Helpers/CosmosTouchTarget.swift; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		950950A49D3A9ED9AD2319145992ECDB /* RightToLeft.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RightToLeft.swift; path = Cosmos/Helpers/RightToLeft.swift; sourceTree = "<group>"; };
-		9D070F1F9EE6C8EAF6A31426532F34CE /* IGIdenticon-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "IGIdenticon-umbrella.h"; sourceTree = "<group>"; };
+		99B8BF517275F9B61059864DC6253D06 /* CosmosSettings.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosSettings.swift; path = Cosmos/CosmosSettings.swift; sourceTree = "<group>"; };
 		9DB557B7C55908247EA030E6FFE99A85 /* Pods-FindFoodFastTogetherUITests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-FindFoodFastTogetherUITests-resources.sh"; sourceTree = "<group>"; };
-		A9296D3EDBDD0E463E1D303217906111 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AAEB39F1286D5D96657278801B6D2B64 /* IGIdenticon.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = IGIdenticon.modulemap; sourceTree = "<group>"; };
+		A85648E46D96D6C8591296503ACB4794 /* CGImageExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CGImageExtension.swift; path = Identicon/CGImageExtension.swift; sourceTree = "<group>"; };
 		AB27C7E9C8B7AB43BDCF93C23CE47746 /* Pods-FindFoodFastTogetherTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-FindFoodFastTogetherTests.debug.xcconfig"; sourceTree = "<group>"; };
 		AC7524F0BE53ABC149C4387DFEFE2B51 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		AED62277FFFE5272D75B3F40F67C0263 /* Pods-FindFoodFastTogetherTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-FindFoodFastTogetherTests-resources.sh"; sourceTree = "<group>"; };
-		AF3CB9363544E6FE214D659F18314F50 /* CosmosView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosView.swift; path = Cosmos/CosmosView.swift; sourceTree = "<group>"; };
 		B2487A9B214DB4F8ADC10F5BB47BDF49 /* Pods-FindFoodFastTogether.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-FindFoodFastTogether.modulemap"; sourceTree = "<group>"; };
 		B4F0F77D4FE06DDB26911B76CB840743 /* Pods-FindFoodFastTogetherTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-FindFoodFastTogetherTests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		B5CB9F8A932660735EC9D55502F08664 /* CosmosLayerHelper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosLayerHelper.swift; path = Cosmos/CosmosLayerHelper.swift; sourceTree = "<group>"; };
-		B71FA68174933100DA0E08854F61FA88 /* IGIdenticon-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "IGIdenticon-prefix.pch"; sourceTree = "<group>"; };
+		BE037AEFBBE86B27EE0BBBDC089B179D /* CosmosLayerHelper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosLayerHelper.swift; path = Cosmos/CosmosLayerHelper.swift; sourceTree = "<group>"; };
+		BFCBD0948EEFF7C590DB7A4DB5221FF1 /* StarFillMode.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StarFillMode.swift; path = Cosmos/StarFillMode.swift; sourceTree = "<group>"; };
+		C04D7139693A1C28CF85C0AB4D294D7E /* CosmosLayers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosLayers.swift; path = Cosmos/CosmosLayers.swift; sourceTree = "<group>"; };
+		C8AF07D3CAED657674BE754D67F99E48 /* CosmosSize.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosSize.swift; path = Cosmos/CosmosSize.swift; sourceTree = "<group>"; };
 		CA9D9CB14AABA9C23C922A3668945488 /* Pods_FindFoodFastTogether.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_FindFoodFastTogether.framework; path = "Pods-FindFoodFastTogether.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		CB6B123383A06F348635DA3709A1E913 /* Cosmos-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Cosmos-dummy.m"; sourceTree = "<group>"; };
 		CBD43F172360B2275CA52104D6A6402A /* Pods-FindFoodFastTogetherUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-FindFoodFastTogetherUITests.release.xcconfig"; sourceTree = "<group>"; };
 		CC3B6D3220B675F4F9EF17A07C39672A /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CD0305901E12667A7F385AC7A8332AEF /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D320AC5DCABAB1C7CF5D9673EEC645C9 /* Pods-FindFoodFastTogetherTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-FindFoodFastTogetherTests-umbrella.h"; sourceTree = "<group>"; };
-		D6E3BA2D99E86B4EED6BC918BF57468D /* JenkinsHash.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = JenkinsHash.swift; path = Identicon/JenkinsHash.swift; sourceTree = "<group>"; };
-		D80C7306F7F779E8D81C826F0145DB92 /* CosmosSettings.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosSettings.swift; path = Cosmos/CosmosSettings.swift; sourceTree = "<group>"; };
+		D4BD13E9651D36BBB213342F23AAE351 /* Cosmos-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Cosmos-umbrella.h"; sourceTree = "<group>"; };
+		D9E04E3F8280951703086615668CB3ED /* GooglePlaces.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GooglePlaces.framework; path = Frameworks/GooglePlaces.framework; sourceTree = "<group>"; };
+		DB8EBA97796053E619337BC710B62A06 /* GitHubIdenticon.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GitHubIdenticon.swift; path = Identicon/GitHubIdenticon.swift; sourceTree = "<group>"; };
 		DCA16F1C7495CFC2A54CFD298B00A1F8 /* Pods-FindFoodFastTogetherUITests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-FindFoodFastTogetherUITests-dummy.m"; sourceTree = "<group>"; };
 		E14435E23A718FA68DEB948CC720516C /* Pods-FindFoodFastTogetherUITests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-FindFoodFastTogetherUITests.modulemap"; sourceTree = "<group>"; };
-		E3A41E6DA7870A47DB35741864132BC3 /* Cosmos-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Cosmos-umbrella.h"; sourceTree = "<group>"; };
 		E845BEE108BFA94AA8AE96DFEEA88B09 /* Pods-FindFoodFastTogether-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-FindFoodFastTogether-resources.sh"; sourceTree = "<group>"; };
-		E8F80CAB7CEA056546F2F5F4BBD21E4C /* CosmosTouchTarget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosTouchTarget.swift; path = Cosmos/Helpers/CosmosTouchTarget.swift; sourceTree = "<group>"; };
 		E98978D954FBBE82F10DEDEA89845873 /* Pods-FindFoodFastTogetherUITests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-FindFoodFastTogetherUITests-umbrella.h"; sourceTree = "<group>"; };
-		EC29E5C5E85B8D48F5ABB4010A899DAD /* CosmosLayers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosLayers.swift; path = Cosmos/CosmosLayers.swift; sourceTree = "<group>"; };
+		EBB24C5A89DC4A91D870FD77AA93BF79 /* CosmosAccessibility.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosAccessibility.swift; path = Cosmos/CosmosAccessibility.swift; sourceTree = "<group>"; };
+		EEC210B7B6BBFEE9BB0BB1D77F12D446 /* CosmosTouch.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosTouch.swift; path = Cosmos/CosmosTouch.swift; sourceTree = "<group>"; };
 		EFBB3A2D5269D73FB8F16540242880AB /* Pods-FindFoodFastTogetherTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-FindFoodFastTogetherTests.modulemap"; sourceTree = "<group>"; };
+		F17D9564463AAC28FE3E560C484B6C19 /* Identicon.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Identicon.swift; path = Identicon/Identicon.swift; sourceTree = "<group>"; };
 		F199158C6E379E6063ADCADC111C5AA8 /* Pods-FindFoodFastTogether-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-FindFoodFastTogether-dummy.m"; sourceTree = "<group>"; };
 		F303050CC2107207585349284D9B6439 /* Pods-FindFoodFastTogetherUITests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-FindFoodFastTogetherUITests-acknowledgements.plist"; sourceTree = "<group>"; };
 		F5FC20658AEA4DCAD59CD25E3A65C3CB /* Pods-FindFoodFastTogether-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-FindFoodFastTogether-acknowledgements.markdown"; sourceTree = "<group>"; };
-		F77BD09B755D44D99A6A22978440FD86 /* IconGenerator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IconGenerator.swift; path = Identicon/IconGenerator.swift; sourceTree = "<group>"; };
+		F65E106F2310AA6045C9311CCE1A6876 /* Cosmos.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Cosmos.xcconfig; sourceTree = "<group>"; };
 		FB4BD77408A996AF4D3C9D7F672E8CB1 /* Pods-FindFoodFastTogetherUITests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-FindFoodFastTogetherUITests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		FB57C3F722327F38EA3056D5F2C46EB7 /* Pods-FindFoodFastTogetherTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-FindFoodFastTogetherTests-frameworks.sh"; sourceTree = "<group>"; };
 		FF645DAF9853196942C1097CE91E42B6 /* Pods-FindFoodFastTogether.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-FindFoodFastTogether.release.xcconfig"; sourceTree = "<group>"; };
@@ -182,6 +185,65 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0206B9A01A26FE654162B6AB320C3738 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				351D968D9DAFD7FE3675741A7CB7293E /* Frameworks */,
+			);
+			name = Base;
+			sourceTree = "<group>";
+		};
+		0740FE61796E0A8DC2748F223F4A84BD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				73C2715D78E2224BADD4DA2C5C26A619 /* Cosmos */,
+				E3BF8ADD084F84C048F30F55B3AD9F63 /* GoogleMaps */,
+				14FEC979B4BA48993E14B11A962D0087 /* GooglePlaces */,
+				73147F542F446824A6B1184014B77033 /* IGIdenticon */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		0CE99EC292F32FFE8BF07192E0A3EF7E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6ABC55122A306F7B2CFCB500F67ED58F /* GooglePlaces.bundle */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		14FEC979B4BA48993E14B11A962D0087 /* GooglePlaces */ = {
+			isa = PBXGroup;
+			children = (
+				9F67DFEB34E2DB1F510C49A1F015CCC2 /* Frameworks */,
+				0CE99EC292F32FFE8BF07192E0A3EF7E /* Resources */,
+			);
+			name = GooglePlaces;
+			path = GooglePlaces;
+			sourceTree = "<group>";
+		};
+		351D968D9DAFD7FE3675741A7CB7293E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6EE7ABF7B8717EE617BE67E78215334D /* GoogleMapsBase.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3FD576DD3766E3273B09A5D9C39B53ED /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				0EE2022FAF1972734AF58187F56D094D /* IGIdenticon.modulemap */,
+				4A3C77E97C46B7CC4159D748F96055F5 /* IGIdenticon.xcconfig */,
+				2C9810B9B4E4D5811404C8234625440B /* IGIdenticon-dummy.m */,
+				6975F06108050363FF539CC606A84187 /* IGIdenticon-prefix.pch */,
+				691DA1AE7AC373922350B4F16DAD2419 /* IGIdenticon-umbrella.h */,
+				2CD7D46DC06D14D8C5ED6DC432BE16B7 /* Info.plist */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/IGIdenticon";
+			sourceTree = "<group>";
+		};
 		433CD3331B6C3787F473C941B61FC68F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -238,24 +300,54 @@
 			path = "Target Support Files/Pods-FindFoodFastTogetherUITests";
 			sourceTree = "<group>";
 		};
+		73147F542F446824A6B1184014B77033 /* IGIdenticon */ = {
+			isa = PBXGroup;
+			children = (
+				308A08FBD831015FD77C1EE1C13D1466 /* CGColorExtension.swift */,
+				A85648E46D96D6C8591296503ACB4794 /* CGImageExtension.swift */,
+				DB8EBA97796053E619337BC710B62A06 /* GitHubIdenticon.swift */,
+				5DC5DDD274281FBBFCD93A730DFDCEB3 /* IconGenerator.swift */,
+				F17D9564463AAC28FE3E560C484B6C19 /* Identicon.swift */,
+				14DF367E49E189755F07ABB84407E761 /* JenkinsHash.swift */,
+				3FD576DD3766E3273B09A5D9C39B53ED /* Support Files */,
+			);
+			name = IGIdenticon;
+			path = IGIdenticon;
+			sourceTree = "<group>";
+		};
+		73C2715D78E2224BADD4DA2C5C26A619 /* Cosmos */ = {
+			isa = PBXGroup;
+			children = (
+				EBB24C5A89DC4A91D870FD77AA93BF79 /* CosmosAccessibility.swift */,
+				178188E5AD8773C91692FEC99D29899D /* CosmosDefaultSettings.swift */,
+				BE037AEFBBE86B27EE0BBBDC089B179D /* CosmosLayerHelper.swift */,
+				C04D7139693A1C28CF85C0AB4D294D7E /* CosmosLayers.swift */,
+				6829C7247C6A2D453CDD8C99194DEA9F /* CosmosLocalizedRating.swift */,
+				2932A1D699F41B4CBBC510803F7CD964 /* CosmosRating.swift */,
+				99B8BF517275F9B61059864DC6253D06 /* CosmosSettings.swift */,
+				C8AF07D3CAED657674BE754D67F99E48 /* CosmosSize.swift */,
+				69A5D702A164014698A5E3D26BF8AF46 /* CosmosText.swift */,
+				EEC210B7B6BBFEE9BB0BB1D77F12D446 /* CosmosTouch.swift */,
+				919A0E8A6A7C7815718C81C9126E3844 /* CosmosTouchTarget.swift */,
+				47B5F0E10087D88192287158A75BA9FA /* CosmosView.swift */,
+				0807C098BC813EF23A293D7C87BC369F /* RightToLeft.swift */,
+				BFCBD0948EEFF7C590DB7A4DB5221FF1 /* StarFillMode.swift */,
+				384BAC56E76958849CE76E63E6BE3D11 /* StarLayer.swift */,
+				D5E64D2B4E1DFEB74020FE20719039F0 /* Support Files */,
+			);
+			name = Cosmos;
+			path = Cosmos;
+			sourceTree = "<group>";
+		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				433CD3331B6C3787F473C941B61FC68F /* Frameworks */,
-				8ECA463F91F730FB9CBE0391C8E2306A /* Pods */,
+				0740FE61796E0A8DC2748F223F4A84BD /* Pods */,
 				520EF23A104F4CA4BC17EA5A3E1DEDEB /* Products */,
 				F06749EFF760BC9D1C6BF3AEEC9CBCCA /* Targets Support Files */,
 			);
-			sourceTree = "<group>";
-		};
-		8ECA463F91F730FB9CBE0391C8E2306A /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				FECC1A384C7A6F90FC6E2D7398B62244 /* Cosmos */,
-				C06F871227F07981FB70838B1E519ED7 /* IGIdenticon */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 		98929A91E26EC22B563338BF0AF11E6B /* Pods-FindFoodFastTogether */ = {
@@ -276,33 +368,12 @@
 			path = "Target Support Files/Pods-FindFoodFastTogether";
 			sourceTree = "<group>";
 		};
-		9BCD08F7690DDABF886A0908085B074E /* Support Files */ = {
+		9F67DFEB34E2DB1F510C49A1F015CCC2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AAEB39F1286D5D96657278801B6D2B64 /* IGIdenticon.modulemap */,
-				8A7CCE64C00D7E2562BFD20293ED1710 /* IGIdenticon.xcconfig */,
-				24F82EF580DA84C5824F5564E477DC96 /* IGIdenticon-dummy.m */,
-				B71FA68174933100DA0E08854F61FA88 /* IGIdenticon-prefix.pch */,
-				9D070F1F9EE6C8EAF6A31426532F34CE /* IGIdenticon-umbrella.h */,
-				A9296D3EDBDD0E463E1D303217906111 /* Info.plist */,
+				D9E04E3F8280951703086615668CB3ED /* GooglePlaces.framework */,
 			);
-			name = "Support Files";
-			path = "../Target Support Files/IGIdenticon";
-			sourceTree = "<group>";
-		};
-		C06F871227F07981FB70838B1E519ED7 /* IGIdenticon */ = {
-			isa = PBXGroup;
-			children = (
-				90A9DE1A3C84D1EF99E67BB05A95D688 /* CGColorExtension.swift */,
-				7D917B832785155903359701EE3DB2D2 /* CGImageExtension.swift */,
-				06BCF39B02543899890F85C4CE2ECF42 /* GitHubIdenticon.swift */,
-				F77BD09B755D44D99A6A22978440FD86 /* IconGenerator.swift */,
-				5C1641504BE477FA7503BEE12A535751 /* Identicon.swift */,
-				D6E3BA2D99E86B4EED6BC918BF57468D /* JenkinsHash.swift */,
-				9BCD08F7690DDABF886A0908085B074E /* Support Files */,
-			);
-			name = IGIdenticon;
-			path = IGIdenticon;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		C93AA53D048424A67CC426E3C9422A44 /* iOS */ = {
@@ -314,18 +385,27 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		DAC351B95AC50ABDEDA4EAF2BEC8DCD7 /* Support Files */ = {
+		D5E64D2B4E1DFEB74020FE20719039F0 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				2590929373051A4C79F950C7A7D17909 /* Cosmos.modulemap */,
-				788BAC8A2712870631439D92F7107DA0 /* Cosmos.xcconfig */,
-				CB6B123383A06F348635DA3709A1E913 /* Cosmos-dummy.m */,
-				3FD693FC04417955AA8D4965F8DD4732 /* Cosmos-prefix.pch */,
-				E3A41E6DA7870A47DB35741864132BC3 /* Cosmos-umbrella.h */,
-				38D93AFE94E73095353BD65C2391BA9F /* Info.plist */,
+				2B842DD6851BB012AAC2674621524F88 /* Cosmos.modulemap */,
+				F65E106F2310AA6045C9311CCE1A6876 /* Cosmos.xcconfig */,
+				3DFE519EC073434A23A540A17DFA7703 /* Cosmos-dummy.m */,
+				5E9E8DE1E96EE368388AEBAB8CDB7BBD /* Cosmos-prefix.pch */,
+				D4BD13E9651D36BBB213342F23AAE351 /* Cosmos-umbrella.h */,
+				79DDF3727826C7E779C089F8A9DB1DD0 /* Info.plist */,
 			);
 			name = "Support Files";
 			path = "../Target Support Files/Cosmos";
+			sourceTree = "<group>";
+		};
+		E3BF8ADD084F84C048F30F55B3AD9F63 /* GoogleMaps */ = {
+			isa = PBXGroup;
+			children = (
+				0206B9A01A26FE654162B6AB320C3738 /* Base */,
+			);
+			name = GoogleMaps;
+			path = GoogleMaps;
 			sourceTree = "<group>";
 		};
 		F06749EFF760BC9D1C6BF3AEEC9CBCCA /* Targets Support Files */ = {
@@ -336,30 +416,6 @@
 				704890B8A56BC7BC37EB3C5E1C5A8A56 /* Pods-FindFoodFastTogetherUITests */,
 			);
 			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
-		FECC1A384C7A6F90FC6E2D7398B62244 /* Cosmos */ = {
-			isa = PBXGroup;
-			children = (
-				4440C49AF5C1872DF34FA3BA4EA455DB /* CosmosAccessibility.swift */,
-				32B0CBEC5AA6326B216A39F42BEA3AAC /* CosmosDefaultSettings.swift */,
-				B5CB9F8A932660735EC9D55502F08664 /* CosmosLayerHelper.swift */,
-				EC29E5C5E85B8D48F5ABB4010A899DAD /* CosmosLayers.swift */,
-				7691D1BB2DEF1DAB5520DA2E48F6BB14 /* CosmosLocalizedRating.swift */,
-				44022C5CCA349C3CDD30FB002A599152 /* CosmosRating.swift */,
-				D80C7306F7F779E8D81C826F0145DB92 /* CosmosSettings.swift */,
-				14C00E7FBB2437DC7021F4A281EF505C /* CosmosSize.swift */,
-				758E9B206378B25AEFB44CE423E51226 /* CosmosText.swift */,
-				80963BD0282A76ADA462A0E8DAF11583 /* CosmosTouch.swift */,
-				E8F80CAB7CEA056546F2F5F4BBD21E4C /* CosmosTouchTarget.swift */,
-				AF3CB9363544E6FE214D659F18314F50 /* CosmosView.swift */,
-				950950A49D3A9ED9AD2319145992ECDB /* RightToLeft.swift */,
-				77F2E71614EE5B246DD7CFFA4FE48106 /* StarFillMode.swift */,
-				07431B1CC87A6877AB1DDAD435E75809 /* StarLayer.swift */,
-				DAC351B95AC50ABDEDA4EAF2BEC8DCD7 /* Support Files */,
-			);
-			name = Cosmos;
-			path = Cosmos;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -729,7 +785,7 @@
 		};
 		38802D9891493B25C2E508438429DA82 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8A7CCE64C00D7E2562BFD20293ED1710 /* IGIdenticon.xcconfig */;
+			baseConfigurationReference = 4A3C77E97C46B7CC4159D748F96055F5 /* IGIdenticon.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -764,7 +820,7 @@
 		};
 		425B6D95D2C161E2695D55ABEE7942EA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 788BAC8A2712870631439D92F7107DA0 /* Cosmos.xcconfig */;
+			baseConfigurationReference = F65E106F2310AA6045C9311CCE1A6876 /* Cosmos.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -953,7 +1009,7 @@
 		};
 		C9075279261DD42022E2357330A8DC84 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 788BAC8A2712870631439D92F7107DA0 /* Cosmos.xcconfig */;
+			baseConfigurationReference = F65E106F2310AA6045C9311CCE1A6876 /* Cosmos.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1024,7 +1080,7 @@
 		};
 		F79C9D650AE7C12C2427D9DA69471F13 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8A7CCE64C00D7E2562BFD20293ED1710 /* IGIdenticon.xcconfig */;
+			baseConfigurationReference = 4A3C77E97C46B7CC4159D748F96055F5 /* IGIdenticon.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
