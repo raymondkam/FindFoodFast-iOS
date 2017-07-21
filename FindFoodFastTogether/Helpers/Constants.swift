@@ -19,8 +19,9 @@ struct FindFoodFastService {
 }
 
 struct FindFoodFastColor {
-    static let MainColor = UIColor.init(red: 29/255, green: 188/255, blue: 213/255, alpha: 1)
-    static let DisabledColor = UIColor.init(red: 203/255, green: 198/255, blue: 185/255, alpha: 1)
+    static let MainColor = UIColor(red: 29/255, green: 188/255, blue: 213/255, alpha: 1)
+    static let DisabledColor = UIColor(red: 203/255, green: 198/255, blue: 185/255, alpha: 1)
+    static let ErrorColor = UIColor(red: 255/255, green: 60/255, blue: 60/255, alpha: 1)
 }
 
 struct Segues {

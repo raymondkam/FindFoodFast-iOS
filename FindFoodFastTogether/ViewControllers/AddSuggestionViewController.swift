@@ -10,12 +10,14 @@ import UIKit
 
 protocol AddSuggestionDelegate: class {
     func didAddSuggestion(suggestion: Suggestion)
+    func isUniqueSuggestion(suggestion: Suggestion) -> Bool
 }
 
 class AddSuggestionViewController: UIViewController {
 
     @IBOutlet weak var addSuggestionButton: UIButton!
     @IBOutlet weak var suggestionTextField: UITextField!
+    @IBOutlet weak var errorMessageLabel: UILabel!
     
     weak var delegate: AddSuggestionDelegate?
     
@@ -39,30 +41,68 @@ class AddSuggestionViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func disableButtons() {
-        DispatchQueue.main.async {
-            self.addSuggestionButton.isEnabled = false
-            self.addSuggestionButton.backgroundColor = FindFoodFastColor.DisabledColor
+    private func disableButtons() {
+        DispatchQueue.main.async { [weak self] in
+            self?.addSuggestionButton.isEnabled = false
+            self?.addSuggestionButton.backgroundColor = FindFoodFastColor.DisabledColor
         }
     }
     
-    func enableButtons() {
-        DispatchQueue.main.async {
-            self.addSuggestionButton.isEnabled = true
-            self.addSuggestionButton.backgroundColor = FindFoodFastColor.MainColor
+    private func enableButtons() {
+        DispatchQueue.main.async { [weak self] in
+            self?.addSuggestionButton.isEnabled = true
+            self?.addSuggestionButton.backgroundColor = FindFoodFastColor.MainColor
         }
+    }
+    
+    private func showError(message: String) {
+        suggestionTextField.borderWidth = 1
+        suggestionTextField.borderColor = FindFoodFastColor.ErrorColor
+        errorMessageLabel.text = message
+        errorMessageLabel.isHidden = false
+    }
+    
+    fileprivate func hideError() {
+        suggestionTextField.borderWidth = 0
+        suggestionTextField.borderColor = UIColor.clear
+        errorMessageLabel.text = ""
+        errorMessageLabel.isHidden = true
     }
     
     @IBAction func handleSuggestionTextFieldChanged(_ sender: Any) {
-        if let count = (sender as! UITextField).text?.characters.count, count > SuggestionTextFieldMinCharacterCount && count <= SuggestionTextFieldMaxCharacterCount {
-            enableButtons()
+        guard let textField = sender as? UITextField else {
+            print("sender not a textfield")
+            return
+        }
+        
+        if let count = textField.text?.characters.count, count > SuggestionTextFieldMinCharacterCount && count <= SuggestionTextFieldMaxCharacterCount {
+            
+            guard let suggestionName = textField.text?.trimmingCharacters(in: .whitespaces) else {
+                print("no suggestion name in text field")
+                return
+            }
+            
+            let suggestion = Suggestion(name: suggestionName, rating: 0)
+            guard let isUniqueSuggestion = delegate?.isUniqueSuggestion(suggestion: suggestion) else {
+                print("add suggestion delegate is nil")
+                return
+            }
+            
+            if isUniqueSuggestion {
+                hideError()
+                enableButtons()
+            } else {
+                showError(message: "Suggestion has already been added")
+                disableButtons()
+            }
+            
         } else {
             disableButtons()
         }
     }
     
     @IBAction func handleAddSuggestion(_ sender: Any) {
-        guard let suggestionText = suggestionTextField.text else {
+        guard let suggestionText = suggestionTextField.text?.trimmingCharacters(in: .whitespaces) else {
             print("invalid suggestion")
             return
         }
@@ -71,23 +111,17 @@ class AddSuggestionViewController: UIViewController {
         delegate?.didAddSuggestion(suggestion: suggestion)
         navigationController?.popViewController(animated: true)
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension AddSuggestionViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        return true
+    }
+    
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        hideError()
         return true
     }
 }

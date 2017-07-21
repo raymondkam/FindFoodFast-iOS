@@ -913,44 +913,53 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="x7B-go-0Jt">
-                                <rect key="frame" x="24" y="30" width="327" height="42"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="42" id="xNd-J4-JRc"/>
-                                </constraints>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
-                                <connections>
-                                    <action selector="handleSuggestionTextFieldChanged:" destination="sbG-pv-k6D" eventType="editingChanged" id="KsA-MI-kTy"/>
-                                </connections>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Gm-K5-MEu">
-                                <rect key="frame" x="23.5" y="80" width="327" height="42"/>
-                                <color key="backgroundColor" red="0.79525351519999998" green="0.77676600529999995" blue="0.72383810790000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="42" id="byi-4l-W5o"/>
-                                </constraints>
-                                <state key="normal" title="Add Suggestion">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="handleAddSuggestion:" destination="sbG-pv-k6D" eventType="touchUpInside" id="RUy-vq-iqR"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="emC-cL-XEh">
+                                <rect key="frame" x="8" y="16" width="359" height="120.5"/>
+                                <subviews>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error message here" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XGu-uh-ijd">
+                                        <rect key="frame" x="0.0" y="0.0" width="359" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="1" green="0.23529411764705882" blue="0.23529411764705882" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="x7B-go-0Jt">
+                                        <rect key="frame" x="0.0" y="28.5" width="359" height="42"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="42" id="xNd-J4-JRc"/>
+                                        </constraints>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                        <connections>
+                                            <action selector="handleSuggestionTextFieldChanged:" destination="sbG-pv-k6D" eventType="editingChanged" id="KsA-MI-kTy"/>
+                                        </connections>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Gm-K5-MEu">
+                                        <rect key="frame" x="0.0" y="78.5" width="359" height="42"/>
+                                        <color key="backgroundColor" red="0.79525351519999998" green="0.77676600529999995" blue="0.72383810790000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="42" id="byi-4l-W5o"/>
+                                        </constraints>
+                                        <state key="normal" title="Add Suggestion">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="handleAddSuggestion:" destination="sbG-pv-k6D" eventType="touchUpInside" id="RUy-vq-iqR"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="7Gm-K5-MEu" firstAttribute="top" secondItem="x7B-go-0Jt" secondAttribute="bottom" constant="8" id="4lF-bK-JWe"/>
-                            <constraint firstItem="x7B-go-0Jt" firstAttribute="leading" secondItem="Uqh-ah-mnW" secondAttribute="leadingMargin" constant="8" id="AZC-BG-FZH"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="x7B-go-0Jt" secondAttribute="trailing" constant="8" id="Dd5-ke-Rdo"/>
-                            <constraint firstItem="x7B-go-0Jt" firstAttribute="top" secondItem="kyy-7F-nnD" secondAttribute="bottom" constant="30" id="Lzd-Wa-Hjh"/>
-                            <constraint firstItem="7Gm-K5-MEu" firstAttribute="centerX" secondItem="x7B-go-0Jt" secondAttribute="centerX" id="iSq-Xy-dia"/>
-                            <constraint firstItem="7Gm-K5-MEu" firstAttribute="width" secondItem="x7B-go-0Jt" secondAttribute="width" id="k8x-xx-Zc0"/>
+                            <constraint firstItem="x7B-go-0Jt" firstAttribute="leading" secondItem="Uqh-ah-mnW" secondAttribute="leading" constant="8" id="IIt-zE-3Dj"/>
+                            <constraint firstItem="emC-cL-XEh" firstAttribute="top" secondItem="kyy-7F-nnD" secondAttribute="bottom" constant="16" id="R6R-EY-fgv"/>
+                            <constraint firstAttribute="trailing" secondItem="x7B-go-0Jt" secondAttribute="trailing" constant="8" id="m0g-fy-76H"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="addSuggestionButton" destination="7Gm-K5-MEu" id="oo3-Us-AML"/>
+                        <outlet property="errorMessageLabel" destination="XGu-uh-ijd" id="CgQ-Yb-1g3"/>
                         <outlet property="suggestionTextField" destination="x7B-go-0Jt" id="tcp-KY-tB3"/>
                     </connections>
                 </viewController>
@@ -1184,6 +1193,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="oVU-Jn-U1e"/>
-        <segue reference="LE5-MB-4s1"/>
+        <segue reference="JS2-yn-sae"/>
     </inferredMetricsTieBreakers>
 </document>

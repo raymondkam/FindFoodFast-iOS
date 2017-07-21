@@ -11,6 +11,7 @@ import UIKit
 class SuggestionCollectionViewController: UICollectionViewController {
 
     dynamic var dataSource = [Suggestion]()
+    var uniqueSuggestions = Set<Suggestion>()
     var isHosting: Bool!
     
     override func viewDidLoad() {
@@ -18,15 +19,23 @@ class SuggestionCollectionViewController: UICollectionViewController {
     }
 
     func addSuggestion(suggestion: Suggestion) {
-        dataSource.insert(suggestion, at: 0)
-        collectionView?.reloadData()
-        
-        // also update host
-        if (isHosting) {
-            BluetoothPeripheralManager.sharedInstance.suggestions = dataSource
-        } else {
-            BluetoothCentralManager.sharedInstance.sendHostNewSuggestion(suggestion: suggestion)
+        // add suggestion only if the suggestion has not been 
+        // suggested before
+        if !uniqueSuggestions.contains(suggestion) {
+            // add suggestion to unique suggestions
+            uniqueSuggestions.insert(suggestion)
+            
+            dataSource.insert(suggestion, at: 0)
+            collectionView?.reloadData()
+            
+            // also update host
+            if (isHosting) {
+                BluetoothPeripheralManager.sharedInstance.suggestions = dataSource
+            } else {
+                BluetoothCentralManager.sharedInstance.sendHostNewSuggestion(suggestion: suggestion)
+            }
         }
+        
     }
     
     // MARK: - Navigation
@@ -73,6 +82,10 @@ extension SuggestionCollectionViewController: AddSuggestionDelegate {
     
     func didAddSuggestion(suggestion: Suggestion) {
         addSuggestion(suggestion: suggestion)
+    }
+    
+    func isUniqueSuggestion(suggestion: Suggestion) -> Bool {
+        return !uniqueSuggestions.contains(suggestion)
     }
     
 }

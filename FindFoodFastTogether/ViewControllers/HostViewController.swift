@@ -164,6 +164,7 @@ extension HostViewController : BluetoothCentralManagerDelegate {
     
     func bluetoothCentralManagerDidReceiveSuggestions(_: BluetoothCentralManager, suggestions: [Suggestion]) {
         suggestionCollectionViewController.dataSource = suggestions
+        suggestionCollectionViewController.uniqueSuggestions = Set(suggestions)
         suggestionCollectionViewController.collectionView?.reloadData()
     }
     
@@ -205,5 +206,9 @@ extension HostViewController : BluetoothPeripheralManagerDelegate {
 extension HostViewController: AddSuggestionDelegate {
     func didAddSuggestion(suggestion: Suggestion) {
         suggestionCollectionViewController.addSuggestion(suggestion: suggestion)
+    }
+    
+    func isUniqueSuggestion(suggestion: Suggestion) -> Bool {
+        return !suggestionCollectionViewController.uniqueSuggestions.contains(suggestion)
     }
 }
