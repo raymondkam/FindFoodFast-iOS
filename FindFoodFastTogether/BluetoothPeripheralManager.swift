@@ -48,6 +48,14 @@ final class BluetoothPeripheralManager : NSObject {
         value: nil,
         permissions: [.readable,
                       .writeable])
+    fileprivate let highestRatedSuggestionCharacteristic = CBMutableCharacteristic(
+        type: FindFoodFastService.CharacteristicUUIDHighestRatedSuggestion,
+        properties: [.read,
+                     .write,
+                     .notify],
+        value: nil,
+        permissions: [.readable,
+                      .writeable])
     fileprivate var uuidStringToUsername = [String: String]()
     fileprivate var _suggestions = [Suggestion]()
     
@@ -99,7 +107,10 @@ final class BluetoothPeripheralManager : NSObject {
         let votingDescriptor = CBMutableDescriptor(type:userDescriptionUuid, value:"Know when voting begins and where voting results are sent to")
         votingCharacteristic.descriptors = [votingDescriptor]
         
-        findFoodFastMutableService.characteristics = [joinSessionCharacteristic, suggestionCharacteristic, votingCharacteristic]
+        let highestRatedSuggestionDescriptor = CBMutableDescriptor(type:userDescriptionUuid, value:"Find out what the highest rated suggestion was at the end of voting")
+        highestRatedSuggestionCharacteristic.descriptors = [highestRatedSuggestionDescriptor]
+        
+        findFoodFastMutableService.characteristics = [joinSessionCharacteristic, suggestionCharacteristic, votingCharacteristic, highestRatedSuggestionCharacteristic]
         
         peripheralManager.add(findFoodFastMutableService)
     }
@@ -121,10 +132,6 @@ final class BluetoothPeripheralManager : NSObject {
     }
     
     // MARK: - Characteristic Data Transfer
-    
-    func startVoting() {
-        peripheralManager.updateValue("start".data(using: .utf8)!, for: votingCharacteristic, onSubscribedCentrals: nil)
-    }
     
     /* 
      * Sends to subscribers the updated list of users in the host's session
@@ -151,6 +158,15 @@ final class BluetoothPeripheralManager : NSObject {
     fileprivate func sendSuggestions() {
         print("sending suggestions to clients")
         send(object: suggestions, for: suggestionCharacteristic)
+    }
+    
+    func startVoting() {
+        peripheralManager.updateValue("start".data(using: .utf8)!, for: votingCharacteristic, onSubscribedCentrals: nil)
+    }
+    
+    func sendHighestRatedSuggestion(highestRatedSuggestion: Suggestion) {
+        print("sending highest rated suggestion to clients")
+        send(object: highestRatedSuggestion, for: highestRatedSuggestionCharacteristic)
     }
     
     fileprivate func send(object: Any, for characteristic: CBMutableCharacteristic) {

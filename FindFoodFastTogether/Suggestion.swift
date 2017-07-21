@@ -44,4 +44,8 @@ class Suggestion: NSObject, NSCoding {
     override var hashValue: Int {
         return name.hashValue
     }
+    
+    override var description: String {
+        return "Suggestion(name: \(name), rating: \(rating))"
+    }
 }

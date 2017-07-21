@@ -37,6 +37,12 @@ class StartViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func unwindToStart(segue: UIStoryboardSegue) {
+        // coming from the highest rated suggestion view controller 
+        // where the navigation bar is hidden
+        navigationController?.isNavigationBarHidden = false
+    }
+    
     func disableButtons() {
         DispatchQueue.main.async {
             self.searchButton.isEnabled = false

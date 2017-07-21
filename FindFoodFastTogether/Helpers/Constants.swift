@@ -15,6 +15,7 @@ struct FindFoodFastService {
     static let CharacteristicUUIDJoinSession = CBUUID(string: "b4cfdcf5-06ed-41c9-a188-bbb9aa95c0c4")
     static let CharacteristicUUIDSuggestion = CBUUID(string: "70f6be9d-a964-440e-9ede-f4ce1df66fc3")
     static let CharacteristicUUIDVoting = CBUUID(string: "4e548314-56f2-4975-905c-940bce856bf6")
+    static let CharacteristicUUIDHighestRatedSuggestion = CBUUID(string: "35ca4ea5-b008-4d1e-840b-3d6a7e1fa37c")
 }
 
 struct FindFoodFastColor {
@@ -34,6 +35,7 @@ struct Segues {
     static let AddSuggestionFromCellButton = "addSuggestionFromCellButton"
     static let AddSuggestionFromCell = "addSuggestionFromCell"
     static let StartVoting = "startVoting"
+    static let ShowHighestRatedSuggestion = "showHighestRatedSuggestion"
 }
 
 struct NotificationNames {

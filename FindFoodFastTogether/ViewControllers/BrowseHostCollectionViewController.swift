@@ -101,5 +101,7 @@ extension BrowseHostCollectionViewController : BluetoothCentralManagerDelegate {
     func bluetoothCentralManagerDidReceiveSuggestions(_: BluetoothCentralManager, suggestions: [Suggestion]) {}
     
     func bluetoothCentralManagerDidStartVoting(_: BluetoothCentralManager) {}
+    
+    func bluetoothCentralManagerDidReceiveHighestRatedSuggestion(_: BluetoothCentralManager, highestRatedSuggestion: Suggestion) {}
 }
 

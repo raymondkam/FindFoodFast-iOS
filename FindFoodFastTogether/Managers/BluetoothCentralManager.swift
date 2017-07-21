@@ -15,6 +15,7 @@ protocol BluetoothCentralManagerDelegate : class {
     func bluetoothCentralManagerDidConnectToHost(_: BluetoothCentralManager, users: [User])
     func bluetoothCentralManagerDidReceiveSuggestions(_: BluetoothCentralManager, suggestions: [Suggestion])
     func bluetoothCentralManagerDidStartVoting(_: BluetoothCentralManager)
+    func bluetoothCentralManagerDidReceiveHighestRatedSuggestion(_: BluetoothCentralManager, highestRatedSuggestion: Suggestion)
 }
 
 final class BluetoothCentralManager : NSObject {
@@ -218,7 +219,13 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
             print("peripheral services nil or has no services")
             return
         }
-        peripheral.discoverCharacteristics([FindFoodFastService.CharacteristicUUIDJoinSession, FindFoodFastService.CharacteristicUUIDSuggestion, FindFoodFastService.CharacteristicUUIDVoting], for: services.first!)
+        guard let findFoodFastService = services.first(where: { (service) -> Bool in
+            return service.uuid == FindFoodFastService.ServiceUUID
+        }) else {
+            print("did not find FindFoodFast service")
+            return
+        }
+        peripheral.discoverCharacteristics([FindFoodFastService.CharacteristicUUIDJoinSession, FindFoodFastService.CharacteristicUUIDSuggestion, FindFoodFastService.CharacteristicUUIDVoting, FindFoodFastService.CharacteristicUUIDHighestRatedSuggestion], for: findFoodFastService)
     }
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
@@ -238,7 +245,8 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
         }
         
         for characteristic in characteristics {
-            if characteristic.uuid == FindFoodFastService.CharacteristicUUIDJoinSession {
+            switch characteristic.uuid {
+            case FindFoodFastService.CharacteristicUUIDJoinSession:
                 // subscribe to characteristic
                 peripheral.setNotifyValue(true, for: characteristic)
                 subscribedCharacteristics.append(characteristic)
@@ -249,18 +257,23 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
                     print("retrieved username from user defaults: \(username)")
                     peripheral.writeValue(username.data(using: .utf8)!, for: characteristic, type: .withoutResponse)
                 }
-            } else if characteristic.uuid == FindFoodFastService.CharacteristicUUIDSuggestion {
+            case FindFoodFastService.CharacteristicUUIDSuggestion:
                 print("subscribed to suggestions characteristic")
                 peripheral.setNotifyValue(true, for: characteristic)
                 subscribedCharacteristics.append(characteristic)
-                // hold onto the suggestion characteristic so it is easier to 
+                // hold onto the suggestion characteristic so it is easier to
                 // send suggestions later
                 suggestionCharacteristic = characteristic
-            } else if characteristic.uuid == FindFoodFastService.CharacteristicUUIDVoting {
+            case FindFoodFastService.CharacteristicUUIDVoting:
                 peripheral.setNotifyValue(true, for: characteristic)
                 subscribedCharacteristics.append(characteristic)
                 // hold onto the voting characteristic to send the host their votes
                 votingCharacteristic = characteristic
+            case FindFoodFastService.CharacteristicUUIDHighestRatedSuggestion:
+                peripheral.setNotifyValue(true, for: characteristic)
+                subscribedCharacteristics.append(characteristic)
+            default:
+                print("characteristic not recognized")
             }
         }
     }
@@ -340,6 +353,11 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
             // received the start of voting
             delegate?.bluetoothCentralManagerDidStartVoting(self)
         } else {
+            
+            // This block can handle data transfer for the join 
+            // session characteristic, suggestion characteristic, 
+            // and the highest rated suggestion characteristic
+            
             guard receivedData != nil else {
                 // if receivedData is nil, then we are receiving the first chunk
                 receivedData = characteristic.value!
@@ -369,6 +387,13 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
                         return
                     }
                     delegate?.bluetoothCentralManagerDidReceiveSuggestions(self, suggestions: suggestions)
+                case FindFoodFastService.CharacteristicUUIDHighestRatedSuggestion:
+                    guard let highestRatedSuggestion = NSKeyedUnarchiver.unarchiveObject(with: receivedData!) as? Suggestion else {
+                        print("was not able to unarchive highest rated suggestion")
+                        return
+                    }
+                    print("received highest rated suggestion: \(highestRatedSuggestion)")
+                    delegate?.bluetoothCentralManagerDidReceiveHighestRatedSuggestion(self, highestRatedSuggestion: highestRatedSuggestion)
                 default:
                     print("characteristic uuid not recognized")
                 }
