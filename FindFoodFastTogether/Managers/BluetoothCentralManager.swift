@@ -89,6 +89,9 @@ final class BluetoothCentralManager : NSObject {
             print("cannot disconnect if no peripheral is connected")
             return
         }
+        
+        clearDataTransferParameters()
+        
         subscribedCharacteristics.forEach { (characteristic) in
             connectedPeripheral.setNotifyValue(false, for: characteristic)
         }
@@ -100,6 +103,13 @@ final class BluetoothCentralManager : NSObject {
     
     func clearSavedPeripherals() {
         uuidToHosts.removeAll()
+    }
+    
+    func clearDataTransferParameters() {
+        receivedData = nil
+        dataToSend = nil
+        sendDataIndex = 0
+        sendingEOM = false
     }
     
     func sendHostNewSuggestion(suggestion: Suggestion) {
