@@ -77,7 +77,7 @@ final class BluetoothPeripheralManager : NSObject {
     fileprivate var sendingEOM = false
     
     // Variables related to receiving data
-    fileprivate var receivedData: Data?
+    fileprivate var receivedData = [String: Data]()
     
     // public
     weak var delegate: BluetoothPeripheralManagerDelegate?
@@ -339,20 +339,20 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
     func peripheralManager(_ peripheral: CBPeripheralManager, didReceiveWrite requests: [CBATTRequest]) {
         print("peripheral manager: did receive write request")
         requests.forEach { (request) in
+            let centralUuidString = request.central.identifier.uuidString
             switch request.characteristic.uuid {
             case FindFoodFastService.CharacteristicUUIDJoinSession:
                 print("received write to join session characteristic")
-                let uuidString = request.central.identifier.uuidString
                 
-                if let name = uuidStringToUsername[uuidString], name == "" {
+                if let name = uuidStringToUsername[centralUuidString], name == "" {
                     if let data = request.value {
                         let username = String.init(data: data, encoding: String.Encoding.utf8)!
                         
                         // update internal dictionary of users
-                        uuidStringToUsername.updateValue(username, forKey: uuidString)
+                        uuidStringToUsername.updateValue(username, forKey: centralUuidString)
                         
                         // update UI
-                        let newUser = User(name: username, uuidString: uuidString)
+                        let newUser = User(name: username, uuidString: centralUuidString)
                         print("peripheral manager: new user connected: \(newUser)")
                         delegate?.bluetoothPeripheralManagerDidConnectWith(self, newUser: newUser)
                         
@@ -367,16 +367,16 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
                     peripheral.respond(to: request, withResult: .requestNotSupported)
                     return
                 }
-                guard receivedData != nil else {
+                guard receivedData[centralUuidString] != nil else {
                     // if receivedData is nil, then this is the first chunk
-                    receivedData = data
+                    receivedData[centralUuidString] = data
                     peripheral.respond(to: request, withResult: .success)
                     return
                 }
                 
                 let stringFromData = String.init(data: data, encoding: .utf8)
                 if stringFromData == "EOM" {
-                    guard let suggestion = NSKeyedUnarchiver.unarchiveObject(with: receivedData!) as? Suggestion else {
+                    guard let suggestion = NSKeyedUnarchiver.unarchiveObject(with: receivedData[centralUuidString]!) as? Suggestion else {
                         print("invalid suggestion unarchived")
                         peripheral.respond(to: request, withResult: .requestNotSupported)
                         return
@@ -384,10 +384,10 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
                     delegate?.bluetoothPeripheralManagerDidReceiveNewSuggestion(self, suggestion: suggestion)
                     
                     // clear received data for next transmission
-                    receivedData = nil
+                    receivedData[centralUuidString] = nil
                 } else {
                     // not done receiving all data, append the data
-                    receivedData!.append(data)
+                    receivedData[centralUuidString]!.append(data)
                 }
                 peripheral.respond(to: request, withResult: .success)
             case FindFoodFastService.CharacteristicUUIDVoting:
@@ -395,15 +395,15 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
                     print("voting request has nil data")
                     return
                 }
-                guard receivedData != nil else {
+                guard receivedData[centralUuidString] != nil else {
                     // if received data is nil, then is first chunk
-                    receivedData = data
+                    receivedData[centralUuidString] = data
                     peripheral.respond(to: request, withResult: .success)
                     return
                 }
                 let stringFromData = String.init(data: data, encoding: .utf8)
                 if stringFromData == "EOM" {
-                    guard let votedSuggestions = NSKeyedUnarchiver.unarchiveObject(with: receivedData!) as? [Suggestion] else {
+                    guard let votedSuggestions = NSKeyedUnarchiver.unarchiveObject(with: receivedData[centralUuidString]!) as? [Suggestion] else {
                         print("invalid voted suggestions unarchived")
                         peripheral.respond(to: request, withResult: .requestNotSupported)
                         return
@@ -411,10 +411,10 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
                     delegate?.bluetoothPeripheralManagerDidReceiveVotedSuggestions(self, votedSuggestions: votedSuggestions, from: request.central)
                     
                     // clear received data for next transmission
-                    receivedData = nil
+                    receivedData[centralUuidString] = nil
                 } else {
                     // not done receiving all data, append the data
-                    receivedData!.append(data)
+                    receivedData[centralUuidString]!.append(data)
                 }
                 peripheral.respond(to: request, withResult: .success)
             default:
