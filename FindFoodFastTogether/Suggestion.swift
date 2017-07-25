@@ -11,11 +11,13 @@ import UIKit
 
 class Suggestion: NSObject, NSCoding {
     var name: String
-    var rating: Int
+    var rating = 0
 
-    init(name: String, rating: Int) {
+    init(name: String, rating: Int?) {
         self.name = name
-        self.rating = rating
+        if let rating = rating {
+            self.rating = rating
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

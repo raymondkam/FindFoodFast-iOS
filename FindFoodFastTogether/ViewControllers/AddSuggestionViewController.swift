@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 protocol AddSuggestionDelegate: class {
     func didAddSuggestion(suggestion: Suggestion)
@@ -14,11 +15,12 @@ protocol AddSuggestionDelegate: class {
 }
 
 class AddSuggestionViewController: UIViewController {
-
-    @IBOutlet weak var addSuggestionButton: UIButton!
-    @IBOutlet weak var suggestionTextField: UITextField!
-    @IBOutlet weak var errorMessageLabel: UILabel!
     
+    @IBOutlet weak var searchBar: UISearchBar!
+    
+    var locationManager = CLLocationManager()
+    var searchClient: SuggestionSearchClient!
+    var userLocation: CLLocation!
     weak var delegate: AddSuggestionDelegate?
     
     let SuggestionTextFieldMinCharacterCount = 2
@@ -27,101 +29,61 @@ class AddSuggestionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        suggestionTextField.delegate = self
-        suggestionTextField.becomeFirstResponder()
-        if (suggestionTextField.text == nil || suggestionTextField.text == "") {
-            disableButtons()
-        } else {
-            enableButtons()
-        }
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    private func disableButtons() {
-        DispatchQueue.main.async { [weak self] in
-            self?.addSuggestionButton.isEnabled = false
-            self?.addSuggestionButton.backgroundColor = FindFoodFastColor.DisabledColor
-        }
-    }
-    
-    private func enableButtons() {
-        DispatchQueue.main.async { [weak self] in
-            self?.addSuggestionButton.isEnabled = true
-            self?.addSuggestionButton.backgroundColor = FindFoodFastColor.MainColor
-        }
-    }
-    
-    private func showError(message: String) {
-        suggestionTextField.borderWidth = 1
-        suggestionTextField.borderColor = FindFoodFastColor.ErrorColor
-        errorMessageLabel.text = message
-        errorMessageLabel.isHidden = false
-    }
-    
-    fileprivate func hideError() {
-        suggestionTextField.borderWidth = 0
-        suggestionTextField.borderColor = UIColor.clear
-        errorMessageLabel.text = ""
-        errorMessageLabel.isHidden = true
-    }
-    
-    @IBAction func handleSuggestionTextFieldChanged(_ sender: Any) {
-        guard let textField = sender as? UITextField else {
-            print("sender not a textfield")
-            return
-        }
+        searchBar.delegate = self
         
-        if let count = textField.text?.characters.count, count > SuggestionTextFieldMinCharacterCount && count <= SuggestionTextFieldMaxCharacterCount {
-            
-            guard let suggestionName = textField.text?.trimmingCharacters(in: .whitespaces) else {
-                print("no suggestion name in text field")
-                return
-            }
-            
-            let suggestion = Suggestion(name: suggestionName, rating: 0)
-            guard let isUniqueSuggestion = delegate?.isUniqueSuggestion(suggestion: suggestion) else {
-                print("add suggestion delegate is nil")
-                return
-            }
-            
-            if isUniqueSuggestion {
-                hideError()
-                enableButtons()
-            } else {
-                showError(message: "Suggestion has already been added")
-                disableButtons()
-            }
-            
-        } else {
-            disableButtons()
-        }
-    }
-    
-    @IBAction func handleAddSuggestion(_ sender: Any) {
-        guard let suggestionText = suggestionTextField.text?.trimmingCharacters(in: .whitespaces) else {
-            print("invalid suggestion")
-            return
-        }
+        searchClient = GoogleSuggestionSearchClient()
         
-        let suggestion = Suggestion(name: suggestionText, rating: 0)
-        delegate?.didAddSuggestion(suggestion: suggestion)
-        navigationController?.popViewController(animated: true)
+        // set up location and get user's current location
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        locationManager.startUpdatingLocation()
     }
 }
 
-extension AddSuggestionViewController: UITextFieldDelegate {
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
+extension AddSuggestionViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("found some locations")
+        guard locations.count > 0 else {
+            print("did not find any locations")
+            return
+        }
+        manager.stopUpdatingLocation()
+        userLocation = locations[0]
+        print("user coordinates: \(userLocation.coordinate)")
     }
     
-    func textFieldShouldClear(_ textField: UITextField) -> Bool {
-        hideError()
-        return true
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .authorizedAlways:
+            print("authorized always")
+        case .authorizedWhenInUse:
+            print("clear to go use user location")
+        case .denied:
+            print("access denied")
+        case .notDetermined:
+            print("not determined")
+        case .restricted:
+            print("location restricted")
+        }
+    }
+    
+    
+}
+
+extension AddSuggestionViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let searchQueryString = searchBar.text else {
+            print("search has no text")
+            return
+        }
+        
+        searchClient.searchForSuggestions(using: searchQueryString, coordinate: userLocation.coordinate, radiusInMeters: 10000) { (suggestions, error) in
+            guard error == nil else {
+                print("error searching for suggestions")
+                return
+            }
+            
+        }
     }
 }
