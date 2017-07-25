@@ -29,6 +29,7 @@
 		9CC2B83D1EF18CDE0049E269 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC2B83C1EF18CDE0049E269 /* Constants.swift */; };
 		9CC2B8491EF784F10049E269 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC2B8481EF784F10049E269 /* StartViewController.swift */; };
 		9CC2B84B1EF8DEB00049E269 /* CreateHostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC2B84A1EF8DEB00049E269 /* CreateHostViewController.swift */; };
+		9CE296691F27D151008307F4 /* SuggestionSearchClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE296681F27D151008307F4 /* SuggestionSearchClient.swift */; };
 		9CF38B921EFCD12900A736B0 /* UIView+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF38B911EFCD12900A736B0 /* UIView+Helpers.swift */; };
 		9CF38B951F00736B00A736B0 /* Host.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF38B941F00736B00A736B0 /* Host.swift */; };
 		9CF38B971F02F54C00A736B0 /* BluetoothPeripheralManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF38B961F02F54C00A736B0 /* BluetoothPeripheralManager.swift */; };
@@ -92,6 +93,7 @@
 		9CC2B83C1EF18CDE0049E269 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = Helpers/Constants.swift; sourceTree = "<group>"; };
 		9CC2B8481EF784F10049E269 /* StartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StartViewController.swift; path = ViewControllers/StartViewController.swift; sourceTree = "<group>"; };
 		9CC2B84A1EF8DEB00049E269 /* CreateHostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CreateHostViewController.swift; path = ViewControllers/CreateHostViewController.swift; sourceTree = "<group>"; };
+		9CE296681F27D151008307F4 /* SuggestionSearchClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestionSearchClient.swift; sourceTree = "<group>"; };
 		9CF38B911EFCD12900A736B0 /* UIView+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+Helpers.swift"; path = "Helpers/UIView+Helpers.swift"; sourceTree = "<group>"; };
 		9CF38B941F00736B00A736B0 /* Host.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Host.swift; path = Models/Host.swift; sourceTree = "<group>"; };
 		9CF38B961F02F54C00A736B0 /* BluetoothPeripheralManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothPeripheralManager.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 			children = (
 				9CB181011EFAC7A40085517A /* BluetoothCentralManager.swift */,
 				9CF38B961F02F54C00A736B0 /* BluetoothPeripheralManager.swift */,
+				9CE296681F27D151008307F4 /* SuggestionSearchClient.swift */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -573,6 +576,7 @@
 				9CA76E641F216D4900208BB3 /* HighestRatedSuggestionViewController.swift in Sources */,
 				9C7ACD9A1F104E260086157E /* SuggestionCollectionViewCell.swift in Sources */,
 				9C7ACD981F104C940086157E /* Suggestion.swift in Sources */,
+				9CE296691F27D151008307F4 /* SuggestionSearchClient.swift in Sources */,
 				9C7ACD9C1F106F990086157E /* AddSuggestionViewController.swift in Sources */,
 				9CC2B8301EF064A90049E269 /* BrowseHostCollectionViewController.swift in Sources */,
 				9CC2B83D1EF18CDE0049E269 /* Constants.swift in Sources */,
