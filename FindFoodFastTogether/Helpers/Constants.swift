@@ -38,6 +38,7 @@ struct Segues {
     static let StartVoting = "startVoting"
     static let ShowHighestRatedSuggestion = "showHighestRatedSuggestion"
     static let UnwindToStart = "unwindToStart"
+    static let EmbedSuggestionSearchResults = "embedSuggestionSearchResults"
 }
 
 struct NotificationNames {
@@ -49,6 +50,7 @@ struct NotificationNames {
 let browseHostReuseIdentifier = "BrowseHostCell"
 let suggestionReuseIdentifier = "SuggestionCell"
 let addNewSuggestionReuseIdentifier = "AddNewSuggestionCell"
+let suggestionSearchResultReuseIdentifier = "suggestionSearchResultCell"
 
 struct UserDefaultsKeys {
     static let Username = "username"

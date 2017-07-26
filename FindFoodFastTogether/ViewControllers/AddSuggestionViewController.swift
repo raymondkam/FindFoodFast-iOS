@@ -18,8 +18,9 @@ class AddSuggestionViewController: UIViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
+    var suggestionSearchResultsCollectionViewController: SuggestionSearchResultsCollectionViewController!
     var locationManager = CLLocationManager()
-    var searchClient: SuggestionSearchClient!
+    var searchClient: SuggestionSearchClient?
     var userLocation: CLLocation!
     weak var delegate: AddSuggestionDelegate?
     
@@ -38,6 +39,19 @@ class AddSuggestionViewController: UIViewController {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
         locationManager.startUpdatingLocation()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let segueIdentifier = segue.identifier else {
+            print("not segue identifier")
+            return
+        }
+        switch segueIdentifier {
+        case Segues.EmbedSuggestionSearchResults:
+            suggestionSearchResultsCollectionViewController = segue.destination as! SuggestionSearchResultsCollectionViewController
+        default:
+            print("segue not identified")
+        }
     }
 }
 
@@ -78,7 +92,7 @@ extension AddSuggestionViewController: UISearchBarDelegate {
             return
         }
         
-        searchClient.searchForSuggestions(using: searchQueryString, coordinate: userLocation.coordinate, radiusInMeters: 10000) { (suggestions, error) in
+        searchClient?.searchForSuggestions(using: searchQueryString, coordinate: userLocation.coordinate, radiusInMeters: 10000) { (suggestions, error) in
             guard error == nil else {
                 print("error searching for suggestions")
                 return
