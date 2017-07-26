@@ -20,7 +20,7 @@ class AddSuggestionViewController: UIViewController {
     
     var suggestionSearchResultsCollectionViewController: SuggestionSearchResultsCollectionViewController!
     var locationManager = CLLocationManager()
-    var searchClient: SuggestionSearchClient?
+    var searchClient: SuggestionSearchClient!
     var userLocation: CLLocation!
     weak var delegate: AddSuggestionDelegate?
     
@@ -31,7 +31,9 @@ class AddSuggestionViewController: UIViewController {
         super.viewDidLoad()
 
         searchBar.delegate = self
+        searchBar.becomeFirstResponder()
         
+        // use google as search client
         searchClient = GoogleSuggestionSearchClient()
         
         // set up location and get user's current location
@@ -86,18 +88,29 @@ extension AddSuggestionViewController: CLLocationManagerDelegate {
 }
 
 extension AddSuggestionViewController: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        guard let searchQueryString = searchBar.text else {
-            print("search has no text")
-            return
-        }
-        
-        searchClient?.searchForSuggestions(using: searchQueryString, coordinate: userLocation.coordinate, radiusInMeters: 10000) { (suggestions, error) in
-            guard error == nil else {
-                print("error searching for suggestions")
-                return
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.characters.count > 0 {
+            searchClient.searchForSuggestions(using: searchText, coordinate: userLocation.coordinate, radiusInMeters: 10000) { [weak self] (suggestions, error) in
+                guard error == nil else {
+                    print("error searching for suggestions")
+                    return
+                }
+                guard let suggestions = suggestions else {
+                    print("suggestions from search are nil")
+                    return
+                }
+                guard searchText == self?.searchBar.text else {
+                    // only update the results if the current 
+                    // search text matches
+                    return
+                }
+                self?.suggestionSearchResultsCollectionViewController.dataSource = suggestions
+                self?.suggestionSearchResultsCollectionViewController.collectionView?.reloadData()
             }
-            
+        } else {
+            suggestionSearchResultsCollectionViewController.dataSource.removeAll()
+            suggestionSearchResultsCollectionViewController.collectionView?.reloadData()
         }
     }
 }

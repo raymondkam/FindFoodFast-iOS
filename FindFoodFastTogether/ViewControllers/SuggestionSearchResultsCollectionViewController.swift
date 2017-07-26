@@ -38,7 +38,9 @@ class SuggestionSearchResultsCollectionViewController: UICollectionViewControlle
         let suggestion = dataSource[indexPath.item]
         if let suggestionSearchResultCell = cell as? SuggestionSearchResultCollectionViewCell {
             suggestionSearchResultCell.title = suggestion.name
-            suggestionSearchResultCell.subtitle = nil
+            if let address = suggestion.address {
+                suggestionSearchResultCell.subtitle = address
+            }
             suggestionSearchResultCell.distance = nil
         }
     

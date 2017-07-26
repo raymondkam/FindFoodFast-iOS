@@ -10,6 +10,8 @@ import Foundation
 import GooglePlaces
 import CoreLocation
 
+let MeterInLatitude: Double = 1 / 111111
+
 class GoogleSuggestionSearchClient: SuggestionSearchClient {
     
     private var placesClient = GMSPlacesClient()
@@ -44,8 +46,12 @@ class GoogleSuggestionSearchClient: SuggestionSearchClient {
                 return
             }
             let suggestions = predictions.map({ (prediction) -> Suggestion in
-                return Suggestion(name: prediction.attributedPrimaryText.string, rating: nil)
-            })
+                if let attributedSecondaryText = prediction.attributedSecondaryText {
+                    return Suggestion(name: prediction.attributedPrimaryText.string, address: attributedSecondaryText.string, rating: nil)
+
+                }
+                return Suggestion(name: prediction.attributedPrimaryText.string, address: nil, rating: nil)
+                            })
             completion(suggestions, nil)
         }
         
