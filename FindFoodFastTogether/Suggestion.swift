@@ -10,11 +10,15 @@ import Foundation
 import UIKit
 
 class Suggestion: NSObject, NSCoding {
+    // id of the object can be used to fetch more details 
+    // using the search client
+    var id: String?
     var name: String
     var address: String?
     var rating = 0
 
-    init(name: String, address: String?, rating: Int?) {
+    init(id: String?, name: String, address: String?, rating: Int?) {
+        self.id = id
         self.name = name
         self.address = address
         if let rating = rating {
@@ -23,6 +27,9 @@ class Suggestion: NSObject, NSCoding {
     }
     
     required init?(coder aDecoder: NSCoder) {
+        if let id = aDecoder.decodeObject(forKey: "id") as? String {
+            self.id = id
+        }
         guard let name = aDecoder.decodeObject(forKey: "name") as? String else {
             print("suggestion init: could not decode name")
             return nil
@@ -36,6 +43,7 @@ class Suggestion: NSObject, NSCoding {
     }
     
     func encode(with aCoder: NSCoder) {
+        aCoder.encode(id, forKey: "id")
         aCoder.encode(name, forKey: "name")
         aCoder.encode(address, forKey: "address")
         aCoder.encode(rating, forKey: "rating")

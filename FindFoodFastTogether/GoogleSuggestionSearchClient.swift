@@ -47,11 +47,11 @@ class GoogleSuggestionSearchClient: SuggestionSearchClient {
             }
             let suggestions = predictions.map({ (prediction) -> Suggestion in
                 if let attributedSecondaryText = prediction.attributedSecondaryText {
-                    return Suggestion(name: prediction.attributedPrimaryText.string, address: attributedSecondaryText.string, rating: nil)
+                    return Suggestion(id: prediction.placeID,name: prediction.attributedPrimaryText.string, address: attributedSecondaryText.string, rating: nil)
 
                 }
-                return Suggestion(name: prediction.attributedPrimaryText.string, address: nil, rating: nil)
-                            })
+                return Suggestion(id: prediction.placeID,name: prediction.attributedPrimaryText.string, address: nil, rating: nil)
+            })
             completion(suggestions, nil)
         }
         
