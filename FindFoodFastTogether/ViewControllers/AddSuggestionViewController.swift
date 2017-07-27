@@ -21,26 +21,46 @@ class AddSuggestionViewController: UIViewController {
     var suggestionSearchResultsCollectionViewController: SuggestionSearchResultsCollectionViewController!
     var locationManager = CLLocationManager()
     var searchClient: SuggestionSearchClient!
-    var userLocation: CLLocation!
+    var userLocation: CLLocation?
     weak var delegate: AddSuggestionDelegate?
     
     let SuggestionTextFieldMinCharacterCount = 2
     let SuggestionTextFieldMaxCharacterCount = 80
+    let LocationCacheTimeInterval: TimeInterval = 300
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         searchBar.delegate = self
         searchBar.becomeFirstResponder()
-        
+
         // use google as search client
         searchClient = GoogleSuggestionSearchClient()
+        
+        // load previously saved location and see if it is a 
+        // recently fetched location
+        let userDefaults = UserDefaults.standard
+        if let cachedLocationData = userDefaults.data(forKey: UserDefaultsKeys.UserLocation) {
+            print("loaded previously cached location")
+            if let cachedLocation = NSKeyedUnarchiver.unarchiveObject(with: cachedLocationData) as? CLLocation {
+                let currentDate = Date()
+                if currentDate < cachedLocation.timestamp.addingTimeInterval(LocationCacheTimeInterval) {
+                    // if cached location was retrieved less than 
+                    // 5 mins ago
+                    userLocation = cachedLocation
+                }
+            }
+        }
         
         // set up location and get user's current location
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
-        locationManager.startUpdatingLocation()
+        
+        // only update location if cached location is bad
+        if let _ = userLocation {} else {
+            locationManager.startUpdatingLocation()
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -51,6 +71,7 @@ class AddSuggestionViewController: UIViewController {
         switch segueIdentifier {
         case Segues.EmbedSuggestionSearchResults:
             suggestionSearchResultsCollectionViewController = segue.destination as! SuggestionSearchResultsCollectionViewController
+            suggestionSearchResultsCollectionViewController.delegate = self
         default:
             print("segue not identified")
         }
@@ -65,8 +86,15 @@ extension AddSuggestionViewController: CLLocationManagerDelegate {
             return
         }
         manager.stopUpdatingLocation()
-        userLocation = locations[0]
-        print("user coordinates: \(userLocation.coordinate)")
+        let bestLocation = locations[0]
+        userLocation = bestLocation
+        print("user coordinates: \(bestLocation.coordinate)")
+        
+        // save into user defaults
+        let bestLocationData = NSKeyedArchiver.archivedData(withRootObject: bestLocation)
+        let userDefaults = UserDefaults.standard
+        userDefaults.setValue(bestLocationData, forKey: UserDefaultsKeys.UserLocation)
+        print("user location saved into user defaults")
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -116,5 +144,12 @@ extension AddSuggestionViewController: UISearchBarDelegate {
             suggestionSearchResultsCollectionViewController.dataSource.removeAll()
             suggestionSearchResultsCollectionViewController.collectionView?.reloadData()
         }
+    }
+}
+
+extension AddSuggestionViewController: SuggestionSearchResultsDelegate {
+    func didSelectSuggestionFromSearchResults(suggestion: Suggestion) {
+        navigationController?.popViewController(animated: true)
+        delegate?.didAddSuggestion(suggestion: suggestion)
     }
 }

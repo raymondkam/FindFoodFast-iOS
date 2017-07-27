@@ -55,6 +55,7 @@ let poweredByGoogleFooterViewReuseIdentifer = "poweredByGoogleFooter"
 
 struct UserDefaultsKeys {
     static let Username = "username"
+    static let UserLocation = "userLocation"
 }
 
 struct Bluetooth {
