@@ -31,12 +31,17 @@ class GoogleSuggestionSearchClient: SuggestionSearchClient {
         return GMSCoordinateBounds(coordinate: maxCoordinate, coordinate: minCoordinate)
     }
     
-    func searchForSuggestions(using query: String, coordinate: CLLocationCoordinate2D, radiusInMeters: Int, completion: @escaping ([Suggestion]?, Error?) -> Void) {
+    func searchForSuggestions(using query: String, coordinate: CLLocationCoordinate2D?, radiusInMeters: Int, completion: @escaping ([Suggestion]?, Error?) -> Void) {
         
         let filter = GMSAutocompleteFilter()
         filter.type = .establishment
         
-        placesClient.autocompleteQuery(query, bounds: coordinateBounds(from: coordinate, meters: 10000), filter: filter) { (predictions, error) in
+        var bounds: GMSCoordinateBounds?
+        if let coordinate = coordinate {
+            bounds = coordinateBounds(from: coordinate, meters: 10000)
+        }
+        
+        placesClient.autocompleteQuery(query, bounds: bounds, filter: filter) { (predictions, error) in
             guard error == nil else {
                 print("error occured while doing autocomplete query")
                 return
