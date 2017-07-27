@@ -143,6 +143,10 @@ final class BluetoothPeripheralManager : NSObject {
      * Sends to subscribers the updated list of users in the host's session
      */
     fileprivate func sendConnectedUsersList() {
+        guard subscribedCentrals.count > 0 else {
+            print("no subscribed centrals to send connected users list")
+            return
+        }
         print("sending list of connected users to clients")
         // make sure uuid string and username are not empty or incomplete
         let filteredUuidStringToUsernameArray = uuidStringToUsername.filter { (uuidString, username) -> Bool in
@@ -162,15 +166,27 @@ final class BluetoothPeripheralManager : NSObject {
     }
     
     fileprivate func sendSuggestions() {
+        guard subscribedCentrals.count > 0 else {
+            print("no subscribed centrals to send suggestions to")
+            return
+        }
         print("sending suggestions to clients")
         send(object: suggestions, for: suggestionCharacteristic)
     }
     
     func startVoting() {
+        guard subscribedCentrals.count > 0 else {
+            print("no subscribed centrals to send start voting message to")
+            return
+        }
         peripheralManager.updateValue("start".data(using: .utf8)!, for: votingCharacteristic, onSubscribedCentrals: nil)
     }
     
     func sendHighestRatedSuggestion(highestRatedSuggestion: Suggestion) {
+        guard subscribedCentrals.count > 0 else {
+            print("no subscribed centrals to send highest rated suggestion to")
+            return
+        }
         print("sending highest rated suggestion to clients")
         send(object: highestRatedSuggestion, for: highestRatedSuggestionCharacteristic)
     }
