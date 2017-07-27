@@ -8,8 +8,14 @@
 
 import UIKit
 
+protocol SuggestionSearchResultsDelegate: class {
+    func didSelectSuggestionFromSearchResults(suggestion: Suggestion)
+}
+
 class SuggestionSearchResultsCollectionViewController: UICollectionViewController {
 
+    weak var delegate: SuggestionSearchResultsDelegate?
+    
     var dataSource = [Suggestion]()
     
     override func viewDidLoad() {
@@ -58,7 +64,10 @@ class SuggestionSearchResultsCollectionViewController: UICollectionViewControlle
     
     // MARK: UICollectionViewDelegate
 
-
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let suggestion = dataSource[indexPath.item]
+        delegate?.didSelectSuggestionFromSearchResults(suggestion: suggestion)
+    }
 
 }
 
