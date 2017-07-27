@@ -12,7 +12,7 @@ import CoreLocation
 protocol SuggestionSearchClient {
     
     func searchForSuggestions(using query: String,
-                              coordinate: CLLocationCoordinate2D,
+                              coordinate: CLLocationCoordinate2D?,
                               radiusInMeters: Int,
                               completion: @escaping (_ suggestions: [Suggestion]?, _ error: Error?) -> Void)
 }

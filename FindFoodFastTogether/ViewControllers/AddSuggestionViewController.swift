@@ -91,7 +91,11 @@ extension AddSuggestionViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.characters.count > 0 {
-            searchClient.searchForSuggestions(using: searchText, coordinate: userLocation.coordinate, radiusInMeters: 10000) { [weak self] (suggestions, error) in
+            var coordinate: CLLocationCoordinate2D?
+            if let userLocation = userLocation {
+                coordinate = userLocation.coordinate
+            }
+            searchClient.searchForSuggestions(using: searchText, coordinate: coordinate, radiusInMeters: 10000) { [weak self] (suggestions, error) in
                 guard error == nil else {
                     print("error searching for suggestions")
                     return
