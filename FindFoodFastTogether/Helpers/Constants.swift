@@ -51,6 +51,7 @@ let browseHostReuseIdentifier = "BrowseHostCell"
 let suggestionReuseIdentifier = "SuggestionCell"
 let addNewSuggestionReuseIdentifier = "AddNewSuggestionCell"
 let suggestionSearchResultReuseIdentifier = "suggestionSearchResultCell"
+let poweredByGoogleFooterViewReuseIdentifer = "poweredByGoogleFooter"
 
 struct UserDefaultsKeys {
     static let Username = "username"

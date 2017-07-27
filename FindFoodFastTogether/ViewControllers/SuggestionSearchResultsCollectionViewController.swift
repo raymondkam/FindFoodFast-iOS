@@ -14,7 +14,6 @@ class SuggestionSearchResultsCollectionViewController: UICollectionViewControlle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -47,6 +46,16 @@ class SuggestionSearchResultsCollectionViewController: UICollectionViewControlle
         return cell
     }
 
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        switch kind {
+        case UICollectionElementKindSectionFooter:
+            let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: poweredByGoogleFooterViewReuseIdentifer, for: indexPath)
+            return footerView
+        default:
+            assert(false, "unexpected supplementary view for suggestion results collection view")
+        }
+    }
+    
     // MARK: UICollectionViewDelegate
 
 
@@ -57,6 +66,10 @@ extension SuggestionSearchResultsCollectionViewController: UICollectionViewDeleg
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: self.view.frame.width, height: 64)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        return CGSize(width: self.view.frame.width, height: 50)
     }
     
 }
