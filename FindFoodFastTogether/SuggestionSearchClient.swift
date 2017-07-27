@@ -15,4 +15,6 @@ protocol SuggestionSearchClient {
                               coordinate: CLLocationCoordinate2D?,
                               radiusInMeters: Int,
                               completion: @escaping (_ suggestions: [Suggestion]?, _ error: Error?) -> Void)
+    
+    func lookUpSuggestionDetails(using id:String, completion: @escaping (_ suggestions: Suggestion?, _ error: Error?) -> Void)
 }

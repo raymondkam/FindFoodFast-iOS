@@ -119,7 +119,7 @@ class VoteViewController: UIViewController {
     fileprivate func sendVotes() {
         print("send votes")
         for suggestion in dataSource {
-            print("rating for \(suggestion.name) is \(suggestion.rating)")
+            print("rating for \(suggestion.name) is \(suggestion.voteRating)")
         }
         
         BluetoothCentralManager.sharedInstance.sendHostVotedSuggestions(votedSuggestions: dataSource)
@@ -149,7 +149,7 @@ class VoteViewController: UIViewController {
             if let totalRatingSuggestion = totalRatingSuggestions.first(where: { (suggestion) -> Bool in
                 return votedSuggestion == suggestion
             }) {
-                totalRatingSuggestion.rating += votedSuggestion.rating
+                totalRatingSuggestion.voteRating += votedSuggestion.voteRating
                 totalRatingSuggestions.update(with: totalRatingSuggestion)
             } else {
                 // not in the set of suggestions
@@ -166,11 +166,11 @@ class VoteViewController: UIViewController {
     
     fileprivate func findSuggestionWithHighestRating() {
         let highestRatedSuggestion = totalRatingSuggestions.max { (a, b) -> Bool in
-            return a.rating < b.rating
+            return a.voteRating < b.voteRating
         }
         
         if let highestRatedSuggestion = highestRatedSuggestion {
-            print("best name: \(highestRatedSuggestion.name) and rating: \(highestRatedSuggestion.rating)")
+            print("best name: \(highestRatedSuggestion.name) and rating: \(highestRatedSuggestion.voteRating)")
             
             BluetoothPeripheralManager.sharedInstance.sendHighestRatedSuggestion(highestRatedSuggestion: highestRatedSuggestion)
             
@@ -193,7 +193,7 @@ extension VoteViewController: UICollectionViewDataSource {
         
         cell.title = suggestion.name
         cell.noImageTitle = suggestion.name
-        cell.cosmoView.rating = Double(suggestion.rating)
+        cell.cosmoView.rating = Double(suggestion.voteRating)
         cell.cosmoView.didFinishTouchingCosmos = { [weak self] rating in
             guard let currentIndex = self?.currentIndex else {
                 print("self is nil or has not current index")
@@ -203,7 +203,7 @@ extension VoteViewController: UICollectionViewDataSource {
                 print("self is nil or data source is nil")
                 return
             }
-            suggestion.rating = Int(rating)
+            suggestion.voteRating = Int(rating)
             if currentIndex < dataSource.count - 1 {
                 self?.scrollToNextCell()
             } else {

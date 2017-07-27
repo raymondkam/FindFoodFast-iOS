@@ -111,8 +111,6 @@ extension AddSuggestionViewController: CLLocationManagerDelegate {
             print("location restricted")
         }
     }
-    
-    
 }
 
 extension AddSuggestionViewController: UISearchBarDelegate {
@@ -149,7 +147,21 @@ extension AddSuggestionViewController: UISearchBarDelegate {
 
 extension AddSuggestionViewController: SuggestionSearchResultsDelegate {
     func didSelectSuggestionFromSearchResults(suggestion: Suggestion) {
-        navigationController?.popViewController(animated: true)
-        delegate?.didAddSuggestion(suggestion: suggestion)
+        guard let id = suggestion.id else {
+            print("suggestion has no id, cannot look up more details")
+            return
+        }
+        searchClient.lookUpSuggestionDetails(using: id) { [weak self] (suggestion, error) in
+            guard error == nil else {
+                print("error: \(String(describing: error?.localizedDescription))")
+                return
+            }
+            guard let suggestion = suggestion else {
+                print("no error but suggestion returned is nil")
+                return
+            }
+            self?.navigationController?.popViewController(animated: true)
+            self?.delegate?.didAddSuggestion(suggestion: suggestion)
+        }
     }
 }

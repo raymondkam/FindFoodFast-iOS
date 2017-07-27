@@ -52,14 +52,31 @@ class GoogleSuggestionSearchClient: SuggestionSearchClient {
             }
             let suggestions = predictions.map({ (prediction) -> Suggestion in
                 if let attributedSecondaryText = prediction.attributedSecondaryText {
-                    return Suggestion(id: prediction.placeID,name: prediction.attributedPrimaryText.string, address: attributedSecondaryText.string, rating: nil)
+                    return Suggestion(id: prediction.placeID, name: prediction.attributedPrimaryText.string, address: attributedSecondaryText.string, rating: nil, type: nil, coordinate: nil, website: nil, attributions: nil, isOpenNow: nil, voteRating: nil)
 
                 }
-                return Suggestion(id: prediction.placeID,name: prediction.attributedPrimaryText.string, address: nil, rating: nil)
+                return Suggestion(id: prediction.placeID, name: prediction.attributedPrimaryText.string, address: nil, rating: nil, type: nil, coordinate: nil, website: nil, attributions: nil, isOpenNow: nil, voteRating: nil)
             })
             completion(suggestions, nil)
         }
         
+    }
+    
+    func lookUpSuggestionDetails(using id: String, completion: @escaping (Suggestion?, Error?) -> Void) {
+        
+        placesClient.lookUpPlaceID(id) { (place, error) in
+            guard error == nil else {
+                print("google places error looking up more place details")
+                completion(nil, error)
+                return
+            }
+            guard let place = place else {
+                print("google place is nil")
+                return
+            }
+            let suggestion = Suggestion(id: place.placeID, name: place.name, address: place.formattedAddress, rating: place.rating, type: place.types.first, coordinate: place.coordinate, website: place.website, attributions: place.attributions, isOpenNow: place.openNowStatus == .yes, voteRating: nil)
+            completion(suggestion, nil)
+        }
     }
     
 }
