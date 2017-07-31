@@ -17,6 +17,7 @@ class SuggestionDetailsViewController: UIViewController {
     @IBOutlet weak var ratingCosmosView: CosmosView!
     @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var suggestionTitlesView: UIStackView!
+    @IBOutlet weak var pageImageControl: UIPageControl!
     
     var suggestion: Suggestion!
     var searchClient = GoogleSuggestionSearchClient()
@@ -74,6 +75,7 @@ class SuggestionDetailsViewController: UIViewController {
         switch segueIdentifier {
         case Segues.EmbedSuggestionImages:
             pagedImageCollectionViewController = segue.destination as! PagedImageCollectionViewController
+            pagedImageCollectionViewController.delegate = self
         default:
             assert(false, "unexpected segue identifier \(segueIdentifier)")
         }
@@ -90,5 +92,15 @@ class SuggestionDetailsViewController: UIViewController {
             ratingView.isHidden = true
         }
         suggestionTitlesView.isHidden = false
+    }
+}
+
+extension SuggestionDetailsViewController: PagedImageCollectionViewControllerDelegate {
+    func pagedImageCollectionViewControllerUpdatedNumberOfImages(numberOfImages: Int) {
+        pageImageControl.numberOfPages = numberOfImages
+    }
+    
+    func pagedImageCollectionViewControllerScrollToItem(item: Int) {
+        pageImageControl.currentPage = item
     }
 }

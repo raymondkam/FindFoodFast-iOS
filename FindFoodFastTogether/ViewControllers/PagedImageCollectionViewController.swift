@@ -24,6 +24,15 @@ class PagedImageCollectionViewController: UICollectionViewController {
         
     }
     
+    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if let cell = collectionView?.visibleCells.first {
+            let indexPath = collectionView?.indexPath(for: cell)
+            if let indexPath = indexPath {
+                delegate?.pagedImageCollectionViewControllerScrollToItem(item: indexPath.item)
+            }
+        }
+    }
+    
     // MARK: UICollectionViewDataSource
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -32,6 +41,7 @@ class PagedImageCollectionViewController: UICollectionViewController {
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        delegate?.pagedImageCollectionViewControllerUpdatedNumberOfImages(numberOfImages: dataSource.count)
         return dataSource.count
     }
     
@@ -46,7 +56,6 @@ class PagedImageCollectionViewController: UICollectionViewController {
     
     // MARK: UICollectionViewDelegate
     
-
 
 }
 
