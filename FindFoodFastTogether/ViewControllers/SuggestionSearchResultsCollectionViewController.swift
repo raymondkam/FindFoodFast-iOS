@@ -14,6 +14,7 @@ protocol SuggestionSearchResultsDelegate: class {
 
 class SuggestionSearchResultsCollectionViewController: UICollectionViewController {
 
+    var searchClient: SuggestionSearchClient!
     weak var delegate: SuggestionSearchResultsDelegate?
     
     var dataSource = [Suggestion]()
@@ -21,12 +22,7 @@ class SuggestionSearchResultsCollectionViewController: UICollectionViewControlle
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
+    
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {

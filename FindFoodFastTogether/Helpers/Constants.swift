@@ -39,6 +39,11 @@ struct Segues {
     static let ShowHighestRatedSuggestion = "showHighestRatedSuggestion"
     static let UnwindToStart = "unwindToStart"
     static let EmbedSuggestionSearchResults = "embedSuggestionSearchResults"
+    static let EmbedSuggestionImages = "embedSuggestionImages"
+}
+
+struct StoryboardIds {
+    static let SuggestionDetails = "suggestionDetails"
 }
 
 struct NotificationNames {
@@ -52,6 +57,7 @@ let suggestionReuseIdentifier = "SuggestionCell"
 let addNewSuggestionReuseIdentifier = "AddNewSuggestionCell"
 let suggestionSearchResultReuseIdentifier = "suggestionSearchResultCell"
 let poweredByGoogleFooterViewReuseIdentifer = "poweredByGoogleFooter"
+let imageReuseIdentifier = "ImageCell"
 
 struct UserDefaultsKeys {
     static let Username = "username"

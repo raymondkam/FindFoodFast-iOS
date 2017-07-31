@@ -19,8 +19,9 @@ class AddSuggestionViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     
     var suggestionSearchResultsCollectionViewController: SuggestionSearchResultsCollectionViewController!
+    var suggestionDetailsViewController: SuggestionDetailsViewController!
     var locationManager = CLLocationManager()
-    var searchClient: SuggestionSearchClient!
+    var searchClient: SuggestionSearchClient = GoogleSuggestionSearchClient()
     var userLocation: CLLocation?
     weak var delegate: AddSuggestionDelegate?
     
@@ -33,9 +34,6 @@ class AddSuggestionViewController: UIViewController {
 
         searchBar.delegate = self
         searchBar.becomeFirstResponder()
-
-        // use google as search client
-        searchClient = GoogleSuggestionSearchClient()
         
         // load previously saved location and see if it is a 
         // recently fetched location
@@ -72,6 +70,9 @@ class AddSuggestionViewController: UIViewController {
         case Segues.EmbedSuggestionSearchResults:
             suggestionSearchResultsCollectionViewController = segue.destination as! SuggestionSearchResultsCollectionViewController
             suggestionSearchResultsCollectionViewController.delegate = self
+            // pass on the search client so details control can
+            // fetch more details
+            suggestionSearchResultsCollectionViewController.searchClient = searchClient
         default:
             print("segue not identified")
         }
@@ -147,21 +148,15 @@ extension AddSuggestionViewController: UISearchBarDelegate {
 
 extension AddSuggestionViewController: SuggestionSearchResultsDelegate {
     func didSelectSuggestionFromSearchResults(suggestion: Suggestion) {
-        guard let id = suggestion.id else {
-            print("suggestion has no id, cannot look up more details")
+//        navigationController?.popViewController(animated: true)
+//        delegate?.didAddSuggestion(suggestion: suggestion)
+        guard let storyboardSuggestionDetailsViewController = storyboard?.instantiateViewController(withIdentifier: StoryboardIds.SuggestionDetails) as? SuggestionDetailsViewController else {
+            print("could not create suggestion details vc with storyboard id")
             return
         }
-        searchClient.lookUpSuggestionDetails(using: id) { [weak self] (suggestion, error) in
-            guard error == nil else {
-                print("error: \(String(describing: error?.localizedDescription))")
-                return
-            }
-            guard let suggestion = suggestion else {
-                print("no error but suggestion returned is nil")
-                return
-            }
-            self?.navigationController?.popViewController(animated: true)
-            self?.delegate?.didAddSuggestion(suggestion: suggestion)
-        }
+        suggestionDetailsViewController = storyboardSuggestionDetailsViewController
+        suggestionDetailsViewController.suggestion = suggestion
+//        suggestionDetailsViewController.searchClient = searchClient
+        navigationController?.pushViewController(suggestionDetailsViewController, animated: true)
     }
 }

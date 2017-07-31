@@ -79,4 +79,52 @@ class GoogleSuggestionSearchClient: SuggestionSearchClient {
         }
     }
     
+    func lookUpSuggestionPhotos(using suggestion: Suggestion, completion: @escaping (Suggestion?, Error?) -> Void) {
+        guard let id = suggestion.id else {
+            print("suggestion has no id, cannot look up photos")
+            return
+        }
+        placesClient.lookUpPhotos(forPlaceID: id) { (photosMetadata, error) in
+            guard error == nil else {
+                print("error looking up place photos \(String(describing: error?.localizedDescription))")
+                completion(nil, error)
+                return
+            }
+            suggestion.googlePhotosMetadataList = photosMetadata
+            completion(suggestion, nil)
+        }
+    }
+    
+    func lookUpSuggestionPhoto(using metadata: Any, size: CGSize?, completion: @escaping ([UIImage]?, Error?) -> Void) {
+        guard let googlePhotosMetadata = metadata as? GMSPlacePhotoMetadataList else {
+            print("wrong format of googles photo metadata")
+            return
+        }
+        if let photo = googlePhotosMetadata.results.first {
+//        for photo in googlePhotosMetadata.results {
+            if let size = size {
+                placesClient.loadPlacePhoto(photo, constrainedTo: size, scale: 1, callback: { (image, error) in
+                    guard error == nil else {
+                        completion(nil, error)
+                        return
+                    }
+                    if let image = image {
+                        completion([image], nil)
+                    }
+                    
+                })
+            } else {
+                placesClient.loadPlacePhoto(photo, callback: { (image, error) in
+                    guard error == nil else {
+                        completion(nil, error)
+                        return
+                    }
+                    if let image = image {
+                        completion([image], nil)
+                    }
+                })
+            }
+        }
+        
+    }
 }

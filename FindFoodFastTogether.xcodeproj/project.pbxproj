@@ -12,9 +12,12 @@
 		9C3883ED1F28F0620079D99F /* SuggestionSearchResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3883EC1F28F0620079D99F /* SuggestionSearchResultCollectionViewCell.swift */; };
 		9C3A25A41F1698E100B329A3 /* VoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3A25A31F1698E100B329A3 /* VoteViewController.swift */; };
 		9C6266F41F2962E5009E7C77 /* SuggestionSearchResultCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6266F31F2962E5009E7C77 /* SuggestionSearchResultCollectionReusableView.swift */; };
+		9C6266FC1F2A9EA1009E7C77 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6266FB1F2A9EA1009E7C77 /* ImageCollectionViewCell.swift */; };
+		9C6266FE1F2A9F6D009E7C77 /* PagedImageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6266FD1F2A9F6D009E7C77 /* PagedImageCollectionViewController.swift */; };
 		9C7ACD981F104C940086157E /* Suggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7ACD971F104C940086157E /* Suggestion.swift */; };
 		9C7ACD9A1F104E260086157E /* SuggestionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7ACD991F104E260086157E /* SuggestionCollectionViewCell.swift */; };
 		9C7ACD9C1F106F990086157E /* AddSuggestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7ACD9B1F106F990086157E /* AddSuggestionViewController.swift */; };
+		9C8D0E8B1F2AABF800CFD481 /* SuggestionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8D0E8A1F2AABF800CFD481 /* SuggestionDetailsViewController.swift */; };
 		9CA76E5D1F1E778300208BB3 /* VoteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA76E5C1F1E778300208BB3 /* VoteCollectionViewCell.swift */; };
 		9CA76E641F216D4900208BB3 /* HighestRatedSuggestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA76E631F216D4900208BB3 /* HighestRatedSuggestionViewController.swift */; };
 		9CB181021EFAC7A40085517A /* BluetoothCentralManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB181011EFAC7A40085517A /* BluetoothCentralManager.swift */; };
@@ -73,10 +76,13 @@
 		9C3883EC1F28F0620079D99F /* SuggestionSearchResultCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SuggestionSearchResultCollectionViewCell.swift; path = Views/SuggestionSearchResultCollectionViewCell.swift; sourceTree = "<group>"; };
 		9C3A25A31F1698E100B329A3 /* VoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VoteViewController.swift; path = ViewControllers/VoteViewController.swift; sourceTree = "<group>"; };
 		9C6266F31F2962E5009E7C77 /* SuggestionSearchResultCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SuggestionSearchResultCollectionReusableView.swift; path = Views/SuggestionSearchResultCollectionReusableView.swift; sourceTree = "<group>"; };
+		9C6266FB1F2A9EA1009E7C77 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageCollectionViewCell.swift; path = Views/ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		9C6266FD1F2A9F6D009E7C77 /* PagedImageCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PagedImageCollectionViewController.swift; path = ViewControllers/PagedImageCollectionViewController.swift; sourceTree = "<group>"; };
 		9C7ACD971F104C940086157E /* Suggestion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Suggestion.swift; sourceTree = "<group>"; };
 		9C7ACD991F104E260086157E /* SuggestionCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SuggestionCollectionViewCell.swift; path = Views/SuggestionCollectionViewCell.swift; sourceTree = "<group>"; };
 		9C7ACD9B1F106F990086157E /* AddSuggestionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddSuggestionViewController.swift; path = ViewControllers/AddSuggestionViewController.swift; sourceTree = "<group>"; };
 		9C8177201C3FA285B77819D3 /* Pods-FindFoodFastTogetherTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FindFoodFastTogetherTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FindFoodFastTogetherTests/Pods-FindFoodFastTogetherTests.release.xcconfig"; sourceTree = "<group>"; };
+		9C8D0E8A1F2AABF800CFD481 /* SuggestionDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SuggestionDetailsViewController.swift; path = ViewControllers/SuggestionDetailsViewController.swift; sourceTree = "<group>"; };
 		9CA76E5C1F1E778300208BB3 /* VoteCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VoteCollectionViewCell.swift; path = Views/VoteCollectionViewCell.swift; sourceTree = "<group>"; };
 		9CA76E631F216D4900208BB3 /* HighestRatedSuggestionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HighestRatedSuggestionViewController.swift; path = ViewControllers/HighestRatedSuggestionViewController.swift; sourceTree = "<group>"; };
 		9CB181011EFAC7A40085517A /* BluetoothCentralManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BluetoothCentralManager.swift; path = Managers/BluetoothCentralManager.swift; sourceTree = "<group>"; };
@@ -234,6 +240,8 @@
 				9C3A25A31F1698E100B329A3 /* VoteViewController.swift */,
 				9CA76E631F216D4900208BB3 /* HighestRatedSuggestionViewController.swift */,
 				9C3883EA1F27DF750079D99F /* SuggestionSearchResultsCollectionViewController.swift */,
+				9C8D0E8A1F2AABF800CFD481 /* SuggestionDetailsViewController.swift */,
+				9C6266FD1F2A9F6D009E7C77 /* PagedImageCollectionViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -246,6 +254,7 @@
 				9CA76E5C1F1E778300208BB3 /* VoteCollectionViewCell.swift */,
 				9C3883EC1F28F0620079D99F /* SuggestionSearchResultCollectionViewCell.swift */,
 				9C6266F31F2962E5009E7C77 /* SuggestionSearchResultCollectionReusableView.swift */,
+				9C6266FB1F2A9EA1009E7C77 /* ImageCollectionViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -569,15 +578,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C6266FE1F2A9F6D009E7C77 /* PagedImageCollectionViewController.swift in Sources */,
 				9CF38B971F02F54C00A736B0 /* BluetoothPeripheralManager.swift in Sources */,
 				9CC2B8331EF065DA0049E269 /* BrowseHostCollectionViewCell.swift in Sources */,
 				9CF38B9B1F05AF4300A736B0 /* SuggestionCollectionViewController.swift in Sources */,
 				9CC2B83A1EF18A370049E269 /* HostViewController.swift in Sources */,
 				9CF38B9F1F06A70D00A736B0 /* User.swift in Sources */,
 				9CC2B84B1EF8DEB00049E269 /* CreateHostViewController.swift in Sources */,
+				9C6266FC1F2A9EA1009E7C77 /* ImageCollectionViewCell.swift in Sources */,
 				9CF38B951F00736B00A736B0 /* Host.swift in Sources */,
 				9C3883ED1F28F0620079D99F /* SuggestionSearchResultCollectionViewCell.swift in Sources */,
 				9C6266F41F2962E5009E7C77 /* SuggestionSearchResultCollectionReusableView.swift in Sources */,
+				9C8D0E8B1F2AABF800CFD481 /* SuggestionDetailsViewController.swift in Sources */,
 				9CC2B8351EF0890F0049E269 /* BrowseHostViewController.swift in Sources */,
 				9CC2B8031EEE407A0049E269 /* ViewController.swift in Sources */,
 				9CC2B8491EF784F10049E269 /* StartViewController.swift in Sources */,

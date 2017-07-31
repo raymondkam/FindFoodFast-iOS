@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import CoreLocation
+import GooglePlaces
 
 class Suggestion: NSObject, NSCoding {
     // id of the object can be used to fetch more details 
@@ -23,6 +24,9 @@ class Suggestion: NSObject, NSCoding {
     var attributions: NSAttributedString?
     var isOpenNow: Bool?
     var voteRating = 0
+    
+    // google only data
+    var googlePhotosMetadataList: GMSPlacePhotoMetadataList?
 
     init(id: String?, name: String, address: String?, rating: Float?, type: String?, coordinate: CLLocationCoordinate2D?, website: URL?, attributions: NSAttributedString?, isOpenNow: Bool?, voteRating: Int?) {
         self.id = id

@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreLocation
+import UIKit
 
 protocol SuggestionSearchClient {
     
@@ -17,4 +18,8 @@ protocol SuggestionSearchClient {
                               completion: @escaping (_ suggestions: [Suggestion]?, _ error: Error?) -> Void)
     
     func lookUpSuggestionDetails(using id:String, completion: @escaping (_ suggestions: Suggestion?, _ error: Error?) -> Void)
+    
+    func lookUpSuggestionPhotos(using suggestion: Suggestion, completion: @escaping (Suggestion?, Error?) -> Void)
+    
+    func lookUpSuggestionPhoto(using metadata:Any, size:CGSize?, completion: @escaping ([UIImage]?, Error?) -> Void)
 }
