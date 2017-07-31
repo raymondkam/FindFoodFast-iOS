@@ -152,6 +152,14 @@ class HostViewController: UIViewController {
             print("segue not recognized")
         }
     }
+    
+    @IBAction func unwindToHostViewAfterAddingSuggestion(segue: UIStoryboardSegue) {
+        guard let suggestion = (segue.source as? SuggestionDetailsViewController)?.suggestion else {
+            print("cannot get suggestion from suggestion details vc")
+            return
+        }
+        suggestionCollectionViewController.addSuggestion(suggestion: suggestion)
+    }
 }
 
 extension HostViewController : BluetoothCentralManagerDelegate {

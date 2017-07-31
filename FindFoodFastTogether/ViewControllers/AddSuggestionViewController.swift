@@ -148,15 +148,12 @@ extension AddSuggestionViewController: UISearchBarDelegate {
 
 extension AddSuggestionViewController: SuggestionSearchResultsDelegate {
     func didSelectSuggestionFromSearchResults(suggestion: Suggestion) {
-//        navigationController?.popViewController(animated: true)
-//        delegate?.didAddSuggestion(suggestion: suggestion)
         guard let storyboardSuggestionDetailsViewController = storyboard?.instantiateViewController(withIdentifier: StoryboardIds.SuggestionDetails) as? SuggestionDetailsViewController else {
             print("could not create suggestion details vc with storyboard id")
             return
         }
         suggestionDetailsViewController = storyboardSuggestionDetailsViewController
         suggestionDetailsViewController.suggestion = suggestion
-//        suggestionDetailsViewController.searchClient = searchClient
         navigationController?.pushViewController(suggestionDetailsViewController, animated: true)
     }
 }
