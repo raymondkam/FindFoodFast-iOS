@@ -21,5 +21,5 @@ protocol SuggestionSearchClient {
     
     func lookUpSuggestionPhotos(using suggestion: Suggestion, completion: @escaping (Suggestion?, Error?) -> Void)
     
-    func lookUpSuggestionPhoto(using metadata:Any, size:CGSize?, completion: @escaping ([UIImage]?, Error?) -> Void)
+    func lookUpSuggestionPhotos(using metadata:Any, size:CGSize?, completion: @escaping ([UIImage]?, Error?) -> Void)
 }

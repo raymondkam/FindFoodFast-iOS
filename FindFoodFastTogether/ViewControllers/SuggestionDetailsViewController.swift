@@ -54,7 +54,7 @@ class SuggestionDetailsViewController: UIViewController {
                 if let width = width {
                     let height = width * 9 / 16
                     let size = CGSize(width: width, height: height)
-                    self?.searchClient.lookUpSuggestionPhoto(using: suggestionWithImageMetadata.googlePhotosMetadataList as Any, size: size, completion: { [weak self] (images, error) in
+                    self?.searchClient.lookUpSuggestionPhotos(using: suggestionWithImageMetadata.googlePhotosMetadataList as Any, size: size, completion: { [weak self] (images, error) in
                         if let images = images {
                             self?.pagedImageCollectionViewController.dataSource = images
                             self?.pagedImageCollectionViewController.collectionView?.reloadData()

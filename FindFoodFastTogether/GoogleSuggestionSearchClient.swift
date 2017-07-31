@@ -95,35 +95,46 @@ class GoogleSuggestionSearchClient: SuggestionSearchClient {
         }
     }
     
-    func lookUpSuggestionPhoto(using metadata: Any, size: CGSize?, completion: @escaping ([UIImage]?, Error?) -> Void) {
+    func lookUpSuggestionPhotos(using metadata: Any, size: CGSize?, completion: @escaping ([UIImage]?, Error?) -> Void) {
         guard let googlePhotosMetadata = metadata as? GMSPlacePhotoMetadataList else {
             print("wrong format of googles photo metadata")
             return
         }
-        if let photo = googlePhotosMetadata.results.first {
-//        for photo in googlePhotosMetadata.results {
+        
+        let dispatchGroup = DispatchGroup()
+        var images = [UIImage]()
+        
+        // take the first 5 photos max
+        for photo in googlePhotosMetadata.results.prefix(upTo: 5) {
+            dispatchGroup.enter()
             if let size = size {
                 placesClient.loadPlacePhoto(photo, constrainedTo: size, scale: 1, callback: { (image, error) in
+                    dispatchGroup.leave()
                     guard error == nil else {
-                        completion(nil, error)
+                        print("error fetching suggestion image")
                         return
                     }
                     if let image = image {
-                        completion([image], nil)
+                        images.append(image)
                     }
                     
                 })
             } else {
                 placesClient.loadPlacePhoto(photo, callback: { (image, error) in
+                    dispatchGroup.leave()
                     guard error == nil else {
-                        completion(nil, error)
+                        print("error fetching suggestion image")
                         return
                     }
                     if let image = image {
-                        completion([image], nil)
+                        images.append(image)
                     }
                 })
             }
+        }
+        
+        dispatchGroup.notify(queue: .main) { 
+            completion(images, nil)
         }
         
     }
