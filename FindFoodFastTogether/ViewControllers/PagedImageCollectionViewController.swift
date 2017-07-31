@@ -16,6 +16,7 @@ protocol PagedImageCollectionViewControllerDelegate: class {
 class PagedImageCollectionViewController: UICollectionViewController {
 
     var dataSource = [UIImage]()
+    var currentIndex = -1
     weak var delegate: PagedImageCollectionViewControllerDelegate?
     
     override func viewDidLoad() {
@@ -24,12 +25,13 @@ class PagedImageCollectionViewController: UICollectionViewController {
         
     }
     
-    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        if let cell = collectionView?.visibleCells.first {
-            let indexPath = collectionView?.indexPath(for: cell)
-            if let indexPath = indexPath {
-                delegate?.pagedImageCollectionViewControllerScrollToItem(item: indexPath.item)
-            }
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let result = scrollView.contentOffset.x / (scrollView.contentSize.width / CGFloat(dataSource.count))
+        let isMoreThanHalfway = result.truncatingRemainder(dividingBy: 1) > 0.5
+        let index = Int(result) + (isMoreThanHalfway ? 1 : 0)
+        if currentIndex != index {
+            currentIndex = index
+            delegate?.pagedImageCollectionViewControllerScrollToItem(item: currentIndex)
         }
     }
     
