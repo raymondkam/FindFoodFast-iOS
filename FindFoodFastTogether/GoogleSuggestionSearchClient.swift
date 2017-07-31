@@ -96,16 +96,25 @@ class GoogleSuggestionSearchClient: SuggestionSearchClient {
     }
     
     func lookUpSuggestionPhotos(using metadata: Any, size: CGSize?, completion: @escaping ([UIImage]?, Error?) -> Void) {
-        guard let googlePhotosMetadata = metadata as? GMSPlacePhotoMetadataList else {
+        guard let googlePhotosMetadataList = metadata as? GMSPlacePhotoMetadataList else {
             print("wrong format of googles photo metadata")
             return
         }
         
-        let dispatchGroup = DispatchGroup()
         var images = [UIImage]()
         
+        guard googlePhotosMetadataList.results.count > 0 else {
+            print("no photos in photos metadata")
+            completion(images, nil)
+            return
+        }
+        
+        let dispatchGroup = DispatchGroup()
+        let photos = googlePhotosMetadataList.results
+        let count = min(photos.count, 5)
+        
         // take the first 5 photos max
-        for photo in googlePhotosMetadata.results.prefix(upTo: 5) {
+        for photo in googlePhotosMetadataList.results.prefix(upTo: count) {
             dispatchGroup.enter()
             if let size = size {
                 placesClient.loadPlacePhoto(photo, constrainedTo: size, scale: 1, callback: { (image, error) in
