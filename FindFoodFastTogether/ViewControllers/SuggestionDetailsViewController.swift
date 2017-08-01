@@ -26,6 +26,7 @@ class SuggestionDetailsViewController: UIViewController {
     @IBOutlet weak var phoneNumberButton: UIButton!
     @IBOutlet weak var websiteButton: UIButton!
     @IBOutlet weak var addSuggestionStackView: UIStackView!
+    @IBOutlet weak var addSuggestionShadowView: UIView!
     
     var suggestion: Suggestion!
     var searchClient = GoogleSuggestionSearchClient()
@@ -75,6 +76,15 @@ class SuggestionDetailsViewController: UIViewController {
 
             })
         }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        let shadowPath = UIBezierPath(rect: addSuggestionShadowView.bounds)
+        addSuggestionShadowView.layer.masksToBounds = false
+        addSuggestionShadowView.layer.shadowColor = UIColor.black.cgColor
+        addSuggestionShadowView.layer.shadowOffset = CGSize(width: 0, height: -0.5)
+        addSuggestionShadowView.layer.shadowOpacity = 0.3
+        addSuggestionShadowView.layer.shadowPath = shadowPath.cgPath
     }
     
     override func viewWillAppear(_ animated: Bool) {

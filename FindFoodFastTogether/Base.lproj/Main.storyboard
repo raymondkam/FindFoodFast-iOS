@@ -1282,6 +1282,10 @@
                                     <constraint firstItem="hG7-39-vv1" firstAttribute="top" secondItem="gq1-1K-vbN" secondAttribute="bottom" id="yRS-h8-buU"/>
                                 </constraints>
                             </scrollView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NuE-Bg-d0M">
+                                <rect key="frame" x="-0.5" y="617" width="375" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eFc-5S-egX">
                                 <rect key="frame" x="0.0" y="617" width="375" height="50"/>
                                 <subviews>
@@ -1304,16 +1308,21 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="NuE-Bg-d0M" firstAttribute="height" secondItem="eFc-5S-egX" secondAttribute="height" id="2df-HX-cyl"/>
                             <constraint firstAttribute="bottomMargin" secondItem="eFc-5S-egX" secondAttribute="bottom" id="9SU-xi-vKW"/>
                             <constraint firstAttribute="trailing" secondItem="Si2-LH-sn3" secondAttribute="trailing" id="BYP-r9-F9o"/>
                             <constraint firstItem="eFc-5S-egX" firstAttribute="leading" secondItem="uan-dx-f2N" secondAttribute="leading" id="LMh-hb-rc4"/>
                             <constraint firstItem="Si2-LH-sn3" firstAttribute="leading" secondItem="uan-dx-f2N" secondAttribute="leading" id="bD7-qz-Zir"/>
                             <constraint firstAttribute="trailing" secondItem="eFc-5S-egX" secondAttribute="trailing" id="djN-jk-Atf"/>
                             <constraint firstAttribute="topMargin" secondItem="Si2-LH-sn3" secondAttribute="top" id="hL3-lu-DEt"/>
+                            <constraint firstItem="NuE-Bg-d0M" firstAttribute="width" secondItem="eFc-5S-egX" secondAttribute="width" id="hpM-tN-IVT"/>
                             <constraint firstItem="eFc-5S-egX" firstAttribute="top" secondItem="Si2-LH-sn3" secondAttribute="bottom" id="qLb-dY-NS8"/>
+                            <constraint firstItem="NuE-Bg-d0M" firstAttribute="centerX" secondItem="eFc-5S-egX" secondAttribute="centerX" id="rks-F7-TRP"/>
+                            <constraint firstItem="NuE-Bg-d0M" firstAttribute="centerY" secondItem="eFc-5S-egX" secondAttribute="centerY" id="yVI-fc-1El"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addSuggestionShadowView" destination="NuE-Bg-d0M" id="dVB-gK-O59"/>
                         <outlet property="addSuggestionStackView" destination="eFc-5S-egX" id="IZ3-uw-BS7"/>
                         <outlet property="addressButton" destination="3QO-Dy-syp" id="q41-IT-zYE"/>
                         <outlet property="mapView" destination="hG7-39-vv1" id="NNL-DI-k23"/>
