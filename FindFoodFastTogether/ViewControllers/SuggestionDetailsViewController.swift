@@ -18,6 +18,7 @@ class SuggestionDetailsViewController: UIViewController {
     @IBOutlet weak var ratingCosmosView: CosmosView!
     @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var suggestionTitlesView: UIStackView!
+    @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var pageImageControl: UIPageControl!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var addressButton: UIButton!
@@ -29,18 +30,44 @@ class SuggestionDetailsViewController: UIViewController {
     @IBOutlet weak var addSuggestionShadowView: UIView!
     
     var suggestion: Suggestion!
+    var locationManager = CLLocationManager()
+    var userLocation: CLLocation?
     var searchClient = GoogleSuggestionSearchClient()
     var pagedImageCollectionViewController: PagedImageCollectionViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.ratingCosmosView.settings.fillMode = .half
         guard let id = suggestion.id else {
             print("suggestion has no id, cannot look up more details")
             return
         }
-        addSuggestionStackView.layer.masksToBounds = false;
+        
+        // load previously saved location and see if it is a
+        // recently fetched location
+        let userDefaults = UserDefaults.standard
+        if let cachedLocationData = userDefaults.data(forKey: UserDefaultsKeys.UserLocation) {
+            print("loaded previously cached location")
+            if let cachedLocation = NSKeyedUnarchiver.unarchiveObject(with: cachedLocationData) as? CLLocation {
+                let currentDate = Date()
+                if currentDate < cachedLocation.timestamp.addingTimeInterval(LocationCacheTimeInterval) {
+                    // if cached location was retrieved less than
+                    // 5 mins ago
+                    userLocation = cachedLocation
+                }
+            }
+        }
+        
+        // set up location and get user's current location
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        
+        // only update location if cached location is bad
+        if let _ = userLocation {} else {
+            locationManager.startUpdatingLocation()
+        }
+
         searchClient.lookUpSuggestionDetails(using: id) { [weak self] (suggestion, error) in
             guard error == nil else {
                 print("error: \(String(describing: error?.localizedDescription))")
@@ -167,6 +194,15 @@ class SuggestionDetailsViewController: UIViewController {
         if let website = suggestion.website {
             websiteButton.setTitle(website.host, for: .normal)
         }
+        if let userLocation = userLocation, let suggestionCoordinate = suggestion.coordinate {
+            let suggestionLocation = CLLocation(latitude: suggestionCoordinate.latitude, longitude: suggestionCoordinate.longitude)
+            let distance = userLocation.distance(from: suggestionLocation) / 1000
+            let distanceString = String(format: "%.1f km", distance)
+            distanceLabel.text = distanceString
+            distanceLabel.isHidden = false
+        } else {
+            distanceLabel.isHidden = true
+        }
         suggestionTitlesView.isHidden = false
     }
 }
@@ -178,6 +214,41 @@ extension SuggestionDetailsViewController: PagedImageCollectionViewControllerDel
     
     func pagedImageCollectionViewControllerScrollToItem(item: Int) {
         pageImageControl.currentPage = item
+    }
+}
+
+extension SuggestionDetailsViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("found some locations")
+        guard locations.count > 0 else {
+            print("did not find any locations")
+            return
+        }
+        manager.stopUpdatingLocation()
+        let bestLocation = locations[0]
+        userLocation = bestLocation
+        print("user coordinates: \(bestLocation.coordinate)")
+        
+        // save into user defaults
+        let bestLocationData = NSKeyedArchiver.archivedData(withRootObject: bestLocation)
+        let userDefaults = UserDefaults.standard
+        userDefaults.setValue(bestLocationData, forKey: UserDefaultsKeys.UserLocation)
+        print("user location saved into user defaults")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .authorizedAlways:
+            print("authorized always")
+        case .authorizedWhenInUse:
+            print("clear to go use user location")
+        case .denied:
+            print("access denied")
+        case .notDetermined:
+            print("not determined")
+        case .restricted:
+            print("location restricted")
+        }
     }
 }
 

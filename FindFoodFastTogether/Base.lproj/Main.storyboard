@@ -1095,6 +1095,12 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gq1-1K-vbN">
                                         <rect key="frame" x="0.0" y="281.5" width="375" height="100"/>
                                         <subviews>
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5 km" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4o4-wf-ve0">
+                                                <rect key="frame" x="329" y="69.5" width="30" height="16"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="0gT-NC-mij">
                                                 <rect key="frame" x="16" y="14.5" width="343" height="71"/>
                                                 <subviews>
@@ -1155,8 +1161,10 @@
                                         </subviews>
                                         <color key="backgroundColor" red="0.1172069301" green="0.73854854130000003" blue="0.83719235749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="4o4-wf-ve0" secondAttribute="trailing" constant="16" id="3xx-km-oeX"/>
                                             <constraint firstItem="siO-2E-VCu" firstAttribute="leading" secondItem="gq1-1K-vbN" secondAttribute="leading" constant="16" id="5s9-W7-0Zd"/>
                                             <constraint firstAttribute="trailing" secondItem="siO-2E-VCu" secondAttribute="trailing" constant="16" id="EPI-VO-2et"/>
+                                            <constraint firstItem="4o4-wf-ve0" firstAttribute="bottom" secondItem="0gT-NC-mij" secondAttribute="bottom" id="MpM-YG-XXn"/>
                                             <constraint firstItem="0gT-NC-mij" firstAttribute="centerY" secondItem="gq1-1K-vbN" secondAttribute="centerY" id="RaS-tS-RQ4"/>
                                             <constraint firstItem="0gT-NC-mij" firstAttribute="centerX" secondItem="gq1-1K-vbN" secondAttribute="centerX" id="RcJ-WV-Usw"/>
                                             <constraint firstAttribute="height" constant="100" id="Rog-Y7-KWa"/>
@@ -1325,6 +1333,7 @@
                         <outlet property="addSuggestionShadowView" destination="NuE-Bg-d0M" id="dVB-gK-O59"/>
                         <outlet property="addSuggestionStackView" destination="eFc-5S-egX" id="IZ3-uw-BS7"/>
                         <outlet property="addressButton" destination="3QO-Dy-syp" id="q41-IT-zYE"/>
+                        <outlet property="distanceLabel" destination="4o4-wf-ve0" id="6ez-ia-c28"/>
                         <outlet property="mapView" destination="hG7-39-vv1" id="NNL-DI-k23"/>
                         <outlet property="openNowButton" destination="Yc7-gc-QjL" id="i4d-U9-WKU"/>
                         <outlet property="openNowView" destination="T8u-Am-jQD" id="AGz-x0-pUK"/>

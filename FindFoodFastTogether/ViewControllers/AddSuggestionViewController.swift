@@ -27,7 +27,6 @@ class AddSuggestionViewController: UIViewController {
     
     let SuggestionTextFieldMinCharacterCount = 2
     let SuggestionTextFieldMaxCharacterCount = 80
-    let LocationCacheTimeInterval: TimeInterval = 300
     
     override func viewDidLoad() {
         super.viewDidLoad()
