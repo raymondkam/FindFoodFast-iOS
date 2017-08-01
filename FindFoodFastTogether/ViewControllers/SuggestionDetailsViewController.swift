@@ -30,16 +30,6 @@ class SuggestionDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let navigationBar = navigationController?.navigationBar {
-            let transparentPixel = UIImage.imageWithColor(color: UIColor.clear)
-            navigationBar.setBackgroundImage(transparentPixel, for: UIBarMetrics.default)
-            navigationBar.shadowImage = transparentPixel
-            navigationBar.backgroundColor = UIColor.clear
-            navigationBar.isTranslucent = true
-            navigationBar.tintColor = .white
-            navigationBar.barStyle = .black
-        }
-        
         self.ratingCosmosView.settings.fillMode = .half
         guard let id = suggestion.id else {
             print("suggestion has no id, cannot look up more details")
@@ -80,6 +70,29 @@ class SuggestionDetailsViewController: UIViewController {
                 }
 
             })
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let navigationBar = navigationController?.navigationBar {
+            let transparentPixel = UIImage.imageWithColor(color: UIColor.clear)
+            navigationBar.setBackgroundImage(transparentPixel, for: UIBarMetrics.default)
+            navigationBar.shadowImage = transparentPixel
+            navigationBar.backgroundColor = UIColor.clear
+            navigationBar.isTranslucent = true
+            navigationBar.tintColor = .white
+            navigationBar.barStyle = .black
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if let navigationBar = navigationController?.navigationBar {
+            navigationBar.setBackgroundImage(nil, for: UIBarMetrics.default)
+            navigationBar.shadowImage = nil
+            navigationBar.tintColor = FindFoodFastColor.MainColor
+            navigationBar.barStyle = .default
         }
     }
     
