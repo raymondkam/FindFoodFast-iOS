@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 import Cosmos
 
 class SuggestionDetailsViewController: UIViewController {
@@ -18,6 +19,9 @@ class SuggestionDetailsViewController: UIViewController {
     @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var suggestionTitlesView: UIStackView!
     @IBOutlet weak var pageImageControl: UIPageControl!
+    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var addSuggestionStackView: UIStackView!
     
     var suggestion: Suggestion!
     var searchClient = GoogleSuggestionSearchClient()
@@ -30,6 +34,7 @@ class SuggestionDetailsViewController: UIViewController {
             print("suggestion has no id, cannot look up more details")
             return
         }
+        addSuggestionStackView.layer.masksToBounds = false;
         searchClient.lookUpSuggestionDetails(using: id) { [weak self] (suggestion, error) in
             guard error == nil else {
                 print("error: \(String(describing: error?.localizedDescription))")
@@ -90,6 +95,17 @@ class SuggestionDetailsViewController: UIViewController {
             ratingLabel.text = String(format: "%.1f", rating)
         } else {
             ratingView.isHidden = true
+        }
+        if let coordinate = suggestion.coordinate {
+            let placeAnnotation = MKPointAnnotation()
+            placeAnnotation.coordinate = coordinate
+            mapView.addAnnotation(placeAnnotation)
+            let region = MKCoordinateRegionMakeWithDistance(coordinate, 500, 500)
+            mapView.showsUserLocation = true
+            mapView.setRegion(region, animated: false)
+        }
+        if let address = suggestion.address {
+            addressLabel.text = address
         }
         suggestionTitlesView.isHidden = false
     }

@@ -1166,23 +1166,54 @@
                                     <constraint firstAttribute="height" constant="100" id="Rog-Y7-KWa"/>
                                 </constraints>
                             </view>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="hG7-39-vv1">
+                                <rect key="frame" x="-0.5" y="331" width="375" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="hG7-39-vv1" secondAttribute="height" multiplier="5:2" id="gzs-by-yoh"/>
+                                </constraints>
+                            </mapView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FWI-jv-1ze">
+                                <rect key="frame" x="16" y="491" width="343" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UoI-KR-Q6a" userLabel="Divider">
+                                <rect key="frame" x="16" y="521.5" width="343" height="1"/>
+                                <color key="backgroundColor" white="0.84999999999999998" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="jTu-yT-pyu"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="FWI-jv-1ze" firstAttribute="top" secondItem="hG7-39-vv1" secondAttribute="bottom" constant="10" id="2Ho-YE-zFW"/>
                             <constraint firstAttribute="trailing" secondItem="HEv-vy-86y" secondAttribute="trailing" id="5Zh-Pq-JLo"/>
+                            <constraint firstItem="hG7-39-vv1" firstAttribute="width" secondItem="uan-dx-f2N" secondAttribute="width" id="7eG-E7-qFM"/>
                             <constraint firstAttribute="bottomMargin" secondItem="eFc-5S-egX" secondAttribute="bottom" id="9SU-xi-vKW"/>
+                            <constraint firstItem="UoI-KR-Q6a" firstAttribute="top" secondItem="FWI-jv-1ze" secondAttribute="bottom" constant="10" id="Eay-kz-ekr"/>
                             <constraint firstItem="eFc-5S-egX" firstAttribute="leading" secondItem="uan-dx-f2N" secondAttribute="leading" id="LMh-hb-rc4"/>
+                            <constraint firstItem="hG7-39-vv1" firstAttribute="top" secondItem="gq1-1K-vbN" secondAttribute="bottom" id="LnA-gK-rwc"/>
+                            <constraint firstAttribute="trailing" secondItem="UoI-KR-Q6a" secondAttribute="trailing" constant="16" id="SKF-kE-L9R"/>
                             <constraint firstItem="gq1-1K-vbN" firstAttribute="top" secondItem="HEv-vy-86y" secondAttribute="bottom" id="Vgt-NH-wpt"/>
                             <constraint firstItem="HEv-vy-86y" firstAttribute="bottom" secondItem="b8V-So-3h9" secondAttribute="bottom" constant="8" id="WAG-gH-QlR"/>
                             <constraint firstItem="b8V-So-3h9" firstAttribute="centerX" secondItem="HEv-vy-86y" secondAttribute="centerX" id="YqH-Rq-gVH"/>
                             <constraint firstAttribute="trailing" secondItem="eFc-5S-egX" secondAttribute="trailing" id="djN-jk-Atf"/>
+                            <constraint firstItem="UoI-KR-Q6a" firstAttribute="leading" secondItem="uan-dx-f2N" secondAttribute="leading" constant="16" id="ef1-Sq-XOp"/>
                             <constraint firstItem="gq1-1K-vbN" firstAttribute="width" secondItem="uan-dx-f2N" secondAttribute="width" id="efm-SO-ypr"/>
+                            <constraint firstAttribute="trailing" secondItem="FWI-jv-1ze" secondAttribute="trailing" constant="16" id="epf-ie-1jJ"/>
                             <constraint firstItem="gq1-1K-vbN" firstAttribute="centerX" secondItem="uan-dx-f2N" secondAttribute="centerX" id="ewd-D8-S5m"/>
+                            <constraint firstItem="hG7-39-vv1" firstAttribute="centerX" secondItem="uan-dx-f2N" secondAttribute="centerX" id="fAZ-DI-4bI"/>
                             <constraint firstItem="HEv-vy-86y" firstAttribute="leading" secondItem="uan-dx-f2N" secondAttribute="leading" id="pf1-oZ-Ajr"/>
+                            <constraint firstItem="FWI-jv-1ze" firstAttribute="leading" secondItem="uan-dx-f2N" secondAttribute="leading" constant="16" id="tot-Fv-JDu"/>
                             <constraint firstItem="HEv-vy-86y" firstAttribute="top" secondItem="jXQ-ge-jGw" secondAttribute="bottom" id="ymT-Zn-Hf7"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addSuggestionStackView" destination="eFc-5S-egX" id="IZ3-uw-BS7"/>
+                        <outlet property="addressLabel" destination="FWI-jv-1ze" id="Hhp-Ir-YMm"/>
+                        <outlet property="mapView" destination="hG7-39-vv1" id="NNL-DI-k23"/>
                         <outlet property="pageImageControl" destination="b8V-So-3h9" id="kv6-VI-E20"/>
                         <outlet property="ratingCosmosView" destination="vUb-3A-lB7" id="9JS-cx-DXa"/>
                         <outlet property="ratingLabel" destination="KBG-vC-Fn6" id="dpt-LO-JEy"/>
@@ -1202,7 +1233,7 @@
         <scene sceneID="36T-SW-SEM">
             <objects>
                 <collectionViewController id="mbN-D9-oQZ" customClass="PagedImageCollectionViewController" customModule="FindFoodFastTogether" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="rzr-R9-m4j">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="rzr-R9-m4j">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="211"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
