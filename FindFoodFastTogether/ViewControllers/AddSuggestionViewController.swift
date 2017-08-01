@@ -154,6 +154,9 @@ extension AddSuggestionViewController: SuggestionSearchResultsDelegate {
         }
         suggestionDetailsViewController = storyboardSuggestionDetailsViewController
         suggestionDetailsViewController.suggestion = suggestion
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        navigationItem.backBarButtonItem = backItem
         navigationController?.pushViewController(suggestionDetailsViewController, animated: true)
     }
 }

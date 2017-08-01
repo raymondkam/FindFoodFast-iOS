@@ -29,6 +29,17 @@ class SuggestionDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let navigationBar = navigationController?.navigationBar {
+            let transparentPixel = UIImage.imageWithColor(color: UIColor.clear)
+            navigationBar.setBackgroundImage(transparentPixel, for: UIBarMetrics.default)
+            navigationBar.shadowImage = transparentPixel
+            navigationBar.backgroundColor = UIColor.clear
+            navigationBar.isTranslucent = true
+            navigationBar.tintColor = .white
+            navigationBar.barStyle = .black
+        }
+        
         self.ratingCosmosView.settings.fillMode = .half
         guard let id = suggestion.id else {
             print("suggestion has no id, cannot look up more details")
@@ -58,7 +69,7 @@ class SuggestionDetailsViewController: UIViewController {
                 }
                 let width = self?.view.frame.size.width
                 if let width = width {
-                    let height = width * 9 / 16
+                    let height = width * 10 / 16
                     let size = CGSize(width: width, height: height)
                     self?.searchClient.lookUpSuggestionPhotos(using: suggestionWithImageMetadata.googlePhotosMetadataList as Any, size: size, completion: { [weak self] (images, error) in
                         if let images = images {
@@ -118,5 +129,21 @@ extension SuggestionDetailsViewController: PagedImageCollectionViewControllerDel
     
     func pagedImageCollectionViewControllerScrollToItem(item: Int) {
         pageImageControl.currentPage = item
+    }
+}
+
+extension UIImage {
+    class func imageWithColor(color: UIColor) -> UIImage {
+        let rect = CGRect(origin: CGPoint(x: 0, y:0), size: CGSize(width: 1, height: 1))
+        UIGraphicsBeginImageContext(rect.size)
+        let context = UIGraphicsGetCurrentContext()!
+        
+        context.setFillColor(color.cgColor)
+        context.fill(rect)
+        
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return image!
     }
 }
