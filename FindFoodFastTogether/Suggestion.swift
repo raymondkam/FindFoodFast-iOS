@@ -11,6 +11,12 @@ import UIKit
 import CoreLocation
 import GooglePlaces
 
+enum SuggestionOpenNowStatus: Int {
+    case yes
+    case no
+    case unknown
+}
+
 class Suggestion: NSObject, NSCoding {
     // id of the object can be used to fetch more details 
     // using the search client
@@ -22,13 +28,14 @@ class Suggestion: NSObject, NSCoding {
     var coordinate: CLLocationCoordinate2D?
     var website: URL?
     var attributions: NSAttributedString?
-    var isOpenNow: Bool?
+    var isOpenNow: SuggestionOpenNowStatus?
+    var phoneNumber: String?
     var voteRating = 0
     
     // google only data
     var googlePhotosMetadataList: GMSPlacePhotoMetadataList?
 
-    init(id: String?, name: String, address: String?, rating: Float?, type: String?, coordinate: CLLocationCoordinate2D?, website: URL?, attributions: NSAttributedString?, isOpenNow: Bool?, voteRating: Int?) {
+    init(id: String?, name: String, address: String?, rating: Float?, type: String?, coordinate: CLLocationCoordinate2D?, website: URL?, attributions: NSAttributedString?, isOpenNow: SuggestionOpenNowStatus?, phoneNumber: String?, voteRating: Int?) {
         self.id = id
         self.name = name
         self.address = address
@@ -49,6 +56,9 @@ class Suggestion: NSObject, NSCoding {
         }
         if let isOpenNow = isOpenNow {
             self.isOpenNow = isOpenNow
+        }
+        if let phoneNumber = phoneNumber {
+            self.phoneNumber = phoneNumber
         }
         if let voteRating = voteRating {
             self.voteRating = voteRating
@@ -77,8 +87,12 @@ class Suggestion: NSObject, NSCoding {
         if let attributions = aDecoder.decodeObject(forKey: "attributions") as? NSAttributedString {
             self.attributions = attributions
         }
-        let isOpenNow = aDecoder.decodeBool(forKey: "isOpenNow")
-        self.isOpenNow = isOpenNow
+        if let isOpenNow = aDecoder.decodeInteger(forKey: "isOpenNow") as? SuggestionOpenNowStatus {
+            self.isOpenNow = isOpenNow
+        }
+        if let phoneNumber = aDecoder.decodeObject(forKey: "phoneNumber") as? String {
+            self.phoneNumber = phoneNumber
+        }
         let voteRating = aDecoder.decodeInteger(forKey: "voteRating")
         self.name = name
         self.voteRating = voteRating
@@ -100,8 +114,9 @@ class Suggestion: NSObject, NSCoding {
         }
         aCoder.encode(attributions, forKey: "attributions")
         if let isOpenNow = isOpenNow {
-            aCoder.encode(isOpenNow, forKey: "isOpenNow")
+            aCoder.encode(isOpenNow.rawValue, forKey: "isOpenNow")
         }
+        aCoder.encode(phoneNumber, forKey: "phoneNumber")
         aCoder.encode(voteRating, forKey: "voteRating")
     }
     

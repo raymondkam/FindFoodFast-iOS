@@ -20,7 +20,11 @@ class SuggestionDetailsViewController: UIViewController {
     @IBOutlet weak var suggestionTitlesView: UIStackView!
     @IBOutlet weak var pageImageControl: UIPageControl!
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var addressButton: UIButton!
+    @IBOutlet weak var openNowButton: UIButton!
+    @IBOutlet weak var openNowView: UIView!
+    @IBOutlet weak var phoneNumberButton: UIButton!
+    @IBOutlet weak var websiteButton: UIButton!
     @IBOutlet weak var addSuggestionStackView: UIStackView!
     
     var suggestion: Suggestion!
@@ -59,7 +63,7 @@ class SuggestionDetailsViewController: UIViewController {
                 }
                 let width = self?.view.frame.size.width
                 if let width = width {
-                    let height = width * 10 / 16
+                    let height = width * 3 / 4
                     let size = CGSize(width: width, height: height)
                     self?.searchClient.lookUpSuggestionPhotos(using: suggestionWithImageMetadata.googlePhotosMetadataList as Any, size: size, completion: { [weak self] (images, error) in
                         if let images = images {
@@ -135,7 +139,23 @@ class SuggestionDetailsViewController: UIViewController {
             mapView.setRegion(region, animated: false)
         }
         if let address = suggestion.address {
-            addressLabel.text = address
+            addressButton.setTitle(address, for: .normal)
+        }
+        if let isOpenNow = suggestion.isOpenNow {
+            if isOpenNow == .yes {
+                openNowButton.setTitle("Open Now", for: .normal)
+            } else if isOpenNow == .no {
+                openNowButton.setTitle("Closed", for: .normal)
+            } else {
+                // unknown, remove row
+                openNowView.isHidden = true
+            }
+        }
+        if let phoneNumber = suggestion.phoneNumber {
+            phoneNumberButton.setTitle(phoneNumber, for: .normal)
+        }
+        if let website = suggestion.website {
+            websiteButton.setTitle(website.host, for: .normal)
         }
         suggestionTitlesView.isHidden = false
     }

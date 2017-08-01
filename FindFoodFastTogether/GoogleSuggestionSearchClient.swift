@@ -52,10 +52,10 @@ class GoogleSuggestionSearchClient: SuggestionSearchClient {
             }
             let suggestions = predictions.map({ (prediction) -> Suggestion in
                 if let attributedSecondaryText = prediction.attributedSecondaryText {
-                    return Suggestion(id: prediction.placeID, name: prediction.attributedPrimaryText.string, address: attributedSecondaryText.string, rating: nil, type: nil, coordinate: nil, website: nil, attributions: nil, isOpenNow: nil, voteRating: nil)
+                    return Suggestion(id: prediction.placeID, name: prediction.attributedPrimaryText.string, address: attributedSecondaryText.string, rating: nil, type: nil, coordinate: nil, website: nil, attributions: nil, isOpenNow: nil, phoneNumber: nil, voteRating: nil)
 
                 }
-                return Suggestion(id: prediction.placeID, name: prediction.attributedPrimaryText.string, address: nil, rating: nil, type: nil, coordinate: nil, website: nil, attributions: nil, isOpenNow: nil, voteRating: nil)
+                return Suggestion(id: prediction.placeID, name: prediction.attributedPrimaryText.string, address: nil, rating: nil, type: nil, coordinate: nil, website: nil, attributions: nil, isOpenNow: nil, phoneNumber: nil, voteRating: nil)
             })
             completion(suggestions, nil)
         }
@@ -74,7 +74,18 @@ class GoogleSuggestionSearchClient: SuggestionSearchClient {
                 print("google place is nil")
                 return
             }
-            let suggestion = Suggestion(id: place.placeID, name: place.name, address: place.formattedAddress, rating: place.rating, type: place.types.first, coordinate: place.coordinate, website: place.website, attributions: place.attributions, isOpenNow: place.openNowStatus == .yes, voteRating: nil)
+            var openNowStatus: SuggestionOpenNowStatus
+            let placeOpenNowStatus = place.openNowStatus
+            
+            if placeOpenNowStatus == .yes {
+                openNowStatus = .yes
+            } else if placeOpenNowStatus == .no {
+                openNowStatus = .no
+            } else {
+                openNowStatus = .unknown
+            }
+
+            let suggestion = Suggestion(id: place.placeID, name: place.name, address: place.formattedAddress, rating: place.rating, type: place.types.first, coordinate: place.coordinate, website: place.website, attributions: place.attributions, isOpenNow: openNowStatus, phoneNumber: place.phoneNumber, voteRating: nil)
             completion(suggestion, nil)
         }
     }
