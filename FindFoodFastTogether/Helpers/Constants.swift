@@ -40,6 +40,7 @@ struct Segues {
     static let UnwindToStart = "unwindToStart"
     static let EmbedSuggestionSearchResults = "embedSuggestionSearchResults"
     static let EmbedSuggestionImages = "embedSuggestionImages"
+    static let UnwindToHostViewAfterAddingSuggestion = "unwindToHostViewAfterAddingSuggestion"
 }
 
 struct StoryboardIds {

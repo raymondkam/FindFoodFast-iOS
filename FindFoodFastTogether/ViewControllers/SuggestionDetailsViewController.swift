@@ -88,12 +88,7 @@ class SuggestionDetailsViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if let navigationBar = navigationController?.navigationBar {
-            navigationBar.setBackgroundImage(nil, for: UIBarMetrics.default)
-            navigationBar.shadowImage = nil
-            navigationBar.tintColor = FindFoodFastColor.MainColor
-            navigationBar.barStyle = .default
-        }
+        restoreNavigationBarAppearance()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -105,11 +100,22 @@ class SuggestionDetailsViewController: UIViewController {
         case Segues.EmbedSuggestionImages:
             pagedImageCollectionViewController = segue.destination as! PagedImageCollectionViewController
             pagedImageCollectionViewController.delegate = self
+        case Segues.UnwindToHostViewAfterAddingSuggestion:
+            restoreNavigationBarAppearance()
         default:
             assert(false, "unexpected segue identifier \(segueIdentifier)")
         }
     }
 
+    func restoreNavigationBarAppearance() {
+        if let navigationBar = navigationController?.navigationBar {
+            navigationBar.setBackgroundImage(nil, for: UIBarMetrics.default)
+            navigationBar.shadowImage = nil
+            navigationBar.tintColor = FindFoodFastColor.MainColor
+            navigationBar.barStyle = .default
+        }
+    }
+    
     func updateDetails(using suggestion:Suggestion) {
         titleLabel.text = suggestion.name
         subtitleLabel.text = suggestion.type?.capitalized.replacingOccurrences(of: "_", with: " ")
