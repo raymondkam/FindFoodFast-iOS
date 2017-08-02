@@ -39,11 +39,15 @@ class SuggestionDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.ratingCosmosView.settings.fillMode = .half
         guard let id = suggestion.id else {
             print("suggestion has no id, cannot look up more details")
             return
         }
+        
+        // set up location and get user's current location
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
         
         // load previously saved location and see if it is a
         // recently fetched location
@@ -60,18 +64,13 @@ class SuggestionDetailsViewController: UIViewController {
             }
         }
         
-        // set up location and get user's current location
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestAlwaysAuthorization()
-        
-        // set textview delegate to handle URLs
-        attributionsTextView.delegate = self
-        
         // only update location if cached location is bad
         if let _ = userLocation {} else {
             locationManager.startUpdatingLocation()
         }
+        
+        // set textview delegate to handle URLs
+        attributionsTextView.delegate = self
 
         searchClient.lookUpSuggestionDetails(using: id) { [weak self] (suggestion, error) in
             guard error == nil else {
