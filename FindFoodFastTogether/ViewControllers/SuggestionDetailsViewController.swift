@@ -77,6 +77,7 @@ class SuggestionDetailsViewController: UIViewController {
                 print("no error but suggestion returned is nil")
                 return
             }
+            self?.suggestion = suggestion
             self?.updateDetails(using: suggestion)
             
             // get photos
@@ -91,10 +92,11 @@ class SuggestionDetailsViewController: UIViewController {
                 }
                 let width = self?.view.frame.size.width
                 if let width = width {
-                    let height = width * 3 / 4
+                    let height = width * 2 / 3
                     let size = CGSize(width: width, height: height)
                     self?.searchClient.lookUpSuggestionPhotos(using: suggestionWithImageMetadata.googlePhotosMetadataList as Any, size: size, completion: { [weak self] (images, error) in
                         if let images = images {
+                            self?.suggestion.thumbnail = images.first
                             self?.pagedImageCollectionViewController.dataSource = images
                             self?.pagedImageCollectionViewController.collectionView?.reloadData()
                         }
@@ -159,7 +161,7 @@ class SuggestionDetailsViewController: UIViewController {
     
     func updateDetails(using suggestion:Suggestion) {
         titleLabel.text = suggestion.name
-        subtitleLabel.text = suggestion.type?.capitalized.replacingOccurrences(of: "_", with: " ")
+        subtitleLabel.text = suggestion.type
         if let rating = suggestion.rating {
             ratingView.isHidden = false
             ratingCosmosView.rating = Double(rating)

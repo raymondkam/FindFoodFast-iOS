@@ -30,11 +30,12 @@ class Suggestion: NSObject, NSCoding {
     var attributions: NSAttributedString?
     var isOpenNow: SuggestionOpenNowStatus?
     var phoneNumber: String?
+    var thumbnail: UIImage?
     var voteRating = 0
     
     // google only data
     var googlePhotosMetadataList: GMSPlacePhotoMetadataList?
-
+    
     init(id: String?, name: String, address: String?, rating: Float?, type: String?, coordinate: CLLocationCoordinate2D?, website: URL?, attributions: NSAttributedString?, isOpenNow: SuggestionOpenNowStatus?, phoneNumber: String?, voteRating: Int?) {
         self.id = id
         self.name = name
@@ -63,6 +64,10 @@ class Suggestion: NSObject, NSCoding {
         if let voteRating = voteRating {
             self.voteRating = voteRating
         }
+    }
+    
+    convenience init(id: String?, name: String, address: String?) {
+        self.init(id: id, name: name, address: address, rating: nil, type: nil, coordinate: nil, website: nil, attributions: nil, isOpenNow: nil, phoneNumber: nil, voteRating: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
