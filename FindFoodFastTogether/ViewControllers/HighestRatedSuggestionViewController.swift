@@ -14,18 +14,26 @@ class HighestRatedSuggestionViewController: UIViewController {
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     @IBOutlet weak var suggestionCardView: UIView!
     @IBOutlet weak var stackView: UIStackView!
-    
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var voteCountLabel: UILabel!
     @IBOutlet weak var backgroundLabel: UILabel!
     @IBOutlet weak var cardTitle: UILabel!
-    @IBOutlet weak var noImageLabel: UILabel!
+    @IBOutlet weak var cardSubtitle: UILabel!
+    
     
     var highestRatedSuggestion: Suggestion!
     var isHosting: Bool!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        voteCountLabel.text = String(highestRatedSuggestion.voteRating)
+        if let image = highestRatedSuggestion.thumbnail {
+            imageView.image = image
+        }
         cardTitle.text = highestRatedSuggestion.name
-        noImageLabel.text = highestRatedSuggestion.name
+        if let type = highestRatedSuggestion.type {
+            cardSubtitle.text = type
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -59,7 +67,10 @@ class HighestRatedSuggestionViewController: UIViewController {
     }
 
     @IBAction func handleDirectionsButtonPressed(_ sender: Any) {
-        let coordinate = CLLocationCoordinate2DMake(43.6532, 79.3832)
+        guard let coordinate = highestRatedSuggestion.coordinate else {
+            print("suggestion has no coordinate, cannot get directions")
+            return
+        }
         let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate, addressDictionary: nil))
         mapItem.name = highestRatedSuggestion.name
         mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])
