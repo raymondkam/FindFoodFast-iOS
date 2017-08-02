@@ -28,6 +28,8 @@ class SuggestionDetailsViewController: UIViewController {
     @IBOutlet weak var websiteButton: UIButton!
     @IBOutlet weak var addSuggestionStackView: UIStackView!
     @IBOutlet weak var addSuggestionShadowView: UIView!
+    @IBOutlet weak var attributionsView: UIView!
+    @IBOutlet weak var attributionsTextView: UITextView!
     
     var suggestion: Suggestion!
     var locationManager = CLLocationManager()
@@ -62,6 +64,9 @@ class SuggestionDetailsViewController: UIViewController {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
+        
+        // set textview delegate to handle URLs
+        attributionsTextView.delegate = self
         
         // only update location if cached location is bad
         if let _ = userLocation {} else {
@@ -205,6 +210,13 @@ class SuggestionDetailsViewController: UIViewController {
         } else {
             distanceLabel.isHidden = true
         }
+        if let attributions = suggestion.attributions {
+            attributionsTextView.attributedText = attributions
+            adjustContentSize(textView: attributionsTextView)
+            attributionsView.isHidden = false
+        } else {
+            attributionsView.isHidden = true
+        }
         suggestionTitlesView.isHidden = false
     }
 }
@@ -251,6 +263,20 @@ extension SuggestionDetailsViewController: CLLocationManagerDelegate {
         case .restricted:
             print("location restricted")
         }
+    }
+}
+
+extension SuggestionDetailsViewController: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        // Make links clickable.
+        return true
+    }
+    
+    // for centering a textview
+    func adjustContentSize(textView: UITextView){
+        let deadSpace = textView.bounds.size.height - textView.contentSize.height
+        let inset = max(0, deadSpace/2.0)
+        textView.contentInset = UIEdgeInsetsMake(inset, textView.contentInset.left, inset, textView.contentInset.right)
     }
 }
 

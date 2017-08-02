@@ -1323,7 +1323,7 @@
                                         </constraints>
                                     </mapView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="urp-ab-p6A">
-                                        <rect key="frame" x="0.0" y="500" width="375" height="195"/>
+                                        <rect key="frame" x="0.0" y="500" width="375" height="246"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3QO-Dy-syp">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
@@ -1344,7 +1344,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T8u-Am-jQD">
-                                                <rect key="frame" x="0.0" y="49" width="375" height="49"/>
+                                                <rect key="frame" x="0.0" y="49" width="375" height="50"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yc7-gc-QjL">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
@@ -1358,7 +1358,7 @@
                                                         </state>
                                                     </button>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZVS-4l-shv" userLabel="Divider">
-                                                        <rect key="frame" x="16" y="48" width="343" height="1"/>
+                                                        <rect key="frame" x="16" y="49" width="343" height="1"/>
                                                         <color key="backgroundColor" white="0.84999999999999998" alpha="1" colorSpace="calibratedWhite"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="1" id="mfi-H8-y8W"/>
@@ -1372,11 +1372,11 @@
                                                     <constraint firstAttribute="trailing" secondItem="Yc7-gc-QjL" secondAttribute="trailing" id="Ws6-Gc-Iuu"/>
                                                     <constraint firstItem="Yc7-gc-QjL" firstAttribute="centerX" secondItem="T8u-Am-jQD" secondAttribute="centerX" id="u1h-uo-HsK"/>
                                                     <constraint firstAttribute="bottom" secondItem="ZVS-4l-shv" secondAttribute="bottom" id="yac-gu-CfU"/>
-                                                    <constraint firstAttribute="height" constant="49" id="zz9-ow-0bO"/>
+                                                    <constraint firstAttribute="height" priority="750" constant="49" id="zz9-ow-0bO"/>
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RHl-Fb-pOQ">
-                                                <rect key="frame" x="0.0" y="98" width="375" height="48"/>
+                                                <rect key="frame" x="0.0" y="99" width="375" height="48"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="48" id="xPc-Lq-HBp"/>
                                                 </constraints>
@@ -1387,14 +1387,14 @@
                                                 </state>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="96S-iN-RPD" userLabel="Divider">
-                                                <rect key="frame" x="16" y="146" width="343" height="1"/>
+                                                <rect key="frame" x="16" y="147" width="343" height="1"/>
                                                 <color key="backgroundColor" white="0.84999999999999998" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="u6E-tS-Lkc"/>
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dt3-7w-VtI">
-                                                <rect key="frame" x="0.0" y="147" width="375" height="48"/>
+                                                <rect key="frame" x="0.0" y="148" width="375" height="48"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="48" id="ENR-Ju-iGl"/>
                                                 </constraints>
@@ -1404,6 +1404,33 @@
                                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                             </button>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="554-yK-09l" userLabel="Divider">
+                                                <rect key="frame" x="16" y="196" width="343" height="1"/>
+                                                <color key="backgroundColor" white="0.84999999999999998" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="1" id="cGw-Df-Poz"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IL6-GR-3n6">
+                                                <rect key="frame" x="0.0" y="197" width="375" height="49"/>
+                                                <subviews>
+                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xIl-4r-bQ3">
+                                                        <rect key="frame" x="16" y="-0.5" width="343" height="49"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    </textView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="49" id="HuR-lV-XYC"/>
+                                                    <constraint firstAttribute="trailing" secondItem="xIl-4r-bQ3" secondAttribute="trailing" constant="16" id="LOr-Lm-XHi"/>
+                                                    <constraint firstItem="xIl-4r-bQ3" firstAttribute="height" secondItem="IL6-GR-3n6" secondAttribute="height" id="M5l-Ef-6OB"/>
+                                                    <constraint firstItem="xIl-4r-bQ3" firstAttribute="centerY" secondItem="IL6-GR-3n6" secondAttribute="centerY" id="NlD-BM-H5F"/>
+                                                    <constraint firstItem="xIl-4r-bQ3" firstAttribute="leading" secondItem="IL6-GR-3n6" secondAttribute="leading" constant="16" id="WPY-VT-IJD"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="96S-iN-RPD" firstAttribute="width" secondItem="UoI-KR-Q6a" secondAttribute="width" id="V11-sZ-dzz"/>
@@ -1413,17 +1440,19 @@
                                     </stackView>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="IL6-GR-3n6" firstAttribute="leading" secondItem="Si2-LH-sn3" secondAttribute="leading" id="1q3-SZ-clV"/>
                                     <constraint firstAttribute="trailing" secondItem="UoI-KR-Q6a" secondAttribute="trailing" constant="16" id="6SC-mZ-PJr"/>
                                     <constraint firstItem="UoI-KR-Q6a" firstAttribute="leading" secondItem="Si2-LH-sn3" secondAttribute="leading" constant="16" id="6pi-vC-RAr"/>
+                                    <constraint firstItem="554-yK-09l" firstAttribute="leading" secondItem="Si2-LH-sn3" secondAttribute="leading" constant="16" id="AZj-K2-zJC"/>
                                     <constraint firstAttribute="trailing" secondItem="gq1-1K-vbN" secondAttribute="trailing" id="Evq-HE-q5d"/>
                                     <constraint firstAttribute="bottom" secondItem="urp-ab-p6A" secondAttribute="bottom" id="KsB-Xy-eXx"/>
                                     <constraint firstItem="hG7-39-vv1" firstAttribute="leading" secondItem="Si2-LH-sn3" secondAttribute="leading" id="MBZ-oN-ggY"/>
+                                    <constraint firstAttribute="trailing" secondItem="IL6-GR-3n6" secondAttribute="trailing" id="QQJ-Dj-nAW"/>
                                     <constraint firstAttribute="trailing" secondItem="T8u-Am-jQD" secondAttribute="trailing" id="R4M-Lh-NDZ"/>
                                     <constraint firstAttribute="trailing" secondItem="3QO-Dy-syp" secondAttribute="trailing" id="RsZ-V1-sdQ"/>
                                     <constraint firstAttribute="trailing" secondItem="hG7-39-vv1" secondAttribute="trailing" id="TZY-WF-Uay"/>
                                     <constraint firstAttribute="trailing" secondItem="ZVS-4l-shv" secondAttribute="trailing" constant="16" id="Y49-di-Bqo"/>
                                     <constraint firstAttribute="trailing" secondItem="AT8-PL-YXc" secondAttribute="trailing" id="aTN-pz-e6i"/>
-                                    <constraint firstItem="AT8-PL-YXc" firstAttribute="centerX" secondItem="Si2-LH-sn3" secondAttribute="centerX" id="eQt-lT-da0"/>
                                     <constraint firstItem="urp-ab-p6A" firstAttribute="top" secondItem="hG7-39-vv1" secondAttribute="bottom" id="gVD-A0-fgQ"/>
                                     <constraint firstItem="gq1-1K-vbN" firstAttribute="top" secondItem="AT8-PL-YXc" secondAttribute="bottom" id="gaV-Xh-wD7"/>
                                     <constraint firstItem="urp-ab-p6A" firstAttribute="centerX" secondItem="Si2-LH-sn3" secondAttribute="centerX" id="hjo-I7-PEg"/>
@@ -1433,6 +1462,7 @@
                                     <constraint firstItem="T8u-Am-jQD" firstAttribute="leading" secondItem="Si2-LH-sn3" secondAttribute="leading" id="tQt-Ej-qOs"/>
                                     <constraint firstItem="AT8-PL-YXc" firstAttribute="leading" secondItem="Si2-LH-sn3" secondAttribute="leading" id="tRt-Hi-Gvx"/>
                                     <constraint firstItem="ZVS-4l-shv" firstAttribute="leading" secondItem="Si2-LH-sn3" secondAttribute="leading" constant="16" id="uLY-C8-Jko"/>
+                                    <constraint firstAttribute="trailing" secondItem="554-yK-09l" secondAttribute="trailing" constant="16" id="vbx-hg-S39"/>
                                     <constraint firstItem="hG7-39-vv1" firstAttribute="top" secondItem="gq1-1K-vbN" secondAttribute="bottom" id="yRS-h8-buU"/>
                                 </constraints>
                             </scrollView>
@@ -1479,6 +1509,8 @@
                         <outlet property="addSuggestionShadowView" destination="NuE-Bg-d0M" id="dVB-gK-O59"/>
                         <outlet property="addSuggestionStackView" destination="eFc-5S-egX" id="IZ3-uw-BS7"/>
                         <outlet property="addressButton" destination="3QO-Dy-syp" id="q41-IT-zYE"/>
+                        <outlet property="attributionsTextView" destination="xIl-4r-bQ3" id="Xf6-0R-o3i"/>
+                        <outlet property="attributionsView" destination="IL6-GR-3n6" id="ZnI-lt-c4Z"/>
                         <outlet property="distanceLabel" destination="4o4-wf-ve0" id="6ez-ia-c28"/>
                         <outlet property="mapView" destination="hG7-39-vv1" id="NNL-DI-k23"/>
                         <outlet property="openNowButton" destination="Yc7-gc-QjL" id="i4d-U9-WKU"/>
