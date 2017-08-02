@@ -462,24 +462,15 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pnc-hj-Z40">
                                                     <rect key="frame" x="0.0" y="0.0" width="337" height="224.5"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ro-49-Z5r">
-                                                            <rect key="frame" x="42" y="102" width="253" height="20.5"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <color key="textColor" red="0.11339322120000001" green="0.73802603239999998" blue="0.83719235749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6bM-Ht-bHp">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6bM-Ht-bHp">
                                                             <rect key="frame" x="0.0" y="0.0" width="337" height="224.5"/>
                                                         </imageView>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstItem="6bM-Ht-bHp" firstAttribute="centerX" secondItem="pnc-hj-Z40" secondAttribute="centerX" id="EMN-aw-wfh"/>
-                                                        <constraint firstItem="7ro-49-Z5r" firstAttribute="width" secondItem="pnc-hj-Z40" secondAttribute="width" multiplier="0.75" id="aFN-wn-eEy"/>
                                                         <constraint firstItem="6bM-Ht-bHp" firstAttribute="centerY" secondItem="pnc-hj-Z40" secondAttribute="centerY" id="iNL-2n-1pE"/>
                                                         <constraint firstAttribute="width" secondItem="pnc-hj-Z40" secondAttribute="height" multiplier="3:2" id="rv2-a8-EqQ"/>
-                                                        <constraint firstItem="7ro-49-Z5r" firstAttribute="centerY" secondItem="pnc-hj-Z40" secondAttribute="centerY" id="sYW-xA-2mU"/>
-                                                        <constraint firstItem="7ro-49-Z5r" firstAttribute="centerX" secondItem="pnc-hj-Z40" secondAttribute="centerX" id="vGQ-Ui-k5o"/>
                                                         <constraint firstItem="6bM-Ht-bHp" firstAttribute="width" secondItem="pnc-hj-Z40" secondAttribute="width" id="xTO-Ub-Lhd"/>
                                                         <constraint firstItem="6bM-Ht-bHp" firstAttribute="height" secondItem="pnc-hj-Z40" secondAttribute="height" id="zs0-Ob-tpv"/>
                                                     </constraints>
@@ -499,54 +490,78 @@
                                                         <constraint firstAttribute="height" constant="0.5" id="7tL-VE-ioJ"/>
                                                     </constraints>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="That really tasty place" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MGc-jO-hyv">
-                                                    <rect key="frame" x="16" y="241" width="305" height="20.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hg0-W2-TLc" customClass="CosmosView" customModule="Cosmos">
-                                                    <rect key="frame" x="34" y="277.5" width="269" height="30"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VMV-bk-2So">
+                                                    <rect key="frame" x="0.0" y="225" width="337" height="115"/>
+                                                    <subviews>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="7GO-nN-SFk">
+                                                            <rect key="frame" x="16" y="16" width="305" height="42.5"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="That really tasty place" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MGc-jO-hyv" userLabel="Title Label">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="305" height="20.5"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DfT-e9-Lim">
+                                                                    <rect key="frame" x="0.0" y="24.5" width="305" height="18"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="DfT-e9-Lim" firstAttribute="leading" secondItem="MGc-jO-hyv" secondAttribute="leading" id="cAC-mK-Frc"/>
+                                                                <constraint firstItem="DfT-e9-Lim" firstAttribute="trailing" secondItem="MGc-jO-hyv" secondAttribute="trailing" id="vgH-4R-ONa"/>
+                                                            </constraints>
+                                                        </stackView>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hg0-W2-TLc" customClass="CosmosView" customModule="Cosmos">
+                                                            <rect key="frame" x="33" y="74.5" width="270" height="30"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="starCount">
+                                                                    <integer key="value" value="5"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="image" keyPath="offImage" value="noun_1013879_cc_inactive"/>
+                                                                <userDefinedRuntimeAttribute type="image" keyPath="onImage" value="noun_1013879_cc_active"/>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="rating">
+                                                                    <real key="value" value="0.0"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="halfStarsAllowed" value="NO"/>
+                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="editable" value="YES"/>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                    <real key="value" value="0.0"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="starMargin">
+                                                                    <real key="value" value="30"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="starSize">
+                                                                    <real key="value" value="30"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </view>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="kFX-0B-tkY"/>
+                                                        <constraint firstItem="hg0-W2-TLc" firstAttribute="top" secondItem="7GO-nN-SFk" secondAttribute="bottom" constant="16" id="7oB-PK-ec5"/>
+                                                        <constraint firstItem="hg0-W2-TLc" firstAttribute="centerX" secondItem="VMV-bk-2So" secondAttribute="centerX" id="8eh-71-M6h"/>
+                                                        <constraint firstItem="7GO-nN-SFk" firstAttribute="centerX" secondItem="VMV-bk-2So" secondAttribute="centerX" id="gjV-Go-8mN"/>
+                                                        <constraint firstItem="7GO-nN-SFk" firstAttribute="top" secondItem="VMV-bk-2So" secondAttribute="top" constant="16" id="nRk-CF-hRW"/>
+                                                        <constraint firstAttribute="trailing" secondItem="MGc-jO-hyv" secondAttribute="trailing" constant="16" id="srL-SR-zJG"/>
+                                                        <constraint firstItem="MGc-jO-hyv" firstAttribute="leading" secondItem="VMV-bk-2So" secondAttribute="leading" constant="16" id="zEz-RR-bFz"/>
                                                     </constraints>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="starCount">
-                                                            <integer key="value" value="5"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="image" keyPath="offImage" value="noun_1013879_cc_inactive"/>
-                                                        <userDefinedRuntimeAttribute type="image" keyPath="onImage" value="noun_1013879_cc_active"/>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="rating">
-                                                            <real key="value" value="0.0"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="halfStarsAllowed" value="NO"/>
-                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="editable" value="YES"/>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                            <real key="value" value="0.0"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="starMargin">
-                                                            <real key="value" value="30"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="starSize">
-                                                            <real key="value" value="30"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
                                                 </view>
                                             </subviews>
                                         </view>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="hg0-W2-TLc" firstAttribute="leading" secondItem="wrn-hc-biR" secondAttribute="leading" constant="34" id="6DU-Sx-WUz"/>
-                                            <constraint firstAttribute="trailing" secondItem="MGc-jO-hyv" secondAttribute="trailing" constant="16" id="EHh-qf-DaQ"/>
+                                            <constraint firstAttribute="trailing" secondItem="VMV-bk-2So" secondAttribute="trailing" id="BdC-Fz-xn3"/>
                                             <constraint firstItem="B96-oL-Eh8" firstAttribute="top" secondItem="pnc-hj-Z40" secondAttribute="bottom" id="Ex6-C4-npS"/>
                                             <constraint firstItem="B96-oL-Eh8" firstAttribute="leading" secondItem="pnc-hj-Z40" secondAttribute="leading" id="KTm-Up-DdQ"/>
-                                            <constraint firstAttribute="trailing" secondItem="hg0-W2-TLc" secondAttribute="trailing" constant="34" id="NjJ-a1-zfb"/>
+                                            <constraint firstAttribute="bottom" secondItem="VMV-bk-2So" secondAttribute="bottom" id="PCK-Iu-06s"/>
+                                            <constraint firstItem="VMV-bk-2So" firstAttribute="leading" secondItem="wrn-hc-biR" secondAttribute="leading" id="UUe-YE-83L"/>
                                             <constraint firstItem="B96-oL-Eh8" firstAttribute="trailing" secondItem="pnc-hj-Z40" secondAttribute="trailing" id="i3s-58-s5N"/>
-                                            <constraint firstItem="MGc-jO-hyv" firstAttribute="top" secondItem="B96-oL-Eh8" secondAttribute="bottom" constant="16" id="lYo-9c-RGL"/>
                                             <constraint firstItem="pnc-hj-Z40" firstAttribute="leading" secondItem="wrn-hc-biR" secondAttribute="leading" id="oUf-Hf-Szk"/>
                                             <constraint firstItem="pnc-hj-Z40" firstAttribute="top" secondItem="wrn-hc-biR" secondAttribute="top" id="ozA-as-CMo"/>
-                                            <constraint firstItem="MGc-jO-hyv" firstAttribute="leading" secondItem="wrn-hc-biR" secondAttribute="leading" constant="16" id="q4H-8n-T7O"/>
-                                            <constraint firstItem="hg0-W2-TLc" firstAttribute="top" secondItem="MGc-jO-hyv" secondAttribute="bottom" constant="16" id="qWm-QJ-wnR"/>
+                                            <constraint firstItem="VMV-bk-2So" firstAttribute="top" secondItem="B96-oL-Eh8" secondAttribute="bottom" id="tyG-gx-9BC"/>
                                             <constraint firstAttribute="trailing" secondItem="pnc-hj-Z40" secondAttribute="trailing" id="wck-sm-0JS"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
@@ -556,7 +571,8 @@
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="cosmoView" destination="hg0-W2-TLc" id="T7F-ji-kVC"/>
-                                            <outlet property="noImageLabel" destination="7ro-49-Z5r" id="RYR-bb-oJT"/>
+                                            <outlet property="imageView" destination="6bM-Ht-bHp" id="i3L-eY-kgb"/>
+                                            <outlet property="subtitleLabel" destination="DfT-e9-Lim" id="0no-zt-lpp"/>
                                             <outlet property="titlelabel" destination="MGc-jO-hyv" id="7fQ-7q-Xhx"/>
                                         </connections>
                                     </collectionViewCell>

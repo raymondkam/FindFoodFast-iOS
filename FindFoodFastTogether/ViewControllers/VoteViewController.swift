@@ -191,8 +191,9 @@ extension VoteViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! VoteCollectionViewCell
         let suggestion = dataSource[indexPath.item]
         
+        cell.image = suggestion.thumbnail
         cell.title = suggestion.name
-        cell.noImageTitle = suggestion.name
+        cell.subtitle = suggestion.type
         cell.cosmoView.rating = Double(suggestion.voteRating)
         cell.cosmoView.didFinishTouchingCosmos = { [weak self] rating in
             guard let currentIndex = self?.currentIndex else {
