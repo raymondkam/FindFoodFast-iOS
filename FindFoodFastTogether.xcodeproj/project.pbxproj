@@ -11,6 +11,7 @@
 		9C3883EB1F27DF750079D99F /* SuggestionSearchResultsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3883EA1F27DF750079D99F /* SuggestionSearchResultsCollectionViewController.swift */; };
 		9C3883ED1F28F0620079D99F /* SuggestionSearchResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3883EC1F28F0620079D99F /* SuggestionSearchResultCollectionViewCell.swift */; };
 		9C3A25A41F1698E100B329A3 /* VoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3A25A31F1698E100B329A3 /* VoteViewController.swift */; };
+		9C3B54C81F328B2E00CD4550 /* VerticallyCenteredTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B54C71F328B2E00CD4550 /* VerticallyCenteredTextView.swift */; };
 		9C6266F41F2962E5009E7C77 /* SuggestionSearchResultCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6266F31F2962E5009E7C77 /* SuggestionSearchResultCollectionReusableView.swift */; };
 		9C6266FC1F2A9EA1009E7C77 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6266FB1F2A9EA1009E7C77 /* ImageCollectionViewCell.swift */; };
 		9C6266FE1F2A9F6D009E7C77 /* PagedImageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6266FD1F2A9F6D009E7C77 /* PagedImageCollectionViewController.swift */; };
@@ -75,6 +76,7 @@
 		9C3883EA1F27DF750079D99F /* SuggestionSearchResultsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SuggestionSearchResultsCollectionViewController.swift; path = ViewControllers/SuggestionSearchResultsCollectionViewController.swift; sourceTree = "<group>"; };
 		9C3883EC1F28F0620079D99F /* SuggestionSearchResultCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SuggestionSearchResultCollectionViewCell.swift; path = Views/SuggestionSearchResultCollectionViewCell.swift; sourceTree = "<group>"; };
 		9C3A25A31F1698E100B329A3 /* VoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VoteViewController.swift; path = ViewControllers/VoteViewController.swift; sourceTree = "<group>"; };
+		9C3B54C71F328B2E00CD4550 /* VerticallyCenteredTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VerticallyCenteredTextView.swift; path = Views/VerticallyCenteredTextView.swift; sourceTree = "<group>"; };
 		9C6266F31F2962E5009E7C77 /* SuggestionSearchResultCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SuggestionSearchResultCollectionReusableView.swift; path = Views/SuggestionSearchResultCollectionReusableView.swift; sourceTree = "<group>"; };
 		9C6266FB1F2A9EA1009E7C77 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageCollectionViewCell.swift; path = Views/ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		9C6266FD1F2A9F6D009E7C77 /* PagedImageCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PagedImageCollectionViewController.swift; path = ViewControllers/PagedImageCollectionViewController.swift; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 				9C3883EC1F28F0620079D99F /* SuggestionSearchResultCollectionViewCell.swift */,
 				9C6266F31F2962E5009E7C77 /* SuggestionSearchResultCollectionReusableView.swift */,
 				9C6266FB1F2A9EA1009E7C77 /* ImageCollectionViewCell.swift */,
+				9C3B54C71F328B2E00CD4550 /* VerticallyCenteredTextView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -578,6 +581,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C3B54C81F328B2E00CD4550 /* VerticallyCenteredTextView.swift in Sources */,
 				9C6266FE1F2A9F6D009E7C77 /* PagedImageCollectionViewController.swift in Sources */,
 				9CF38B971F02F54C00A736B0 /* BluetoothPeripheralManager.swift in Sources */,
 				9CC2B8331EF065DA0049E269 /* BrowseHostCollectionViewCell.swift in Sources */,

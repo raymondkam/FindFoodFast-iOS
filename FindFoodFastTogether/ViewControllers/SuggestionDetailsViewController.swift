@@ -211,7 +211,6 @@ class SuggestionDetailsViewController: UIViewController {
         }
         if let attributions = suggestion.attributions {
             attributionsTextView.attributedText = attributions
-            adjustContentSize(textView: attributionsTextView)
             attributionsView.isHidden = false
         } else {
             attributionsView.isHidden = true
@@ -269,13 +268,6 @@ extension SuggestionDetailsViewController: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         // Make links clickable.
         return true
-    }
-    
-    // for centering a textview
-    func adjustContentSize(textView: UITextView){
-        let deadSpace = textView.bounds.size.height - textView.contentSize.height
-        let inset = max(0, deadSpace/2.0)
-        textView.contentInset = UIEdgeInsetsMake(inset, textView.contentInset.left, inset, textView.contentInset.right)
     }
 }
 
