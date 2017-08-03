@@ -1388,6 +1388,9 @@
                                                 <state key="normal">
                                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="handlePhoneNumber:" destination="vGc-r9-h8r" eventType="touchUpInside" id="rR8-b4-x0E"/>
+                                                </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="96S-iN-RPD" userLabel="Divider">
                                                 <rect key="frame" x="16" y="147" width="343" height="1"/>
@@ -1406,6 +1409,9 @@
                                                 <state key="normal">
                                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="handleOpenWebsite:" destination="vGc-r9-h8r" eventType="touchUpInside" id="Sxz-PX-xwC"/>
+                                                </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="554-yK-09l" userLabel="Divider">
                                                 <rect key="frame" x="16" y="196" width="343" height="1"/>

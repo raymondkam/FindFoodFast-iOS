@@ -225,6 +225,36 @@ class SuggestionDetailsViewController: UIViewController {
         }
         suggestionTitlesView.isHidden = false
     }
+    
+    // MARK: - Handle button presses
+    @IBAction func handlePhoneNumber(_ sender: UIButton) {
+        guard let numberString = sender.title(for: .normal)?.replacingOccurrences(of: "[ |()-]", with: "", options: [.regularExpression]) else {
+            return
+        }
+        guard let number = URL(string: "tel://" + numberString) else {
+            return
+        }
+        UIApplication.shared.open(number, options: [:], completionHandler: { (success) in
+            if !success {
+                print("failed to open phone number")
+            }
+        })
+    }
+
+    @IBAction func handleOpenWebsite(_ sender: UIButton) {
+        guard let urlString = sender.title(for: .normal) else {
+            return
+        }
+        guard let url = URL(string: "http://" + urlString) else {
+            return
+        }
+        UIApplication.shared.open(url, options: [:]) { (success) in
+            if !success {
+                print("failed to open url")
+            }
+        }
+    }
+    
 }
 
 extension SuggestionDetailsViewController: PagedImageCollectionViewControllerDelegate {
