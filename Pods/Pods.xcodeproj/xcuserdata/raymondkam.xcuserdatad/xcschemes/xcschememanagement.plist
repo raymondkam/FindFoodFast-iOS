@@ -14,6 +14,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>INSPhotoGallery-INSPhotoGallery.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>INSPhotoGallery.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-FindFoodFastTogether.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -37,17 +47,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>160F3D2B181465FD6DEC4E9916DF2092</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3E33419959B31EF3D28E267E7478FD29</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>4FDC533A4360A68ABDCE852F04B30927</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8AC44F5CA9BBA118155AB80CDC849845</key>
+		<key>5AB2AFB1E6DC8D2967EF130A030AD1B8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A433BDC17E87240BE99CC8E025DFFB65</key>
+		<key>8AC44F5CA9BBA118155AB80CDC849845</key>
 		<dict>
 			<key>primary</key>
 			<true/>

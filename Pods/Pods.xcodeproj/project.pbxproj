@@ -7,140 +7,208 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		015C902B9C0E63DA0519A0D34E10F739 /* CosmosSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B8BF517275F9B61059864DC6253D06 /* CosmosSettings.swift */; };
-		01A621DC3D381D1791A2B55D212044E9 /* Pods-FindFoodFastTogether-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F199158C6E379E6063ADCADC111C5AA8 /* Pods-FindFoodFastTogether-dummy.m */; };
-		0B1060A5F5C4960C6F87F7B985288C7F /* GitHubIdenticon.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8EBA97796053E619337BC710B62A06 /* GitHubIdenticon.swift */; };
+		015C902B9C0E63DA0519A0D34E10F739 /* CosmosSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51B24E22A8A8549738DEDFCD76E5659 /* CosmosSettings.swift */; };
+		02A63FD86404B6AEB326E5C2D0B063E0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE59B0D97841C2542CA3D20540685C26 /* Foundation.framework */; };
+		0B1060A5F5C4960C6F87F7B985288C7F /* GitHubIdenticon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37079FB31241E02B44EF119171C8B2B7 /* GitHubIdenticon.swift */; };
+		0B7D1B706383E0B46DAE87B36609CFCE /* Pods-FindFoodFastTogether-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E82FD805F111840CF375B0E6BC6A080 /* Pods-FindFoodFastTogether-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0C6D6622005F101C83D8FFE62D3281A6 /* Pods-FindFoodFastTogetherUITests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA16F1C7495CFC2A54CFD298B00A1F8 /* Pods-FindFoodFastTogetherUITests-dummy.m */; };
-		0EC88D04EAE0CD3EFD3C3C89C1B9F45F /* CosmosLocalizedRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6829C7247C6A2D453CDD8C99194DEA9F /* CosmosLocalizedRating.swift */; };
-		1CD3777DB4F578C622C367FD49E1BCD2 /* CGImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85648E46D96D6C8591296503ACB4794 /* CGImageExtension.swift */; };
-		20A61874A1D877709F4CB82FAC47A9F8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC7524F0BE53ABC149C4387DFEFE2B51 /* Foundation.framework */; };
-		25DFA72039CBA011EBA738AA73084A8E /* CosmosSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AF07D3CAED657674BE754D67F99E48 /* CosmosSize.swift */; };
-		26544A64EAB8E895E15F4B8CB927BE5E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8621F66D446C6F4AC0D7F817144EB150 /* CoreGraphics.framework */; };
-		36FA2F315B1941715CD6ADE73748D0B3 /* JenkinsHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DF367E49E189755F07ABB84407E761 /* JenkinsHash.swift */; };
-		371F422D050761A63F0156F537B8902D /* CosmosDefaultSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178188E5AD8773C91692FEC99D29899D /* CosmosDefaultSettings.swift */; };
-		3DF6ECF23D38E7DA5B5B2B43707F2F4D /* Cosmos-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFE519EC073434A23A540A17DFA7703 /* Cosmos-dummy.m */; };
-		424AD9605CBDCD867083B9820784E0AC /* CosmosText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A5D702A164014698A5E3D26BF8AF46 /* CosmosText.swift */; };
-		4591CC5184DDD020F3BC62DA298A6AC9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC7524F0BE53ABC149C4387DFEFE2B51 /* Foundation.framework */; };
-		45F546D14166EDEE46371951EC705C03 /* CosmosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B5F0E10087D88192287158A75BA9FA /* CosmosView.swift */; };
-		476122A4B628953C42DD31973273A76F /* IconGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC5DDD274281FBBFCD93A730DFDCEB3 /* IconGenerator.swift */; };
-		4F40A9CBB316E7100828F0C6F5714946 /* CosmosTouch.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC210B7B6BBFEE9BB0BB1D77F12D446 /* CosmosTouch.swift */; };
+		0EC88D04EAE0CD3EFD3C3C89C1B9F45F /* CosmosLocalizedRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7AA423432FA2F1A31FC3AC663A48C4 /* CosmosLocalizedRating.swift */; };
+		1CD3777DB4F578C622C367FD49E1BCD2 /* CGImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05859F1A4EC7FB0622AED2D1EE860D62 /* CGImageExtension.swift */; };
+		1F41E542561174ED86865EDA7DB51AD5 /* INSPhotoGallery-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 130DF655150E0DCE0C8B0394B1A2347C /* INSPhotoGallery-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		20A61874A1D877709F4CB82FAC47A9F8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE59B0D97841C2542CA3D20540685C26 /* Foundation.framework */; };
+		25DFA72039CBA011EBA738AA73084A8E /* CosmosSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F66D70F6110D3373D352C9D267E410 /* CosmosSize.swift */; };
+		26544A64EAB8E895E15F4B8CB927BE5E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99C06B1B209CA23EC16EBF65CF890313 /* CoreGraphics.framework */; };
+		31278F113033613961E106D23DAD1D5F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5224A726D9EABB2D5F18E4597390EF3 /* UIKit.framework */; };
+		346C860A26ABE970BE6A2EFD9E1A4F32 /* UIVIew+INSPhotoViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F49A8839459F2B03898D0E8C25377 /* UIVIew+INSPhotoViewer.swift */; };
+		36FA2F315B1941715CD6ADE73748D0B3 /* JenkinsHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BFB2A78EA1024E8754976260133786 /* JenkinsHash.swift */; };
+		371F422D050761A63F0156F537B8902D /* CosmosDefaultSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B8BB1C2E5D6505CFF3432197D3C19F /* CosmosDefaultSettings.swift */; };
+		3DF6ECF23D38E7DA5B5B2B43707F2F4D /* Cosmos-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6213B47393A71C6CC04A27FE3DB05FDC /* Cosmos-dummy.m */; };
+		424AD9605CBDCD867083B9820784E0AC /* CosmosText.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF72B021C365362A29AFC207FB2A3AA4 /* CosmosText.swift */; };
+		4591CC5184DDD020F3BC62DA298A6AC9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE59B0D97841C2542CA3D20540685C26 /* Foundation.framework */; };
+		45F546D14166EDEE46371951EC705C03 /* CosmosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819BE80989BCE343D67C651886D0FBDA /* CosmosView.swift */; };
+		476122A4B628953C42DD31973273A76F /* IconGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EFC6705F087F714EC6517F8F4AF52D /* IconGenerator.swift */; };
+		4F40A9CBB316E7100828F0C6F5714946 /* CosmosTouch.swift in Sources */ = {isa = PBXBuildFile; fileRef = A750F556AD22F3EEB6CBB9BEB14E9DE3 /* CosmosTouch.swift */; };
 		51CD901793709F44BA269ED9C11E59F1 /* Pods-FindFoodFastTogetherTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D320AC5DCABAB1C7CF5D9673EEC645C9 /* Pods-FindFoodFastTogetherTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6006213EF7218BC4B0071832FBC68BB9 /* IGIdenticon-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9810B9B4E4D5811404C8234625440B /* IGIdenticon-dummy.m */; };
-		7CC5A43D7E1372EB6292FCBC0151A36E /* CosmosAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB24C5A89DC4A91D870FD77AA93BF79 /* CosmosAccessibility.swift */; };
-		88BA9FFC474BD7B995A0CEA06FF431F7 /* StarFillMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCBD0948EEFF7C590DB7A4DB5221FF1 /* StarFillMode.swift */; };
-		99DEF1BBBC48F4D66BB8FB3A4FE76408 /* Pods-FindFoodFastTogether-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E82FD805F111840CF375B0E6BC6A080 /* Pods-FindFoodFastTogether-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		99F08F6FE2B165EEBD5E01EDDA176620 /* CosmosRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2932A1D699F41B4CBBC510803F7CD964 /* CosmosRating.swift */; };
-		A8D0F1C3405DD1451822DBEDCB4925BC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC7524F0BE53ABC149C4387DFEFE2B51 /* Foundation.framework */; };
-		AA0D1E368D1DD9528F3DBBC13FA4DDCC /* Identicon.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17D9564463AAC28FE3E560C484B6C19 /* Identicon.swift */; };
-		AA971D9492DD9B9E288045C2C0CC9A99 /* CosmosLayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04D7139693A1C28CF85C0AB4D294D7E /* CosmosLayers.swift */; };
-		AD5DA195DDDBF73A0E3F8FFC621C82BC /* CGColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308A08FBD831015FD77C1EE1C13D1466 /* CGColorExtension.swift */; };
+		546DBC1DE41A4B9C9A1340B0AFC7E851 /* INSPhotoGalleryClose@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B9B83588D0E3C420E3991F4BB0F6142 /* INSPhotoGalleryClose@3x.png */; };
+		6006213EF7218BC4B0071832FBC68BB9 /* IGIdenticon-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A092070E87A7AB954580098A9A8A60F6 /* IGIdenticon-dummy.m */; };
+		62D9471C7F12638102374356184E945B /* INSPhotosOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8266AEDB10D6E3AC9A0AA767BCD06E8D /* INSPhotosOverlayView.swift */; };
+		638EF083214FCF26FA681394BC0CD724 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE59B0D97841C2542CA3D20540685C26 /* Foundation.framework */; };
+		6793D6CC9FA71384C5B20E8D4030B20F /* INSPhotoGalleryCloseLandscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 997F602D7F4F9305B7C50D9D8B995A00 /* INSPhotoGalleryCloseLandscape.png */; };
+		6DF3DC9B566A8E0AC665DCE39AF8E080 /* INSPhotoGalleryCloseLandscape@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3206E5BDC9CFF8FCC54DFB8AB43FA694 /* INSPhotoGalleryCloseLandscape@3x.png */; };
+		7CC5A43D7E1372EB6292FCBC0151A36E /* CosmosAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD4AD3BB19F52F353B1DDA747A52E17 /* CosmosAccessibility.swift */; };
+		7F1512AF99843A89022A2E24569B7E47 /* Pods-FindFoodFastTogether-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F199158C6E379E6063ADCADC111C5AA8 /* Pods-FindFoodFastTogether-dummy.m */; };
+		88BA9FFC474BD7B995A0CEA06FF431F7 /* StarFillMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE7577915477A67EC7FE4E701BDA857 /* StarFillMode.swift */; };
+		8BD29F437995875425DD0524D72E7DAE /* INSPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67748DF2E31111251B25AB4EC7CAB9DE /* INSPhotoViewController.swift */; };
+		99F08F6FE2B165EEBD5E01EDDA176620 /* CosmosRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B9325DA111E7245A5BF944C1E75811 /* CosmosRating.swift */; };
+		A49C6A54D01D87DF67DD283A1AF8E43E /* INSPhotosInteractionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A838947319B62F277617F7763EF31F /* INSPhotosInteractionAnimator.swift */; };
+		A8D0F1C3405DD1451822DBEDCB4925BC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE59B0D97841C2542CA3D20540685C26 /* Foundation.framework */; };
+		AA0D1E368D1DD9528F3DBBC13FA4DDCC /* Identicon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CCB57A387B17A488170301C5648935 /* Identicon.swift */; };
+		AA971D9492DD9B9E288045C2C0CC9A99 /* CosmosLayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D161337085A807A8DD3703074CD97B63 /* CosmosLayers.swift */; };
+		AD5DA195DDDBF73A0E3F8FFC621C82BC /* CGColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53ACBE992C43840A33031F95BC6C4C86 /* CGColorExtension.swift */; };
+		AE6D333805238B2F98ECA0CE929DFB27 /* INSPhotoGalleryCloseLandscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F36DD979153FB5FD6F9466CFD6149001 /* INSPhotoGalleryCloseLandscape@2x.png */; };
+		BB44DC47E25039A76709236B95E6651A /* INSScalingImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19EB23DACDB023305B978105A0B3122E /* INSScalingImageView.swift */; };
+		BC2BB039E0666AA757F0D67F060EE41B /* INSPhotosTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05F734132D76AD04B81221E6FC59B2D /* INSPhotosTransitionAnimator.swift */; };
+		C0C7F6175B82D6B613D4CFEA0D7794EE /* INSPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36781E93F0DADA99C44F2EA32EB8409F /* INSPhotosViewController.swift */; };
 		C2BE08B4E1FDE8FD97B67C0C92171737 /* Pods-FindFoodFastTogetherUITests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = E98978D954FBBE82F10DEDEA89845873 /* Pods-FindFoodFastTogetherUITests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C79D2F2FCE3EF9B31D1222E0C4A59DC5 /* RightToLeft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0807C098BC813EF23A293D7C87BC369F /* RightToLeft.swift */; };
-		C95B658D689425ED9DAA95EB479B44A6 /* StarLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384BAC56E76958849CE76E63E6BE3D11 /* StarLayer.swift */; };
-		DE5E91A47C1BF6869DF17747D61C2FF1 /* Cosmos-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D4BD13E9651D36BBB213342F23AAE351 /* Cosmos-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E2D8D1AA0D41C73C4B570DE682C05D72 /* CosmosTouchTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919A0E8A6A7C7815718C81C9126E3844 /* CosmosTouchTarget.swift */; };
+		C79D2F2FCE3EF9B31D1222E0C4A59DC5 /* RightToLeft.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC75CC226490A2379725BF47F1F3458C /* RightToLeft.swift */; };
+		C95B658D689425ED9DAA95EB479B44A6 /* StarLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1780A630ADD75E5A94FCC2CF4B6180 /* StarLayer.swift */; };
+		CA05FB20357D73C227B3DBA1CB4A952B /* INSPhotoGalleryClose.png in Resources */ = {isa = PBXBuildFile; fileRef = EE2A7AA08F4BB7415F51E48E6FB13CCF /* INSPhotoGalleryClose.png */; };
+		DE5E91A47C1BF6869DF17747D61C2FF1 /* Cosmos-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 95E3F5DA719DEE8A25EC399DDAA3CC47 /* Cosmos-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E253EB237B3BECF8846E453D39B21464 /* INSPhotosDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DB52CFBC5F25D40B7FC302BE8A64747 /* INSPhotosDataSource.swift */; };
+		E2D8D1AA0D41C73C4B570DE682C05D72 /* CosmosTouchTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F5D83C5848B1212C4EE021F85994A5 /* CosmosTouchTarget.swift */; };
 		E55E0EC4200299AE72D270D085C2E93B /* Pods-FindFoodFastTogetherTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E1DFB55F5380688ABEE31229FDCAF2D /* Pods-FindFoodFastTogetherTests-dummy.m */; };
-		F485E80DE07F82D570AA460D5E62FC13 /* IGIdenticon-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 691DA1AE7AC373922350B4F16DAD2419 /* IGIdenticon-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F66DE3EF01408C42C115587B201CB541 /* CosmosLayerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE037AEFBBE86B27EE0BBBDC089B179D /* CosmosLayerHelper.swift */; };
-		FFD7FBAC5D9EB4DDB5CFCE5A75B14ED0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC7524F0BE53ABC149C4387DFEFE2B51 /* Foundation.framework */; };
-		FFF90C29AF31AD227BB278B7AA0D01F4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC7524F0BE53ABC149C4387DFEFE2B51 /* Foundation.framework */; };
+		E647BF56B6F3077ACA1763D4971BA8AC /* INSPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337F5A09ABCA77C0337C79E1A7F6DEFF /* INSPhoto.swift */; };
+		EB3E668C4114892A7153088847D2A063 /* INSPhotoGallery.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 94E7BFD1D24E180AA97347E195002073 /* INSPhotoGallery.bundle */; };
+		F485E80DE07F82D570AA460D5E62FC13 /* IGIdenticon-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 0C5C0966D592C36C2B08FB0F38E07EEA /* IGIdenticon-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F5D1958AFCF47B72A1701D5A072BC59F /* INSPhotoGallery-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A7C4C47D62E03D17F09B310800F86C27 /* INSPhotoGallery-dummy.m */; };
+		F5F5B656144C7006A97DA2CD78B91938 /* INSPhotoGalleryClose@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E2B4D69A6B7F84999CA117DDF000015 /* INSPhotoGalleryClose@2x.png */; };
+		F66DE3EF01408C42C115587B201CB541 /* CosmosLayerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD524A5AF88EBEF7BDCADB8D027D465 /* CosmosLayerHelper.swift */; };
+		FFF90C29AF31AD227BB278B7AA0D01F4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE59B0D97841C2542CA3D20540685C26 /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		9DA54961195A52FF0C741E98FF632D0D /* PBXContainerItemProxy */ = {
+		3E066E5721D0D4810D43B3DD01ACC38A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 4FDC533A4360A68ABDCE852F04B30927;
 			remoteInfo = Cosmos;
 		};
-		F5C7E4ACB6FF2E68283F1A9D82A48067 /* PBXContainerItemProxy */ = {
+		6E92B5E78B4E1A377E428D740A5C7562 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 160F3D2B181465FD6DEC4E9916DF2092;
+			remoteInfo = "INSPhotoGallery-INSPhotoGallery";
+		};
+		B5279166B0B5D0A4B34F8CECF5076E5D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = EE3D93250E33C01989B1FF4AEDF6C618;
 			remoteInfo = IGIdenticon;
 		};
+		EDF6ADE8FC410D0DB19E69F18CA14A96 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5AB2AFB1E6DC8D2967EF130A030AD1B8;
+			remoteInfo = INSPhotoGallery;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0807C098BC813EF23A293D7C87BC369F /* RightToLeft.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RightToLeft.swift; path = Cosmos/Helpers/RightToLeft.swift; sourceTree = "<group>"; };
+		05859F1A4EC7FB0622AED2D1EE860D62 /* CGImageExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CGImageExtension.swift; path = Identicon/CGImageExtension.swift; sourceTree = "<group>"; };
+		06F4C3259F83FB6837038F3A3E3A7187 /* INSPhotoGallery-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "INSPhotoGallery-prefix.pch"; sourceTree = "<group>"; };
+		0C5C0966D592C36C2B08FB0F38E07EEA /* IGIdenticon-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "IGIdenticon-umbrella.h"; sourceTree = "<group>"; };
 		0E1DFB55F5380688ABEE31229FDCAF2D /* Pods-FindFoodFastTogetherTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-FindFoodFastTogetherTests-dummy.m"; sourceTree = "<group>"; };
-		0EE2022FAF1972734AF58187F56D094D /* IGIdenticon.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = IGIdenticon.modulemap; sourceTree = "<group>"; };
 		11952FF5958891DFAA5EDB64FB7B16F6 /* Pods-FindFoodFastTogether-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-FindFoodFastTogether-frameworks.sh"; sourceTree = "<group>"; };
-		14DF367E49E189755F07ABB84407E761 /* JenkinsHash.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = JenkinsHash.swift; path = Identicon/JenkinsHash.swift; sourceTree = "<group>"; };
-		178188E5AD8773C91692FEC99D29899D /* CosmosDefaultSettings.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosDefaultSettings.swift; path = Cosmos/CosmosDefaultSettings.swift; sourceTree = "<group>"; };
-		1D93A3F74BC32D247552C79D636C13BB /* Pods_FindFoodFastTogetherTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_FindFoodFastTogetherTests.framework; path = "Pods-FindFoodFastTogetherTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2932A1D699F41B4CBBC510803F7CD964 /* CosmosRating.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosRating.swift; path = Cosmos/CosmosRating.swift; sourceTree = "<group>"; };
-		2B842DD6851BB012AAC2674621524F88 /* Cosmos.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = Cosmos.modulemap; sourceTree = "<group>"; };
-		2C9810B9B4E4D5811404C8234625440B /* IGIdenticon-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "IGIdenticon-dummy.m"; sourceTree = "<group>"; };
-		2CD7D46DC06D14D8C5ED6DC432BE16B7 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		308A08FBD831015FD77C1EE1C13D1466 /* CGColorExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CGColorExtension.swift; path = Identicon/CGColorExtension.swift; sourceTree = "<group>"; };
-		384BAC56E76958849CE76E63E6BE3D11 /* StarLayer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StarLayer.swift; path = Cosmos/StarLayer.swift; sourceTree = "<group>"; };
-		3DFE519EC073434A23A540A17DFA7703 /* Cosmos-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Cosmos-dummy.m"; sourceTree = "<group>"; };
-		47B5F0E10087D88192287158A75BA9FA /* CosmosView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosView.swift; path = Cosmos/CosmosView.swift; sourceTree = "<group>"; };
-		4A3C77E97C46B7CC4159D748F96055F5 /* IGIdenticon.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = IGIdenticon.xcconfig; sourceTree = "<group>"; };
-		4C0BD39CC1AEADA9716E10A9F85C58A9 /* Cosmos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Cosmos.framework; path = Cosmos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		130DF655150E0DCE0C8B0394B1A2347C /* INSPhotoGallery-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "INSPhotoGallery-umbrella.h"; sourceTree = "<group>"; };
+		14E670F2C6C6AB459C86379F5729DA4E /* ResourceBundle-INSPhotoGallery-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-INSPhotoGallery-Info.plist"; sourceTree = "<group>"; };
+		19EB23DACDB023305B978105A0B3122E /* INSScalingImageView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = INSScalingImageView.swift; path = INSPhotoGallery/INSScalingImageView.swift; sourceTree = "<group>"; };
+		1DEB13AD9232748CE286CA5AE846BA91 /* INSPhotoGallery.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = INSPhotoGallery.modulemap; sourceTree = "<group>"; };
+		2DB52CFBC5F25D40B7FC302BE8A64747 /* INSPhotosDataSource.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = INSPhotosDataSource.swift; path = INSPhotoGallery/INSPhotosDataSource.swift; sourceTree = "<group>"; };
+		3206E5BDC9CFF8FCC54DFB8AB43FA694 /* INSPhotoGalleryCloseLandscape@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "INSPhotoGalleryCloseLandscape@3x.png"; path = "INSPhotoGallery/INSPhotoGallery.bundle/INSPhotoGalleryCloseLandscape@3x.png"; sourceTree = "<group>"; };
+		337F5A09ABCA77C0337C79E1A7F6DEFF /* INSPhoto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = INSPhoto.swift; path = INSPhotoGallery/INSPhoto.swift; sourceTree = "<group>"; };
+		3615695F1814EBC9622C1956231C9872 /* Cosmos.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Cosmos.xcconfig; sourceTree = "<group>"; };
+		36781E93F0DADA99C44F2EA32EB8409F /* INSPhotosViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = INSPhotosViewController.swift; path = INSPhotoGallery/INSPhotosViewController.swift; sourceTree = "<group>"; };
+		37079FB31241E02B44EF119171C8B2B7 /* GitHubIdenticon.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GitHubIdenticon.swift; path = Identicon/GitHubIdenticon.swift; sourceTree = "<group>"; };
+		38A838947319B62F277617F7763EF31F /* INSPhotosInteractionAnimator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = INSPhotosInteractionAnimator.swift; path = INSPhotoGallery/INSPhotosInteractionAnimator.swift; sourceTree = "<group>"; };
 		4E82FD805F111840CF375B0E6BC6A080 /* Pods-FindFoodFastTogether-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-FindFoodFastTogether-umbrella.h"; sourceTree = "<group>"; };
 		4E89B8764FD1FD495442E8CD515908BC /* Pods-FindFoodFastTogether-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-FindFoodFastTogether-acknowledgements.plist"; sourceTree = "<group>"; };
+		53ACBE992C43840A33031F95BC6C4C86 /* CGColorExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CGColorExtension.swift; path = Identicon/CGColorExtension.swift; sourceTree = "<group>"; };
+		53B9325DA111E7245A5BF944C1E75811 /* CosmosRating.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosRating.swift; path = Cosmos/CosmosRating.swift; sourceTree = "<group>"; };
+		546B8B55D9A030E505E756EDE3A1DA96 /* Cosmos-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Cosmos-prefix.pch"; sourceTree = "<group>"; };
 		573FB36CF531E55E4AD055561992076D /* Pods-FindFoodFastTogether.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-FindFoodFastTogether.debug.xcconfig"; sourceTree = "<group>"; };
-		5DC5DDD274281FBBFCD93A730DFDCEB3 /* IconGenerator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IconGenerator.swift; path = Identicon/IconGenerator.swift; sourceTree = "<group>"; };
-		5E9E8DE1E96EE368388AEBAB8CDB7BBD /* Cosmos-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Cosmos-prefix.pch"; sourceTree = "<group>"; };
-		61AADFF1B9AD4F30C41E59AB1BDC3D8C /* Pods_FindFoodFastTogetherUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_FindFoodFastTogetherUITests.framework; path = "Pods-FindFoodFastTogetherUITests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6829C7247C6A2D453CDD8C99194DEA9F /* CosmosLocalizedRating.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosLocalizedRating.swift; path = Cosmos/CosmosLocalizedRating.swift; sourceTree = "<group>"; };
-		691DA1AE7AC373922350B4F16DAD2419 /* IGIdenticon-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "IGIdenticon-umbrella.h"; sourceTree = "<group>"; };
-		6975F06108050363FF539CC606A84187 /* IGIdenticon-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "IGIdenticon-prefix.pch"; sourceTree = "<group>"; };
-		69A5D702A164014698A5E3D26BF8AF46 /* CosmosText.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosText.swift; path = Cosmos/CosmosText.swift; sourceTree = "<group>"; };
+		5AD4AEACD96C852A2B4CDED6A97556F9 /* GoogleMapsBase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMapsBase.framework; path = Base/Frameworks/GoogleMapsBase.framework; sourceTree = "<group>"; };
+		6213B47393A71C6CC04A27FE3DB05FDC /* Cosmos-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Cosmos-dummy.m"; sourceTree = "<group>"; };
+		632439A697356B4EB377343BDECF5AB9 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		67748DF2E31111251B25AB4EC7CAB9DE /* INSPhotoViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = INSPhotoViewController.swift; path = INSPhotoGallery/INSPhotoViewController.swift; sourceTree = "<group>"; };
 		6A6F1EEB564562DF4943982FF4BD81B8 /* Pods-FindFoodFastTogetherTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-FindFoodFastTogetherTests-acknowledgements.plist"; sourceTree = "<group>"; };
-		6ABC55122A306F7B2CFCB500F67ED58F /* GooglePlaces.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = GooglePlaces.bundle; path = Frameworks/GooglePlaces.framework/Versions/A/Resources/GooglePlaces.bundle; sourceTree = "<group>"; };
-		6EE7ABF7B8717EE617BE67E78215334D /* GoogleMapsBase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMapsBase.framework; path = Base/Frameworks/GoogleMapsBase.framework; sourceTree = "<group>"; };
+		6D6BF6AD2C25407E59C8C8FE9176CA4B /* INSPhotoGallery.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = INSPhotoGallery.xcconfig; sourceTree = "<group>"; };
+		6FB9E34D0BB6B531BAD477EBE971483B /* IGIdenticon.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = IGIdenticon.xcconfig; sourceTree = "<group>"; };
 		6FF58031A77D7E26C08174763BA55AE1 /* Pods-FindFoodFastTogetherUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-FindFoodFastTogetherUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		71C34F75BF6233099195BBB12BC5C260 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		71D8C8C6BB57DA04E0EC3CB37EF1BD13 /* Pods_FindFoodFastTogetherUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_FindFoodFastTogetherUITests.framework; path = "Pods-FindFoodFastTogetherUITests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		75E1B15FAF075668AAA56DCA1531F193 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		794C28D863CD277C902E84B7033C0021 /* Pods-FindFoodFastTogetherUITests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-FindFoodFastTogetherUITests-frameworks.sh"; sourceTree = "<group>"; };
-		79DDF3727826C7E779C089F8A9DB1DD0 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7F9E307DD215D139F9AFE5426BCC4883 /* IGIdenticon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = IGIdenticon.framework; path = IGIdenticon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8621F66D446C6F4AC0D7F817144EB150 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
+		79EFC6705F087F714EC6517F8F4AF52D /* IconGenerator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IconGenerator.swift; path = Identicon/IconGenerator.swift; sourceTree = "<group>"; };
+		7D7AA423432FA2F1A31FC3AC663A48C4 /* CosmosLocalizedRating.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosLocalizedRating.swift; path = Cosmos/CosmosLocalizedRating.swift; sourceTree = "<group>"; };
+		819BE80989BCE343D67C651886D0FBDA /* CosmosView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosView.swift; path = Cosmos/CosmosView.swift; sourceTree = "<group>"; };
+		8266AEDB10D6E3AC9A0AA767BCD06E8D /* INSPhotosOverlayView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = INSPhotosOverlayView.swift; path = INSPhotoGallery/INSPhotosOverlayView.swift; sourceTree = "<group>"; };
+		836B4F6B7855C62A3AB83E2FDCA4262E /* GooglePlaces.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GooglePlaces.framework; path = Frameworks/GooglePlaces.framework; sourceTree = "<group>"; };
+		87B8BB1C2E5D6505CFF3432197D3C19F /* CosmosDefaultSettings.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosDefaultSettings.swift; path = Cosmos/CosmosDefaultSettings.swift; sourceTree = "<group>"; };
 		883860F794D66195006BD1FCF04ADCBA /* Pods-FindFoodFastTogetherTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-FindFoodFastTogetherTests.release.xcconfig"; sourceTree = "<group>"; };
-		919A0E8A6A7C7815718C81C9126E3844 /* CosmosTouchTarget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosTouchTarget.swift; path = Cosmos/Helpers/CosmosTouchTarget.swift; sourceTree = "<group>"; };
+		8B9B83588D0E3C420E3991F4BB0F6142 /* INSPhotoGalleryClose@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "INSPhotoGalleryClose@3x.png"; path = "INSPhotoGallery/INSPhotoGallery.bundle/INSPhotoGalleryClose@3x.png"; sourceTree = "<group>"; };
+		8BB9B18C3126FAD19A4DDEE81CA05382 /* IGIdenticon.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = IGIdenticon.modulemap; sourceTree = "<group>"; };
+		8DE7577915477A67EC7FE4E701BDA857 /* StarFillMode.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StarFillMode.swift; path = Cosmos/StarFillMode.swift; sourceTree = "<group>"; };
+		8E2B4D69A6B7F84999CA117DDF000015 /* INSPhotoGalleryClose@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "INSPhotoGalleryClose@2x.png"; path = "INSPhotoGallery/INSPhotoGallery.bundle/INSPhotoGalleryClose@2x.png"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		99B8BF517275F9B61059864DC6253D06 /* CosmosSettings.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosSettings.swift; path = Cosmos/CosmosSettings.swift; sourceTree = "<group>"; };
+		94E7BFD1D24E180AA97347E195002073 /* INSPhotoGallery.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = INSPhotoGallery.bundle; path = INSPhotoGallery.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		95E3F5DA719DEE8A25EC399DDAA3CC47 /* Cosmos-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Cosmos-umbrella.h"; sourceTree = "<group>"; };
+		997F602D7F4F9305B7C50D9D8B995A00 /* INSPhotoGalleryCloseLandscape.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = INSPhotoGalleryCloseLandscape.png; path = INSPhotoGallery/INSPhotoGallery.bundle/INSPhotoGalleryCloseLandscape.png; sourceTree = "<group>"; };
+		99C06B1B209CA23EC16EBF65CF890313 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		9DB557B7C55908247EA030E6FFE99A85 /* Pods-FindFoodFastTogetherUITests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-FindFoodFastTogetherUITests-resources.sh"; sourceTree = "<group>"; };
-		A85648E46D96D6C8591296503ACB4794 /* CGImageExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CGImageExtension.swift; path = Identicon/CGImageExtension.swift; sourceTree = "<group>"; };
+		A092070E87A7AB954580098A9A8A60F6 /* IGIdenticon-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "IGIdenticon-dummy.m"; sourceTree = "<group>"; };
+		A5224A726D9EABB2D5F18E4597390EF3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		A750F556AD22F3EEB6CBB9BEB14E9DE3 /* CosmosTouch.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosTouch.swift; path = Cosmos/CosmosTouch.swift; sourceTree = "<group>"; };
+		A754265C16486F47660C81D924730B18 /* Cosmos.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = Cosmos.modulemap; sourceTree = "<group>"; };
+		A791EDCE622FBCB602F8A1165FE72BC2 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A7C4C47D62E03D17F09B310800F86C27 /* INSPhotoGallery-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "INSPhotoGallery-dummy.m"; sourceTree = "<group>"; };
+		A9BFB2A78EA1024E8754976260133786 /* JenkinsHash.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = JenkinsHash.swift; path = Identicon/JenkinsHash.swift; sourceTree = "<group>"; };
+		AAC39137ADEF0ACB756418188B98E220 /* Pods_FindFoodFastTogetherTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_FindFoodFastTogetherTests.framework; path = "Pods-FindFoodFastTogetherTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB1780A630ADD75E5A94FCC2CF4B6180 /* StarLayer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StarLayer.swift; path = Cosmos/StarLayer.swift; sourceTree = "<group>"; };
 		AB27C7E9C8B7AB43BDCF93C23CE47746 /* Pods-FindFoodFastTogetherTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-FindFoodFastTogetherTests.debug.xcconfig"; sourceTree = "<group>"; };
-		AC7524F0BE53ABC149C4387DFEFE2B51 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		AC75CC226490A2379725BF47F1F3458C /* RightToLeft.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RightToLeft.swift; path = Cosmos/Helpers/RightToLeft.swift; sourceTree = "<group>"; };
 		AED62277FFFE5272D75B3F40F67C0263 /* Pods-FindFoodFastTogetherTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-FindFoodFastTogetherTests-resources.sh"; sourceTree = "<group>"; };
 		B2487A9B214DB4F8ADC10F5BB47BDF49 /* Pods-FindFoodFastTogether.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-FindFoodFastTogether.modulemap"; sourceTree = "<group>"; };
 		B4F0F77D4FE06DDB26911B76CB840743 /* Pods-FindFoodFastTogetherTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-FindFoodFastTogetherTests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		BE037AEFBBE86B27EE0BBBDC089B179D /* CosmosLayerHelper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosLayerHelper.swift; path = Cosmos/CosmosLayerHelper.swift; sourceTree = "<group>"; };
-		BFCBD0948EEFF7C590DB7A4DB5221FF1 /* StarFillMode.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StarFillMode.swift; path = Cosmos/StarFillMode.swift; sourceTree = "<group>"; };
-		C04D7139693A1C28CF85C0AB4D294D7E /* CosmosLayers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosLayers.swift; path = Cosmos/CosmosLayers.swift; sourceTree = "<group>"; };
-		C8AF07D3CAED657674BE754D67F99E48 /* CosmosSize.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosSize.swift; path = Cosmos/CosmosSize.swift; sourceTree = "<group>"; };
-		CA9D9CB14AABA9C23C922A3668945488 /* Pods_FindFoodFastTogether.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_FindFoodFastTogether.framework; path = "Pods-FindFoodFastTogether.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B51B24E22A8A8549738DEDFCD76E5659 /* CosmosSettings.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosSettings.swift; path = Cosmos/CosmosSettings.swift; sourceTree = "<group>"; };
+		BF72B021C365362A29AFC207FB2A3AA4 /* CosmosText.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosText.swift; path = Cosmos/CosmosText.swift; sourceTree = "<group>"; };
+		C05F734132D76AD04B81221E6FC59B2D /* INSPhotosTransitionAnimator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = INSPhotosTransitionAnimator.swift; path = INSPhotoGallery/INSPhotosTransitionAnimator.swift; sourceTree = "<group>"; };
+		C2F5D83C5848B1212C4EE021F85994A5 /* CosmosTouchTarget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosTouchTarget.swift; path = Cosmos/Helpers/CosmosTouchTarget.swift; sourceTree = "<group>"; };
 		CBD43F172360B2275CA52104D6A6402A /* Pods-FindFoodFastTogetherUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-FindFoodFastTogetherUITests.release.xcconfig"; sourceTree = "<group>"; };
 		CC3B6D3220B675F4F9EF17A07C39672A /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CD0305901E12667A7F385AC7A8332AEF /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CE59B0D97841C2542CA3D20540685C26 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		D0BFA79807498AC953AA258E3CC10AD5 /* IGIdenticon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = IGIdenticon.framework; path = IGIdenticon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D161337085A807A8DD3703074CD97B63 /* CosmosLayers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosLayers.swift; path = Cosmos/CosmosLayers.swift; sourceTree = "<group>"; };
 		D320AC5DCABAB1C7CF5D9673EEC645C9 /* Pods-FindFoodFastTogetherTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-FindFoodFastTogetherTests-umbrella.h"; sourceTree = "<group>"; };
-		D4BD13E9651D36BBB213342F23AAE351 /* Cosmos-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Cosmos-umbrella.h"; sourceTree = "<group>"; };
-		D9E04E3F8280951703086615668CB3ED /* GooglePlaces.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GooglePlaces.framework; path = Frameworks/GooglePlaces.framework; sourceTree = "<group>"; };
-		DB8EBA97796053E619337BC710B62A06 /* GitHubIdenticon.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GitHubIdenticon.swift; path = Identicon/GitHubIdenticon.swift; sourceTree = "<group>"; };
+		D7CCB57A387B17A488170301C5648935 /* Identicon.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Identicon.swift; path = Identicon/Identicon.swift; sourceTree = "<group>"; };
+		DB0F49A8839459F2B03898D0E8C25377 /* UIVIew+INSPhotoViewer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIVIew+INSPhotoViewer.swift"; path = "INSPhotoGallery/UIVIew+INSPhotoViewer.swift"; sourceTree = "<group>"; };
 		DCA16F1C7495CFC2A54CFD298B00A1F8 /* Pods-FindFoodFastTogetherUITests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-FindFoodFastTogetherUITests-dummy.m"; sourceTree = "<group>"; };
+		DFF52F4B3CC6321BE811B8C35FB6B39B /* Pods_FindFoodFastTogether.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_FindFoodFastTogether.framework; path = "Pods-FindFoodFastTogether.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E14435E23A718FA68DEB948CC720516C /* Pods-FindFoodFastTogetherUITests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-FindFoodFastTogetherUITests.modulemap"; sourceTree = "<group>"; };
+		E44B4F240880B7BEE6A0F0E847D8CF01 /* IGIdenticon-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "IGIdenticon-prefix.pch"; sourceTree = "<group>"; };
+		E7F66D70F6110D3373D352C9D267E410 /* CosmosSize.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosSize.swift; path = Cosmos/CosmosSize.swift; sourceTree = "<group>"; };
 		E845BEE108BFA94AA8AE96DFEEA88B09 /* Pods-FindFoodFastTogether-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-FindFoodFastTogether-resources.sh"; sourceTree = "<group>"; };
+		E897A3ADD4A3843C66394BD417B1D299 /* Cosmos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Cosmos.framework; path = Cosmos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9667C4AA062EAAFBCA9853E63B8D232 /* INSPhotoGallery.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = INSPhotoGallery.framework; path = INSPhotoGallery.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E98978D954FBBE82F10DEDEA89845873 /* Pods-FindFoodFastTogetherUITests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-FindFoodFastTogetherUITests-umbrella.h"; sourceTree = "<group>"; };
-		EBB24C5A89DC4A91D870FD77AA93BF79 /* CosmosAccessibility.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosAccessibility.swift; path = Cosmos/CosmosAccessibility.swift; sourceTree = "<group>"; };
-		EEC210B7B6BBFEE9BB0BB1D77F12D446 /* CosmosTouch.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosTouch.swift; path = Cosmos/CosmosTouch.swift; sourceTree = "<group>"; };
+		E99508F44A59F785AD805464F114A997 /* GooglePlaces.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = GooglePlaces.bundle; path = Frameworks/GooglePlaces.framework/Versions/A/Resources/GooglePlaces.bundle; sourceTree = "<group>"; };
+		EE2A7AA08F4BB7415F51E48E6FB13CCF /* INSPhotoGalleryClose.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = INSPhotoGalleryClose.png; path = INSPhotoGallery/INSPhotoGallery.bundle/INSPhotoGalleryClose.png; sourceTree = "<group>"; };
 		EFBB3A2D5269D73FB8F16540242880AB /* Pods-FindFoodFastTogetherTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-FindFoodFastTogetherTests.modulemap"; sourceTree = "<group>"; };
-		F17D9564463AAC28FE3E560C484B6C19 /* Identicon.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Identicon.swift; path = Identicon/Identicon.swift; sourceTree = "<group>"; };
 		F199158C6E379E6063ADCADC111C5AA8 /* Pods-FindFoodFastTogether-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-FindFoodFastTogether-dummy.m"; sourceTree = "<group>"; };
 		F303050CC2107207585349284D9B6439 /* Pods-FindFoodFastTogetherUITests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-FindFoodFastTogetherUITests-acknowledgements.plist"; sourceTree = "<group>"; };
+		F36DD979153FB5FD6F9466CFD6149001 /* INSPhotoGalleryCloseLandscape@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "INSPhotoGalleryCloseLandscape@2x.png"; path = "INSPhotoGallery/INSPhotoGallery.bundle/INSPhotoGalleryCloseLandscape@2x.png"; sourceTree = "<group>"; };
 		F5FC20658AEA4DCAD59CD25E3A65C3CB /* Pods-FindFoodFastTogether-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-FindFoodFastTogether-acknowledgements.markdown"; sourceTree = "<group>"; };
-		F65E106F2310AA6045C9311CCE1A6876 /* Cosmos.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Cosmos.xcconfig; sourceTree = "<group>"; };
 		FB4BD77408A996AF4D3C9D7F672E8CB1 /* Pods-FindFoodFastTogetherUITests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-FindFoodFastTogetherUITests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		FB57C3F722327F38EA3056D5F2C46EB7 /* Pods-FindFoodFastTogetherTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-FindFoodFastTogetherTests-frameworks.sh"; sourceTree = "<group>"; };
+		FCD4AD3BB19F52F353B1DDA747A52E17 /* CosmosAccessibility.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosAccessibility.swift; path = Cosmos/CosmosAccessibility.swift; sourceTree = "<group>"; };
+		FDD524A5AF88EBEF7BDCADB8D027D465 /* CosmosLayerHelper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CosmosLayerHelper.swift; path = Cosmos/CosmosLayerHelper.swift; sourceTree = "<group>"; };
 		FF645DAF9853196942C1097CE91E42B6 /* Pods-FindFoodFastTogether.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-FindFoodFastTogether.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1B43FF8F098F011FD68740FF96773180 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				638EF083214FCF26FA681394BC0CD724 /* Foundation.framework in Frameworks */,
+				31278F113033613961E106D23DAD1D5F /* UIKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		23E1D2C8911A1F4127AF93A478D985B5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -149,19 +217,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		99E1CAB72B2B5C7AFC4732F1D01CC13F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				FFD7FBAC5D9EB4DDB5CFCE5A75B14ED0 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		AA61B9ADF608EB1E7D3A2E6B2C9A5F35 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				20A61874A1D877709F4CB82FAC47A9F8 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B287BC95922B92223D0BB13703A76826 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,86 +249,118 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D28038A6BC48D1C5A4E7A0AE17873451 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				02A63FD86404B6AEB326E5C2D0B063E0 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0206B9A01A26FE654162B6AB320C3738 /* Base */ = {
+		122DA2E5084A4393C29BE363C764795C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				351D968D9DAFD7FE3675741A7CB7293E /* Frameworks */,
-			);
-			name = Base;
-			sourceTree = "<group>";
-		};
-		0740FE61796E0A8DC2748F223F4A84BD /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				73C2715D78E2224BADD4DA2C5C26A619 /* Cosmos */,
-				E3BF8ADD084F84C048F30F55B3AD9F63 /* GoogleMaps */,
-				14FEC979B4BA48993E14B11A962D0087 /* GooglePlaces */,
-				73147F542F446824A6B1184014B77033 /* IGIdenticon */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		0CE99EC292F32FFE8BF07192E0A3EF7E /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				6ABC55122A306F7B2CFCB500F67ED58F /* GooglePlaces.bundle */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
-		14FEC979B4BA48993E14B11A962D0087 /* GooglePlaces */ = {
-			isa = PBXGroup;
-			children = (
-				9F67DFEB34E2DB1F510C49A1F015CCC2 /* Frameworks */,
-				0CE99EC292F32FFE8BF07192E0A3EF7E /* Resources */,
-			);
-			name = GooglePlaces;
-			path = GooglePlaces;
-			sourceTree = "<group>";
-		};
-		351D968D9DAFD7FE3675741A7CB7293E /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				6EE7ABF7B8717EE617BE67E78215334D /* GoogleMapsBase.framework */,
+				93FD095B5FC2A2BCC81B8E3CFC167E67 /* iOS */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		3FD576DD3766E3273B09A5D9C39B53ED /* Support Files */ = {
+		1544E62B8DB23ECE883C07F8C523B3BB /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				0EE2022FAF1972734AF58187F56D094D /* IGIdenticon.modulemap */,
-				4A3C77E97C46B7CC4159D748F96055F5 /* IGIdenticon.xcconfig */,
-				2C9810B9B4E4D5811404C8234625440B /* IGIdenticon-dummy.m */,
-				6975F06108050363FF539CC606A84187 /* IGIdenticon-prefix.pch */,
-				691DA1AE7AC373922350B4F16DAD2419 /* IGIdenticon-umbrella.h */,
-				2CD7D46DC06D14D8C5ED6DC432BE16B7 /* Info.plist */,
+				632439A697356B4EB377343BDECF5AB9 /* Info.plist */,
+				1DEB13AD9232748CE286CA5AE846BA91 /* INSPhotoGallery.modulemap */,
+				6D6BF6AD2C25407E59C8C8FE9176CA4B /* INSPhotoGallery.xcconfig */,
+				A7C4C47D62E03D17F09B310800F86C27 /* INSPhotoGallery-dummy.m */,
+				06F4C3259F83FB6837038F3A3E3A7187 /* INSPhotoGallery-prefix.pch */,
+				130DF655150E0DCE0C8B0394B1A2347C /* INSPhotoGallery-umbrella.h */,
+				14E670F2C6C6AB459C86379F5729DA4E /* ResourceBundle-INSPhotoGallery-Info.plist */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/INSPhotoGallery";
+			sourceTree = "<group>";
+		};
+		15E9B78FE5DF8533E310360B2101DEB9 /* GoogleMaps */ = {
+			isa = PBXGroup;
+			children = (
+				B3124E8A3CAC818DCA87FA0431EA3DB2 /* Base */,
+			);
+			name = GoogleMaps;
+			path = GoogleMaps;
+			sourceTree = "<group>";
+		};
+		239098F593B72FBAFDA7EF122EB76062 /* Cosmos */ = {
+			isa = PBXGroup;
+			children = (
+				FCD4AD3BB19F52F353B1DDA747A52E17 /* CosmosAccessibility.swift */,
+				87B8BB1C2E5D6505CFF3432197D3C19F /* CosmosDefaultSettings.swift */,
+				FDD524A5AF88EBEF7BDCADB8D027D465 /* CosmosLayerHelper.swift */,
+				D161337085A807A8DD3703074CD97B63 /* CosmosLayers.swift */,
+				7D7AA423432FA2F1A31FC3AC663A48C4 /* CosmosLocalizedRating.swift */,
+				53B9325DA111E7245A5BF944C1E75811 /* CosmosRating.swift */,
+				B51B24E22A8A8549738DEDFCD76E5659 /* CosmosSettings.swift */,
+				E7F66D70F6110D3373D352C9D267E410 /* CosmosSize.swift */,
+				BF72B021C365362A29AFC207FB2A3AA4 /* CosmosText.swift */,
+				A750F556AD22F3EEB6CBB9BEB14E9DE3 /* CosmosTouch.swift */,
+				C2F5D83C5848B1212C4EE021F85994A5 /* CosmosTouchTarget.swift */,
+				819BE80989BCE343D67C651886D0FBDA /* CosmosView.swift */,
+				AC75CC226490A2379725BF47F1F3458C /* RightToLeft.swift */,
+				8DE7577915477A67EC7FE4E701BDA857 /* StarFillMode.swift */,
+				AB1780A630ADD75E5A94FCC2CF4B6180 /* StarLayer.swift */,
+				A85A1AA608C9FFA632762CAAC45CEC96 /* Support Files */,
+			);
+			name = Cosmos;
+			path = Cosmos;
+			sourceTree = "<group>";
+		};
+		3F47D3CC5920396CC1818385CA5EA2F5 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				8BB9B18C3126FAD19A4DDEE81CA05382 /* IGIdenticon.modulemap */,
+				6FB9E34D0BB6B531BAD477EBE971483B /* IGIdenticon.xcconfig */,
+				A092070E87A7AB954580098A9A8A60F6 /* IGIdenticon-dummy.m */,
+				E44B4F240880B7BEE6A0F0E847D8CF01 /* IGIdenticon-prefix.pch */,
+				0C5C0966D592C36C2B08FB0F38E07EEA /* IGIdenticon-umbrella.h */,
+				75E1B15FAF075668AAA56DCA1531F193 /* Info.plist */,
 			);
 			name = "Support Files";
 			path = "../Target Support Files/IGIdenticon";
 			sourceTree = "<group>";
 		};
-		433CD3331B6C3787F473C941B61FC68F /* Frameworks */ = {
+		4492AB97335CEE9755199A76B051317D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C93AA53D048424A67CC426E3C9422A44 /* iOS */,
+				836B4F6B7855C62A3AB83E2FDCA4262E /* GooglePlaces.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		520EF23A104F4CA4BC17EA5A3E1DEDEB /* Products */ = {
+		4A91915487A75618D6C02CCFBE5AD26E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				4C0BD39CC1AEADA9716E10A9F85C58A9 /* Cosmos.framework */,
-				7F9E307DD215D139F9AFE5426BCC4883 /* IGIdenticon.framework */,
-				CA9D9CB14AABA9C23C922A3668945488 /* Pods_FindFoodFastTogether.framework */,
-				1D93A3F74BC32D247552C79D636C13BB /* Pods_FindFoodFastTogetherTests.framework */,
-				61AADFF1B9AD4F30C41E59AB1BDC3D8C /* Pods_FindFoodFastTogetherUITests.framework */,
+				EE2A7AA08F4BB7415F51E48E6FB13CCF /* INSPhotoGalleryClose.png */,
+				8E2B4D69A6B7F84999CA117DDF000015 /* INSPhotoGalleryClose@2x.png */,
+				8B9B83588D0E3C420E3991F4BB0F6142 /* INSPhotoGalleryClose@3x.png */,
+				997F602D7F4F9305B7C50D9D8B995A00 /* INSPhotoGalleryCloseLandscape.png */,
+				F36DD979153FB5FD6F9466CFD6149001 /* INSPhotoGalleryCloseLandscape@2x.png */,
+				3206E5BDC9CFF8FCC54DFB8AB43FA694 /* INSPhotoGalleryCloseLandscape@3x.png */,
 			);
-			name = Products;
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		591541C93B5AE199BB99A3A9DDAE4ABA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				239098F593B72FBAFDA7EF122EB76062 /* Cosmos */,
+				15E9B78FE5DF8533E310360B2101DEB9 /* GoogleMaps */,
+				8846F3953AB3FDF98ED9BA5201165B89 /* GooglePlaces */,
+				B56BC0186BDAC40F4716D65314C26B75 /* IGIdenticon */,
+				772D2463384025516818D36969F0D8BB /* INSPhotoGallery */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		5EE8FDF9120B61E8D0438C12B81C45BE /* Pods-FindFoodFastTogetherTests */ = {
@@ -282,6 +381,20 @@
 			path = "Target Support Files/Pods-FindFoodFastTogetherTests";
 			sourceTree = "<group>";
 		};
+		67166CD7D2C5F1BC87B86450BB136B6D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E897A3ADD4A3843C66394BD417B1D299 /* Cosmos.framework */,
+				D0BFA79807498AC953AA258E3CC10AD5 /* IGIdenticon.framework */,
+				94E7BFD1D24E180AA97347E195002073 /* INSPhotoGallery.bundle */,
+				E9667C4AA062EAAFBCA9853E63B8D232 /* INSPhotoGallery.framework */,
+				DFF52F4B3CC6321BE811B8C35FB6B39B /* Pods_FindFoodFastTogether.framework */,
+				AAC39137ADEF0ACB756418188B98E220 /* Pods_FindFoodFastTogetherTests.framework */,
+				71D8C8C6BB57DA04E0EC3CB37EF1BD13 /* Pods_FindFoodFastTogetherUITests.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		704890B8A56BC7BC37EB3C5E1C5A8A56 /* Pods-FindFoodFastTogetherUITests */ = {
 			isa = PBXGroup;
 			children = (
@@ -300,54 +413,54 @@
 			path = "Target Support Files/Pods-FindFoodFastTogetherUITests";
 			sourceTree = "<group>";
 		};
-		73147F542F446824A6B1184014B77033 /* IGIdenticon */ = {
+		772D2463384025516818D36969F0D8BB /* INSPhotoGallery */ = {
 			isa = PBXGroup;
 			children = (
-				308A08FBD831015FD77C1EE1C13D1466 /* CGColorExtension.swift */,
-				A85648E46D96D6C8591296503ACB4794 /* CGImageExtension.swift */,
-				DB8EBA97796053E619337BC710B62A06 /* GitHubIdenticon.swift */,
-				5DC5DDD274281FBBFCD93A730DFDCEB3 /* IconGenerator.swift */,
-				F17D9564463AAC28FE3E560C484B6C19 /* Identicon.swift */,
-				14DF367E49E189755F07ABB84407E761 /* JenkinsHash.swift */,
-				3FD576DD3766E3273B09A5D9C39B53ED /* Support Files */,
+				337F5A09ABCA77C0337C79E1A7F6DEFF /* INSPhoto.swift */,
+				2DB52CFBC5F25D40B7FC302BE8A64747 /* INSPhotosDataSource.swift */,
+				38A838947319B62F277617F7763EF31F /* INSPhotosInteractionAnimator.swift */,
+				8266AEDB10D6E3AC9A0AA767BCD06E8D /* INSPhotosOverlayView.swift */,
+				C05F734132D76AD04B81221E6FC59B2D /* INSPhotosTransitionAnimator.swift */,
+				36781E93F0DADA99C44F2EA32EB8409F /* INSPhotosViewController.swift */,
+				67748DF2E31111251B25AB4EC7CAB9DE /* INSPhotoViewController.swift */,
+				19EB23DACDB023305B978105A0B3122E /* INSScalingImageView.swift */,
+				DB0F49A8839459F2B03898D0E8C25377 /* UIVIew+INSPhotoViewer.swift */,
+				4A91915487A75618D6C02CCFBE5AD26E /* Resources */,
+				1544E62B8DB23ECE883C07F8C523B3BB /* Support Files */,
 			);
-			name = IGIdenticon;
-			path = IGIdenticon;
-			sourceTree = "<group>";
-		};
-		73C2715D78E2224BADD4DA2C5C26A619 /* Cosmos */ = {
-			isa = PBXGroup;
-			children = (
-				EBB24C5A89DC4A91D870FD77AA93BF79 /* CosmosAccessibility.swift */,
-				178188E5AD8773C91692FEC99D29899D /* CosmosDefaultSettings.swift */,
-				BE037AEFBBE86B27EE0BBBDC089B179D /* CosmosLayerHelper.swift */,
-				C04D7139693A1C28CF85C0AB4D294D7E /* CosmosLayers.swift */,
-				6829C7247C6A2D453CDD8C99194DEA9F /* CosmosLocalizedRating.swift */,
-				2932A1D699F41B4CBBC510803F7CD964 /* CosmosRating.swift */,
-				99B8BF517275F9B61059864DC6253D06 /* CosmosSettings.swift */,
-				C8AF07D3CAED657674BE754D67F99E48 /* CosmosSize.swift */,
-				69A5D702A164014698A5E3D26BF8AF46 /* CosmosText.swift */,
-				EEC210B7B6BBFEE9BB0BB1D77F12D446 /* CosmosTouch.swift */,
-				919A0E8A6A7C7815718C81C9126E3844 /* CosmosTouchTarget.swift */,
-				47B5F0E10087D88192287158A75BA9FA /* CosmosView.swift */,
-				0807C098BC813EF23A293D7C87BC369F /* RightToLeft.swift */,
-				BFCBD0948EEFF7C590DB7A4DB5221FF1 /* StarFillMode.swift */,
-				384BAC56E76958849CE76E63E6BE3D11 /* StarLayer.swift */,
-				D5E64D2B4E1DFEB74020FE20719039F0 /* Support Files */,
-			);
-			name = Cosmos;
-			path = Cosmos;
+			name = INSPhotoGallery;
+			path = INSPhotoGallery;
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
-				433CD3331B6C3787F473C941B61FC68F /* Frameworks */,
-				0740FE61796E0A8DC2748F223F4A84BD /* Pods */,
-				520EF23A104F4CA4BC17EA5A3E1DEDEB /* Products */,
+				122DA2E5084A4393C29BE363C764795C /* Frameworks */,
+				591541C93B5AE199BB99A3A9DDAE4ABA /* Pods */,
+				67166CD7D2C5F1BC87B86450BB136B6D /* Products */,
 				F06749EFF760BC9D1C6BF3AEEC9CBCCA /* Targets Support Files */,
 			);
+			sourceTree = "<group>";
+		};
+		8846F3953AB3FDF98ED9BA5201165B89 /* GooglePlaces */ = {
+			isa = PBXGroup;
+			children = (
+				4492AB97335CEE9755199A76B051317D /* Frameworks */,
+				D213E5BDA35366AEBAF37DBEABF46AC9 /* Resources */,
+			);
+			name = GooglePlaces;
+			path = GooglePlaces;
+			sourceTree = "<group>";
+		};
+		93FD095B5FC2A2BCC81B8E3CFC167E67 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				99C06B1B209CA23EC16EBF65CF890313 /* CoreGraphics.framework */,
+				CE59B0D97841C2542CA3D20540685C26 /* Foundation.framework */,
+				A5224A726D9EABB2D5F18E4597390EF3 /* UIKit.framework */,
+			);
+			name = iOS;
 			sourceTree = "<group>";
 		};
 		98929A91E26EC22B563338BF0AF11E6B /* Pods-FindFoodFastTogether */ = {
@@ -368,44 +481,57 @@
 			path = "Target Support Files/Pods-FindFoodFastTogether";
 			sourceTree = "<group>";
 		};
-		9F67DFEB34E2DB1F510C49A1F015CCC2 /* Frameworks */ = {
+		A85A1AA608C9FFA632762CAAC45CEC96 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				D9E04E3F8280951703086615668CB3ED /* GooglePlaces.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		C93AA53D048424A67CC426E3C9422A44 /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				8621F66D446C6F4AC0D7F817144EB150 /* CoreGraphics.framework */,
-				AC7524F0BE53ABC149C4387DFEFE2B51 /* Foundation.framework */,
-			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
-		D5E64D2B4E1DFEB74020FE20719039F0 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				2B842DD6851BB012AAC2674621524F88 /* Cosmos.modulemap */,
-				F65E106F2310AA6045C9311CCE1A6876 /* Cosmos.xcconfig */,
-				3DFE519EC073434A23A540A17DFA7703 /* Cosmos-dummy.m */,
-				5E9E8DE1E96EE368388AEBAB8CDB7BBD /* Cosmos-prefix.pch */,
-				D4BD13E9651D36BBB213342F23AAE351 /* Cosmos-umbrella.h */,
-				79DDF3727826C7E779C089F8A9DB1DD0 /* Info.plist */,
+				A754265C16486F47660C81D924730B18 /* Cosmos.modulemap */,
+				3615695F1814EBC9622C1956231C9872 /* Cosmos.xcconfig */,
+				6213B47393A71C6CC04A27FE3DB05FDC /* Cosmos-dummy.m */,
+				546B8B55D9A030E505E756EDE3A1DA96 /* Cosmos-prefix.pch */,
+				95E3F5DA719DEE8A25EC399DDAA3CC47 /* Cosmos-umbrella.h */,
+				A791EDCE622FBCB602F8A1165FE72BC2 /* Info.plist */,
 			);
 			name = "Support Files";
 			path = "../Target Support Files/Cosmos";
 			sourceTree = "<group>";
 		};
-		E3BF8ADD084F84C048F30F55B3AD9F63 /* GoogleMaps */ = {
+		B3124E8A3CAC818DCA87FA0431EA3DB2 /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				0206B9A01A26FE654162B6AB320C3738 /* Base */,
+				EA6F1E694F456971BF63EBBCBAF799A6 /* Frameworks */,
 			);
-			name = GoogleMaps;
-			path = GoogleMaps;
+			name = Base;
+			sourceTree = "<group>";
+		};
+		B56BC0186BDAC40F4716D65314C26B75 /* IGIdenticon */ = {
+			isa = PBXGroup;
+			children = (
+				53ACBE992C43840A33031F95BC6C4C86 /* CGColorExtension.swift */,
+				05859F1A4EC7FB0622AED2D1EE860D62 /* CGImageExtension.swift */,
+				37079FB31241E02B44EF119171C8B2B7 /* GitHubIdenticon.swift */,
+				79EFC6705F087F714EC6517F8F4AF52D /* IconGenerator.swift */,
+				D7CCB57A387B17A488170301C5648935 /* Identicon.swift */,
+				A9BFB2A78EA1024E8754976260133786 /* JenkinsHash.swift */,
+				3F47D3CC5920396CC1818385CA5EA2F5 /* Support Files */,
+			);
+			name = IGIdenticon;
+			path = IGIdenticon;
+			sourceTree = "<group>";
+		};
+		D213E5BDA35366AEBAF37DBEABF46AC9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E99508F44A59F785AD805464F114A997 /* GooglePlaces.bundle */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		EA6F1E694F456971BF63EBBCBAF799A6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5AD4AEACD96C852A2B4CDED6A97556F9 /* GoogleMapsBase.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		F06749EFF760BC9D1C6BF3AEEC9CBCCA /* Targets Support Files */ = {
@@ -421,6 +547,14 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		19461C1D83E258A14A663294B3C2872E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1F41E542561174ED86865EDA7DB51AD5 /* INSPhotoGallery-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4AF144440F4E2B0E8A80B352489548A5 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -437,6 +571,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5AD77CBA57ECBCC56391058F0F87B0D7 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0B7D1B706383E0B46DAE87B36609CFCE /* Pods-FindFoodFastTogether-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B7F72A88918035AFA923560A84B87C61 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -450,14 +592,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				51CD901793709F44BA269ED9C11E59F1 /* Pods-FindFoodFastTogetherTests-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D45D8CBC39A04E8A48DB83DC498452F2 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				99DEF1BBBC48F4D66BB8FB3A4FE76408 /* Pods-FindFoodFastTogether-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -478,7 +612,44 @@
 			);
 			name = "Pods-FindFoodFastTogetherUITests";
 			productName = "Pods-FindFoodFastTogetherUITests";
-			productReference = 61AADFF1B9AD4F30C41E59AB1BDC3D8C /* Pods_FindFoodFastTogetherUITests.framework */;
+			productReference = 71D8C8C6BB57DA04E0EC3CB37EF1BD13 /* Pods_FindFoodFastTogetherUITests.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		160F3D2B181465FD6DEC4E9916DF2092 /* INSPhotoGallery-INSPhotoGallery */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 08741F1BBEF58BBDA1207CACFC7EB82D /* Build configuration list for PBXNativeTarget "INSPhotoGallery-INSPhotoGallery" */;
+			buildPhases = (
+				3AF36E236BF642577B75CA1F00F070F4 /* Sources */,
+				B287BC95922B92223D0BB13703A76826 /* Frameworks */,
+				435D9574B0C15F766D1AD7C58AFB5292 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "INSPhotoGallery-INSPhotoGallery";
+			productName = "INSPhotoGallery-INSPhotoGallery";
+			productReference = 94E7BFD1D24E180AA97347E195002073 /* INSPhotoGallery.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+		3E33419959B31EF3D28E267E7478FD29 /* Pods-FindFoodFastTogether */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CCA1AAC7838BB73928F5BA461124DDDE /* Build configuration list for PBXNativeTarget "Pods-FindFoodFastTogether" */;
+			buildPhases = (
+				2B87DB1CDEE24BC7B63640B254EA0E6B /* Sources */,
+				D28038A6BC48D1C5A4E7A0AE17873451 /* Frameworks */,
+				5AD77CBA57ECBCC56391058F0F87B0D7 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				13BC43D73CAE10D80AFABED752C38066 /* PBXTargetDependency */,
+				90067FAD13AF5C6D72F70BE2F433B1FD /* PBXTargetDependency */,
+				FDD9C2086B7585AC1263C5D3A256D74E /* PBXTargetDependency */,
+			);
+			name = "Pods-FindFoodFastTogether";
+			productName = "Pods-FindFoodFastTogether";
+			productReference = DFF52F4B3CC6321BE811B8C35FB6B39B /* Pods_FindFoodFastTogether.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		4FDC533A4360A68ABDCE852F04B30927 /* Cosmos */ = {
@@ -495,7 +666,26 @@
 			);
 			name = Cosmos;
 			productName = Cosmos;
-			productReference = 4C0BD39CC1AEADA9716E10A9F85C58A9 /* Cosmos.framework */;
+			productReference = E897A3ADD4A3843C66394BD417B1D299 /* Cosmos.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		5AB2AFB1E6DC8D2967EF130A030AD1B8 /* INSPhotoGallery */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D9305FCC2B7C896C46B16265B9FF9CF4 /* Build configuration list for PBXNativeTarget "INSPhotoGallery" */;
+			buildPhases = (
+				302ABD888BD219437EC65B8135A59112 /* Sources */,
+				1B43FF8F098F011FD68740FF96773180 /* Frameworks */,
+				6A57F3B319DA00263C0F1E446CD146A2 /* Resources */,
+				19461C1D83E258A14A663294B3C2872E /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EE09FF3D90163A46F507FED828472EAB /* PBXTargetDependency */,
+			);
+			name = INSPhotoGallery;
+			productName = INSPhotoGallery;
+			productReference = E9667C4AA062EAAFBCA9853E63B8D232 /* INSPhotoGallery.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		8AC44F5CA9BBA118155AB80CDC849845 /* Pods-FindFoodFastTogetherTests */ = {
@@ -512,26 +702,7 @@
 			);
 			name = "Pods-FindFoodFastTogetherTests";
 			productName = "Pods-FindFoodFastTogetherTests";
-			productReference = 1D93A3F74BC32D247552C79D636C13BB /* Pods_FindFoodFastTogetherTests.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		A433BDC17E87240BE99CC8E025DFFB65 /* Pods-FindFoodFastTogether */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 6B7BD28CEDC4811FB66593C6AF734CD1 /* Build configuration list for PBXNativeTarget "Pods-FindFoodFastTogether" */;
-			buildPhases = (
-				75D1DB0335361E9ED969EEDCB2580A1F /* Sources */,
-				99E1CAB72B2B5C7AFC4732F1D01CC13F /* Frameworks */,
-				D45D8CBC39A04E8A48DB83DC498452F2 /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				FEB64EC6FAB79BC76298E37C3C7FFBCC /* PBXTargetDependency */,
-				68A8FFF69FB185795DA04592A4B9AF94 /* PBXTargetDependency */,
-			);
-			name = "Pods-FindFoodFastTogether";
-			productName = "Pods-FindFoodFastTogether";
-			productReference = CA9D9CB14AABA9C23C922A3668945488 /* Pods_FindFoodFastTogether.framework */;
+			productReference = AAC39137ADEF0ACB756418188B98E220 /* Pods_FindFoodFastTogetherTests.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		EE3D93250E33C01989B1FF4AEDF6C618 /* IGIdenticon */ = {
@@ -548,7 +719,7 @@
 			);
 			name = IGIdenticon;
 			productName = IGIdenticon;
-			productReference = 7F9E307DD215D139F9AFE5426BCC4883 /* IGIdenticon.framework */;
+			productReference = D0BFA79807498AC953AA258E3CC10AD5 /* IGIdenticon.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -568,25 +739,83 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = 520EF23A104F4CA4BC17EA5A3E1DEDEB /* Products */;
+			productRefGroup = 67166CD7D2C5F1BC87B86450BB136B6D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				4FDC533A4360A68ABDCE852F04B30927 /* Cosmos */,
 				EE3D93250E33C01989B1FF4AEDF6C618 /* IGIdenticon */,
-				A433BDC17E87240BE99CC8E025DFFB65 /* Pods-FindFoodFastTogether */,
+				5AB2AFB1E6DC8D2967EF130A030AD1B8 /* INSPhotoGallery */,
+				160F3D2B181465FD6DEC4E9916DF2092 /* INSPhotoGallery-INSPhotoGallery */,
+				3E33419959B31EF3D28E267E7478FD29 /* Pods-FindFoodFastTogether */,
 				8AC44F5CA9BBA118155AB80CDC849845 /* Pods-FindFoodFastTogetherTests */,
 				070575EE947D12CE41C1C43B917F32A4 /* Pods-FindFoodFastTogetherUITests */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		435D9574B0C15F766D1AD7C58AFB5292 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA05FB20357D73C227B3DBA1CB4A952B /* INSPhotoGalleryClose.png in Resources */,
+				F5F5B656144C7006A97DA2CD78B91938 /* INSPhotoGalleryClose@2x.png in Resources */,
+				546DBC1DE41A4B9C9A1340B0AFC7E851 /* INSPhotoGalleryClose@3x.png in Resources */,
+				6793D6CC9FA71384C5B20E8D4030B20F /* INSPhotoGalleryCloseLandscape.png in Resources */,
+				AE6D333805238B2F98ECA0CE929DFB27 /* INSPhotoGalleryCloseLandscape@2x.png in Resources */,
+				6DF3DC9B566A8E0AC665DCE39AF8E080 /* INSPhotoGalleryCloseLandscape@3x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6A57F3B319DA00263C0F1E446CD146A2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EB3E668C4114892A7153088847D2A063 /* INSPhotoGallery.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		2B87DB1CDEE24BC7B63640B254EA0E6B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7F1512AF99843A89022A2E24569B7E47 /* Pods-FindFoodFastTogether-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		302ABD888BD219437EC65B8135A59112 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E647BF56B6F3077ACA1763D4971BA8AC /* INSPhoto.swift in Sources */,
+				F5D1958AFCF47B72A1701D5A072BC59F /* INSPhotoGallery-dummy.m in Sources */,
+				E253EB237B3BECF8846E453D39B21464 /* INSPhotosDataSource.swift in Sources */,
+				A49C6A54D01D87DF67DD283A1AF8E43E /* INSPhotosInteractionAnimator.swift in Sources */,
+				62D9471C7F12638102374356184E945B /* INSPhotosOverlayView.swift in Sources */,
+				BC2BB039E0666AA757F0D67F060EE41B /* INSPhotosTransitionAnimator.swift in Sources */,
+				C0C7F6175B82D6B613D4CFEA0D7794EE /* INSPhotosViewController.swift in Sources */,
+				8BD29F437995875425DD0524D72E7DAE /* INSPhotoViewController.swift in Sources */,
+				BB44DC47E25039A76709236B95E6651A /* INSScalingImageView.swift in Sources */,
+				346C860A26ABE970BE6A2EFD9E1A4F32 /* UIVIew+INSPhotoViewer.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3851A71A6A5D13D67789C78C190CE86D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				E55E0EC4200299AE72D270D085C2E93B /* Pods-FindFoodFastTogetherTests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3AF36E236BF642577B75CA1F00F070F4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -627,14 +856,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		75D1DB0335361E9ED969EEDCB2580A1F /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				01A621DC3D381D1791A2B55D212044E9 /* Pods-FindFoodFastTogether-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		9AAC3E5F78F48C571BB8BDA1D7814E07 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -646,17 +867,29 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		68A8FFF69FB185795DA04592A4B9AF94 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = IGIdenticon;
-			target = EE3D93250E33C01989B1FF4AEDF6C618 /* IGIdenticon */;
-			targetProxy = F5C7E4ACB6FF2E68283F1A9D82A48067 /* PBXContainerItemProxy */;
-		};
-		FEB64EC6FAB79BC76298E37C3C7FFBCC /* PBXTargetDependency */ = {
+		13BC43D73CAE10D80AFABED752C38066 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Cosmos;
 			target = 4FDC533A4360A68ABDCE852F04B30927 /* Cosmos */;
-			targetProxy = 9DA54961195A52FF0C741E98FF632D0D /* PBXContainerItemProxy */;
+			targetProxy = 3E066E5721D0D4810D43B3DD01ACC38A /* PBXContainerItemProxy */;
+		};
+		90067FAD13AF5C6D72F70BE2F433B1FD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = IGIdenticon;
+			target = EE3D93250E33C01989B1FF4AEDF6C618 /* IGIdenticon */;
+			targetProxy = B5279166B0B5D0A4B34F8CECF5076E5D /* PBXContainerItemProxy */;
+		};
+		EE09FF3D90163A46F507FED828472EAB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "INSPhotoGallery-INSPhotoGallery";
+			target = 160F3D2B181465FD6DEC4E9916DF2092 /* INSPhotoGallery-INSPhotoGallery */;
+			targetProxy = 6E92B5E78B4E1A377E428D740A5C7562 /* PBXContainerItemProxy */;
+		};
+		FDD9C2086B7585AC1263C5D3A256D74E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = INSPhotoGallery;
+			target = 5AB2AFB1E6DC8D2967EF130A030AD1B8 /* INSPhotoGallery */;
+			targetProxy = EDF6ADE8FC410D0DB19E69F18CA14A96 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -745,47 +978,26 @@
 			};
 			name = Debug;
 		};
-		335D4997A46F4DF365CD6819BFD4CFED /* Release */ = {
+		246F448A227EF25FC3806800A2DD213A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FF645DAF9853196942C1097CE91E42B6 /* Pods-FindFoodFastTogether.release.xcconfig */;
+			baseConfigurationReference = 6D6BF6AD2C25407E59C8C8FE9176CA4B /* INSPhotoGallery.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/INSPhotoGallery";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-FindFoodFastTogether/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-FindFoodFastTogether/Pods-FindFoodFastTogether.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Pods_FindFoodFastTogether;
+				INFOPLIST_FILE = "Target Support Files/INSPhotoGallery/ResourceBundle-INSPhotoGallery-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PRODUCT_NAME = INSPhotoGallery;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
+				WRAPPER_EXTENSION = bundle;
 			};
 			name = Release;
 		};
 		38802D9891493B25C2E508438429DA82 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4A3C77E97C46B7CC4159D748F96055F5 /* IGIdenticon.xcconfig */;
+			baseConfigurationReference = 6FB9E34D0BB6B531BAD477EBE971483B /* IGIdenticon.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -820,7 +1032,7 @@
 		};
 		425B6D95D2C161E2695D55ABEE7942EA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F65E106F2310AA6045C9311CCE1A6876 /* Cosmos.xcconfig */;
+			baseConfigurationReference = 3615695F1814EBC9622C1956231C9872 /* Cosmos.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -924,9 +1136,9 @@
 			};
 			name = Debug;
 		};
-		9690B4BCF7F9D0CDE62B4D3B895B60AB /* Debug */ = {
+		9B2D8D8042623681474BCCC60C4F2FCB /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 573FB36CF531E55E4AD055561992076D /* Pods-FindFoodFastTogether.debug.xcconfig */;
+			baseConfigurationReference = 6D6BF6AD2C25407E59C8C8FE9176CA4B /* INSPhotoGallery.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -940,18 +1152,14 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-FindFoodFastTogether/Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/INSPhotoGallery/INSPhotoGallery-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/INSPhotoGallery/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-FindFoodFastTogether/Pods-FindFoodFastTogether.modulemap";
+				MODULEMAP_FILE = "Target Support Files/INSPhotoGallery/INSPhotoGallery.modulemap";
 				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Pods_FindFoodFastTogether;
+				PRODUCT_NAME = INSPhotoGallery;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -1007,9 +1215,64 @@
 			};
 			name = Release;
 		};
+		BC423D5CC5E5C07210EAD7823E1E87B0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FF645DAF9853196942C1097CE91E42B6 /* Pods-FindFoodFastTogether.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-FindFoodFastTogether/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-FindFoodFastTogether/Pods-FindFoodFastTogether.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_FindFoodFastTogether;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		BD0FD73B32190539831128BE414407C0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6D6BF6AD2C25407E59C8C8FE9176CA4B /* INSPhotoGallery.xcconfig */;
+			buildSettings = {
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/INSPhotoGallery";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/INSPhotoGallery/ResourceBundle-INSPhotoGallery-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PRODUCT_NAME = INSPhotoGallery;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
 		C9075279261DD42022E2357330A8DC84 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F65E106F2310AA6045C9311CCE1A6876 /* Cosmos.xcconfig */;
+			baseConfigurationReference = 3615695F1814EBC9622C1956231C9872 /* Cosmos.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1041,6 +1304,79 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
+		};
+		DF698093AA1C1DB09FDF1DB2EB80B9BC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 573FB36CF531E55E4AD055561992076D /* Pods-FindFoodFastTogether.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-FindFoodFastTogether/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-FindFoodFastTogether/Pods-FindFoodFastTogether.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_FindFoodFastTogether;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		E0D1FC4E0FAF1E5E8B334E0401E6E4DA /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6D6BF6AD2C25407E59C8C8FE9176CA4B /* INSPhotoGallery.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/INSPhotoGallery/INSPhotoGallery-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/INSPhotoGallery/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/INSPhotoGallery/INSPhotoGallery.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = INSPhotoGallery;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
 		};
 		EAD1F71E0806789EC8EFD7444DA903A0 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -1080,7 +1416,7 @@
 		};
 		F79C9D650AE7C12C2427D9DA69471F13 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4A3C77E97C46B7CC4159D748F96055F5 /* IGIdenticon.xcconfig */;
+			baseConfigurationReference = 6FB9E34D0BB6B531BAD477EBE971483B /* IGIdenticon.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1115,6 +1451,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		08741F1BBEF58BBDA1207CACFC7EB82D /* Build configuration list for PBXNativeTarget "INSPhotoGallery-INSPhotoGallery" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BD0FD73B32190539831128BE414407C0 /* Debug */,
+				246F448A227EF25FC3806800A2DD213A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		27FFF66E0AD1062F6FAFC8585751B966 /* Build configuration list for PBXNativeTarget "Pods-FindFoodFastTogetherTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1151,11 +1496,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6B7BD28CEDC4811FB66593C6AF734CD1 /* Build configuration list for PBXNativeTarget "Pods-FindFoodFastTogether" */ = {
+		CCA1AAC7838BB73928F5BA461124DDDE /* Build configuration list for PBXNativeTarget "Pods-FindFoodFastTogether" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				9690B4BCF7F9D0CDE62B4D3B895B60AB /* Debug */,
-				335D4997A46F4DF365CD6819BFD4CFED /* Release */,
+				DF698093AA1C1DB09FDF1DB2EB80B9BC /* Debug */,
+				BC423D5CC5E5C07210EAD7823E1E87B0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1165,6 +1510,15 @@
 			buildConfigurations = (
 				38802D9891493B25C2E508438429DA82 /* Debug */,
 				F79C9D650AE7C12C2427D9DA69471F13 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D9305FCC2B7C896C46B16265B9FF9CF4 /* Build configuration list for PBXNativeTarget "INSPhotoGallery" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9B2D8D8042623681474BCCC60C4F2FCB /* Debug */,
+				E0D1FC4E0FAF1E5E8B334E0401E6E4DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
