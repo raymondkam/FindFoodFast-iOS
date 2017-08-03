@@ -10,6 +10,7 @@ target 'FindFoodFastTogether' do
   pod 'Cosmos', '~> 11.0'
   pod 'GooglePlaces'
   pod 'INSPhotoGallery'
+  pod 'Alamofire'  
 
   target 'FindFoodFastTogetherTests' do
     inherit! :search_paths

@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Alamofire.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Cosmos.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -52,11 +57,6 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3E33419959B31EF3D28E267E7478FD29</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>4FDC533A4360A68ABDCE852F04B30927</key>
 		<dict>
 			<key>primary</key>
@@ -67,7 +67,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>88E9EC28B8B46C3631E6B242B50F4442</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>8AC44F5CA9BBA118155AB80CDC849845</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>91D8931AC66675AC0B8C8ADF4B82CD9B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
