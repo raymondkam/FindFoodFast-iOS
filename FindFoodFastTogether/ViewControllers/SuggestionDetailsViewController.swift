@@ -99,10 +99,17 @@ class SuggestionDetailsViewController: UIViewController {
                 if let width = width {
                     let height = width * 2 / 3
                     let size = CGSize(width: width, height: height)
-                    self?.searchClient.lookUpSuggestionPhotos(using: suggestionWithImageMetadata.googlePhotosMetadataList as Any, size: size, completion: { (insPhotos, error) in
+                    self?.searchClient.lookUpSuggestionPhotos(using: suggestionWithImageMetadata.googlePhotosMetadataList as Any, size: size, firstImage: { (insPhoto, error) in
+                        if let insPhoto = insPhoto {
+                            print("first photo fetched")
+                            self?.suggestion.thumbnail = insPhoto.image
+                            self?.pagedImageCollectionViewController.dataSource.insert(insPhoto, at: 0)
+                            self?.pagedImageCollectionViewController.collectionView?.reloadData()
+                        }
+                    }, completion: { (insPhotos, error) in
                         if let insPhotos = insPhotos {
-                            self?.suggestion.thumbnail = insPhotos.first?.image
-                            self?.pagedImageCollectionViewController.dataSource = insPhotos
+                            print("rest of photos fetched")
+                            self?.pagedImageCollectionViewController.dataSource.append(contentsOf: insPhotos)
                             self?.pagedImageCollectionViewController.collectionView?.reloadData()
                         }
                     })

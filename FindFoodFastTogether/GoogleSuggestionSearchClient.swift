@@ -107,7 +107,7 @@ class GoogleSuggestionSearchClient: SuggestionSearchClient {
         }
     }
     
-    func lookUpSuggestionPhotos(using metadata:Any, size:CGSize?, completion: @escaping (_ images: [INSPhoto]?, _ error: Error?) -> Void) {
+    func lookUpSuggestionPhotos(using metadata: Any, size: CGSize?, firstImage: @escaping (INSPhoto?, Error?) -> Void, completion: @escaping ([INSPhoto]?, Error?) -> Void) {
         guard let googlePhotosMetadataList = metadata as? GMSPlacePhotoMetadataList else {
             print("wrong format of googles photo metadata")
             return
@@ -122,18 +122,40 @@ class GoogleSuggestionSearchClient: SuggestionSearchClient {
         }
         
         let dispatchGroup = DispatchGroup()
-        let photos = googlePhotosMetadataList.results
-        let count = min(photos.count, 5)
         
-        // take the first 5 photos max
-        for photo in googlePhotosMetadataList.results.prefix(upTo: count) {
-            var photoAttributions: NSAttributedString?
-            if let editPhotoAttributions = photo.attributions {
-                let mutableAttributions = NSMutableAttributedString(attributedString: editPhotoAttributions)
-                let range = NSMakeRange(0, editPhotoAttributions.length)
-                mutableAttributions.addAttribute(NSForegroundColorAttributeName, value: UIColor.white, range: range)
-                photoAttributions = mutableAttributions
+        let firstPhoto = googlePhotosMetadataList.results.first!
+        if let size = size {
+            placesClient.loadPlacePhoto(firstPhoto, constrainedTo: size, scale: 1, callback: { [weak self] (image, error) in
+                guard error == nil else {
+                    print("error fetching first suggestion image")
+                    firstImage(nil, error)
+                    return
+                }
+                let insPhoto = INSPhoto(image: image, thumbnailImage: image)
+                insPhoto.attributedTitle = self?.whiteColorAttributedString(attributedString: firstPhoto.attributions)
+                firstImage(insPhoto, nil)
+            })
+        } else {
+            placesClient.loadPlacePhoto(firstPhoto) { [weak self] (image, error) in
+                guard error == nil else {
+                    print("error fetching first suggestion image")
+                    firstImage(nil, error)
+                    return
+                }
+                let insPhoto = INSPhoto(image: image, thumbnailImage: image)
+                insPhoto.attributedTitle = self?.whiteColorAttributedString(attributedString: firstPhoto.attributions)
+                firstImage(insPhoto, nil)
             }
+        }
+        
+        let remainingPhotos = googlePhotosMetadataList.results.dropFirst()
+        let count = min(remainingPhotos.count, 5)
+        
+        
+        // take the remaining 4 photos max
+        for photo in remainingPhotos.prefix(upTo: count) {
+            
+            let photoAttributions = whiteColorAttributedString(attributedString: photo.attributions)
             
             dispatchGroup.enter()
             if let size = size {
@@ -169,5 +191,15 @@ class GoogleSuggestionSearchClient: SuggestionSearchClient {
             completion(images, nil)
         }
         
+    }
+        
+    func whiteColorAttributedString(attributedString: NSAttributedString?) -> NSMutableAttributedString? {
+        if let attributedString = attributedString {
+            let mutableAttributedString = NSMutableAttributedString(attributedString: attributedString)
+            let range = NSMakeRange(0, attributedString.length)
+            mutableAttributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.white, range: range)
+            return mutableAttributedString
+        }
+        return nil
     }
 }
