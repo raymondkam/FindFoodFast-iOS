@@ -12,10 +12,14 @@ import CoreLocation
 import GooglePlaces
 
 enum SuggestionOpenNowStatus: Int {
-    case yes
-    case no
-    case unknown
+    case yes = 0
+    case no = 1
+    case unknown = 2
 }
+
+fileprivate let SuggestionOpenNowStatusYesKey = 0
+fileprivate let SuggestionOpenNowStatusNoKey = 1
+fileprivate let SuggestionOpenNowStatusUnknownKey = 2
 
 class Suggestion: NSObject, NSCoding {
     // id of the object can be used to fetch more details 
@@ -74,27 +78,47 @@ class Suggestion: NSObject, NSCoding {
         if let id = aDecoder.decodeObject(forKey: "id") as? String {
             self.id = id
         }
+        
         guard let name = aDecoder.decodeObject(forKey: "name") as? String else {
             print("suggestion init: could not decode name")
             return nil
         }
+        
         if let address = aDecoder.decodeObject(forKey: "address") as? String {
             self.address = address
         }
+        
         let rating = aDecoder.decodeFloat(forKey: "rating")
         self.rating = rating
+        
+        if let type = aDecoder.decodeObject(forKey: "type") as? String {
+            self.type = type
+        }
+        
         if let website = aDecoder.decodeObject(forKey: "website") as? URL {
             self.website = website
         }
+        
         let latitude = aDecoder.decodeDouble(forKey: "latitude")
         let longitude = aDecoder.decodeDouble(forKey: "longitude")
         self.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        
         if let attributions = aDecoder.decodeObject(forKey: "attributions") as? NSAttributedString {
             self.attributions = attributions
         }
-        if let isOpenNow = aDecoder.decodeInteger(forKey: "isOpenNow") as? SuggestionOpenNowStatus {
-            self.isOpenNow = isOpenNow
+        
+        let isOpenNowKey = aDecoder.decodeInteger(forKey: "isOpenNow")
+        switch isOpenNowKey {
+        case SuggestionOpenNowStatusYesKey:
+            self.isOpenNow = .yes
+        case SuggestionOpenNowStatusNoKey:
+            self.isOpenNow = .no
+        case SuggestionOpenNowStatusUnknownKey:
+            self.isOpenNow = .unknown
+        default:
+            assert(false, "unexpected value for decoding isOpenNow")
         }
+        
         if let phoneNumber = aDecoder.decodeObject(forKey: "phoneNumber") as? String {
             self.phoneNumber = phoneNumber
         }
@@ -110,6 +134,9 @@ class Suggestion: NSObject, NSCoding {
         if let rating = rating {
             aCoder.encode(rating, forKey: "rating")
         }
+        if let type = type {
+            aCoder.encode(type, forKey: "type")
+        }
         aCoder.encode(website, forKey: "website")
         if let latitude = coordinate?.latitude {
             aCoder.encode(latitude, forKey: "latitude")
@@ -117,10 +144,21 @@ class Suggestion: NSObject, NSCoding {
         if let longitude = coordinate?.longitude {
             aCoder.encode(longitude, forKey: "longitude")
         }
-        aCoder.encode(attributions, forKey: "attributions")
+        
+        var encodedIsOpenNow: Int
         if let isOpenNow = isOpenNow {
-            aCoder.encode(isOpenNow.rawValue, forKey: "isOpenNow")
+            switch isOpenNow {
+            case .yes:
+                encodedIsOpenNow = SuggestionOpenNowStatusYesKey
+            case .no:
+                encodedIsOpenNow = SuggestionOpenNowStatusNoKey
+            case .unknown:
+                encodedIsOpenNow = SuggestionOpenNowStatusUnknownKey
+            }
+            aCoder.encode(encodedIsOpenNow, forKey: "isOpenNow")
         }
+        
+        aCoder.encode(attributions, forKey: "attributions")
         aCoder.encode(phoneNumber, forKey: "phoneNumber")
         aCoder.encode(voteRating, forKey: "voteRating")
     }
