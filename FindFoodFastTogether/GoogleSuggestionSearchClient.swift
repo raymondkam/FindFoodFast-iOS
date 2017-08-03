@@ -9,6 +9,7 @@
 import Foundation
 import GooglePlaces
 import CoreLocation
+import INSPhotoGallery
 
 let MeterInLatitude: Double = 1 / 111111
 
@@ -106,13 +107,13 @@ class GoogleSuggestionSearchClient: SuggestionSearchClient {
         }
     }
     
-    func lookUpSuggestionPhotos(using metadata: Any, size: CGSize?, completion: @escaping ([UIImage]?, Error?) -> Void) {
+    func lookUpSuggestionPhotos(using metadata:Any, size:CGSize?, completion: @escaping (_ images: [INSPhoto]?, _ error: Error?) -> Void) {
         guard let googlePhotosMetadataList = metadata as? GMSPlacePhotoMetadataList else {
             print("wrong format of googles photo metadata")
             return
         }
         
-        var images = [UIImage]()
+        var images = [INSPhoto]()
         
         guard googlePhotosMetadataList.results.count > 0 else {
             print("no photos in photos metadata")
@@ -126,6 +127,14 @@ class GoogleSuggestionSearchClient: SuggestionSearchClient {
         
         // take the first 5 photos max
         for photo in googlePhotosMetadataList.results.prefix(upTo: count) {
+            var photoAttributions: NSAttributedString?
+            if let editPhotoAttributions = photo.attributions {
+                let mutableAttributions = NSMutableAttributedString(attributedString: editPhotoAttributions)
+                let range = NSMakeRange(0, editPhotoAttributions.length)
+                mutableAttributions.addAttribute(NSForegroundColorAttributeName, value: UIColor.white, range: range)
+                photoAttributions = mutableAttributions
+            }
+            
             dispatchGroup.enter()
             if let size = size {
                 placesClient.loadPlacePhoto(photo, constrainedTo: size, scale: 1, callback: { (image, error) in
@@ -135,9 +144,10 @@ class GoogleSuggestionSearchClient: SuggestionSearchClient {
                         return
                     }
                     if let image = image {
-                        images.append(image)
+                        let insPhoto = INSPhoto(image: image, thumbnailImage: image)
+                        insPhoto.attributedTitle = photoAttributions
+                        images.append(insPhoto)
                     }
-                    
                 })
             } else {
                 placesClient.loadPlacePhoto(photo, callback: { (image, error) in
@@ -147,7 +157,9 @@ class GoogleSuggestionSearchClient: SuggestionSearchClient {
                         return
                     }
                     if let image = image {
-                        images.append(image)
+                        let insPhoto = INSPhoto(image: image, thumbnailImage: image)
+                        insPhoto.attributedTitle = photoAttributions
+                        images.append(insPhoto)
                     }
                 })
             }

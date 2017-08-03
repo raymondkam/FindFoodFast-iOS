@@ -9,6 +9,7 @@
 import Foundation
 import CoreLocation
 import UIKit
+import INSPhotoGallery
 
 protocol SuggestionSearchClient {
     
@@ -21,5 +22,5 @@ protocol SuggestionSearchClient {
     
     func lookUpSuggestionPhotos(using suggestion: Suggestion, completion: @escaping (Suggestion?, Error?) -> Void)
     
-    func lookUpSuggestionPhotos(using metadata:Any, size:CGSize?, completion: @escaping ([UIImage]?, Error?) -> Void)
+    func lookUpSuggestionPhotos(using metadata:Any, size:CGSize?, completion: @escaping (_ images: [INSPhoto]?, _ error: Error?) -> Void)
 }

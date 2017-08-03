@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import INSPhotoGallery
 
 protocol PagedImageCollectionViewControllerDelegate: class {
     func pagedImageCollectionViewControllerUpdatedNumberOfImages(numberOfImages: Int)
@@ -15,7 +16,8 @@ protocol PagedImageCollectionViewControllerDelegate: class {
 
 class PagedImageCollectionViewController: UICollectionViewController {
 
-    var dataSource = [UIImage]()
+    var dataSource = [INSPhoto]()
+    var attributions = [NSAttributedString?]()
     var currentIndex = -1
     weak var delegate: PagedImageCollectionViewControllerDelegate?
     
@@ -50,7 +52,7 @@ class PagedImageCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: imageReuseIdentifier, for: indexPath)
         if let imageCell = cell as? ImageCollectionViewCell {
-            imageCell.imageView.image = dataSource[indexPath.item]
+            imageCell.imageView.image = dataSource[indexPath.item].image
         }
         
         return cell
@@ -58,7 +60,33 @@ class PagedImageCollectionViewController: UICollectionViewController {
     
     // MARK: UICollectionViewDelegate
     
-
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath)
+        let galleryViewController = INSPhotosViewController(photos: dataSource, initialPhoto: dataSource[indexPath.item], referenceView: cell)
+        galleryViewController.navigateToPhotoHandler = { [weak self] photo in
+            guard let insPhoto = photo as? INSPhoto else {
+                print("not an ins photo")
+                return
+            }
+            if let index = self?.dataSource.index(of: insPhoto) {
+                let indexPath = IndexPath(item: index, section: 0)
+                collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
+            }
+        }
+        galleryViewController.referenceViewForPhotoWhenDismissingHandler = { [weak self] photo in
+            guard let insPhoto = photo as? INSPhoto else {
+                print("not an ins photo")
+                return nil
+            }
+            if let index = self?.dataSource.index(of: insPhoto) {
+                let indexPath = IndexPath(item: index, section: 0)
+                return collectionView.cellForItem(at: indexPath)
+            }
+            return nil
+        }
+        
+        present(galleryViewController, animated: true, completion: nil)
+    }
 }
 
 extension PagedImageCollectionViewController: UICollectionViewDelegateFlowLayout {

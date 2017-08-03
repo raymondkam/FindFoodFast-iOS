@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import Cosmos
+import INSPhotoGallery
 
 class SuggestionDetailsViewController: UIViewController {
     
@@ -98,10 +99,10 @@ class SuggestionDetailsViewController: UIViewController {
                 if let width = width {
                     let height = width * 2 / 3
                     let size = CGSize(width: width, height: height)
-                    self?.searchClient.lookUpSuggestionPhotos(using: suggestionWithImageMetadata.googlePhotosMetadataList as Any, size: size, completion: { [weak self] (images, error) in
-                        if let images = images {
-                            self?.suggestion.thumbnail = images.first
-                            self?.pagedImageCollectionViewController.dataSource = images
+                    self?.searchClient.lookUpSuggestionPhotos(using: suggestionWithImageMetadata.googlePhotosMetadataList as Any, size: size, completion: { (insPhotos, error) in
+                        if let insPhotos = insPhotos {
+                            self?.suggestion.thumbnail = insPhotos.first?.image
+                            self?.pagedImageCollectionViewController.dataSource = insPhotos
                             self?.pagedImageCollectionViewController.collectionView?.reloadData()
                         }
                     })
