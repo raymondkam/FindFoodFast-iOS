@@ -15,7 +15,7 @@ struct GoogleAPIConstants {
     static let baseUrl = "https://maps.googleapis.com/maps/api/place/"
     static let textSearchUrl = baseUrl + "textsearch/json"
     static let nearbySearchUrl = baseUrl + "nearbysearch/json"
-    static let maxSearchResults = 10
+    static let maxSearchResults = 20
 }
 
 class GoogleSearchClient: SearchClient {
@@ -30,8 +30,11 @@ class GoogleSearchClient: SearchClient {
             "rankby": "distance"
         ]
         
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        
         Alamofire.request(GoogleAPIConstants.nearbySearchUrl, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: nil)
             .responseJASON { (response) in
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 switch response.result {
                 case .success(let json):
                     let suggestionsJson = json["results"].prefix(GoogleAPIConstants.maxSearchResults)
