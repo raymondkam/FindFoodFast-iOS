@@ -11,6 +11,7 @@ target 'FindFoodFastTogether' do
   pod 'GooglePlaces'
   pod 'INSPhotoGallery'
   pod 'Alamofire'  
+  pod 'JASON'
 
   target 'FindFoodFastTogetherTests' do
     inherit! :search_paths

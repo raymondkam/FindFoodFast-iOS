@@ -29,6 +29,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>JASON.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-FindFoodFastTogether.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -57,6 +62,16 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>347EA8C0381FB3193FBEA95BC7AFA983</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3CC84B12F5B3C722CA32D8D2E0FB7906</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>4FDC533A4360A68ABDCE852F04B30927</key>
 		<dict>
 			<key>primary</key>
@@ -73,11 +88,6 @@
 			<true/>
 		</dict>
 		<key>8AC44F5CA9BBA118155AB80CDC849845</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>91D8931AC66675AC0B8C8ADF4B82CD9B</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -6,6 +6,7 @@ PODS:
     - GoogleMaps/Base (= 2.3.1)
   - IGIdenticon (0.4)
   - INSPhotoGallery (1.1.0)
+  - JASON (3.1)
 
 DEPENDENCIES:
   - Alamofire
@@ -13,6 +14,7 @@ DEPENDENCIES:
   - GooglePlaces
   - IGIdenticon
   - INSPhotoGallery
+  - JASON
 
 SPEC CHECKSUMS:
   Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
@@ -21,7 +23,8 @@ SPEC CHECKSUMS:
   GooglePlaces: 4a7b22debfa1af65017b82943431822607e45201
   IGIdenticon: f9bbe354e8a3583f71c391395689a03115fe58c4
   INSPhotoGallery: 81056815e82fb7ee6f271ca017db5985b4f96d0a
+  JASON: c1204b01c9979eef35b6948ca939aac5e7bef081
 
-PODFILE CHECKSUM: 97fdbf06502c2a27e72013e58264f9a1364f10c3
+PODFILE CHECKSUM: 72dc89971e3e79f8fc7ca07dfab63821a1d982b4
 
 COCOAPODS: 1.2.1
