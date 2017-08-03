@@ -139,6 +139,8 @@ class SuggestionDetailsViewController: UIViewController {
         restoreNavigationBarAppearance()
     }
     
+    // MARK: - Navigation
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let segueIdentifier = segue.identifier else {
             print("segue for suggestion details vc has no identifier")
@@ -150,6 +152,11 @@ class SuggestionDetailsViewController: UIViewController {
             pagedImageCollectionViewController.delegate = self
         case Segues.UnwindToHostViewAfterAddingSuggestion:
             restoreNavigationBarAppearance()
+        case Segues.PresentMap:
+            let mapViewController = segue.destination as! MapViewController
+            mapViewController.coordinate = suggestion.coordinate
+            mapViewController.annotations = mapView.annotations
+            
         default:
             assert(false, "unexpected segue identifier \(segueIdentifier)")
         }

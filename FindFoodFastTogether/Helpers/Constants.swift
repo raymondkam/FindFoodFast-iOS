@@ -41,6 +41,7 @@ struct Segues {
     static let EmbedSuggestionSearchResults = "embedSuggestionSearchResults"
     static let EmbedSuggestionImages = "embedSuggestionImages"
     static let UnwindToHostViewAfterAddingSuggestion = "unwindToHostViewAfterAddingSuggestion"
+    static let PresentMap = "presentMap"
 }
 
 struct StoryboardIds {
