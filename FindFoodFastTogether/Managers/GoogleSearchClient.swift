@@ -25,8 +25,9 @@ class GoogleSearchClient: SearchClient {
         let parameters = [
             "key": GoogleAPIConstants.apiKey,
             "keyword": keyword,
+            "name": keyword,
             "location": "\(location.latitude),\(location.longitude)",
-            "radius": radiusInMeters,
+            "rankby": "distance"
         ]
         
         Alamofire.request(GoogleAPIConstants.nearbySearchUrl, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: nil)

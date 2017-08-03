@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 protocol SuggestionSearchResultsDelegate: class {
     func didSelectSuggestionFromSearchResults(suggestion: Suggestion)
@@ -15,6 +16,7 @@ protocol SuggestionSearchResultsDelegate: class {
 class SuggestionSearchResultsCollectionViewController: UICollectionViewController {
 
     var searchClient: SuggestionSearchClient!
+    var userLocation: CLLocation?
     weak var delegate: SuggestionSearchResultsDelegate?
     
     var dataSource = [PartialSuggestion]()
@@ -40,7 +42,10 @@ class SuggestionSearchResultsCollectionViewController: UICollectionViewControlle
         if let suggestionSearchResultCell = cell as? SuggestionSearchResultCollectionViewCell {
             suggestionSearchResultCell.title = partialSuggestion.name
             suggestionSearchResultCell.subtitle = partialSuggestion.closestAddress
-            suggestionSearchResultCell.distance = nil
+            if let userLocation = userLocation {
+                let distance = userLocation.distance(from: CLLocation(latitude: partialSuggestion.latitude, longitude: partialSuggestion.longitude)) / 1000
+                suggestionSearchResultCell.distance = (String(format: "%.1f", distance), .kilometer)
+            }
         }
     
         return cell

@@ -80,6 +80,7 @@ class AddSuggestionViewController: UIViewController {
         var coordinate: CLLocationCoordinate2D
         if let userLocation = userLocation {
             coordinate = userLocation.coordinate
+            suggestionSearchResultsCollectionViewController.userLocation = userLocation
             
             searchClient.searchForNearbySuggestions(using: keyword, location: coordinate, radiusInMeters: "50000", completion: { [weak self] (partialSuggestions, error) in
                 guard error == nil else {
