@@ -16,6 +16,8 @@
 		9C3B54D01F33999A00CD4550 /* SearchClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B54CF1F33999A00CD4550 /* SearchClient.swift */; };
 		9C3B54D21F339A3000CD4550 /* GoogleSearchClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B54D11F339A3000CD4550 /* GoogleSearchClient.swift */; };
 		9C3B54D41F339CAF00CD4550 /* GoogleAPIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B54D31F339CAF00CD4550 /* GoogleAPIKey.swift */; };
+		9C3B54D61F33C2A900CD4550 /* JASON+Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B54D51F33C2A900CD4550 /* JASON+Alamofire.swift */; };
+		9C3B54DC1F33DCC100CD4550 /* PartialSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B54DB1F33DCC100CD4550 /* PartialSuggestion.swift */; };
 		9C6266F41F2962E5009E7C77 /* SuggestionSearchResultCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6266F31F2962E5009E7C77 /* SuggestionSearchResultCollectionReusableView.swift */; };
 		9C6266FC1F2A9EA1009E7C77 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6266FB1F2A9EA1009E7C77 /* ImageCollectionViewCell.swift */; };
 		9C6266FE1F2A9F6D009E7C77 /* PagedImageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6266FD1F2A9F6D009E7C77 /* PagedImageCollectionViewController.swift */; };
@@ -85,6 +87,8 @@
 		9C3B54CF1F33999A00CD4550 /* SearchClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchClient.swift; path = Managers/SearchClient.swift; sourceTree = "<group>"; };
 		9C3B54D11F339A3000CD4550 /* GoogleSearchClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GoogleSearchClient.swift; path = Managers/GoogleSearchClient.swift; sourceTree = "<group>"; };
 		9C3B54D31F339CAF00CD4550 /* GoogleAPIKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleAPIKey.swift; sourceTree = "<group>"; };
+		9C3B54D51F33C2A900CD4550 /* JASON+Alamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "JASON+Alamofire.swift"; path = "Helpers/JASON+Alamofire.swift"; sourceTree = "<group>"; };
+		9C3B54DB1F33DCC100CD4550 /* PartialSuggestion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PartialSuggestion.swift; path = Models/PartialSuggestion.swift; sourceTree = "<group>"; };
 		9C6266F31F2962E5009E7C77 /* SuggestionSearchResultCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SuggestionSearchResultCollectionReusableView.swift; path = Views/SuggestionSearchResultCollectionReusableView.swift; sourceTree = "<group>"; };
 		9C6266FB1F2A9EA1009E7C77 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageCollectionViewCell.swift; path = Views/ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		9C6266FD1F2A9F6D009E7C77 /* PagedImageCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PagedImageCollectionViewController.swift; path = ViewControllers/PagedImageCollectionViewController.swift; sourceTree = "<group>"; };
@@ -290,6 +294,7 @@
 			children = (
 				9CC2B83C1EF18CDE0049E269 /* Constants.swift */,
 				9CF38B911EFCD12900A736B0 /* UIView+Helpers.swift */,
+				9C3B54D51F33C2A900CD4550 /* JASON+Alamofire.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -300,6 +305,7 @@
 				9CF38B941F00736B00A736B0 /* Host.swift */,
 				9CF38B9E1F06A70D00A736B0 /* User.swift */,
 				9C7ACD971F104C940086157E /* Suggestion.swift */,
+				9C3B54DB1F33DCC100CD4550 /* PartialSuggestion.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -611,12 +617,14 @@
 				9CC2B8031EEE407A0049E269 /* ViewController.swift in Sources */,
 				9C3B54CC1F32BB9D00CD4550 /* MapViewController.swift in Sources */,
 				9CC2B8491EF784F10049E269 /* StartViewController.swift in Sources */,
+				9C3B54D61F33C2A900CD4550 /* JASON+Alamofire.swift in Sources */,
 				9CF38B921EFCD12900A736B0 /* UIView+Helpers.swift in Sources */,
 				9CB181021EFAC7A40085517A /* BluetoothCentralManager.swift in Sources */,
 				9CA76E5D1F1E778300208BB3 /* VoteCollectionViewCell.swift in Sources */,
 				9C3A25A41F1698E100B329A3 /* VoteViewController.swift in Sources */,
 				9CF38B9D1F05B47E00A736B0 /* UserCollectionViewController.swift in Sources */,
 				9C3883EB1F27DF750079D99F /* SuggestionSearchResultsCollectionViewController.swift in Sources */,
+				9C3B54DC1F33DCC100CD4550 /* PartialSuggestion.swift in Sources */,
 				9C3B54D21F339A3000CD4550 /* GoogleSearchClient.swift in Sources */,
 				9CC2B8011EEE407A0049E269 /* AppDelegate.swift in Sources */,
 				9CA76E641F216D4900208BB3 /* HighestRatedSuggestionViewController.swift in Sources */,

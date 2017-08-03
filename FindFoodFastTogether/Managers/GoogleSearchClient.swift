@@ -14,37 +14,37 @@ struct GoogleAPIConstants {
     static let apiKey = GoogleWebAPIKey
     static let baseUrl = "https://maps.googleapis.com/maps/api/place/"
     static let textSearchUrl = baseUrl + "textsearch/json"
+    static let nearbySearchUrl = baseUrl + "nearbysearch/json"
+    static let maxSearchResults = 10
 }
 
 class GoogleSearchClient: SearchClient {
     
-    func searchForSuggestions(using queryString: String, location: CLLocationCoordinate2D, radiusInMeters: String, completion: @escaping ([Suggestion]?, Error?) -> Void) {
+    func searchForNearbySuggestions(using keyword: String, location: CLLocationCoordinate2D, radiusInMeters: String, completion: @escaping ([PartialSuggestion]?, Error?) -> Void) {
         
         let parameters = [
             "key": GoogleAPIConstants.apiKey,
-            "query": queryString,
+            "keyword": keyword,
             "location": "\(location.latitude),\(location.longitude)",
-            "radius": radiusInMeters
+            "radius": radiusInMeters,
         ]
         
-        Alamofire.request(GoogleAPIConstants.textSearchUrl, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: nil)
-            .responseJSON { (response) in
+        Alamofire.request(GoogleAPIConstants.nearbySearchUrl, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: nil)
+            .responseJASON { (response) in
                 switch response.result {
                 case .success(let json):
-                    guard let jsonDictionary = json as? [String: Any] else {
-                        print("could not cast json as dictionary")
-                        return
-                    }
-                    suggestions =
-                    print("success")
+                    let suggestionsJson = json["results"].prefix(GoogleAPIConstants.maxSearchResults)
+                    let suggestions = suggestionsJson.map(PartialSuggestion.init)
+                    completion(suggestions, nil)
                 case .failure(let error):
                     completion(nil, error)
                 }
-            }
+        }
+        
     }
     
     func fetchSuggestionDetails(using id: String, completion: @escaping (Suggestion?, Error?) -> Void) {
-
+        
     }
 
     func fetchSuggestionPhoto(using id: String, completion: @escaping (UIImage?, Error?) -> Void) {

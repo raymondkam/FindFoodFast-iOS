@@ -21,8 +21,9 @@ class AddSuggestionViewController: UIViewController {
     var suggestionSearchResultsCollectionViewController: SuggestionSearchResultsCollectionViewController!
     var suggestionDetailsViewController: SuggestionDetailsViewController!
     var locationManager = CLLocationManager()
-    var searchClient: SuggestionSearchClient = GoogleSuggestionSearchClient()
+    var searchClient: SearchClient = GoogleSearchClient()
     var userLocation: CLLocation?
+    var searchWorkItem: DispatchWorkItem?
     weak var delegate: AddSuggestionDelegate?
     
     let SuggestionTextFieldMinCharacterCount = 2
@@ -69,11 +70,29 @@ class AddSuggestionViewController: UIViewController {
         case Segues.EmbedSuggestionSearchResults:
             suggestionSearchResultsCollectionViewController = segue.destination as! SuggestionSearchResultsCollectionViewController
             suggestionSearchResultsCollectionViewController.delegate = self
-            // pass on the search client so details control can
-            // fetch more details
-            suggestionSearchResultsCollectionViewController.searchClient = searchClient
         default:
             print("segue not identified")
+        }
+    }
+    
+    func searchNearbySuggestions(with keyword: String) {
+        print("search keyword: \(keyword)")
+        var coordinate: CLLocationCoordinate2D
+        if let userLocation = userLocation {
+            coordinate = userLocation.coordinate
+            
+            searchClient.searchForNearbySuggestions(using: keyword, location: coordinate, radiusInMeters: "50000", completion: { [weak self] (partialSuggestions, error) in
+                guard error == nil else {
+                    print("error searching for nearby suggestions")
+                    return
+                }
+                guard let partialSuggestions = partialSuggestions else {
+                    print("suggestions from nearby search are nil")
+                    return
+                }
+                self?.suggestionSearchResultsCollectionViewController.dataSource = partialSuggestions
+                self?.suggestionSearchResultsCollectionViewController.collectionView?.reloadData()
+            })
         }
     }
 }
@@ -114,30 +133,20 @@ extension AddSuggestionViewController: CLLocationManagerDelegate {
 }
 
 extension AddSuggestionViewController: UISearchBarDelegate {
-    
+
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print("change in search text")
+        // to limit network activity, reload half a second after last key press.
+        if let searchWorkItem = searchWorkItem {
+            searchWorkItem.cancel()
+        }
         if searchText.characters.count > 0 {
-            var coordinate: CLLocationCoordinate2D?
-            if let userLocation = userLocation {
-                coordinate = userLocation.coordinate
-            }
-            searchClient.searchForSuggestions(using: searchText, coordinate: coordinate, radiusInMeters: 10000) { [weak self] (suggestions, error) in
-                guard error == nil else {
-                    print("error searching for suggestions")
-                    return
-                }
-                guard let suggestions = suggestions else {
-                    print("suggestions from search are nil")
-                    return
-                }
-                guard searchText == self?.searchBar.text else {
-                    // only update the results if the current 
-                    // search text matches
-                    return
-                }
-                self?.suggestionSearchResultsCollectionViewController.dataSource = suggestions
-                self?.suggestionSearchResultsCollectionViewController.collectionView?.reloadData()
-            }
+            let newSearchWorkItem = DispatchWorkItem(block: { [weak self] in
+                self?.searchNearbySuggestions(with: searchText)
+            })
+            
+            DispatchQueue.global().asyncAfter(deadline: .now() + 0.5, execute: newSearchWorkItem)
+            searchWorkItem = newSearchWorkItem
         } else {
             suggestionSearchResultsCollectionViewController.dataSource.removeAll()
             suggestionSearchResultsCollectionViewController.collectionView?.reloadData()

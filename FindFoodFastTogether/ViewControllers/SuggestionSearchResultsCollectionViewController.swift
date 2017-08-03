@@ -17,7 +17,7 @@ class SuggestionSearchResultsCollectionViewController: UICollectionViewControlle
     var searchClient: SuggestionSearchClient!
     weak var delegate: SuggestionSearchResultsDelegate?
     
-    var dataSource = [Suggestion]()
+    var dataSource = [PartialSuggestion]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,12 +36,10 @@ class SuggestionSearchResultsCollectionViewController: UICollectionViewControlle
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: suggestionSearchResultReuseIdentifier, for: indexPath)
-        let suggestion = dataSource[indexPath.item]
+        let partialSuggestion = dataSource[indexPath.item]
         if let suggestionSearchResultCell = cell as? SuggestionSearchResultCollectionViewCell {
-            suggestionSearchResultCell.title = suggestion.name
-            if let address = suggestion.address {
-                suggestionSearchResultCell.subtitle = address
-            }
+            suggestionSearchResultCell.title = partialSuggestion.name
+            suggestionSearchResultCell.subtitle = partialSuggestion.closestAddress
             suggestionSearchResultCell.distance = nil
         }
     
@@ -61,8 +59,7 @@ class SuggestionSearchResultsCollectionViewController: UICollectionViewControlle
     // MARK: UICollectionViewDelegate
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let suggestion = dataSource[indexPath.item]
-        delegate?.didSelectSuggestionFromSearchResults(suggestion: suggestion)
+        
     }
 
 }
