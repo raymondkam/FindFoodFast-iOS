@@ -1605,7 +1605,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JzJ-T7-D3f">
-                                <rect key="frame" x="8" y="8" width="30" height="51"/>
+                                <rect key="frame" x="8" y="12" width="30" height="51"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                 <state key="normal" title="✕">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -1620,7 +1620,7 @@
                             <constraint firstItem="w99-3d-KUd" firstAttribute="top" secondItem="PHD-CW-5BH" secondAttribute="topMargin" id="2Xm-M2-cxf"/>
                             <constraint firstItem="w99-3d-KUd" firstAttribute="centerX" secondItem="PHD-CW-5BH" secondAttribute="centerX" id="B2H-tT-ehn"/>
                             <constraint firstAttribute="trailing" secondItem="w99-3d-KUd" secondAttribute="trailing" id="GUJ-9w-7ko"/>
-                            <constraint firstItem="JzJ-T7-D3f" firstAttribute="top" secondItem="PHD-CW-5BH" secondAttribute="topMargin" constant="8" id="Pm5-Vy-cTG"/>
+                            <constraint firstItem="JzJ-T7-D3f" firstAttribute="top" secondItem="PHD-CW-5BH" secondAttribute="topMargin" constant="12" id="Pm5-Vy-cTG"/>
                             <constraint firstItem="JzJ-T7-D3f" firstAttribute="leading" secondItem="PHD-CW-5BH" secondAttribute="leading" constant="8" id="TSh-Du-8ER"/>
                             <constraint firstItem="w99-3d-KUd" firstAttribute="leading" secondItem="PHD-CW-5BH" secondAttribute="leading" id="Wuo-mP-7KV"/>
                             <constraint firstAttribute="bottomMargin" secondItem="w99-3d-KUd" secondAttribute="bottom" id="c7a-ZS-8ye"/>
