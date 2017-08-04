@@ -193,6 +193,9 @@ extension VoteViewController: UICollectionViewDataSource {
         
         cell.title = suggestion.name
         cell.subtitle = suggestion.type
+        if let thumbnail = suggestion.thumbnail {
+            cell.image = thumbnail
+        }
         cell.cosmoView.rating = Double(suggestion.votes)
         cell.cosmoView.didFinishTouchingCosmos = { [weak self] rating in
             guard let currentIndex = self?.currentIndex else {

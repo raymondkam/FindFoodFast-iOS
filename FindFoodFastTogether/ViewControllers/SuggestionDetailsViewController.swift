@@ -78,8 +78,35 @@ class SuggestionDetailsViewController: UIViewController {
                 self?.navigationController?.popViewController(animated: true)
                 return
             }
-            self?.suggestion = suggestion
-            self?.updateUI(with: suggestion)
+            guard let strongSelf = self else {
+                print("self is nil")
+                return
+            }
+            strongSelf.suggestion = suggestion
+            strongSelf.updateUI(with: suggestion)
+            
+            // get photos
+            let widthString = String(Int(strongSelf.view.frame.width))
+            for photoId in suggestion.photoIds.prefix(GoogleAPIConstants.maxPhotosToFetch) {
+                strongSelf.searchClient.fetchSuggestionPhoto(using: photoId, maxWidth: widthString, maxHeight: nil, completion: { [weak self] (image, error) in
+                    guard error == nil else {
+                        print("error fetching photo \(photoId)")
+                        return
+                    }
+                    guard let image = image else {
+                        print("could not fetch image for suggestion for photo id: \(photoId)")
+                        return
+                    }
+                    
+                    if suggestion.thumbnail == nil {
+                        suggestion.thumbnail = image
+                    }
+                    
+                    let insPhoto = INSPhoto(image: image, thumbnailImage: image)
+                    self?.pagedImageCollectionViewController.dataSource.append(insPhoto)
+                    self?.pagedImageCollectionViewController.collectionView?.reloadData()
+                })
+            }
         }
     }
     

@@ -16,7 +16,9 @@ struct GoogleAPIConstants {
     static let textSearchUrl = baseUrl + "textsearch/json"
     static let nearbySearchUrl = baseUrl + "nearbysearch/json"
     static let placeDetailsUrl = baseUrl + "details/json"
+    static let photoUrl = baseUrl + "photo"
     static let maxSearchResults = 20
+    static let maxPhotosToFetch = 5
 }
 
 class GoogleSearchClient: SearchClient {
@@ -33,7 +35,7 @@ class GoogleSearchClient: SearchClient {
         
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
-        Alamofire.request(GoogleAPIConstants.nearbySearchUrl, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: nil)
+        Alamofire.request(GoogleAPIConstants.nearbySearchUrl, method: .get, parameters: parameters, encoding: URLEncoding.queryString, headers: nil)
             .responseJASON { (response) in
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 switch response.result {
@@ -55,7 +57,7 @@ class GoogleSearchClient: SearchClient {
             "placeid": id
         ]
         
-        Alamofire.request(GoogleAPIConstants.placeDetailsUrl, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseJASON { (response) in
+        Alamofire.request(GoogleAPIConstants.placeDetailsUrl, method: .get, parameters: parameters, encoding: URLEncoding.queryString, headers: nil).responseJASON { (response) in
             switch response.result {
             case .success(let json):
                 let suggestionDetailsJson = json["result"]
@@ -67,8 +69,34 @@ class GoogleSearchClient: SearchClient {
         }
     }
 
-    func fetchSuggestionPhoto(using id: String, completion: @escaping (UIImage?, Error?) -> Void) {
+    func fetchSuggestionPhoto(using id: String, maxWidth: String?, maxHeight: String?, completion: @escaping (UIImage?, Error?) -> Void) {
+        guard (maxWidth != nil && maxHeight == nil) || (maxWidth == nil && maxHeight != nil) else {
+            print("cannot specify both max height and max width")
+            return
+        }
         
+        var parameters = [
+            "photoreference": id,
+            "key": GoogleAPIConstants.apiKey
+        ]
+        
+        if let maxWidth = maxWidth {
+            parameters.updateValue(maxWidth, forKey: "maxwidth")
+        }
+        if let maxHeight = maxHeight {
+            parameters.updateValue(maxHeight, forKey: "maxheight")
+        }
+        
+        Alamofire.request(GoogleAPIConstants.photoUrl, method: .get, parameters: parameters, encoding: URLEncoding.queryString, headers: nil).responseData { (response) in
+            switch response.result {
+            case .success(let data):
+                if let image = UIImage(data: data) {
+                    completion(image, nil)
+                }
+            case .failure(let error):
+                completion(nil, error)
+            }
+        }
     }
     
 }

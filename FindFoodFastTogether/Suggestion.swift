@@ -35,6 +35,8 @@ extension JSONKeys {
     static let suggestionWebsite = JSONKey<URL?>("website")
     static let suggestionSourceUrl = JSONKey<URL?>("url")
     static let suggestionIsOpenNow = JSONKey<Bool>(path: "opening_hours", "open_now")
+    static let suggestionPhotos = JSONKey<[JSON]>(path: "photos")
+    static let suggestionPhotosPhotoReference = JSONKey<String>("photo_reference")
 }
 
 class Suggestion: NSObject, NSCoding {
@@ -50,7 +52,9 @@ class Suggestion: NSObject, NSCoding {
     var website: URL?
     var sourceUrl: URL? // source of info
     var isOpenNow: Bool
+    var photoIds: [String]
     var votes = 0
+    var thumbnail: UIImage?
     
     init(id: String,
          name: String,
@@ -62,7 +66,8 @@ class Suggestion: NSObject, NSCoding {
          phoneNumber: String,
          website: URL?,
          sourceUrl: URL?,
-         isOpenNow: Bool) {
+         isOpenNow: Bool,
+         photoIds: [String]) {
         self.id = id
         self.name = name
         self.address = address
@@ -74,6 +79,7 @@ class Suggestion: NSObject, NSCoding {
         self.website = website
         self.sourceUrl = sourceUrl
         self.isOpenNow = isOpenNow
+        self.photoIds = photoIds
     }
     
     init(_ json: JSON) {
@@ -88,17 +94,35 @@ class Suggestion: NSObject, NSCoding {
         website = json[.suggestionWebsite]
         sourceUrl = json[.suggestionSourceUrl]
         isOpenNow = json[.suggestionIsOpenNow]
+        let photosJson = json[.suggestionPhotos].prefix(GoogleAPIConstants.maxPhotosToFetch)
+        photoIds = photosJson.map { (json) -> String in
+            return json[.suggestionPhotosPhotoReference]
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
-        guard let id = aDecoder.decodeObject(forKey: "id") as? String else { return nil }
-        guard let name = aDecoder.decodeObject(forKey: "name") as? String else { return nil }
-        guard let address = aDecoder.decodeObject(forKey: "address") as? String else { return nil }
-        guard let type = aDecoder.decodeObject(forKey: "type") as? String else { return nil }
+        guard let id = aDecoder.decodeObject(forKey: "id") as? String else {
+            return nil
+        }
+        guard let name = aDecoder.decodeObject(forKey: "name") as? String else {
+            return nil
+        }
+        guard let address = aDecoder.decodeObject(forKey: "address") as? String else {
+            return nil
+        }
+        guard let type = aDecoder.decodeObject(forKey: "type") as? String else {
+            return nil
+        }
+        guard let phoneNumber = aDecoder.decodeObject(forKey: "phoneNumber") as? String else {
+            return nil
+        }
+        guard let photoIds = aDecoder.decodeObject(forKey: "photoIds") as? [String] else {
+            return nil
+        }
+        
         rating = aDecoder.decodeDouble(forKey: "rating")
         latitude = aDecoder.decodeDouble(forKey: "latitude")
         longitude = aDecoder.decodeDouble(forKey: "longitude")
-        guard let phoneNumber = aDecoder.decodeObject(forKey: "phoneNumber") as? String else { return nil }
         if let website = aDecoder.decodeObject(forKey: "website") as? URL {
             self.website = website
         }
@@ -113,6 +137,7 @@ class Suggestion: NSObject, NSCoding {
         self.address = address
         self.type = type
         self.phoneNumber = phoneNumber
+        self.photoIds = photoIds
     }
     
     func encode(with aCoder: NSCoder) {
@@ -133,6 +158,7 @@ class Suggestion: NSObject, NSCoding {
             aCoder.encode(sourceUrl, forKey: "sourceUrl")
         }
         aCoder.encode(isOpenNow, forKey: "isOpenNow")
+        aCoder.encode(photoIds, forKey: "photoIds")
         aCoder.encode(votes, forKey: "votes")
     }
     

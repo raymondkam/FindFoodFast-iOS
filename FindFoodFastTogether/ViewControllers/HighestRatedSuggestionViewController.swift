@@ -29,6 +29,9 @@ class HighestRatedSuggestionViewController: UIViewController {
         voteCountLabel.text = String(highestRatedSuggestion.votes)
         cardTitle.text = highestRatedSuggestion.name
         cardSubtitle.text = highestRatedSuggestion.type
+        if let thumbnail = highestRatedSuggestion.thumbnail {
+            imageView.image = thumbnail
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

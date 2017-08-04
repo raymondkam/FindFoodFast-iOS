@@ -74,6 +74,9 @@ class SuggestionCollectionViewController: UICollectionViewController {
             suggestionCell.title = suggestion.name
             suggestionCell.rating = suggestion.rating
             suggestionCell.subtitle = suggestion.type
+            if let thumbnail = suggestion.thumbnail {
+                suggestionCell.image = thumbnail
+            }
         }
     
         return cell
