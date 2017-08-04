@@ -311,6 +311,8 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
         
     }
     
+    // MARK: Handle writing data to Host
+    
     /*
      * Callback for successful write to characteristic, used for writing large
      * payloads to a characteristic
@@ -352,6 +354,8 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
             sendData()
         }
     }
+    
+    // MARK: Handle received data from Host
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         guard error == nil else {

@@ -20,9 +20,9 @@ class HighestRatedSuggestionViewController: UIViewController {
     @IBOutlet weak var cardTitle: UILabel!
     @IBOutlet weak var cardSubtitle: UILabel!
     
-    
     var highestRatedSuggestion: Suggestion!
     var isHosting: Bool!
+    var searchClient = GoogleSearchClient()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +31,25 @@ class HighestRatedSuggestionViewController: UIViewController {
         cardSubtitle.text = highestRatedSuggestion.type
         if let thumbnail = highestRatedSuggestion.thumbnail {
             imageView.image = thumbnail
+        } else {
+            if let firstPhotoId = highestRatedSuggestion.photoIds.first {
+                let widthString = String(Int(imageView.frame.width))
+                searchClient.fetchSuggestionPhoto(using: firstPhotoId, maxWidth: widthString, maxHeight: nil, completion: { [weak self] (image, error) in
+                    guard error == nil else {
+                        print("error fetching photo for suggestion cell")
+                        return
+                    }
+                    guard let image = image else {
+                        print("suggestion cell image is nil")
+                        return
+                    }
+                    self?.imageView.image = image
+                    
+                    // update data source as well
+                    self?.highestRatedSuggestion.thumbnail = image
+                })
+            }
+
         }
     }
     
