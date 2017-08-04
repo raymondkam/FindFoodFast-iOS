@@ -19,6 +19,7 @@
 		9C3B54D61F33C2A900CD4550 /* JASON+Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B54D51F33C2A900CD4550 /* JASON+Alamofire.swift */; };
 		9C3B54DC1F33DCC100CD4550 /* PartialSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B54DB1F33DCC100CD4550 /* PartialSuggestion.swift */; };
 		9C3B54E41F35116800CD4550 /* Vote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B54E31F35116800CD4550 /* Vote.swift */; };
+		9C3B54E61F3528EA00CD4550 /* SuggestionOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B54E51F3528EA00CD4550 /* SuggestionOperation.swift */; };
 		9C6266F41F2962E5009E7C77 /* SuggestionSearchResultCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6266F31F2962E5009E7C77 /* SuggestionSearchResultCollectionReusableView.swift */; };
 		9C6266FC1F2A9EA1009E7C77 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6266FB1F2A9EA1009E7C77 /* ImageCollectionViewCell.swift */; };
 		9C6266FE1F2A9F6D009E7C77 /* PagedImageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6266FD1F2A9F6D009E7C77 /* PagedImageCollectionViewController.swift */; };
@@ -89,6 +90,7 @@
 		9C3B54D51F33C2A900CD4550 /* JASON+Alamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "JASON+Alamofire.swift"; path = "Helpers/JASON+Alamofire.swift"; sourceTree = "<group>"; };
 		9C3B54DB1F33DCC100CD4550 /* PartialSuggestion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PartialSuggestion.swift; path = Models/PartialSuggestion.swift; sourceTree = "<group>"; };
 		9C3B54E31F35116800CD4550 /* Vote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Vote.swift; path = Models/Vote.swift; sourceTree = "<group>"; };
+		9C3B54E51F3528EA00CD4550 /* SuggestionOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SuggestionOperation.swift; path = Models/SuggestionOperation.swift; sourceTree = "<group>"; };
 		9C6266F31F2962E5009E7C77 /* SuggestionSearchResultCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SuggestionSearchResultCollectionReusableView.swift; path = Views/SuggestionSearchResultCollectionReusableView.swift; sourceTree = "<group>"; };
 		9C6266FB1F2A9EA1009E7C77 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageCollectionViewCell.swift; path = Views/ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		9C6266FD1F2A9F6D009E7C77 /* PagedImageCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PagedImageCollectionViewController.swift; path = ViewControllers/PagedImageCollectionViewController.swift; sourceTree = "<group>"; };
@@ -319,6 +321,7 @@
 				9C7ACD971F104C940086157E /* Suggestion.swift */,
 				9C3B54DB1F33DCC100CD4550 /* PartialSuggestion.swift */,
 				9C3B54E31F35116800CD4550 /* Vote.swift */,
+				9C3B54E51F3528EA00CD4550 /* SuggestionOperation.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -622,6 +625,7 @@
 				9C3B54E41F35116800CD4550 /* Vote.swift in Sources */,
 				9CF38B9F1F06A70D00A736B0 /* User.swift in Sources */,
 				9CC2B84B1EF8DEB00049E269 /* CreateHostViewController.swift in Sources */,
+				9C3B54E61F3528EA00CD4550 /* SuggestionOperation.swift in Sources */,
 				9C6266FC1F2A9EA1009E7C77 /* ImageCollectionViewCell.swift in Sources */,
 				9CF38B951F00736B00A736B0 /* Host.swift in Sources */,
 				9C3883ED1F28F0620079D99F /* SuggestionSearchResultCollectionViewCell.swift in Sources */,
