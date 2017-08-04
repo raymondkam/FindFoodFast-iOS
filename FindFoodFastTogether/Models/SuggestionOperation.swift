@@ -17,25 +17,25 @@ struct SuggestionOperationType {
 class SuggestionOperation: NSObject, NSCoding {
     
     var type: Int
-    var suggestions: [Suggestion]
+    var data: Data
     
-    init(type: Int, suggestions: [Suggestion]) {
+    init(type: Int, data: Data) {
         self.type = type
-        self.suggestions = suggestions
+        self.data = data
     }
     
     required init?(coder aDecoder: NSCoder) {
         type = aDecoder.decodeInteger(forKey: "type")
-        guard let suggestions = aDecoder.decodeObject(forKey: "suggestions") as? [Suggestion] else {
-            print("operation has nil suggestions")
+        guard let data = aDecoder.decodeObject(forKey: "data") as? Data else {
+            print("operation has nil data")
             return nil
         }
-        self.suggestions = suggestions
+        self.data = data
     }
     
     func encode(with aCoder: NSCoder) {
         aCoder.encode(type, forKey: "type")
-        aCoder.encode(suggestions, forKey: "suggestions")
+        aCoder.encode(data, forKey: "data")
     }
     
 }

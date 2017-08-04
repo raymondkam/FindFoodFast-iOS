@@ -163,7 +163,8 @@ final class BluetoothPeripheralManager : NSObject {
     
     fileprivate func sendSuggestions() {
         print("sending suggestions to clients")
-        let suggestionOperation = SuggestionOperation(type: SuggestionOperationType.All, suggestions: suggestions)
+        let suggestionsData = NSKeyedArchiver.archivedData(withRootObject: suggestions)
+        let suggestionOperation = SuggestionOperation(type: SuggestionOperationType.All, data: suggestionsData)
         send(object: suggestionOperation, for: suggestionCharacteristic)
     }
     
@@ -388,7 +389,11 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
                     }
                     switch suggestionOperation.type {
                     case SuggestionOperationType.Add:
-                        delegate?.bluetoothPeripheralManagerDidReceiveNewSuggestion(self, suggestion: suggestionOperation.suggestions.first!)
+                        guard let suggestion = NSKeyedUnarchiver.unarchiveObject(with: suggestionOperation.data) as? Suggestion else {
+                            print("could not unarchive added suggestion data")
+                            return
+                        }
+                        delegate?.bluetoothPeripheralManagerDidReceiveNewSuggestion(self, suggestion: suggestion)
                     default:
                         assert(false, "unexpected suggestion operation received from user")
                     }

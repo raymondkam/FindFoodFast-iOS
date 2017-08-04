@@ -119,7 +119,8 @@ final class BluetoothCentralManager : NSObject {
             print("suggestion characteristic not saved")
             return
         }
-        let suggestionOperation = SuggestionOperation(type: SuggestionOperationType.Add, suggestions: [suggestion])
+        let suggestionData = NSKeyedArchiver.archivedData(withRootObject: suggestion)
+        let suggestionOperation = SuggestionOperation(type: SuggestionOperationType.Add, data: suggestionData)
         dataToSend  = NSKeyedArchiver.archivedData(withRootObject: suggestionOperation)
         sendDataIndex = 0
         sendToCharacteristic = suggestionCharacteristic
@@ -407,7 +408,11 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
                     }
                     switch suggestionOperation.type {
                     case SuggestionOperationType.All:
-                        delegate?.bluetoothCentralManagerDidReceiveSuggestions(self, suggestions: suggestionOperation.suggestions)
+                        guard let suggestions = NSKeyedUnarchiver.unarchiveObject(with: suggestionOperation.data) as? [Suggestion] else {
+                            print("could not unarchive suggestions array data")
+                            return
+                        }
+                        delegate?.bluetoothCentralManagerDidReceiveSuggestions(self, suggestions: suggestions)
                     default:
                         assert(false, "unexpected suggestion operation type")
                     }
