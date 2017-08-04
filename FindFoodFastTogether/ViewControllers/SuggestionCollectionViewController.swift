@@ -72,12 +72,7 @@ class SuggestionCollectionViewController: UICollectionViewController {
             // regular suggestion cell
             let suggestionCell = cell as! SuggestionCollectionViewCell
             suggestionCell.title = suggestion.name
-            suggestionCell.image = suggestion.thumbnail
-            if let rating = suggestion.rating {
-                suggestionCell.rating = Double(rating)
-            } else {
-                suggestionCell.rating = nil
-            }
+            suggestionCell.rating = suggestion.rating
             suggestionCell.subtitle = suggestion.type
         }
     

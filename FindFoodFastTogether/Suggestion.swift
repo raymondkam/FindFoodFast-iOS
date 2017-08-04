@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import CoreLocation
 import GooglePlaces
+import JASON
 
 enum SuggestionOpenNowStatus: Int {
     case yes = 0
@@ -21,160 +22,133 @@ fileprivate let SuggestionOpenNowStatusYesKey = 0
 fileprivate let SuggestionOpenNowStatusNoKey = 1
 fileprivate let SuggestionOpenNowStatusUnknownKey = 2
 
+extension JSONKeys {
+    static let suggestionId = JSONKey<String>("id")
+    static let suggestionName = JSONKey<String>("name")
+    static let suggestionAddress = JSONKey<String>(path: "formatted_address")
+    static let suggestionType = JSONKey<String>(path: "types", 0)
+    static let suggestionRating = JSONKey<Double>("rating")
+    static let suggestionLatitude = JSONKey<Double>(path: "geometry", "location", "lat")
+    static let suggestionLongitude = JSONKey<Double>(path:
+        "geometry", "location", "lng")
+    static let suggestionPhoneNumber = JSONKey<String>("formatted_phone_number")
+    static let suggestionWebsite = JSONKey<URL?>("website")
+    static let suggestionSourceUrl = JSONKey<URL?>("url")
+    static let suggestionIsOpenNow = JSONKey<Bool>(path: "opening_hours", "open_now")
+}
+
 class Suggestion: NSObject, NSCoding {
-    // id of the object can be used to fetch more details 
-    // using the search client
-    var id: String?
+    
+    var id: String
     var name: String
-    var address: String?
-    var rating: Float? // rating from search client
-    var type: String? // food/restaurant type
-    var coordinate: CLLocationCoordinate2D?
+    var address: String
+    var type: String
+    var rating: Double
+    var latitude: Double
+    var longitude: Double
+    var phoneNumber: String
     var website: URL?
-    var attributions: NSAttributedString?
-    var isOpenNow: SuggestionOpenNowStatus?
-    var phoneNumber: String?
-    var thumbnail: UIImage?
-    var voteRating = 0
+    var sourceUrl: URL? // source of info
+    var isOpenNow: Bool
+    var votes = 0
     
-    // google only data
-    var googlePhotosMetadataList: GMSPlacePhotoMetadataList?
-    
-    init(id: String?, name: String, address: String?, rating: Float?, type: String?, coordinate: CLLocationCoordinate2D?, website: URL?, attributions: NSAttributedString?, isOpenNow: SuggestionOpenNowStatus?, phoneNumber: String?, voteRating: Int?) {
+    init(id: String,
+         name: String,
+         address: String,
+         type: String,
+         rating: Double,
+         latitude: Double,
+         longitude: Double,
+         phoneNumber: String,
+         website: URL?,
+         sourceUrl: URL?,
+         isOpenNow: Bool) {
         self.id = id
         self.name = name
         self.address = address
-        if let rating = rating {
-            self.rating = rating
-        }
-        if let type = type {
-            self.type = type
-        }
-        if let coordinate = coordinate {
-            self.coordinate = coordinate
-        }
-        if let website = website {
-            self.website = website
-        }
-        if let attributions = attributions {
-            self.attributions = attributions
-        }
-        if let isOpenNow = isOpenNow {
-            self.isOpenNow = isOpenNow
-        }
-        if let phoneNumber = phoneNumber {
-            self.phoneNumber = phoneNumber
-        }
-        if let voteRating = voteRating {
-            self.voteRating = voteRating
-        }
+        self.type = type
+        self.rating = rating
+        self.latitude = latitude
+        self.longitude = longitude
+        self.phoneNumber = phoneNumber
+        self.website = website
+        self.sourceUrl = sourceUrl
+        self.isOpenNow = isOpenNow
     }
     
-    convenience init(id: String?, name: String, address: String?) {
-        self.init(id: id, name: name, address: address, rating: nil, type: nil, coordinate: nil, website: nil, attributions: nil, isOpenNow: nil, phoneNumber: nil, voteRating: nil)
+    init(_ json: JSON) {
+        id = json[.suggestionId]
+        name = json[.suggestionName]
+        address = json[.suggestionAddress]
+        type = json[.suggestionType].capitalized.replacingOccurrences(of: "_", with: " ")
+        rating = json[.suggestionRating]
+        latitude = json[.suggestionLatitude]
+        longitude = json[.suggestionLongitude]
+        phoneNumber = json[.suggestionPhoneNumber]
+        website = json[.suggestionWebsite]
+        sourceUrl = json[.suggestionSourceUrl]
+        isOpenNow = json[.suggestionIsOpenNow]
     }
     
     required init?(coder aDecoder: NSCoder) {
-        if let id = aDecoder.decodeObject(forKey: "id") as? String {
-            self.id = id
-        }
-        
-        guard let name = aDecoder.decodeObject(forKey: "name") as? String else {
-            print("suggestion init: could not decode name")
-            return nil
-        }
-        
-        if let address = aDecoder.decodeObject(forKey: "address") as? String {
-            self.address = address
-        }
-        
-        let rating = aDecoder.decodeFloat(forKey: "rating")
-        self.rating = rating
-        
-        if let type = aDecoder.decodeObject(forKey: "type") as? String {
-            self.type = type
-        }
-        
+        guard let id = aDecoder.decodeObject(forKey: "id") as? String else { return nil }
+        guard let name = aDecoder.decodeObject(forKey: "name") as? String else { return nil }
+        guard let address = aDecoder.decodeObject(forKey: "address") as? String else { return nil }
+        guard let type = aDecoder.decodeObject(forKey: "type") as? String else { return nil }
+        rating = aDecoder.decodeDouble(forKey: "rating")
+        latitude = aDecoder.decodeDouble(forKey: "latitude")
+        longitude = aDecoder.decodeDouble(forKey: "longitude")
+        guard let phoneNumber = aDecoder.decodeObject(forKey: "phoneNumber") as? String else { return nil }
         if let website = aDecoder.decodeObject(forKey: "website") as? URL {
             self.website = website
         }
-        
-        let latitude = aDecoder.decodeDouble(forKey: "latitude")
-        let longitude = aDecoder.decodeDouble(forKey: "longitude")
-        self.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        
-        if let attributions = aDecoder.decodeObject(forKey: "attributions") as? NSAttributedString {
-            self.attributions = attributions
+        if let sourceUrl = aDecoder.decodeObject(forKey: "sourceUrl") as? URL {
+            self.sourceUrl = sourceUrl
         }
-        
-        let isOpenNowKey = aDecoder.decodeInteger(forKey: "isOpenNow")
-        switch isOpenNowKey {
-        case SuggestionOpenNowStatusYesKey:
-            self.isOpenNow = .yes
-        case SuggestionOpenNowStatusNoKey:
-            self.isOpenNow = .no
-        case SuggestionOpenNowStatusUnknownKey:
-            self.isOpenNow = .unknown
-        default:
-            assert(false, "unexpected value for decoding isOpenNow")
-        }
-        
-        if let phoneNumber = aDecoder.decodeObject(forKey: "phoneNumber") as? String {
-            self.phoneNumber = phoneNumber
-        }
-        let voteRating = aDecoder.decodeInteger(forKey: "voteRating")
+        isOpenNow = aDecoder.decodeBool(forKey: "isOpenNow")
+        votes = aDecoder.decodeInteger(forKey: "votes")
+
+        self.id = id
         self.name = name
-        self.voteRating = voteRating
+        self.address = address
+        self.type = type
+        self.phoneNumber = phoneNumber
     }
     
     func encode(with aCoder: NSCoder) {
         aCoder.encode(id, forKey: "id")
         aCoder.encode(name, forKey: "name")
         aCoder.encode(address, forKey: "address")
-        if let rating = rating {
-            aCoder.encode(rating, forKey: "rating")
-        }
-        if let type = type {
-            aCoder.encode(type, forKey: "type")
-        }
-        aCoder.encode(website, forKey: "website")
-        if let latitude = coordinate?.latitude {
-            aCoder.encode(latitude, forKey: "latitude")
-        }
-        if let longitude = coordinate?.longitude {
-            aCoder.encode(longitude, forKey: "longitude")
-        }
-        
-        var encodedIsOpenNow: Int
-        if let isOpenNow = isOpenNow {
-            switch isOpenNow {
-            case .yes:
-                encodedIsOpenNow = SuggestionOpenNowStatusYesKey
-            case .no:
-                encodedIsOpenNow = SuggestionOpenNowStatusNoKey
-            case .unknown:
-                encodedIsOpenNow = SuggestionOpenNowStatusUnknownKey
-            }
-            aCoder.encode(encodedIsOpenNow, forKey: "isOpenNow")
-        }
-        
-        aCoder.encode(attributions, forKey: "attributions")
+        aCoder.encode(type, forKey: "type")
+        aCoder.encode(latitude, forKey: "latitude")
+        aCoder.encode(longitude, forKey: "longitude")
+        aCoder.encode(rating, forKey: "rating")
+        aCoder.encode(latitude, forKey: "latitude")
+        aCoder.encode(longitude, forKey: "longitude")
         aCoder.encode(phoneNumber, forKey: "phoneNumber")
-        aCoder.encode(voteRating, forKey: "voteRating")
+        if let website = website {
+            aCoder.encode(website, forKey: "website")
+        }
+        if let sourceUrl = sourceUrl {
+            aCoder.encode(sourceUrl, forKey: "sourceUrl")
+        }
+        aCoder.encode(isOpenNow, forKey: "isOpenNow")
+        aCoder.encode(votes, forKey: "votes")
     }
     
     override func isEqual(_ object: Any?) -> Bool {
         guard let suggestion = object as? Suggestion else {
             return false
         }
-        return suggestion.name == self.name && suggestion.address == self.address
+        return suggestion.id == id
     }
-    
+
     override var hashValue: Int {
-        return name.hashValue
+        return id.hashValue
     }
-    
+
     override var description: String {
-        return "Suggestion(name: \(name), rating: \(voteRating))"
+        return "Suggestion(name: \(name), number of votes: \(votes))"
     }
+
 }

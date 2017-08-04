@@ -10,12 +10,11 @@ import UIKit
 import CoreLocation
 
 protocol SuggestionSearchResultsDelegate: class {
-    func didSelectSuggestionFromSearchResults(suggestion: Suggestion)
+    func didSelectSuggestionFromSearchResults(partialSuggestion: PartialSuggestion)
 }
 
 class SuggestionSearchResultsCollectionViewController: UICollectionViewController {
 
-    var searchClient: SuggestionSearchClient!
     var userLocation: CLLocation?
     weak var delegate: SuggestionSearchResultsDelegate?
     
@@ -64,7 +63,8 @@ class SuggestionSearchResultsCollectionViewController: UICollectionViewControlle
     // MARK: UICollectionViewDelegate
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        let partialSuggestion = dataSource[indexPath.item]
+        delegate?.didSelectSuggestionFromSearchResults(partialSuggestion: partialSuggestion)
     }
 
 }

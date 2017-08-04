@@ -16,6 +16,7 @@ extension JSONKeys {
     static let partialSuggestionClosestAddress = JSONKey<String>(path: "vicinity")
     static let partialSuggestionLatitude = JSONKey<Double>(path: "geometry", "location", "lat")
     static let partialSuggestionLongitude = JSONKey<Double>(path: "geometry", "location", "lng")
+    static let partialSuggestionPlaceId = JSONKey<String>("place_id")
 }
 
 class PartialSuggestion: NSObject, NSCoding {
@@ -26,6 +27,7 @@ class PartialSuggestion: NSObject, NSCoding {
     var type: String
     var latitude: Double
     var longitude: Double
+    var placeId: String
     
     init(_ json: JSON) {
         id = json[.partialSuggestionId]
@@ -34,6 +36,7 @@ class PartialSuggestion: NSObject, NSCoding {
         type = json[.partialSuggestionType]
         latitude = json[.partialSuggestionLatitude]
         longitude = json[.partialSuggestionLongitude]
+        placeId = json[.partialSuggestionPlaceId]
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -55,13 +58,19 @@ class PartialSuggestion: NSObject, NSCoding {
             print(funcName + "could not decode type")
             return nil
         }
+        guard let placeId = aDecoder.decodeObject(forKey: "placeId") as? String else {
+            print(funcName + "could not decode place id")
+            return nil
+        }
         self.id = id
         self.name = name
         self.closestAddress = closestAddress
         self.type = type
+        self.placeId = placeId
         
         latitude = aDecoder.decodeDouble(forKey: "latitude")
         longitude = aDecoder.decodeDouble(forKey: "longitude")
+        
     }
     
     func encode(with aCoder: NSCoder) {
@@ -71,6 +80,7 @@ class PartialSuggestion: NSObject, NSCoding {
         aCoder.encode(type, forKey: "type")
         aCoder.encode(latitude, forKey: "latitude")
         aCoder.encode(longitude, forKey: "longitude")
+        aCoder.encode(placeId, forKey: "placeId")
     }
     
 }

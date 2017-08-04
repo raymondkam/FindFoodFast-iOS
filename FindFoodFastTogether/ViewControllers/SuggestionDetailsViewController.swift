@@ -32,18 +32,15 @@ class SuggestionDetailsViewController: UIViewController {
     @IBOutlet weak var attributionsView: UIView!
     @IBOutlet weak var attributionsTextView: UITextView!
     
+    var partialSuggestion: PartialSuggestion!
     var suggestion: Suggestion!
     var locationManager = CLLocationManager()
     var userLocation: CLLocation?
-    var searchClient = GoogleSuggestionSearchClient()
+    var searchClient = GoogleSearchClient()
     var pagedImageCollectionViewController: PagedImageCollectionViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let id = suggestion.id else {
-            print("suggestion has no id, cannot look up more details")
-            return
-        }
         
         // set up location and get user's current location
         locationManager.delegate = self
@@ -73,49 +70,16 @@ class SuggestionDetailsViewController: UIViewController {
         // set textview delegate to handle URLs
         attributionsTextView.delegate = self
 
-        searchClient.lookUpSuggestionDetails(using: id) { [weak self] (suggestion, error) in
-            guard error == nil else {
-                print("error: \(String(describing: error?.localizedDescription))")
-                return
-            }
-            guard let suggestion = suggestion else {
-                print("no error but suggestion returned is nil")
+        // get suggestion details
+        searchClient.fetchSuggestionDetails(using: partialSuggestion.placeId) { [weak self] (suggestion, error) in
+            guard error == nil, let suggestion = suggestion else {
+                print("error fetching suggestion details")
+                // pop view controller if details fail to load
+                self?.navigationController?.popViewController(animated: true)
                 return
             }
             self?.suggestion = suggestion
-            self?.updateDetails(using: suggestion)
-            
-            // get photos
-            self?.searchClient.lookUpSuggestionPhotos(using: suggestion, completion: { [weak self] (suggestion, error) in
-                guard error == nil else {
-                    print("error looking up suggestion photos")
-                    return
-                }
-                guard let suggestionWithImageMetadata = suggestion else {
-                    print("no error but no suggestion images")
-                    return
-                }
-                let width = self?.view.frame.size.width
-                if let width = width {
-                    let height = width * 2 / 3
-                    let size = CGSize(width: width, height: height)
-                    self?.searchClient.lookUpSuggestionPhotos(using: suggestionWithImageMetadata.googlePhotosMetadataList as Any, size: size, firstImage: { (insPhoto, error) in
-                        if let insPhoto = insPhoto {
-                            print("first photo fetched")
-                            self?.suggestion.thumbnail = insPhoto.image
-                            self?.pagedImageCollectionViewController.dataSource.insert(insPhoto, at: 0)
-                            self?.pagedImageCollectionViewController.collectionView?.reloadData()
-                        }
-                    }, completion: { (insPhotos, error) in
-                        if let insPhotos = insPhotos {
-                            print("rest of photos fetched")
-                            self?.pagedImageCollectionViewController.dataSource.append(contentsOf: insPhotos)
-                            self?.pagedImageCollectionViewController.collectionView?.reloadData()
-                        }
-                    })
-                }
-
-            })
+            self?.updateUI(with: suggestion)
         }
     }
     
@@ -161,7 +125,7 @@ class SuggestionDetailsViewController: UIViewController {
             restoreNavigationBarAppearance()
         case Segues.PresentMap:
             let mapViewController = segue.destination as! MapViewController
-            mapViewController.coordinate = suggestion.coordinate
+            mapViewController.coordinate = CLLocationCoordinate2D(latitude: suggestion.latitude, longitude: suggestion.longitude)
             mapViewController.annotations = mapView.annotations
             
         default:
@@ -178,45 +142,25 @@ class SuggestionDetailsViewController: UIViewController {
         }
     }
     
-    func updateDetails(using suggestion:Suggestion) {
+    func updateUI(with suggestion: Suggestion) {
         titleLabel.text = suggestion.name
         subtitleLabel.text = suggestion.type
-        if let rating = suggestion.rating {
-            ratingView.isHidden = false
-            ratingCosmosView.rating = Double(rating)
-            ratingLabel.text = String(format: "%.1f", rating)
-        } else {
-            ratingView.isHidden = true
-        }
-        if let coordinate = suggestion.coordinate {
-            let placeAnnotation = MKPointAnnotation()
-            placeAnnotation.coordinate = coordinate
-            mapView.addAnnotation(placeAnnotation)
-            let region = MKCoordinateRegionMakeWithDistance(coordinate, 500, 500)
-            mapView.showsUserLocation = true
-            mapView.setRegion(region, animated: false)
-        }
-        if let address = suggestion.address {
-            addressButton.setTitle(address, for: .normal)
-        }
-        if let isOpenNow = suggestion.isOpenNow {
-            if isOpenNow == .yes {
-                openNowButton.setTitle("Open Now", for: .normal)
-            } else if isOpenNow == .no {
-                openNowButton.setTitle("Closed", for: .normal)
-            } else {
-                // unknown, remove row
-                openNowView.isHidden = true
-            }
-        }
-        if let phoneNumber = suggestion.phoneNumber {
-            phoneNumberButton.setTitle(phoneNumber, for: .normal)
-        }
-        if let website = suggestion.website {
-            websiteButton.setTitle(website.host, for: .normal)
-        }
-        if let userLocation = userLocation, let suggestionCoordinate = suggestion.coordinate {
-            let suggestionLocation = CLLocation(latitude: suggestionCoordinate.latitude, longitude: suggestionCoordinate.longitude)
+        ratingCosmosView.rating = suggestion.rating
+        ratingLabel.text = String(format: "%.1f", suggestion.rating)
+        suggestionTitlesView.isHidden = false
+        
+        // set up map view
+        let coordinate = CLLocationCoordinate2D(latitude: suggestion.latitude, longitude: suggestion.longitude)
+        let placeAnnotation = MKPointAnnotation()
+        placeAnnotation.coordinate = coordinate
+        mapView.addAnnotation(placeAnnotation)
+        let region = MKCoordinateRegionMakeWithDistance(coordinate, 500, 500)
+        mapView.showsUserLocation = true
+        mapView.setRegion(region, animated: false)
+        
+        // calculate distance
+        if let userLocation = userLocation {
+            let suggestionLocation = CLLocation(latitude: suggestion.latitude, longitude: suggestion.longitude)
             let distance = userLocation.distance(from: suggestionLocation) / 1000
             let distanceString = String(format: "%.1f km", distance)
             distanceLabel.text = distanceString
@@ -224,21 +168,27 @@ class SuggestionDetailsViewController: UIViewController {
         } else {
             distanceLabel.isHidden = true
         }
-        if let attributions = suggestion.attributions {
-            attributionsTextView.attributedText = attributions
-            attributionsView.isHidden = false
+
+        addressButton.setTitle(suggestion.address, for: .normal)
+        
+        if suggestion.isOpenNow {
+            openNowButton.setTitle("Open", for: .normal)
         } else {
-            attributionsView.isHidden = true
+            openNowButton.setTitle("Closed", for: .normal)
         }
-        suggestionTitlesView.isHidden = false
+        
+        phoneNumberButton.setTitle(suggestion.phoneNumber, for: .normal)
+        
+        if let website = suggestion.website {
+            websiteButton.setTitle(website.absoluteString, for: .normal)
+        }
+        
     }
     
     // MARK: - Handle button presses
     @IBAction func handlePhoneNumber(_ sender: UIButton) {
-        guard let numberString = sender.title(for: .normal)?.replacingOccurrences(of: "[ |()-]", with: "", options: [.regularExpression]) else {
-            return
-        }
-        guard let number = URL(string: "tel://" + numberString) else {
+        let formattedNumber = self.suggestion.phoneNumber.replacingOccurrences(of: "[ |()-]", with: "", options: [.regularExpression])
+        guard let number = URL(string: "tel://" + formattedNumber) else {
             return
         }
         UIApplication.shared.open(number, options: [:], completionHandler: { (success) in
@@ -249,13 +199,10 @@ class SuggestionDetailsViewController: UIViewController {
     }
 
     @IBAction func handleOpenWebsite(_ sender: UIButton) {
-        guard let urlString = sender.title(for: .normal) else {
+        guard let website = suggestion.website else {
             return
         }
-        guard let url = URL(string: "http://" + urlString) else {
-            return
-        }
-        UIApplication.shared.open(url, options: [:]) { (success) in
+        UIApplication.shared.open(website, options: [:]) { (success) in
             if !success {
                 print("failed to open url")
             }

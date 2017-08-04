@@ -26,14 +26,9 @@ class HighestRatedSuggestionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        voteCountLabel.text = String(highestRatedSuggestion.voteRating)
-        if let image = highestRatedSuggestion.thumbnail {
-            imageView.image = image
-        }
+        voteCountLabel.text = String(highestRatedSuggestion.votes)
         cardTitle.text = highestRatedSuggestion.name
-        if let type = highestRatedSuggestion.type {
-            cardSubtitle.text = type
-        }
+        cardSubtitle.text = highestRatedSuggestion.type
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -67,10 +62,7 @@ class HighestRatedSuggestionViewController: UIViewController {
     }
 
     @IBAction func handleDirectionsButtonPressed(_ sender: Any) {
-        guard let coordinate = highestRatedSuggestion.coordinate else {
-            print("suggestion has no coordinate, cannot get directions")
-            return
-        }
+        let coordinate = CLLocationCoordinate2D(latitude: highestRatedSuggestion.latitude, longitude: highestRatedSuggestion.longitude)
         let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate, addressDictionary: nil))
         mapItem.name = highestRatedSuggestion.name
         mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])

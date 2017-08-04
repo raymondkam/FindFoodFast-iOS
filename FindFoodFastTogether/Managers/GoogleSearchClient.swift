@@ -15,6 +15,7 @@ struct GoogleAPIConstants {
     static let baseUrl = "https://maps.googleapis.com/maps/api/place/"
     static let textSearchUrl = baseUrl + "textsearch/json"
     static let nearbySearchUrl = baseUrl + "nearbysearch/json"
+    static let placeDetailsUrl = baseUrl + "details/json"
     static let maxSearchResults = 20
 }
 
@@ -38,8 +39,8 @@ class GoogleSearchClient: SearchClient {
                 switch response.result {
                 case .success(let json):
                     let suggestionsJson = json["results"].prefix(GoogleAPIConstants.maxSearchResults)
-                    let suggestions = suggestionsJson.map(PartialSuggestion.init)
-                    completion(suggestions, nil)
+                    let partialSuggestions = suggestionsJson.map(PartialSuggestion.init)
+                    completion(partialSuggestions, nil)
                 case .failure(let error):
                     completion(nil, error)
                 }
@@ -49,6 +50,21 @@ class GoogleSearchClient: SearchClient {
     
     func fetchSuggestionDetails(using id: String, completion: @escaping (Suggestion?, Error?) -> Void) {
         
+        let parameters = [
+            "key": GoogleAPIConstants.apiKey,
+            "placeid": id
+        ]
+        
+        Alamofire.request(GoogleAPIConstants.placeDetailsUrl, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseJASON { (response) in
+            switch response.result {
+            case .success(let json):
+                let suggestionDetailsJson = json["result"]
+                let suggestion = Suggestion(suggestionDetailsJson)
+                completion(suggestion, nil)
+            case .failure(let error):
+                completion(nil, error)
+            }
+        }
     }
 
     func fetchSuggestionPhoto(using id: String, completion: @escaping (UIImage?, Error?) -> Void) {
