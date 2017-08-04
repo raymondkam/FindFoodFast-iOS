@@ -208,7 +208,7 @@ extension HostViewController : BluetoothPeripheralManagerDelegate {
         suggestionCollectionViewController.addSuggestion(suggestion: suggestion)
     }
     
-    func bluetoothPeripheralManagerDidReceiveVotedSuggestions(_: BluetoothPeripheralManager, votedSuggestions: [Suggestion], from central: CBCentral) {}
+    func bluetoothPeripheralManagerDidReceiveVotes(_: BluetoothPeripheralManager, votes: [Vote], from central: CBCentral) {}
 }
 
 extension HostViewController: AddSuggestionDelegate {

@@ -18,6 +18,7 @@
 		9C3B54D41F339CAF00CD4550 /* GoogleAPIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B54D31F339CAF00CD4550 /* GoogleAPIKey.swift */; };
 		9C3B54D61F33C2A900CD4550 /* JASON+Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B54D51F33C2A900CD4550 /* JASON+Alamofire.swift */; };
 		9C3B54DC1F33DCC100CD4550 /* PartialSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B54DB1F33DCC100CD4550 /* PartialSuggestion.swift */; };
+		9C3B54E41F35116800CD4550 /* Vote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B54E31F35116800CD4550 /* Vote.swift */; };
 		9C6266F41F2962E5009E7C77 /* SuggestionSearchResultCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6266F31F2962E5009E7C77 /* SuggestionSearchResultCollectionReusableView.swift */; };
 		9C6266FC1F2A9EA1009E7C77 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6266FB1F2A9EA1009E7C77 /* ImageCollectionViewCell.swift */; };
 		9C6266FE1F2A9F6D009E7C77 /* PagedImageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6266FD1F2A9F6D009E7C77 /* PagedImageCollectionViewController.swift */; };
@@ -87,6 +88,7 @@
 		9C3B54D31F339CAF00CD4550 /* GoogleAPIKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleAPIKey.swift; sourceTree = "<group>"; };
 		9C3B54D51F33C2A900CD4550 /* JASON+Alamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "JASON+Alamofire.swift"; path = "Helpers/JASON+Alamofire.swift"; sourceTree = "<group>"; };
 		9C3B54DB1F33DCC100CD4550 /* PartialSuggestion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PartialSuggestion.swift; path = Models/PartialSuggestion.swift; sourceTree = "<group>"; };
+		9C3B54E31F35116800CD4550 /* Vote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Vote.swift; path = Models/Vote.swift; sourceTree = "<group>"; };
 		9C6266F31F2962E5009E7C77 /* SuggestionSearchResultCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SuggestionSearchResultCollectionReusableView.swift; path = Views/SuggestionSearchResultCollectionReusableView.swift; sourceTree = "<group>"; };
 		9C6266FB1F2A9EA1009E7C77 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageCollectionViewCell.swift; path = Views/ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		9C6266FD1F2A9F6D009E7C77 /* PagedImageCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PagedImageCollectionViewController.swift; path = ViewControllers/PagedImageCollectionViewController.swift; sourceTree = "<group>"; };
@@ -178,6 +180,28 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		9C3B54E11F3510F500CD4550 /* Add Suggestions */ = {
+			isa = PBXGroup;
+			children = (
+				9C7ACD9B1F106F990086157E /* AddSuggestionViewController.swift */,
+				9C3883EA1F27DF750079D99F /* SuggestionSearchResultsCollectionViewController.swift */,
+				9C8D0E8A1F2AABF800CFD481 /* SuggestionDetailsViewController.swift */,
+				9C6266FD1F2A9F6D009E7C77 /* PagedImageCollectionViewController.swift */,
+				9C3B54CB1F32BB9D00CD4550 /* MapViewController.swift */,
+			);
+			name = "Add Suggestions";
+			sourceTree = "<group>";
+		};
+		9C3B54E21F35112C00CD4550 /* Lobby */ = {
+			isa = PBXGroup;
+			children = (
+				9CC2B8391EF18A370049E269 /* HostViewController.swift */,
+				9CF38B9A1F05AF4300A736B0 /* SuggestionCollectionViewController.swift */,
+				9CF38B9C1F05B47E00A736B0 /* UserCollectionViewController.swift */,
+			);
+			name = Lobby;
+			sourceTree = "<group>";
+		};
 		9CC2B7F41EEE407A0049E269 = {
 			isa = PBXGroup;
 			children = (
@@ -243,16 +267,10 @@
 				9CC2B82F1EF064A90049E269 /* BrowseHostCollectionViewController.swift */,
 				9CC2B8341EF0890F0049E269 /* BrowseHostViewController.swift */,
 				9CC2B84A1EF8DEB00049E269 /* CreateHostViewController.swift */,
-				9CC2B8391EF18A370049E269 /* HostViewController.swift */,
-				9CF38B9A1F05AF4300A736B0 /* SuggestionCollectionViewController.swift */,
-				9CF38B9C1F05B47E00A736B0 /* UserCollectionViewController.swift */,
-				9C7ACD9B1F106F990086157E /* AddSuggestionViewController.swift */,
+				9C3B54E21F35112C00CD4550 /* Lobby */,
+				9C3B54E11F3510F500CD4550 /* Add Suggestions */,
 				9C3A25A31F1698E100B329A3 /* VoteViewController.swift */,
 				9CA76E631F216D4900208BB3 /* HighestRatedSuggestionViewController.swift */,
-				9C3883EA1F27DF750079D99F /* SuggestionSearchResultsCollectionViewController.swift */,
-				9C8D0E8A1F2AABF800CFD481 /* SuggestionDetailsViewController.swift */,
-				9C6266FD1F2A9F6D009E7C77 /* PagedImageCollectionViewController.swift */,
-				9C3B54CB1F32BB9D00CD4550 /* MapViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -300,6 +318,7 @@
 				9CF38B9E1F06A70D00A736B0 /* User.swift */,
 				9C7ACD971F104C940086157E /* Suggestion.swift */,
 				9C3B54DB1F33DCC100CD4550 /* PartialSuggestion.swift */,
+				9C3B54E31F35116800CD4550 /* Vote.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -600,6 +619,7 @@
 				9CC2B8331EF065DA0049E269 /* BrowseHostCollectionViewCell.swift in Sources */,
 				9CF38B9B1F05AF4300A736B0 /* SuggestionCollectionViewController.swift in Sources */,
 				9CC2B83A1EF18A370049E269 /* HostViewController.swift in Sources */,
+				9C3B54E41F35116800CD4550 /* Vote.swift in Sources */,
 				9CF38B9F1F06A70D00A736B0 /* User.swift in Sources */,
 				9CC2B84B1EF8DEB00049E269 /* CreateHostViewController.swift in Sources */,
 				9C6266FC1F2A9EA1009E7C77 /* ImageCollectionViewCell.swift in Sources */,

@@ -15,7 +15,7 @@ protocol BluetoothPeripheralManagerDelegate : class {
     func bluetoothPeripheralManagerDidConnectWith(_: BluetoothPeripheralManager, newUser: User)
     func bluetoothPeripheralManagerDidDisconnectWith(_: BluetoothPeripheralManager, user: User)
     func bluetoothPeripheralManagerDidReceiveNewSuggestion(_: BluetoothPeripheralManager, suggestion: Suggestion)
-    func bluetoothPeripheralManagerDidReceiveVotedSuggestions(_: BluetoothPeripheralManager, votedSuggestions: [Suggestion], from central: CBCentral)
+    func bluetoothPeripheralManagerDidReceiveVotes(_: BluetoothPeripheralManager, votes: [Vote], from central: CBCentral)
 }
 
 final class BluetoothPeripheralManager : NSObject {
@@ -403,12 +403,12 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
                 }
                 let stringFromData = String.init(data: data, encoding: .utf8)
                 if stringFromData == "EOM" {
-                    guard let votedSuggestions = NSKeyedUnarchiver.unarchiveObject(with: receivedData[centralUuidString]!) as? [Suggestion] else {
+                    guard let votes = NSKeyedUnarchiver.unarchiveObject(with: receivedData[centralUuidString]!) as? [Vote] else {
                         print("invalid voted suggestions unarchived")
                         peripheral.respond(to: request, withResult: .requestNotSupported)
                         return
                     }
-                    delegate?.bluetoothPeripheralManagerDidReceiveVotedSuggestions(self, votedSuggestions: votedSuggestions, from: request.central)
+                    delegate?.bluetoothPeripheralManagerDidReceiveVotes(self, votes: votes, from: request.central)
                     
                     // clear received data for next transmission
                     receivedData[centralUuidString] = nil

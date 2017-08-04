@@ -124,13 +124,13 @@ final class BluetoothCentralManager : NSObject {
         sendData()
     }
     
-    func sendHostVotedSuggestions(votedSuggestions: [Suggestion]) {
+    func sendHostVotes(votes: [Vote]) {
         guard let votingCharacteristic = votingCharacteristic else {
             print("voting characteristic not saved, cannot send voted suggestions")
             return
         }
         
-        dataToSend = NSKeyedArchiver.archivedData(withRootObject: votedSuggestions)
+        dataToSend = NSKeyedArchiver.archivedData(withRootObject: votes)
         sendDataIndex = 0
         sendToCharacteristic = votingCharacteristic
         sendData()

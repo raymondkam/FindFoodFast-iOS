@@ -12,11 +12,16 @@ import CoreBluetooth
 class VoteViewController: UIViewController {
     
     var dataSource = [Suggestion]()
+    var votes = [Vote]()
     var isHosting: Bool!
 
     fileprivate static let InitialCountdown: UInt = 5
     fileprivate let reuseIdentifier = "voteCell"
     fileprivate var totalRatingSuggestions = Set<Suggestion>()
+    
+    fileprivate var finalSuggestionIdToScore = [String: Int]()
+    fileprivate var suggestionIdToSuggestion = [String: Suggestion]()
+    
     fileprivate var pendingVotesFromCentrals: Set<CBCentral>!
     fileprivate var submittedHostVotes = false
     fileprivate var timer: Timer!
@@ -82,6 +87,11 @@ class VoteViewController: UIViewController {
         
         collectionView.delegate = self
         collectionView.dataSource = self
+        
+        // prepare for mapping back the suggestion id to suggestion later
+        for suggestion in dataSource {
+            suggestionIdToSuggestion.updateValue(suggestion, forKey: suggestion.id)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -113,16 +123,12 @@ class VoteViewController: UIViewController {
     fileprivate func collectVotes() {
         // save your own votes
         submittedHostVotes = true
-        processRatingsFromVotedSuggestions(votedSuggestions: dataSource)
+        processRatingsFromVotes(votes: votes)
     }
     
     fileprivate func sendVotes() {
         print("send votes")
-        for suggestion in dataSource {
-            print("rating for \(suggestion.name) is \(suggestion.votes)")
-        }
-        
-        BluetoothCentralManager.sharedInstance.sendHostVotedSuggestions(votedSuggestions: dataSource)
+        BluetoothCentralManager.sharedInstance.sendHostVotes(votes: votes)
     }
     
     fileprivate func doneVoting() {
@@ -144,17 +150,14 @@ class VoteViewController: UIViewController {
         }
     }
     
-    fileprivate func processRatingsFromVotedSuggestions(votedSuggestions: [Suggestion]) {
-        for votedSuggestion in votedSuggestions {
-            if let totalRatingSuggestion = totalRatingSuggestions.first(where: { (suggestion) -> Bool in
-                return votedSuggestion == suggestion
-            }) {
-                totalRatingSuggestion.votes += votedSuggestion.votes
-                totalRatingSuggestions.update(with: totalRatingSuggestion)
-            } else {
-                // not in the set of suggestions
-                totalRatingSuggestions.insert(votedSuggestion)
+    fileprivate func processRatingsFromVotes(votes: [Vote]) {
+        for vote in votes {
+            let suggestionId = vote.suggestionId
+            var score = vote.score
+            if let currentScore = finalSuggestionIdToScore[suggestionId] {
+                score += currentScore
             }
+            finalSuggestionIdToScore.updateValue(score, forKey: suggestionId)
         }
         
         if pendingVotesFromCentrals.count == 0 && submittedHostVotes {
@@ -165,18 +168,20 @@ class VoteViewController: UIViewController {
     }
     
     fileprivate func findSuggestionWithHighestRating() {
-        let highestRatedSuggestion = totalRatingSuggestions.max { (a, b) -> Bool in
-            return a.votes < b.votes
+        let highestScoringVote = finalSuggestionIdToScore.max { (a, b) -> Bool in
+            return a.value < b.value
         }
         
-        if let highestRatedSuggestion = highestRatedSuggestion {
-            print("best name: \(highestRatedSuggestion.name) and rating: \(highestRatedSuggestion.votes)")
+        if let highestScoringVote = highestScoringVote {
+            let highestRatedSuggestion = suggestionIdToSuggestion[highestScoringVote.key]!
+            highestRatedSuggestion.votes = highestScoringVote.value
+            print("best name: \(highestRatedSuggestion.name) and score: \(highestScoringVote.value)")
             
             BluetoothPeripheralManager.sharedInstance.sendHighestRatedSuggestion(highestRatedSuggestion: highestRatedSuggestion)
-            
+
             showSuggestionWithHighestRating(highestRatedSuggestion: highestRatedSuggestion)
         } else {
-            print("error, could not find highest rated suggestion")
+            print("could not find highest rated suggestion")
         }
     }
     
@@ -187,6 +192,8 @@ class VoteViewController: UIViewController {
 
 extension VoteViewController: UICollectionViewDataSource {
     
+    // MARK: Handle voting via CosmoView
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! VoteCollectionViewCell
         let suggestion = dataSource[indexPath.item]
@@ -196,7 +203,9 @@ extension VoteViewController: UICollectionViewDataSource {
         if let thumbnail = suggestion.thumbnail {
             cell.image = thumbnail
         }
-        cell.cosmoView.rating = Double(suggestion.votes)
+        cell.cosmoView.rating = 0 // not voted yet, so should be 0
+        
+        // handle voting
         cell.cosmoView.didFinishTouchingCosmos = { [weak self] rating in
             guard let currentIndex = self?.currentIndex else {
                 print("self is nil or has not current index")
@@ -206,7 +215,8 @@ extension VoteViewController: UICollectionViewDataSource {
                 print("self is nil or data source is nil")
                 return
             }
-            suggestion.votes = Int(rating)
+            let vote = Vote(suggestionId: suggestion.id, score: Int(rating))
+            self?.votes.append(vote)
             if currentIndex < dataSource.count - 1 {
                 self?.scrollToNextCell()
             } else {
@@ -252,11 +262,11 @@ extension VoteViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension VoteViewController: BluetoothPeripheralManagerDelegate {
-    func bluetoothPeripheralManagerDidReceiveVotedSuggestions(_: BluetoothPeripheralManager, votedSuggestions: [Suggestion], from central: CBCentral) {
+    func bluetoothPeripheralManagerDidReceiveVotes(_: BluetoothPeripheralManager, votes: [Vote], from central: CBCentral) {
         // remove from pending set of centrals
         pendingVotesFromCentrals.remove(central)
         
-        processRatingsFromVotedSuggestions(votedSuggestions: votedSuggestions)
+        processRatingsFromVotes(votes: votes)
     }
     
     // Unused delegate methods
