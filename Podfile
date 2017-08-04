@@ -8,7 +8,6 @@ target 'FindFoodFastTogether' do
   # Pods for FindFoodFastTogether
   pod 'IGIdenticon'
   pod 'Cosmos', '~> 11.0'
-  pod 'GooglePlaces'
   pod 'INSPhotoGallery'
   pod 'Alamofire'  
   pod 'JASON'

@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 import CoreLocation
-import GooglePlaces
 import JASON
 
 enum SuggestionOpenNowStatus: Int {
