@@ -659,7 +659,7 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="vgt-w2-mHb">
                                                         <rect key="frame" x="0.0" y="0.0" width="317" height="281"/>
                                                         <subviews>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Wcg-bn-8LQ">
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Wcg-bn-8LQ">
                                                                 <rect key="frame" x="0.0" y="0.0" width="317" height="211"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="Wcg-bn-8LQ" secondAttribute="height" multiplier="3:2" id="MGy-Uf-6Pu"/>
@@ -1112,7 +1112,7 @@
         <scene sceneID="Ibb-nB-vje">
             <objects>
                 <collectionViewController id="mLn-tw-oPV" customClass="SuggestionSearchResultsCollectionViewController" customModule="FindFoodFastTogether" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="NQN-Jj-5aw">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="NQN-Jj-5aw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="559"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
