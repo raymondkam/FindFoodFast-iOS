@@ -128,8 +128,6 @@ class HostViewController: UIViewController {
             if isHosting {
                 suggestionCollectionViewController.addObserver(self, forKeyPath: "dataSource", options: .new, context: nil)
             }
-        case Segues.AddSuggestionFromHostView:
-            (segue.destination as! AddSuggestionViewController).delegate = self
         case Segues.StartVoting:
             guard let voteViewController = segue.destination as? VoteViewController else {
                 print("destination controller is not a vote view controller")
@@ -209,14 +207,4 @@ extension HostViewController : BluetoothPeripheralManagerDelegate {
     }
     
     func bluetoothPeripheralManagerDidReceiveVotes(_: BluetoothPeripheralManager, votes: [Vote], from central: CBCentral) {}
-}
-
-extension HostViewController: AddSuggestionDelegate {
-    func didAddSuggestion(suggestion: Suggestion) {
-        suggestionCollectionViewController.addSuggestion(suggestion: suggestion)
-    }
-    
-    func isUniqueSuggestion(suggestion: Suggestion) -> Bool {
-        return !suggestionCollectionViewController.uniqueSuggestions.contains(suggestion)
-    }
 }

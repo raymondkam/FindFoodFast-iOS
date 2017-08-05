@@ -36,21 +36,6 @@ class SuggestionCollectionViewController: UICollectionViewController {
                 BluetoothCentralManager.sharedInstance.sendHostNewSuggestion(suggestion: suggestion)
             }
         }
-        
-    }
-    
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier! {
-        case Segues.AddSuggestionFromCell:
-            fallthrough
-        case Segues.AddSuggestionFromCellButton:
-            (segue.destination as! AddSuggestionViewController).delegate = self
-        default:
-            print("unrecognized segue")
-        }
     }
 
     // MARK: UICollectionViewDataSource
@@ -100,16 +85,6 @@ class SuggestionCollectionViewController: UICollectionViewController {
     
         return cell
     }
-}
-
-extension SuggestionCollectionViewController: AddSuggestionDelegate {
     
-    func didAddSuggestion(suggestion: Suggestion) {
-        addSuggestion(suggestion: suggestion)
     }
-    
-    func isUniqueSuggestion(suggestion: Suggestion) -> Bool {
-        return !uniqueSuggestions.contains(suggestion)
-    }
-    
 }
