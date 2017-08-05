@@ -156,7 +156,8 @@ class HostViewController: UIViewController {
             print("cannot get suggestion from suggestion details vc")
             return
         }
-        suggestionCollectionViewController.addSuggestion(suggestion: suggestion)
+        suggestionCollectionViewController.addSuggestion(suggestion)
+        suggestionCollectionViewController.sendAddedSuggestion(suggestion)
     }
 }
 
@@ -175,7 +176,7 @@ extension HostViewController : BluetoothCentralManagerDelegate {
     }
     
     func bluetoothCentralManagerDidReceiveAddedSuggestion(_: BluetoothCentralManager, suggestion: Suggestion) {
-        suggestionCollectionViewController.addSuggestion(suggestion: suggestion)
+        suggestionCollectionViewController.receivedAddedSuggestion(suggestion)
     }
     
     func bluetoothCentralManagerDidReceiveSuggestionIdsToRemove(_: BluetoothCentralManager, suggestionIds: [String]) {
@@ -211,7 +212,7 @@ extension HostViewController : BluetoothPeripheralManagerDelegate {
     }
     
     func bluetoothPeripheralManagerDidReceiveNewSuggestion(_: BluetoothPeripheralManager, suggestion: Suggestion) {
-        suggestionCollectionViewController.addSuggestion(suggestion: suggestion)
+        suggestionCollectionViewController.receivedAddedSuggestion(suggestion)
     }
     
     func bluetoothPeripheralManagerDidReceiveSuggestionIdsToRemove(_: BluetoothPeripheralManager, suggestionIds: [String]) {

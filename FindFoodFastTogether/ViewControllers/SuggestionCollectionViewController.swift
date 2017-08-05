@@ -19,7 +19,7 @@ class SuggestionCollectionViewController: UICollectionViewController {
         super.viewDidLoad()
     }
 
-    func addSuggestion(suggestion: Suggestion) {
+    func addSuggestion(_ suggestion: Suggestion) {
         // add suggestion only if the suggestion has not been 
         // suggested before
         if !uniqueSuggestions.contains(suggestion) {
@@ -28,16 +28,25 @@ class SuggestionCollectionViewController: UICollectionViewController {
             
             dataSource.insert(suggestion, at: 0)
             collectionView?.reloadData()
-            
-            // also update host
-            if isHosting {
-                let peripheralManager = BluetoothPeripheralManager.sharedInstance
-                peripheralManager.suggestions = dataSource
-                peripheralManager.sendAddedNewSuggestion(suggestion)
-                
-            } else {
-                BluetoothCentralManager.sharedInstance.sendHostNewSuggestion(suggestion: suggestion)
-            }
+        }
+    }
+    
+    func sendAddedSuggestion(_ suggestion: Suggestion) {
+        if isHosting {
+            let peripheralManager = BluetoothPeripheralManager.sharedInstance
+            peripheralManager.suggestions = dataSource
+            peripheralManager.sendAddedNewSuggestion(suggestion)
+        } else {
+            BluetoothCentralManager.sharedInstance.sendHostNewSuggestion(suggestion: suggestion)
+        }
+    }
+    
+    func receivedAddedSuggestion(_ suggestion: Suggestion) {
+        addSuggestion(suggestion)
+        
+        // notify users of added suggestion only if hosting
+        if isHosting {
+            sendAddedSuggestion(suggestion)
         }
     }
     
