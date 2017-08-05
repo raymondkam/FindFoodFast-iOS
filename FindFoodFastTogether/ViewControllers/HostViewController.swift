@@ -128,8 +128,6 @@ class HostViewController: UIViewController {
             if isHosting {
                 suggestionCollectionViewController.addObserver(self, forKeyPath: "dataSource", options: .new, context: nil)
             }
-        case Segues.AddSuggestionFromHostView:
-            (segue.destination as! AddSuggestionViewController).delegate = self
         case Segues.StartVoting:
             guard let voteViewController = segue.destination as? VoteViewController else {
                 print("destination controller is not a vote view controller")
@@ -176,6 +174,14 @@ extension HostViewController : BluetoothCentralManagerDelegate {
         suggestionCollectionViewController.collectionView?.reloadData()
     }
     
+    func bluetoothCentralManagerDidReceiveAddedSuggestion(_: BluetoothCentralManager, suggestion: Suggestion) {
+        suggestionCollectionViewController.addSuggestion(suggestion: suggestion)
+    }
+    
+    func bluetoothCentralManagerDidReceiveSuggestionIdsToRemove(_: BluetoothCentralManager, suggestionIds: [String]) {
+        suggestionCollectionViewController.receivedSuggestionIdsToRemove(ids: suggestionIds)
+    }
+    
     func bluetoothCentralManagerDidStartVoting(_: BluetoothCentralManager) {
         performSegue(withIdentifier: Segues.StartVoting, sender: self)
     }
@@ -208,15 +214,9 @@ extension HostViewController : BluetoothPeripheralManagerDelegate {
         suggestionCollectionViewController.addSuggestion(suggestion: suggestion)
     }
     
-    func bluetoothPeripheralManagerDidReceiveVotedSuggestions(_: BluetoothPeripheralManager, votedSuggestions: [Suggestion], from central: CBCentral) {}
-}
-
-extension HostViewController: AddSuggestionDelegate {
-    func didAddSuggestion(suggestion: Suggestion) {
-        suggestionCollectionViewController.addSuggestion(suggestion: suggestion)
+    func bluetoothPeripheralManagerDidReceiveSuggestionIdsToRemove(_: BluetoothPeripheralManager, suggestionIds: [String]) {
+        suggestionCollectionViewController.receivedSuggestionIdsToRemove(ids: suggestionIds)
     }
     
-    func isUniqueSuggestion(suggestion: Suggestion) -> Bool {
-        return !suggestionCollectionViewController.uniqueSuggestions.contains(suggestion)
-    }
+    func bluetoothPeripheralManagerDidReceiveVotes(_: BluetoothPeripheralManager, votes: [Vote], from central: CBCentral) {}
 }

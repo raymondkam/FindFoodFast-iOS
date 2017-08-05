@@ -30,35 +30,60 @@ class SuggestionCollectionViewController: UICollectionViewController {
             collectionView?.reloadData()
             
             // also update host
-            if (isHosting) {
-                BluetoothPeripheralManager.sharedInstance.suggestions = dataSource
+            if isHosting {
+                let peripheralManager = BluetoothPeripheralManager.sharedInstance
+                peripheralManager.suggestions = dataSource
+                peripheralManager.sendAddedNewSuggestion(suggestion)
+                
             } else {
                 BluetoothCentralManager.sharedInstance.sendHostNewSuggestion(suggestion: suggestion)
             }
         }
-        
     }
     
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier! {
-        case Segues.AddSuggestionFromCell:
-            fallthrough
-        case Segues.AddSuggestionFromCellButton:
-            (segue.destination as! AddSuggestionViewController).delegate = self
-        default:
-            print("unrecognized segue")
+    func receivedSuggestionIdsToRemove(ids: [String]) {
+        let idsSet = Set(ids)
+        print("number of ids to remove: \(ids.count)")
+        print("datasource count before: \(dataSource.count)")
+        dataSource = dataSource.filter { (suggestion) -> Bool in
+            let containsSuggestion = idsSet.contains(suggestion.id)
+            // at the same time update unique suggestions ids list
+            if containsSuggestion {
+                uniqueSuggestions.remove(suggestion)
+            }
+            return !containsSuggestion
+        }
+        print("datasource count after: \(dataSource.count)")
+        collectionView?.reloadData()
+        if isHosting {
+            let peripheralManager = BluetoothPeripheralManager.sharedInstance
+            peripheralManager.suggestions = dataSource
+            // tell all the other users that a suggestion was removed
+            peripheralManager.sendRemoveSuggestionsIds(ids)
         }
     }
 
+    @IBAction func removeSuggestion(_ sender: UIButton) {
+        let index = sender.tag
+        let suggestionToRemove = dataSource[index]
+        let suggestionIdToRemove = suggestionToRemove.id
+        uniqueSuggestions.remove(suggestionToRemove)
+        dataSource.remove(at: index)
+        collectionView?.reloadData()
+        if (isHosting) {
+            let peripheralManager = BluetoothPeripheralManager.sharedInstance
+            peripheralManager.sendRemoveSuggestionsIds([suggestionIdToRemove])
+            peripheralManager.suggestions = dataSource
+        } else {
+            BluetoothCentralManager.sharedInstance.sendHostRemoveSuggestionIds([suggestionIdToRemove])
+        }
+    }
+    
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataSource.count == 0 ? 1 : dataSource.count
@@ -75,6 +100,9 @@ class SuggestionCollectionViewController: UICollectionViewController {
             suggestionCell.title = suggestion.name
             suggestionCell.rating = suggestion.rating
             suggestionCell.subtitle = suggestion.type
+            // tag the button with the index path item, so we know
+            // which suggestion to remove if tapped
+            suggestionCell.removeButton.tag = indexPath.item
             if let thumbnail = suggestion.thumbnail {
                 suggestionCell.image = thumbnail
             } else {
@@ -100,16 +128,4 @@ class SuggestionCollectionViewController: UICollectionViewController {
     
         return cell
     }
-}
-
-extension SuggestionCollectionViewController: AddSuggestionDelegate {
-    
-    func didAddSuggestion(suggestion: Suggestion) {
-        addSuggestion(suggestion: suggestion)
-    }
-    
-    func isUniqueSuggestion(suggestion: Suggestion) -> Bool {
-        return !uniqueSuggestions.contains(suggestion)
-    }
-    
 }

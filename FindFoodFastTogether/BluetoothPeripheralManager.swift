@@ -15,7 +15,8 @@ protocol BluetoothPeripheralManagerDelegate : class {
     func bluetoothPeripheralManagerDidConnectWith(_: BluetoothPeripheralManager, newUser: User)
     func bluetoothPeripheralManagerDidDisconnectWith(_: BluetoothPeripheralManager, user: User)
     func bluetoothPeripheralManagerDidReceiveNewSuggestion(_: BluetoothPeripheralManager, suggestion: Suggestion)
-    func bluetoothPeripheralManagerDidReceiveVotedSuggestions(_: BluetoothPeripheralManager, votedSuggestions: [Suggestion], from central: CBCentral)
+    func bluetoothPeripheralManagerDidReceiveSuggestionIdsToRemove(_: BluetoothPeripheralManager, suggestionIds: [String])
+    func bluetoothPeripheralManagerDidReceiveVotes(_: BluetoothPeripheralManager, votes: [Vote], from central: CBCentral)
 }
 
 final class BluetoothPeripheralManager : NSObject {
@@ -57,17 +58,11 @@ final class BluetoothPeripheralManager : NSObject {
         permissions: [.readable,
                       .writeable])
     fileprivate var uuidStringToUsername = [String: String]()
-    fileprivate var _suggestions = [Suggestion]()
     
-    var suggestions: [Suggestion] {
-        get {
-            return _suggestions
-        }
-        set {
-            _suggestions = newValue
-            sendSuggestions()
-        }
-    }
+    // For convenience when a new user joins and wants to receive
+    // the current list of suggestions, gets updated from time to 
+    // time by the suggestions collection view controller.
+    var suggestions = [Suggestion]()
     
     // Variables related to sending data
     fileprivate var dataToSend: Data?
@@ -127,7 +122,7 @@ final class BluetoothPeripheralManager : NSObject {
     
     func clearPeripheralData() {
         uuidStringToUsername.removeAll()
-        _suggestions.removeAll()
+        suggestions.removeAll()
         subscribedCentrals.removeAll()
     }
     
@@ -162,7 +157,7 @@ final class BluetoothPeripheralManager : NSObject {
             filteredUuidStringToUsername.updateValue(hostUsername, forKey: Bluetooth.deviceUuidString!)
         }
 
-        send(object: filteredUuidStringToUsername, for: joinSessionCharacteristic)
+        send(filteredUuidStringToUsername, for: joinSessionCharacteristic)
     }
     
     fileprivate func sendSuggestions() {
@@ -171,7 +166,21 @@ final class BluetoothPeripheralManager : NSObject {
             return
         }
         print("sending suggestions to clients")
-        send(object: suggestions, for: suggestionCharacteristic)
+        let suggestionsData = NSKeyedArchiver.archivedData(withRootObject: suggestions)
+        let suggestionOperation = SuggestionOperation(type: SuggestionOperationType.All, data: suggestionsData)
+        send(suggestionOperation, for: suggestionCharacteristic)
+    }
+    
+    func sendAddedNewSuggestion(_ suggestion: Suggestion) {
+        let suggestionData = NSKeyedArchiver.archivedData(withRootObject: suggestion)
+        let suggestionOperation = SuggestionOperation(type: SuggestionOperationType.Add, data: suggestionData)
+        send(suggestionOperation, for: suggestionCharacteristic)
+    }
+    
+    func sendRemoveSuggestionsIds(_ suggestionIds: [String]) {
+        let suggestionIdsData = NSKeyedArchiver.archivedData(withRootObject: suggestionIds)
+        let suggestionOperation = SuggestionOperation(type: SuggestionOperationType.Remove, data: suggestionIdsData)
+        send(suggestionOperation, for: suggestionCharacteristic)
     }
     
     func startVoting() {
@@ -188,10 +197,10 @@ final class BluetoothPeripheralManager : NSObject {
             return
         }
         print("sending highest rated suggestion to clients")
-        send(object: highestRatedSuggestion, for: highestRatedSuggestionCharacteristic)
+        send(highestRatedSuggestion, for: highestRatedSuggestionCharacteristic)
     }
     
-    fileprivate func send(object: Any, for characteristic: CBMutableCharacteristic) {
+    fileprivate func send(_ object: Any, for characteristic: CBMutableCharacteristic) {
         dataToSend = NSKeyedArchiver.archivedData(withRootObject: object)
         sendDataIndex = 0
         sendToCharacteristic = characteristic
@@ -352,12 +361,15 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
         
     }
     
+    // MARK: Receiving data from clients
+    
     func peripheralManager(_ peripheral: CBPeripheralManager, didReceiveWrite requests: [CBATTRequest]) {
         print("peripheral manager: did receive write request")
         requests.forEach { (request) in
             let centralUuidString = request.central.identifier.uuidString
             switch request.characteristic.uuid {
             case FindFoodFastService.CharacteristicUUIDJoinSession:
+                // MARK: Handle new user joining
                 print("received write to join session characteristic")
                 
                 if let name = uuidStringToUsername[centralUuidString], name == "" {
@@ -377,6 +389,7 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
                     }
                 }
             case FindFoodFastService.CharacteristicUUIDSuggestion:
+                // MARK: Handle suggestion operation sent by user
                 print("received write for suggestion")
                 guard let data = request.value else {
                     print("request for suggestion has nil data")
@@ -392,12 +405,27 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
                 
                 let stringFromData = String.init(data: data, encoding: .utf8)
                 if stringFromData == "EOM" {
-                    guard let suggestion = NSKeyedUnarchiver.unarchiveObject(with: receivedData[centralUuidString]!) as? Suggestion else {
+                    guard let suggestionOperation = NSKeyedUnarchiver.unarchiveObject(with: receivedData[centralUuidString]!) as? SuggestionOperation else {
                         print("invalid suggestion unarchived")
                         peripheral.respond(to: request, withResult: .requestNotSupported)
                         return
                     }
-                    delegate?.bluetoothPeripheralManagerDidReceiveNewSuggestion(self, suggestion: suggestion)
+                    switch suggestionOperation.type {
+                    case SuggestionOperationType.Add:
+                        guard let suggestion = NSKeyedUnarchiver.unarchiveObject(with: suggestionOperation.data) as? Suggestion else {
+                            print("could not unarchive added suggestion data")
+                            return
+                        }
+                        delegate?.bluetoothPeripheralManagerDidReceiveNewSuggestion(self, suggestion: suggestion)
+                    case SuggestionOperationType.Remove:
+                        guard let suggestionIds = NSKeyedUnarchiver.unarchiveObject(with: suggestionOperation.data) as? [String] else {
+                            print("could not unarchive suggestion ids to remove")
+                            return
+                        }
+                        delegate?.bluetoothPeripheralManagerDidReceiveSuggestionIdsToRemove(self, suggestionIds: suggestionIds)
+                    default:
+                        assert(false, "unexpected suggestion operation received from user")
+                    }
                     
                     // clear received data for next transmission
                     receivedData[centralUuidString] = nil
@@ -407,6 +435,7 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
                 }
                 peripheral.respond(to: request, withResult: .success)
             case FindFoodFastService.CharacteristicUUIDVoting:
+                // MARK: Handle votes received from user
                 guard let data = request.value else {
                     print("voting request has nil data")
                     return
@@ -419,12 +448,12 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
                 }
                 let stringFromData = String.init(data: data, encoding: .utf8)
                 if stringFromData == "EOM" {
-                    guard let votedSuggestions = NSKeyedUnarchiver.unarchiveObject(with: receivedData[centralUuidString]!) as? [Suggestion] else {
+                    guard let votes = NSKeyedUnarchiver.unarchiveObject(with: receivedData[centralUuidString]!) as? [Vote] else {
                         print("invalid voted suggestions unarchived")
                         peripheral.respond(to: request, withResult: .requestNotSupported)
                         return
                     }
-                    delegate?.bluetoothPeripheralManagerDidReceiveVotedSuggestions(self, votedSuggestions: votedSuggestions, from: request.central)
+                    delegate?.bluetoothPeripheralManagerDidReceiveVotes(self, votes: votes, from: request.central)
                     
                     // clear received data for next transmission
                     receivedData[centralUuidString] = nil

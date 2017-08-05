@@ -96,12 +96,12 @@ extension BrowseHostCollectionViewController : BluetoothCentralManagerDelegate {
         collectionView?.reloadData()
     }
     
+    // unused
     func bluetoothCentralManagerDidConnectToHost(_: BluetoothCentralManager, users: [User]) {}
-    
     func bluetoothCentralManagerDidReceiveSuggestions(_: BluetoothCentralManager, suggestions: [Suggestion]) {}
-    
     func bluetoothCentralManagerDidStartVoting(_: BluetoothCentralManager) {}
-    
     func bluetoothCentralManagerDidReceiveHighestRatedSuggestion(_: BluetoothCentralManager, highestRatedSuggestion: Suggestion) {}
+    func bluetoothCentralManagerDidReceiveAddedSuggestion(_: BluetoothCentralManager, suggestion: Suggestion) {}
+    func bluetoothCentralManagerDidReceiveSuggestionIdsToRemove(_: BluetoothCentralManager, suggestionIds: [String]) {}
 }
 

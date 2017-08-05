@@ -9,11 +9,6 @@
 import UIKit
 import CoreLocation
 
-protocol AddSuggestionDelegate: class {
-    func didAddSuggestion(suggestion: Suggestion)
-    func isUniqueSuggestion(suggestion: Suggestion) -> Bool
-}
-
 class AddSuggestionViewController: UIViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
@@ -24,7 +19,6 @@ class AddSuggestionViewController: UIViewController {
     var searchClient: SearchClient = GoogleSearchClient()
     var userLocation: CLLocation?
     var searchWorkItem: DispatchWorkItem?
-    weak var delegate: AddSuggestionDelegate?
     
     let SuggestionTextFieldMinCharacterCount = 2
     let SuggestionTextFieldMaxCharacterCount = 80
