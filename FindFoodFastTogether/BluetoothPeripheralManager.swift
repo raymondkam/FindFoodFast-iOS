@@ -70,8 +70,18 @@ final class BluetoothPeripheralManager : NSObject {
     fileprivate var maximumBytesInPayload = 512 // 512 bytes is the theoretical maximum
     fileprivate var sendToCharacteristic: CBMutableCharacteristic?
     fileprivate var sendingEOM = false
-    
-    fileprivate var currentOperation: BluetoothOperation?
+    private var _currentOperation: BluetoothOperation?
+    fileprivate var currentOperation: BluetoothOperation? {
+        get {
+            return _currentOperation
+        }
+        set(nextOperation) {
+            _currentOperation = nextOperation
+            dataToSend = nextOperation?.dataToSend
+            sendToCharacteristic = nextOperation?.targetCharacteristic
+            sendDataIndex = 0
+        }
+    }
     fileprivate var operationQueue = Queue<BluetoothOperation>()
     
     // Variables related to receiving data
@@ -216,6 +226,7 @@ final class BluetoothPeripheralManager : NSObject {
         let dataToSend = NSKeyedArchiver.archivedData(withRootObject: object)
         let operation = BluetoothOperation(dataToSend: dataToSend, targetCharacteristic: characteristic)
         operationQueue.enqueue(operation)
+        print("1 new bluetooth operation added to queue")
         sendData()
     }
     
@@ -230,11 +241,7 @@ final class BluetoothPeripheralManager : NSObject {
                 return
             }
             currentOperation = nextOperation
-            dataToSend = nextOperation.dataToSend
-            sendToCharacteristic = nextOperation.targetCharacteristic
-            sendDataIndex = 0
-            
-            print("fetched next operation from queue, \(operationQueue.count) remaining items in queue")
+            print("fetched next operation from queue, \(operationQueue.count) remaining bluetooth operations in queue")
         }
         
         if sendingEOM {
