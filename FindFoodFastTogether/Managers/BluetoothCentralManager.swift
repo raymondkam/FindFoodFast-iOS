@@ -350,6 +350,8 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
         // success, reset retry number
         retryNumber = 0
         
+        print("Sent: \(sendDataIndex!)/\(dataToSend!.count) bytes")
+        
         if (sendingEOM) {
             // finished sending EOM, can clean up
             sendingEOM = false
@@ -360,9 +362,8 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
             // update the index if it was sent
             sendDataIndex! += BLEWriteToCharacteristicMaxSize
             
-            print("Sent: \(sendDataIndex!)/\(dataToSend!.count) bytes")
-            
             if (sendDataIndex! >= dataToSend!.count) {
+                sendDataIndex = dataToSend?.count
                 sendingEOM = true
             }
             
@@ -413,7 +414,7 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
                     delegate?.bluetoothCentralManagerDidConnectToHost(self, users: connectedUsers)
                 case FindFoodFastService.CharacteristicUUIDSuggestion:
                     // MARK: Receive suggestion operation from host
-                    print("received list of suggestions")
+                    print("received suggestion operation")
                     guard let suggestionOperation = NSKeyedUnarchiver.unarchiveObject(with: receivedData!) as? SuggestionOperation else {
                         print("was not able to unarchive suggestion operation")
                         return
