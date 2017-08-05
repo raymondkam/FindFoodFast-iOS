@@ -172,12 +172,20 @@ final class BluetoothPeripheralManager : NSObject {
     }
     
     func sendAddedNewSuggestion(_ suggestion: Suggestion) {
+        guard subscribedCentrals.count > 0 else {
+            print("no subscribed centrals to send added suggestion to")
+            return
+        }
         let suggestionData = NSKeyedArchiver.archivedData(withRootObject: suggestion)
         let suggestionOperation = SuggestionOperation(type: SuggestionOperationType.Add, data: suggestionData)
         send(suggestionOperation, for: suggestionCharacteristic)
     }
     
     func sendRemoveSuggestionsIds(_ suggestionIds: [String]) {
+        guard subscribedCentrals.count > 0 else {
+            print("no subscribed centrals to send removed suggestion ids to")
+            return
+        }
         let suggestionIdsData = NSKeyedArchiver.archivedData(withRootObject: suggestionIds)
         let suggestionOperation = SuggestionOperation(type: SuggestionOperationType.Remove, data: suggestionIdsData)
         send(suggestionOperation, for: suggestionCharacteristic)
@@ -408,18 +416,21 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
                     guard let suggestionOperation = NSKeyedUnarchiver.unarchiveObject(with: receivedData[centralUuidString]!) as? SuggestionOperation else {
                         print("invalid suggestion unarchived")
                         peripheral.respond(to: request, withResult: .requestNotSupported)
+                        clearReceivedData(fromCentralUuid: centralUuidString)
                         return
                     }
                     switch suggestionOperation.type {
                     case SuggestionOperationType.Add:
                         guard let suggestion = NSKeyedUnarchiver.unarchiveObject(with: suggestionOperation.data) as? Suggestion else {
                             print("could not unarchive added suggestion data")
+                            clearReceivedData(fromCentralUuid: centralUuidString)
                             return
                         }
                         delegate?.bluetoothPeripheralManagerDidReceiveNewSuggestion(self, suggestion: suggestion)
                     case SuggestionOperationType.Remove:
                         guard let suggestionIds = NSKeyedUnarchiver.unarchiveObject(with: suggestionOperation.data) as? [String] else {
                             print("could not unarchive suggestion ids to remove")
+                            clearReceivedData(fromCentralUuid: centralUuidString)
                             return
                         }
                         delegate?.bluetoothPeripheralManagerDidReceiveSuggestionIdsToRemove(self, suggestionIds: suggestionIds)
@@ -428,7 +439,7 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
                     }
                     
                     // clear received data for next transmission
-                    receivedData[centralUuidString] = nil
+                    clearReceivedData(fromCentralUuid: centralUuidString)
                 } else {
                     // not done receiving all data, append the data
                     receivedData[centralUuidString]!.append(data)
@@ -466,6 +477,11 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
                 print("write to unknown characteristic")
             }
         }
+    }
+    
+    func clearReceivedData(fromCentralUuid centralUuid: String) {
+        // clear received data for next transmission
+        receivedData[centralUuid] = nil
     }
     
     func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didSubscribeTo characteristic: CBCharacteristic) {
