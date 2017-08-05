@@ -32,6 +32,19 @@ final class BluetoothCentralManager : NSObject {
     fileprivate var receivedData: Data?
     
     // for writing large payloads to characteristic
+    fileprivate var operationQueue = Queue<BluetoothOperation>()
+    private var _currentOperation: BluetoothOperation?
+    fileprivate var currentOperation: BluetoothOperation? {
+        get {
+            return _currentOperation
+        }
+        set(nextOperation) {
+            _currentOperation = nextOperation
+            dataToSend = nextOperation?.dataToSend
+            sendToCharacteristic = nextOperation?.targetCharacteristic
+            sendDataIndex = 0
+        }
+    }
     fileprivate var dataToSend: Data?
     fileprivate var sendDataIndex: Int?
     fileprivate var sendingEOM = false
@@ -145,13 +158,27 @@ final class BluetoothCentralManager : NSObject {
     }
     
     func send(_ object: Any, to characteristic: CBCharacteristic) {
-        dataToSend = NSKeyedArchiver.archivedData(withRootObject: object)
-        sendDataIndex = 0
-        sendToCharacteristic = characteristic
-        sendData()
+        let dataToSend = NSKeyedArchiver.archivedData(withRootObject: object)
+        let operation = BluetoothOperation(dataToSend: dataToSend, targetCharacteristic: characteristic)
+        operationQueue.enqueue(operation)
+
+        // only send if there is no current operation, as it will
+        // automatically fetch the next operation in the queue
+        if currentOperation == nil {
+            sendData()
+        }
     }
     
     func sendData() {
+        if currentOperation == nil {
+            guard let nextOperation = operationQueue.dequeue() else {
+                assert(false, "should not get here if nothing in queue")
+                return
+            }
+            currentOperation = nextOperation
+            print("fetched next operation from queue, \(operationQueue.count) remaining bluetooth operations in queue")
+        }
+        
         guard sendToCharacteristic != nil else {
             print("no specified characteristic to send to")
             return
@@ -356,8 +383,12 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
             // finished sending EOM, can clean up
             sendingEOM = false
             print("EOM successfully sent")
-            dataToSend = nil
-            sendToCharacteristic = nil
+            currentOperation = nil
+            
+            // fetch next operation if queue is still not empty
+            if !operationQueue.isEmpty {
+                sendData()
+            }
         } else {
             // update the index if it was sent
             sendDataIndex! += BLEWriteToCharacteristicMaxSize

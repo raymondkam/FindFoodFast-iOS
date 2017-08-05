@@ -70,8 +70,8 @@ final class BluetoothPeripheralManager : NSObject {
     fileprivate var maximumBytesInPayload = 512 // 512 bytes is the theoretical maximum
     fileprivate var sendToCharacteristic: CBMutableCharacteristic?
     fileprivate var sendingEOM = false
-    private var _currentOperation: BluetoothOperation?
-    fileprivate var currentOperation: BluetoothOperation? {
+    private var _currentOperation: BluetoothPeripheralOperation?
+    fileprivate var currentOperation: BluetoothPeripheralOperation? {
         get {
             return _currentOperation
         }
@@ -82,7 +82,7 @@ final class BluetoothPeripheralManager : NSObject {
             sendDataIndex = 0
         }
     }
-    fileprivate var operationQueue = Queue<BluetoothOperation>()
+    fileprivate var operationQueue = Queue<BluetoothPeripheralOperation>()
     
     // Variables related to receiving data
     fileprivate var receivedData = [String: Data]()
@@ -224,10 +224,16 @@ final class BluetoothPeripheralManager : NSObject {
     fileprivate func send(_ object: Any, for characteristic: CBMutableCharacteristic) {
         
         let dataToSend = NSKeyedArchiver.archivedData(withRootObject: object)
-        let operation = BluetoothOperation(dataToSend: dataToSend, targetCharacteristic: characteristic)
+        let operation = BluetoothPeripheralOperation(dataToSend: dataToSend, targetCharacteristic: characteristic)
         operationQueue.enqueue(operation)
         print("1 new bluetooth operation added to queue")
-        sendData()
+        
+        // should only send if there is no current operation, 
+        // since the callback from current operation will 
+        // automatically grab the next operation
+        if currentOperation == nil {
+            sendData()
+        }
     }
     
     /*
@@ -398,7 +404,6 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
     // MARK: Receiving data from clients
     
     func peripheralManager(_ peripheral: CBPeripheralManager, didReceiveWrite requests: [CBATTRequest]) {
-        print("peripheral manager: did receive write request")
         requests.forEach { (request) in
             let centralUuidString = request.central.identifier.uuidString
             switch request.characteristic.uuid {
@@ -424,7 +429,6 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
                 }
             case FindFoodFastService.CharacteristicUUIDSuggestion:
                 // MARK: Handle suggestion operation sent by user
-                print("received write for suggestion")
                 guard let data = request.value else {
                     print("request for suggestion has nil data")
                     peripheral.respond(to: request, withResult: .requestNotSupported)
@@ -447,6 +451,7 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
                     }
                     switch suggestionOperation.type {
                     case SuggestionOperationType.Add:
+                        print("received add suggestion operation")
                         guard let suggestion = NSKeyedUnarchiver.unarchiveObject(with: suggestionOperation.data) as? Suggestion else {
                             print("could not unarchive added suggestion data")
                             clearReceivedData(fromCentralUuid: centralUuidString)
@@ -454,6 +459,7 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
                         }
                         delegate?.bluetoothPeripheralManagerDidReceiveNewSuggestion(self, suggestion: suggestion)
                     case SuggestionOperationType.Remove:
+                        print("received remove suggestion operation")
                         guard let suggestionIds = NSKeyedUnarchiver.unarchiveObject(with: suggestionOperation.data) as? [String] else {
                             print("could not unarchive suggestion ids to remove")
                             clearReceivedData(fromCentralUuid: centralUuidString)
@@ -485,6 +491,7 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
                 }
                 let stringFromData = String.init(data: data, encoding: .utf8)
                 if stringFromData == "EOM" {
+                    print("received votes from central")
                     guard let votes = NSKeyedUnarchiver.unarchiveObject(with: receivedData[centralUuidString]!) as? [Vote] else {
                         print("invalid voted suggestions unarchived")
                         peripheral.respond(to: request, withResult: .requestNotSupported)

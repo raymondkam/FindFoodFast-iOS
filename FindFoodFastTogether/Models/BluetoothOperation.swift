@@ -12,6 +12,18 @@ import CoreBluetooth
 struct BluetoothOperation {
     
     var dataToSend: Data
+    var targetCharacteristic: CBCharacteristic
+    
+    init(dataToSend: Data, targetCharacteristic: CBCharacteristic) {
+        self.dataToSend = dataToSend
+        self.targetCharacteristic = targetCharacteristic
+    }
+    
+}
+
+struct BluetoothPeripheralOperation {
+    
+    var dataToSend: Data
     var targetCharacteristic: CBMutableCharacteristic
     
     init(dataToSend: Data, targetCharacteristic: CBMutableCharacteristic) {
