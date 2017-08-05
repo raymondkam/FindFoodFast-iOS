@@ -13,7 +13,9 @@ import UIKit
 protocol BluetoothCentralManagerDelegate : class {
     func bluetoothCentralManagerDidDiscoverHost(_: BluetoothCentralManager, host: Host)
     func bluetoothCentralManagerDidConnectToHost(_: BluetoothCentralManager, users: [User])
+    func bluetoothCentralManagerDidReceiveAddedSuggestion(_: BluetoothCentralManager, suggestion: Suggestion)
     func bluetoothCentralManagerDidReceiveSuggestions(_: BluetoothCentralManager, suggestions: [Suggestion])
+    func bluetoothCentralManagerDidReceiveSuggestionIdsToRemove(_: BluetoothCentralManager, suggestionIds: [String])
     func bluetoothCentralManagerDidStartVoting(_: BluetoothCentralManager)
     func bluetoothCentralManagerDidReceiveHighestRatedSuggestion(_: BluetoothCentralManager, highestRatedSuggestion: Suggestion)
 }
@@ -121,10 +123,17 @@ final class BluetoothCentralManager : NSObject {
         }
         let suggestionData = NSKeyedArchiver.archivedData(withRootObject: suggestion)
         let suggestionOperation = SuggestionOperation(type: SuggestionOperationType.Add, data: suggestionData)
-        dataToSend  = NSKeyedArchiver.archivedData(withRootObject: suggestionOperation)
-        sendDataIndex = 0
-        sendToCharacteristic = suggestionCharacteristic
-        sendData()
+        send(suggestionOperation, to: suggestionCharacteristic)
+    }
+    
+    func sendHostRemoveSuggestionIds(_ suggestionIds: [String]) {
+        guard let suggestionCharacteristic = suggestionCharacteristic else {
+            print("suggestion characteristic not saved")
+            return
+        }
+        let suggestionIdsData = NSKeyedArchiver.archivedData(withRootObject: suggestionIds)
+        let suggestionOperation = SuggestionOperation(type: SuggestionOperationType.Remove, data: suggestionIdsData)
+        send(suggestionOperation, to: suggestionCharacteristic)
     }
     
     func sendHostVotes(votes: [Vote]) {
@@ -132,10 +141,13 @@ final class BluetoothCentralManager : NSObject {
             print("voting characteristic not saved, cannot send voted suggestions")
             return
         }
-        
-        dataToSend = NSKeyedArchiver.archivedData(withRootObject: votes)
+        send(votes, to: votingCharacteristic)
+    }
+    
+    func send(_ object: Any, to characteristic: CBCharacteristic) {
+        dataToSend = NSKeyedArchiver.archivedData(withRootObject: object)
         sendDataIndex = 0
-        sendToCharacteristic = votingCharacteristic
+        sendToCharacteristic = characteristic
         sendData()
     }
     
@@ -400,7 +412,7 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
                     })
                     delegate?.bluetoothCentralManagerDidConnectToHost(self, users: connectedUsers)
                 case FindFoodFastService.CharacteristicUUIDSuggestion:
-                    // MARK: Receive list of suggestions from host
+                    // MARK: Receive suggestion operation from host
                     print("received list of suggestions")
                     guard let suggestionOperation = NSKeyedUnarchiver.unarchiveObject(with: receivedData!) as? SuggestionOperation else {
                         print("was not able to unarchive suggestion operation")
@@ -413,6 +425,18 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
                             return
                         }
                         delegate?.bluetoothCentralManagerDidReceiveSuggestions(self, suggestions: suggestions)
+                    case SuggestionOperationType.Add:
+                        guard let suggestion = NSKeyedUnarchiver.unarchiveObject(with: suggestionOperation.data) as? Suggestion else {
+                            print("could not unarchive added suggestion")
+                            return
+                        }
+                        delegate?.bluetoothCentralManagerDidReceiveAddedSuggestion(self, suggestion: suggestion)
+                    case SuggestionOperationType.Remove:
+                        guard let suggestionIds = NSKeyedUnarchiver.unarchiveObject(with: suggestionOperation.data) as? [String] else {
+                            print("could not unarchive suggestion ids to remove")
+                            return
+                        }
+                        delegate?.bluetoothCentralManagerDidReceiveSuggestionIdsToRemove(self, suggestionIds: suggestionIds)
                     default:
                         assert(false, "unexpected suggestion operation type")
                     }

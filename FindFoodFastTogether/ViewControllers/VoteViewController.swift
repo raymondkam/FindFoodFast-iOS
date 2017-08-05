@@ -274,6 +274,7 @@ extension VoteViewController: BluetoothPeripheralManagerDelegate {
     func bluetoothPeripheralManagerDidConnectWith(_: BluetoothPeripheralManager, newUser: User) {}
     func bluetoothPeripheralManagerDidDisconnectWith(_: BluetoothPeripheralManager, user: User) {}
     func bluetoothPeripheralManagerDidReceiveNewSuggestion(_: BluetoothPeripheralManager, suggestion: Suggestion) {}
+    func bluetoothPeripheralManagerDidReceiveSuggestionIdsToRemove(_: BluetoothPeripheralManager, suggestionIds: [String]) {}
 }
 
 extension VoteViewController: BluetoothCentralManagerDelegate {
@@ -286,4 +287,6 @@ extension VoteViewController: BluetoothCentralManagerDelegate {
     func bluetoothCentralManagerDidDiscoverHost(_: BluetoothCentralManager, host: Host) {}
     func bluetoothCentralManagerDidConnectToHost(_: BluetoothCentralManager, users: [User]) {}
     func bluetoothCentralManagerDidReceiveSuggestions(_: BluetoothCentralManager, suggestions: [Suggestion]) {}
+    func bluetoothCentralManagerDidReceiveAddedSuggestion(_: BluetoothCentralManager, suggestion: Suggestion) {}
+    func bluetoothCentralManagerDidReceiveSuggestionIdsToRemove(_: BluetoothCentralManager, suggestionIds: [String]) {}
 }

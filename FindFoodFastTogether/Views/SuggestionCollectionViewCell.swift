@@ -17,6 +17,7 @@ class SuggestionCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var ratingCosmosView: CosmosView!
     @IBOutlet weak var subtitleLabel: UILabel!
+    @IBOutlet weak var removeButton: UIButton!
     
     var image: UIImage? {
         get {

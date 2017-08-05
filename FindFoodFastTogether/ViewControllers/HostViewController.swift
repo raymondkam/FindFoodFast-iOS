@@ -174,6 +174,14 @@ extension HostViewController : BluetoothCentralManagerDelegate {
         suggestionCollectionViewController.collectionView?.reloadData()
     }
     
+    func bluetoothCentralManagerDidReceiveAddedSuggestion(_: BluetoothCentralManager, suggestion: Suggestion) {
+        suggestionCollectionViewController.addSuggestion(suggestion: suggestion)
+    }
+    
+    func bluetoothCentralManagerDidReceiveSuggestionIdsToRemove(_: BluetoothCentralManager, suggestionIds: [String]) {
+        suggestionCollectionViewController.receivedSuggestionIdsToRemove(ids: suggestionIds)
+    }
+    
     func bluetoothCentralManagerDidStartVoting(_: BluetoothCentralManager) {
         performSegue(withIdentifier: Segues.StartVoting, sender: self)
     }
@@ -204,6 +212,10 @@ extension HostViewController : BluetoothPeripheralManagerDelegate {
     
     func bluetoothPeripheralManagerDidReceiveNewSuggestion(_: BluetoothPeripheralManager, suggestion: Suggestion) {
         suggestionCollectionViewController.addSuggestion(suggestion: suggestion)
+    }
+    
+    func bluetoothPeripheralManagerDidReceiveSuggestionIdsToRemove(_: BluetoothPeripheralManager, suggestionIds: [String]) {
+        suggestionCollectionViewController.receivedSuggestionIdsToRemove(ids: suggestionIds)
     }
     
     func bluetoothPeripheralManagerDidReceiveVotes(_: BluetoothPeripheralManager, votes: [Vote], from central: CBCentral) {}

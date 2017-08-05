@@ -1000,6 +1000,25 @@
                                                 </view>
                                             </subviews>
                                         </stackView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XlU-nO-92d">
+                                            <rect key="frame" x="204" y="8" width="28" height="28"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.4002300941780822" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="28" id="ZQK-EE-tPv"/>
+                                                <constraint firstAttribute="height" constant="28" id="sml-bb-jZc"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <state key="normal" title="✕"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="14"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="removeSuggestion:" destination="t3W-YA-ni4" eventType="touchUpInside" id="5XL-Wf-vvT"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                 </view>
                                 <constraints>
@@ -1007,7 +1026,9 @@
                                     <constraint firstItem="lcf-n6-Bhq" firstAttribute="width" secondItem="o0d-Dr-tBb" secondAttribute="width" id="GlQ-6a-yvg"/>
                                     <constraint firstItem="VTl-Wl-XlH" firstAttribute="centerY" secondItem="o0d-Dr-tBb" secondAttribute="centerY" id="Pm6-tY-43H"/>
                                     <constraint firstItem="4Bw-D4-adL" firstAttribute="leading" secondItem="o0d-Dr-tBb" secondAttribute="leading" id="SH7-7m-GSk"/>
+                                    <constraint firstItem="XlU-nO-92d" firstAttribute="top" secondItem="o0d-Dr-tBb" secondAttribute="top" constant="8" id="Uqo-r3-8D7"/>
                                     <constraint firstItem="VTl-Wl-XlH" firstAttribute="centerX" secondItem="o0d-Dr-tBb" secondAttribute="centerX" id="ca2-7C-4Ko"/>
+                                    <constraint firstAttribute="trailing" secondItem="XlU-nO-92d" secondAttribute="trailing" constant="8" id="dRi-yp-Pak"/>
                                     <constraint firstAttribute="trailing" secondItem="4Bw-D4-adL" secondAttribute="trailing" id="tBF-Sk-8sI"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -1026,6 +1047,7 @@
                                     <outlet property="ratingCosmosView" destination="rK7-bo-g53" id="OxA-m4-rKJ"/>
                                     <outlet property="ratingLabel" destination="56a-Rv-pVH" id="gKh-xY-dG8"/>
                                     <outlet property="ratingView" destination="nTW-4A-VjE" id="RCv-rb-cEP"/>
+                                    <outlet property="removeButton" destination="XlU-nO-92d" id="DMs-k0-tps"/>
                                     <outlet property="subtitleLabel" destination="9gz-AX-Dr0" id="mEm-Q7-vzK"/>
                                     <outlet property="titleLabel" destination="tlH-nS-kNg" id="pdj-Zn-3DA"/>
                                 </connections>
