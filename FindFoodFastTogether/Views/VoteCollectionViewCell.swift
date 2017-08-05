@@ -10,9 +10,20 @@ import UIKit
 import Cosmos
 
 class VoteCollectionViewCell: UICollectionViewCell {
-    @IBOutlet private weak var noImageLabel: UILabel!
+    
+    @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var titlelabel: UILabel!
+    @IBOutlet private weak var subtitleLabel: UILabel!
     @IBOutlet weak var cosmoView: CosmosView!
+    
+    var image: UIImage? {
+        get {
+            return imageView.image
+        }
+        set(newImage) {
+            imageView.image = newImage
+        }
+    }
     
     var title: String? {
         get {
@@ -23,12 +34,12 @@ class VoteCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    var noImageTitle: String? {
+    var subtitle: String? {
         get {
-            return noImageLabel.text
+            return subtitleLabel.text
         }
-        set(newNoImageTitle) {
-            noImageLabel.text = newNoImageTitle
+        set(newSubtitle) {
+            subtitleLabel.text = newSubtitle
         }
     }
 }

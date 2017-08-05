@@ -38,6 +38,14 @@ struct Segues {
     static let StartVoting = "startVoting"
     static let ShowHighestRatedSuggestion = "showHighestRatedSuggestion"
     static let UnwindToStart = "unwindToStart"
+    static let EmbedSuggestionSearchResults = "embedSuggestionSearchResults"
+    static let EmbedSuggestionImages = "embedSuggestionImages"
+    static let UnwindToHostViewAfterAddingSuggestion = "unwindToHostViewAfterAddingSuggestion"
+    static let PresentMap = "presentMap"
+}
+
+struct StoryboardIds {
+    static let SuggestionDetails = "suggestionDetails"
 }
 
 struct NotificationNames {
@@ -49,9 +57,15 @@ struct NotificationNames {
 let browseHostReuseIdentifier = "BrowseHostCell"
 let suggestionReuseIdentifier = "SuggestionCell"
 let addNewSuggestionReuseIdentifier = "AddNewSuggestionCell"
+let suggestionSearchResultReuseIdentifier = "suggestionSearchResultCell"
+let poweredByGoogleFooterViewReuseIdentifer = "poweredByGoogleFooter"
+let imageReuseIdentifier = "ImageCell"
+
+let LocationCacheTimeInterval: TimeInterval = 300
 
 struct UserDefaultsKeys {
     static let Username = "username"
+    static let UserLocation = "userLocation"
 }
 
 struct Bluetooth {

@@ -4,12 +4,32 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Alamofire.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Cosmos.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>IGIdenticon.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>INSPhotoGallery-INSPhotoGallery.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>INSPhotoGallery.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>JASON.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -37,7 +57,32 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>160F3D2B181465FD6DEC4E9916DF2092</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>347EA8C0381FB3193FBEA95BC7AFA983</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3CC84B12F5B3C722CA32D8D2E0FB7906</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>4FDC533A4360A68ABDCE852F04B30927</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5AB2AFB1E6DC8D2967EF130A030AD1B8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>88E9EC28B8B46C3631E6B242B50F4442</key>
 		<dict>
 			<key>primary</key>
 			<true/>

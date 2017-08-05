@@ -13,6 +13,7 @@ class SuggestionCollectionViewController: UICollectionViewController {
     dynamic var dataSource = [Suggestion]()
     var uniqueSuggestions = Set<Suggestion>()
     var isHosting: Bool!
+    var searchClient = GoogleSearchClient()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,6 +73,29 @@ class SuggestionCollectionViewController: UICollectionViewController {
             // regular suggestion cell
             let suggestionCell = cell as! SuggestionCollectionViewCell
             suggestionCell.title = suggestion.name
+            suggestionCell.rating = suggestion.rating
+            suggestionCell.subtitle = suggestion.type
+            if let thumbnail = suggestion.thumbnail {
+                suggestionCell.image = thumbnail
+            } else {
+                if let firstPhotoId = suggestion.photoIds.first {
+                    let widthString = String(Int(suggestionCell.frame.width))
+                    searchClient.fetchSuggestionPhoto(using: firstPhotoId, maxWidth: widthString, maxHeight: nil, completion: { [weak self] (image, error) in
+                        guard error == nil else {
+                            print("error fetching photo for suggestion cell")
+                            return
+                        }
+                        guard let image = image else {
+                            print("suggestion cell image is nil")
+                            return
+                        }
+                        suggestionCell.image = image
+                        
+                        // update data source as well
+                        self?.dataSource[indexPath.item].thumbnail = image
+                    })
+                }
+            }
         }
     
         return cell

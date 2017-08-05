@@ -119,7 +119,7 @@ class VoteViewController: UIViewController {
     fileprivate func sendVotes() {
         print("send votes")
         for suggestion in dataSource {
-            print("rating for \(suggestion.name) is \(suggestion.rating)")
+            print("rating for \(suggestion.name) is \(suggestion.votes)")
         }
         
         BluetoothCentralManager.sharedInstance.sendHostVotedSuggestions(votedSuggestions: dataSource)
@@ -149,7 +149,7 @@ class VoteViewController: UIViewController {
             if let totalRatingSuggestion = totalRatingSuggestions.first(where: { (suggestion) -> Bool in
                 return votedSuggestion == suggestion
             }) {
-                totalRatingSuggestion.rating += votedSuggestion.rating
+                totalRatingSuggestion.votes += votedSuggestion.votes
                 totalRatingSuggestions.update(with: totalRatingSuggestion)
             } else {
                 // not in the set of suggestions
@@ -166,11 +166,11 @@ class VoteViewController: UIViewController {
     
     fileprivate func findSuggestionWithHighestRating() {
         let highestRatedSuggestion = totalRatingSuggestions.max { (a, b) -> Bool in
-            return a.rating < b.rating
+            return a.votes < b.votes
         }
         
         if let highestRatedSuggestion = highestRatedSuggestion {
-            print("best name: \(highestRatedSuggestion.name) and rating: \(highestRatedSuggestion.rating)")
+            print("best name: \(highestRatedSuggestion.name) and rating: \(highestRatedSuggestion.votes)")
             
             BluetoothPeripheralManager.sharedInstance.sendHighestRatedSuggestion(highestRatedSuggestion: highestRatedSuggestion)
             
@@ -192,8 +192,11 @@ extension VoteViewController: UICollectionViewDataSource {
         let suggestion = dataSource[indexPath.item]
         
         cell.title = suggestion.name
-        cell.noImageTitle = suggestion.name
-        cell.cosmoView.rating = Double(suggestion.rating)
+        cell.subtitle = suggestion.type
+        if let thumbnail = suggestion.thumbnail {
+            cell.image = thumbnail
+        }
+        cell.cosmoView.rating = Double(suggestion.votes)
         cell.cosmoView.didFinishTouchingCosmos = { [weak self] rating in
             guard let currentIndex = self?.currentIndex else {
                 print("self is nil or has not current index")
@@ -203,7 +206,7 @@ extension VoteViewController: UICollectionViewDataSource {
                 print("self is nil or data source is nil")
                 return
             }
-            suggestion.rating = Int(rating)
+            suggestion.votes = Int(rating)
             if currentIndex < dataSource.count - 1 {
                 self?.scrollToNextCell()
             } else {
@@ -231,7 +234,7 @@ extension VoteViewController: UICollectionViewDelegate {
 
 extension VoteViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 337, height: 340)
+        return CGSize(width: 337, height: 345)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

@@ -14,18 +14,43 @@ class HighestRatedSuggestionViewController: UIViewController {
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     @IBOutlet weak var suggestionCardView: UIView!
     @IBOutlet weak var stackView: UIStackView!
-    
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var voteCountLabel: UILabel!
     @IBOutlet weak var backgroundLabel: UILabel!
     @IBOutlet weak var cardTitle: UILabel!
-    @IBOutlet weak var noImageLabel: UILabel!
+    @IBOutlet weak var cardSubtitle: UILabel!
     
     var highestRatedSuggestion: Suggestion!
     var isHosting: Bool!
+    var searchClient = GoogleSearchClient()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        voteCountLabel.text = String(highestRatedSuggestion.votes)
         cardTitle.text = highestRatedSuggestion.name
-        noImageLabel.text = highestRatedSuggestion.name
+        cardSubtitle.text = highestRatedSuggestion.type
+        if let thumbnail = highestRatedSuggestion.thumbnail {
+            imageView.image = thumbnail
+        } else {
+            if let firstPhotoId = highestRatedSuggestion.photoIds.first {
+                let widthString = String(Int(imageView.frame.width))
+                searchClient.fetchSuggestionPhoto(using: firstPhotoId, maxWidth: widthString, maxHeight: nil, completion: { [weak self] (image, error) in
+                    guard error == nil else {
+                        print("error fetching photo for suggestion cell")
+                        return
+                    }
+                    guard let image = image else {
+                        print("suggestion cell image is nil")
+                        return
+                    }
+                    self?.imageView.image = image
+                    
+                    // update data source as well
+                    self?.highestRatedSuggestion.thumbnail = image
+                })
+            }
+
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -59,7 +84,7 @@ class HighestRatedSuggestionViewController: UIViewController {
     }
 
     @IBAction func handleDirectionsButtonPressed(_ sender: Any) {
-        let coordinate = CLLocationCoordinate2DMake(43.6532, 79.3832)
+        let coordinate = CLLocationCoordinate2D(latitude: highestRatedSuggestion.latitude, longitude: highestRatedSuggestion.longitude)
         let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate, addressDictionary: nil))
         mapItem.name = highestRatedSuggestion.name
         mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])
