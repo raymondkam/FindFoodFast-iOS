@@ -71,6 +71,9 @@ final class BluetoothPeripheralManager : NSObject {
     fileprivate var sendToCharacteristic: CBMutableCharacteristic?
     fileprivate var sendingEOM = false
     
+    fileprivate var currentOperation: BluetoothOperation?
+    fileprivate var operationQueue = Queue<BluetoothOperation>()
+    
     // Variables related to receiving data
     fileprivate var receivedData = [String: Data]()
     
@@ -209,24 +212,29 @@ final class BluetoothPeripheralManager : NSObject {
     }
     
     fileprivate func send(_ object: Any, for characteristic: CBMutableCharacteristic) {
-        dataToSend = NSKeyedArchiver.archivedData(withRootObject: object)
-        sendDataIndex = 0
-        sendToCharacteristic = characteristic
+        
+        let dataToSend = NSKeyedArchiver.archivedData(withRootObject: object)
+        let operation = BluetoothOperation(dataToSend: dataToSend, targetCharacteristic: characteristic)
+        operationQueue.enqueue(operation)
         sendData()
     }
     
-    /* 
+    /*
      * Function modified from https://github.com/0x7fffffff/Core-Bluetooth-Transfer-Demo which is
      * a port of Apple's BTLE Transfer demo project into Swift 3.
      */
     fileprivate func sendData() {
-        guard dataToSend != nil else {
-            print("peripheral manager: no data to send as it is nil")
-            return
-        }
-        guard sendToCharacteristic != nil else {
-            print("no specified characteristic to send to")
-            return
+        if currentOperation == nil {
+            guard let nextOperation = operationQueue.dequeue() else {
+                assert(false, "should not get here if there was nothing in queue")
+                return
+            }
+            currentOperation = nextOperation
+            dataToSend = nextOperation.dataToSend
+            sendToCharacteristic = nextOperation.targetCharacteristic
+            sendDataIndex = 0
+            
+            print("fetched next operation from queue, \(operationQueue.count) remaining items in queue")
         }
         
         if sendingEOM {
@@ -245,9 +253,12 @@ final class BluetoothPeripheralManager : NSObject {
                 
                 print("Sent: EOM")
                 
-                // remove data stored in variable
-                dataToSend = nil
-                sendToCharacteristic = nil
+                // finished current operation
+                currentOperation = nil
+                
+                if !operationQueue.isEmpty {
+                    sendData()
+                }
             }
             
             // It didn't send, so we'll exit and wait for peripheralManagerIsReadyToUpdateSubscribers to call sendData again
@@ -320,6 +331,12 @@ final class BluetoothPeripheralManager : NSObject {
                     // It sent, we're all done
                     sendingEOM = false
                     print("Sent: EOM")
+                    
+                    currentOperation = nil
+                    
+                    if !operationQueue.isEmpty {
+                        sendData()
+                    }
                 }
                 
                 return
@@ -340,7 +357,9 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
     }
     
     func peripheralManagerIsReady(toUpdateSubscribers peripheral: CBPeripheralManager) {
-        sendData()
+        if !operationQueue.isEmpty || currentOperation != nil {
+            sendData()
+        }
     }
     
     func peripheralManagerDidStartAdvertising(_ peripheral: CBPeripheralManager, error: Error?) {
