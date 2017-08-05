@@ -144,8 +144,6 @@ class Suggestion: NSObject, NSCoding {
         aCoder.encode(name, forKey: "name")
         aCoder.encode(address, forKey: "address")
         aCoder.encode(type, forKey: "type")
-        aCoder.encode(latitude, forKey: "latitude")
-        aCoder.encode(longitude, forKey: "longitude")
         aCoder.encode(rating, forKey: "rating")
         aCoder.encode(latitude, forKey: "latitude")
         aCoder.encode(longitude, forKey: "longitude")
