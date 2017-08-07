@@ -443,7 +443,6 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
                 
                 let stringFromData = String.init(data: data, encoding: .utf8)
                 if stringFromData == "EOM" {
-                    
                     // check if data is gzip compressed
                     var decompressedData = receivedData[centralUuidString]!
                     if decompressedData.isGzipped {
@@ -498,8 +497,14 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
                 }
                 let stringFromData = String.init(data: data, encoding: .utf8)
                 if stringFromData == "EOM" {
+                    // check if data is gzip compressed
+                    var decompressedData = receivedData[centralUuidString]!
+                    if decompressedData.isGzipped {
+                        decompressedData = try! decompressedData.gunzipped()
+                    }
+                    
                     print("received votes from central")
-                    guard let votes = NSKeyedUnarchiver.unarchiveObject(with: receivedData[centralUuidString]!) as? [Vote] else {
+                    guard let votes = NSKeyedUnarchiver.unarchiveObject(with: decompressedData) as? [Vote] else {
                         print("invalid voted suggestions unarchived")
                         peripheral.respond(to: request, withResult: .requestNotSupported)
                         return
@@ -507,7 +512,7 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
                     delegate?.bluetoothPeripheralManagerDidReceiveVotes(self, votes: votes, from: request.central)
                     
                     // clear received data for next transmission
-                    receivedData[centralUuidString] = nil
+                    clearReceivedData(fromCentralUuid: centralUuidString)
                 } else {
                     // not done receiving all data, append the data
                     receivedData[centralUuidString]!.append(data)
