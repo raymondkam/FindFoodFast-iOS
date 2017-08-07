@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>GzipSwift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>IGIdenticon.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -57,12 +62,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>103C159A8E41B13CC7B3B8B027604542</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>160F3D2B181465FD6DEC4E9916DF2092</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>347EA8C0381FB3193FBEA95BC7AFA983</key>
+		<key>217546A8A0F8FAEE47CFA4F791C0082F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -88,11 +98,6 @@
 			<true/>
 		</dict>
 		<key>8AC44F5CA9BBA118155AB80CDC849845</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>A433BDC17E87240BE99CC8E025DFFB65</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -91,6 +91,7 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Alamofire/Alamofire.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Cosmos/Cosmos.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/GzipSwift/Gzip.framework"
   install_framework "$BUILT_PRODUCTS_DIR/IGIdenticon/IGIdenticon.framework"
   install_framework "$BUILT_PRODUCTS_DIR/INSPhotoGallery/INSPhotoGallery.framework"
   install_framework "$BUILT_PRODUCTS_DIR/JASON/JASON.framework"
@@ -98,6 +99,7 @@ fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Alamofire/Alamofire.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Cosmos/Cosmos.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/GzipSwift/Gzip.framework"
   install_framework "$BUILT_PRODUCTS_DIR/IGIdenticon/IGIdenticon.framework"
   install_framework "$BUILT_PRODUCTS_DIR/INSPhotoGallery/INSPhotoGallery.framework"
   install_framework "$BUILT_PRODUCTS_DIR/JASON/JASON.framework"

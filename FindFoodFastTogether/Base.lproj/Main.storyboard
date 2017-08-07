@@ -834,7 +834,7 @@
         <scene sceneID="jpG-92-CkR">
             <objects>
                 <collectionViewController id="t3W-YA-ni4" customClass="SuggestionCollectionViewController" customModule="FindFoodFastTogether" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="Jec-7v-SJZ">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="Jec-7v-SJZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="240"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1139,7 +1139,7 @@
         <scene sceneID="Ibb-nB-vje">
             <objects>
                 <collectionViewController id="mLn-tw-oPV" customClass="SuggestionSearchResultsCollectionViewController" customModule="FindFoodFastTogether" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="NQN-Jj-5aw">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="NQN-Jj-5aw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
