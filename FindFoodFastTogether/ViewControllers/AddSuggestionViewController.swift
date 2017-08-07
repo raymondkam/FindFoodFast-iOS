@@ -12,6 +12,7 @@ import CoreLocation
 class AddSuggestionViewController: UIViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var loadingView: UIView!
     
     var suggestionSearchResultsCollectionViewController: SuggestionSearchResultsCollectionViewController!
     var suggestionDetailsViewController: SuggestionDetailsViewController!
@@ -70,6 +71,11 @@ class AddSuggestionViewController: UIViewController {
     }
     
     func searchNearbySuggestions(with keyword: String) {
+        // show indicator
+        DispatchQueue.main.async { [weak self] in
+            self?.loadingView.isHidden = false
+        }
+        
         print("search keyword: \(keyword)")
         var coordinate: CLLocationCoordinate2D
         if let userLocation = userLocation {
@@ -77,6 +83,13 @@ class AddSuggestionViewController: UIViewController {
             suggestionSearchResultsCollectionViewController.userLocation = userLocation
             
             searchClient.searchForNearbySuggestions(using: keyword, location: coordinate, radiusInMeters: "50000", completion: { [weak self] (partialSuggestions, error) in
+                guard keyword == self?.searchBar.text else {
+                    print("current search bar text not the same current search term")
+                    return
+                }
+                DispatchQueue.main.async { [weak self] in
+                    self?.loadingView.isHidden = true
+                }
                 guard error == nil else {
                     print("error searching for nearby suggestions")
                     return
