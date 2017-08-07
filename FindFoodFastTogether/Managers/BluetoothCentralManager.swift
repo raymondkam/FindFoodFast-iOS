@@ -9,6 +9,7 @@
 import Foundation
 import CoreBluetooth
 import UIKit
+import Gzip
 
 protocol BluetoothCentralManagerDelegate : class {
     func bluetoothCentralManagerDidDiscoverHost(_: BluetoothCentralManager, host: Host)
@@ -158,7 +159,7 @@ final class BluetoothCentralManager : NSObject {
     }
     
     func send(_ object: Any, to characteristic: CBCharacteristic) {
-        let dataToSend = NSKeyedArchiver.archivedData(withRootObject: object)
+        var dataToSend = NSKeyedArchiver.archivedData(withRootObject: object).tryGzipped()
         let operation = BluetoothOperation(dataToSend: dataToSend, targetCharacteristic: characteristic)
         operationQueue.enqueue(operation)
 
@@ -428,6 +429,12 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
             
             let stringFromData = String.init(data: characteristic.value!, encoding: .utf8)
             if stringFromData == "EOM" {
+                
+                // check if data is gzip compressed
+                if receivedData!.isGzipped {
+                    receivedData = try! receivedData?.gunzipped()
+                }
+                
                 // handle data received from different characteristics differently
                 switch characteristic.uuid {
                 case FindFoodFastService.CharacteristicUUIDJoinSession:

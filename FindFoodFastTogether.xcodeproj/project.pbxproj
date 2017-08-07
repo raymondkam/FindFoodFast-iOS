@@ -22,6 +22,7 @@
 		9C3B54E61F3528EA00CD4550 /* SuggestionOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B54E51F3528EA00CD4550 /* SuggestionOperation.swift */; };
 		9C3B54E81F36447500CD4550 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B54E71F36447400CD4550 /* Queue.swift */; };
 		9C3B54EA1F364B1300CD4550 /* BluetoothOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B54E91F364B1300CD4550 /* BluetoothOperation.swift */; };
+		9C3B54EC1F3918F800CD4550 /* Data+Gzip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B54EB1F3918F800CD4550 /* Data+Gzip.swift */; };
 		9C6266F41F2962E5009E7C77 /* SuggestionSearchResultCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6266F31F2962E5009E7C77 /* SuggestionSearchResultCollectionReusableView.swift */; };
 		9C6266FC1F2A9EA1009E7C77 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6266FB1F2A9EA1009E7C77 /* ImageCollectionViewCell.swift */; };
 		9C6266FE1F2A9F6D009E7C77 /* PagedImageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6266FD1F2A9F6D009E7C77 /* PagedImageCollectionViewController.swift */; };
@@ -95,6 +96,7 @@
 		9C3B54E51F3528EA00CD4550 /* SuggestionOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SuggestionOperation.swift; path = Models/SuggestionOperation.swift; sourceTree = "<group>"; };
 		9C3B54E71F36447400CD4550 /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Queue.swift; path = Helpers/Queue.swift; sourceTree = "<group>"; };
 		9C3B54E91F364B1300CD4550 /* BluetoothOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BluetoothOperation.swift; path = Models/BluetoothOperation.swift; sourceTree = "<group>"; };
+		9C3B54EB1F3918F800CD4550 /* Data+Gzip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Data+Gzip.swift"; path = "Helpers/Data+Gzip.swift"; sourceTree = "<group>"; };
 		9C6266F31F2962E5009E7C77 /* SuggestionSearchResultCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SuggestionSearchResultCollectionReusableView.swift; path = Views/SuggestionSearchResultCollectionReusableView.swift; sourceTree = "<group>"; };
 		9C6266FB1F2A9EA1009E7C77 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageCollectionViewCell.swift; path = Views/ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		9C6266FD1F2A9F6D009E7C77 /* PagedImageCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PagedImageCollectionViewController.swift; path = ViewControllers/PagedImageCollectionViewController.swift; sourceTree = "<group>"; };
@@ -314,6 +316,7 @@
 				9CF38B911EFCD12900A736B0 /* UIView+Helpers.swift */,
 				9C3B54D51F33C2A900CD4550 /* JASON+Alamofire.swift */,
 				9C3B54E71F36447400CD4550 /* Queue.swift */,
+				9C3B54EB1F3918F800CD4550 /* Data+Gzip.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -654,6 +657,7 @@
 				9C3B54D21F339A3000CD4550 /* GoogleSearchClient.swift in Sources */,
 				9CC2B8011EEE407A0049E269 /* AppDelegate.swift in Sources */,
 				9CA76E641F216D4900208BB3 /* HighestRatedSuggestionViewController.swift in Sources */,
+				9C3B54EC1F3918F800CD4550 /* Data+Gzip.swift in Sources */,
 				9C7ACD9A1F104E260086157E /* SuggestionCollectionViewCell.swift in Sources */,
 				9C3B54D01F33999A00CD4550 /* SearchClient.swift in Sources */,
 				9C7ACD981F104C940086157E /* Suggestion.swift in Sources */,

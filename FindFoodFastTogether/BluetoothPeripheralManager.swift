@@ -9,6 +9,7 @@
 import Foundation
 import CoreBluetooth
 import UIKit
+import Gzip
 
 protocol BluetoothPeripheralManagerDelegate : class {
     func bluetoothPeripheralManagerDidBecomeReadyToAdvertise(_: BluetoothPeripheralManager)
@@ -222,8 +223,7 @@ final class BluetoothPeripheralManager : NSObject {
     }
     
     fileprivate func send(_ object: Any, for characteristic: CBMutableCharacteristic) {
-        
-        let dataToSend = NSKeyedArchiver.archivedData(withRootObject: object)
+        let dataToSend = NSKeyedArchiver.archivedData(withRootObject: object).tryGzipped()
         let operation = BluetoothPeripheralOperation(dataToSend: dataToSend, targetCharacteristic: characteristic)
         operationQueue.enqueue(operation)
         print("1 new bluetooth operation added to queue")
@@ -443,7 +443,14 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
                 
                 let stringFromData = String.init(data: data, encoding: .utf8)
                 if stringFromData == "EOM" {
-                    guard let suggestionOperation = NSKeyedUnarchiver.unarchiveObject(with: receivedData[centralUuidString]!) as? SuggestionOperation else {
+                    
+                    // check if data is gzip compressed
+                    var decompressedData = receivedData[centralUuidString]!
+                    if decompressedData.isGzipped {
+                        decompressedData = try! decompressedData.gunzipped()
+                    }
+                    
+                    guard let suggestionOperation = NSKeyedUnarchiver.unarchiveObject(with: decompressedData) as? SuggestionOperation else {
                         print("invalid suggestion unarchived")
                         peripheral.respond(to: request, withResult: .requestNotSupported)
                         clearReceivedData(fromCentralUuid: centralUuidString)
