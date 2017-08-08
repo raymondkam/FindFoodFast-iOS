@@ -159,7 +159,7 @@ final class BluetoothCentralManager : NSObject {
     }
     
     func send(_ object: Any, to characteristic: CBCharacteristic) {
-        var dataToSend = NSKeyedArchiver.archivedData(withRootObject: object).tryGzipped()
+        let dataToSend = NSKeyedArchiver.archivedData(withRootObject: object).tryGzipped()
         let operation = BluetoothOperation(dataToSend: dataToSend, targetCharacteristic: characteristic)
         operationQueue.enqueue(operation)
 
