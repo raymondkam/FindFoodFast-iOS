@@ -834,7 +834,7 @@
         <scene sceneID="jpG-92-CkR">
             <objects>
                 <collectionViewController id="t3W-YA-ni4" customClass="SuggestionCollectionViewController" customModule="FindFoodFastTogether" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="Jec-7v-SJZ">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="Jec-7v-SJZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="240"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -927,7 +927,7 @@
                                                     <rect key="frame" x="0.0" y="160" width="240" height="80"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="TrV-l2-zTj">
-                                                            <rect key="frame" x="10" y="9.5" width="220" height="62"/>
+                                                            <rect key="frame" x="10" y="11" width="220" height="59"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tlH-nS-kNg">
                                                                     <rect key="frame" x="0.0" y="0.0" width="220" height="18"/>
@@ -975,18 +975,36 @@
                                                                         </view>
                                                                     </subviews>
                                                                 </stackView>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9gz-AX-Dr0">
-                                                                    <rect key="frame" x="0.0" y="46" width="220" height="16"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="PAe-dG-YcW">
+                                                                    <rect key="frame" x="0.0" y="46" width="220" height="13"/>
+                                                                    <subviews>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9gz-AX-Dr0">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="33" height="13"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="height" constant="13" id="xEJ-zl-5sN"/>
+                                                                            </constraints>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RQh-FI-PXO">
+                                                                            <rect key="frame" x="43" y="0.0" width="177" height="13"/>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                            <color key="textColor" red="0.11339322120000001" green="0.73802603239999998" blue="0.83719235749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                    </subviews>
+                                                                    <constraints>
+                                                                        <constraint firstItem="RQh-FI-PXO" firstAttribute="height" secondItem="9gz-AX-Dr0" secondAttribute="height" id="FSu-OM-Bye"/>
+                                                                    </constraints>
+                                                                </stackView>
                                                             </subviews>
                                                             <constraints>
-                                                                <constraint firstItem="9gz-AX-Dr0" firstAttribute="leading" secondItem="tlH-nS-kNg" secondAttribute="leading" id="3DM-r2-44q"/>
                                                                 <constraint firstItem="nTW-4A-VjE" firstAttribute="trailing" secondItem="tlH-nS-kNg" secondAttribute="trailing" id="GWf-dP-VJJ"/>
+                                                                <constraint firstItem="9gz-AX-Dr0" firstAttribute="leading" secondItem="tlH-nS-kNg" secondAttribute="leading" id="WZF-fK-6pK"/>
                                                                 <constraint firstItem="nTW-4A-VjE" firstAttribute="leading" secondItem="tlH-nS-kNg" secondAttribute="leading" id="jMw-eQ-XJx"/>
-                                                                <constraint firstItem="9gz-AX-Dr0" firstAttribute="trailing" secondItem="tlH-nS-kNg" secondAttribute="trailing" id="zYD-Ze-mlf"/>
+                                                                <constraint firstItem="RQh-FI-PXO" firstAttribute="trailing" secondItem="tlH-nS-kNg" secondAttribute="trailing" id="lVY-XI-avJ"/>
+                                                                <constraint firstItem="PAe-dG-YcW" firstAttribute="width" secondItem="TrV-l2-zTj" secondAttribute="width" id="wlL-eA-lYp"/>
                                                             </constraints>
                                                         </stackView>
                                                     </subviews>
@@ -1043,6 +1061,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
+                                    <outlet property="distanceLabel" destination="RQh-FI-PXO" id="se7-JX-vqj"/>
                                     <outlet property="imageView" destination="lcf-n6-Bhq" id="Mhb-br-EQO"/>
                                     <outlet property="ratingCosmosView" destination="rK7-bo-g53" id="OxA-m4-rKJ"/>
                                     <outlet property="ratingLabel" destination="56a-Rv-pVH" id="gKh-xY-dG8"/>
@@ -1214,7 +1233,7 @@
                                     <constraint firstItem="cyu-BE-Jmn" firstAttribute="leading" secondItem="lXG-q8-R2q" secondAttribute="leading" id="xPw-8q-XGL"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="distanceLabel" destination="Bps-Gk-0F6" id="V8b-BJ-RNY"/>
+                                    <outlet property="distanceLabel" destination="Bps-Gk-0F6" id="0yP-59-Bit"/>
                                     <outlet property="subtitleLabel" destination="DMx-0Q-yNQ" id="hp4-Bp-1Iq"/>
                                     <outlet property="titleLabel" destination="Tvm-ga-lkF" id="veW-FX-hYU"/>
                                 </connections>
@@ -1910,7 +1929,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="oVU-Jn-U1e"/>
-        <segue reference="Qao-oM-Ssd"/>
+        <segue reference="LE5-MB-4s1"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.11339322120000001" green="0.73802603239999998" blue="0.83719235749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

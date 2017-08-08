@@ -18,6 +18,7 @@ class SuggestionCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var ratingCosmosView: CosmosView!
     @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var removeButton: UIButton!
+    @IBOutlet weak var distanceLabel: UILabel!
     
     var image: UIImage? {
         get {
@@ -56,8 +57,22 @@ class SuggestionCollectionViewCell: UICollectionViewCell {
         get {
             return subtitleLabel.text
         }
-        set (newSubtitle) {
+        set(newSubtitle) {
             subtitleLabel.text = newSubtitle
+        }
+    }
+    
+    var distanceString: String? {
+        get {
+            return distanceLabel.text
+        }
+        set(newDistanceString) {
+            if let newDistanceString = newDistanceString {
+                distanceLabel.text = newDistanceString
+                distanceLabel.isHidden = false
+            } else {
+                distanceLabel.isHidden = true
+            }
         }
     }
 }

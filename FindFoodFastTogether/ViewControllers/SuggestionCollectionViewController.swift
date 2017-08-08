@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class SuggestionCollectionViewController: UICollectionViewController {
 
@@ -109,6 +110,29 @@ class SuggestionCollectionViewController: UICollectionViewController {
             suggestionCell.title = suggestion.name
             suggestionCell.rating = suggestion.rating
             suggestionCell.subtitle = suggestion.type
+            LocationManager.sharedInstance.requestLocation(completion: { (userLocation, error) in
+                guard error == nil else {
+                    let locationError = error!
+                    let reason: String
+                    switch locationError {
+                    case .accessDenied:
+                        reason = "access denied"
+                    case .notDetermined:
+                        reason = "not determined"
+                    case .restricted:
+                        reason = "restricted"
+                    }
+                    print("could not get location, reason: \(reason)")
+                    return
+                }
+                guard let userLocation = userLocation else {
+                    print("returned location is nil")
+                    return
+                }
+                let suggestionLocation = CLLocation(latitude: suggestion.latitude, longitude: suggestion.longitude)
+                let distance = suggestionLocation.distance(from: userLocation) / 1000
+                suggestionCell.distanceString = String(format: "%.1f km", distance)
+            })
             // tag the button with the index path item, so we know
             // which suggestion to remove if tapped
             suggestionCell.removeButton.tag = indexPath.item

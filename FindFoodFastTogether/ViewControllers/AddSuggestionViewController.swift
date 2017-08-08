@@ -16,7 +16,6 @@ class AddSuggestionViewController: UIViewController {
     
     var suggestionSearchResultsCollectionViewController: SuggestionSearchResultsCollectionViewController!
     var suggestionDetailsViewController: SuggestionDetailsViewController!
-    var locationManager = CLLocationManager()
     var searchClient: SearchClient = GoogleSearchClient()
     var userLocation: CLLocation?
     var searchWorkItem: DispatchWorkItem?
@@ -30,29 +29,26 @@ class AddSuggestionViewController: UIViewController {
         searchBar.delegate = self
         searchBar.becomeFirstResponder()
         
-        // load previously saved location and see if it is a 
-        // recently fetched location
-        let userDefaults = UserDefaults.standard
-        if let cachedLocationData = userDefaults.data(forKey: UserDefaultsKeys.UserLocation) {
-            print("loaded previously cached location")
-            if let cachedLocation = NSKeyedUnarchiver.unarchiveObject(with: cachedLocationData) as? CLLocation {
-                let currentDate = Date()
-                if currentDate < cachedLocation.timestamp.addingTimeInterval(LocationCacheTimeInterval) {
-                    // if cached location was retrieved less than 
-                    // 5 mins ago
-                    userLocation = cachedLocation
+        LocationManager.sharedInstance.requestLocation { [weak self] (userLocation, error) in
+            guard error == nil else {
+                let locationError = error!
+                let reason: String
+                switch locationError {
+                case .accessDenied:
+                    reason = "access denied"
+                case .notDetermined:
+                    reason = "not determined"
+                case .restricted:
+                    reason = "restricted"
                 }
+                print("could not get location, reason: \(reason)")
+                return
             }
-        }
-        
-        // set up location and get user's current location
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestAlwaysAuthorization()
-        
-        // only update location if cached location is bad
-        if let _ = userLocation {} else {
-            locationManager.startUpdatingLocation()
+            guard let userLocation = userLocation else {
+                print("could not get location")
+                return
+            }
+            self?.userLocation = userLocation
         }
     }
     
@@ -101,41 +97,6 @@ class AddSuggestionViewController: UIViewController {
                 self?.suggestionSearchResultsCollectionViewController.dataSource = partialSuggestions
                 self?.suggestionSearchResultsCollectionViewController.collectionView?.reloadData()
             })
-        }
-    }
-}
-
-extension AddSuggestionViewController: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("found some locations")
-        guard locations.count > 0 else {
-            print("did not find any locations")
-            return
-        }
-        manager.stopUpdatingLocation()
-        let bestLocation = locations[0]
-        userLocation = bestLocation
-        print("user coordinates: \(bestLocation.coordinate)")
-        
-        // save into user defaults
-        let bestLocationData = NSKeyedArchiver.archivedData(withRootObject: bestLocation)
-        let userDefaults = UserDefaults.standard
-        userDefaults.setValue(bestLocationData, forKey: UserDefaultsKeys.UserLocation)
-        print("user location saved into user defaults")
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        switch status {
-        case .authorizedAlways:
-            print("authorized always")
-        case .authorizedWhenInUse:
-            print("clear to go use user location")
-        case .denied:
-            print("access denied")
-        case .notDetermined:
-            print("not determined")
-        case .restricted:
-            print("location restricted")
         }
     }
 }
