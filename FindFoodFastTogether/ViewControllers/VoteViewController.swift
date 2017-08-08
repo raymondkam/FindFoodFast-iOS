@@ -168,18 +168,48 @@ class VoteViewController: UIViewController {
     }
     
     fileprivate func findSuggestionWithHighestRating() {
-        let highestScoringVote = finalSuggestionIdToScore.max { (a, b) -> Bool in
-            return a.value < b.value
+        // put together all suggestion ids with the same score
+        let scoresToSuggestionIds = finalSuggestionIdToScore.reduce([Int: [String]]()) { (scoreToSuggestionIds, suggestionIdToScore) -> [Int: [String]] in
+            var scoreToSuggestionIds = scoreToSuggestionIds
+            let suggestionId = suggestionIdToScore.key
+            let score = suggestionIdToScore.value
+            if var suggestionIdsWithSameScore = scoreToSuggestionIds[score] {
+                suggestionIdsWithSameScore.append(suggestionId)
+                scoreToSuggestionIds.updateValue(suggestionIdsWithSameScore, forKey: score)
+            } else {
+                scoreToSuggestionIds.updateValue([suggestionId], forKey: score)
+            }
+            return scoreToSuggestionIds
+        }
+        
+        // find the highest score
+        let highestScoringVote = scoresToSuggestionIds.max { (a, b) -> Bool in
+            return a.key < b.key
         }
         
         if let highestScoringVote = highestScoringVote {
-            let highestRatedSuggestion = suggestionIdToSuggestion[highestScoringVote.key]!
-            highestRatedSuggestion.votes = highestScoringVote.value
-            print("best name: \(highestRatedSuggestion.name) and score: \(highestScoringVote.value)")
+            let highestScore = highestScoringVote.key
+            let highestScoringSuggestionIds = highestScoringVote.value
             
-            BluetoothPeripheralManager.sharedInstance.sendHighestRatedSuggestion(highestRatedSuggestion: highestRatedSuggestion)
+            let highestScoringSuggestionIndex: Int
+            
+            // randomly choose if there are more than 1
+            if highestScoringSuggestionIds.count > 1 {
+                print("randomly choosing one as there are multiple suggestions with the highest score")
+                highestScoringSuggestionIndex = Int(arc4random_uniform(UInt32(highestScoringSuggestionIds.count)))
+            } else {
+                highestScoringSuggestionIndex = 0
+            }
+            
+            let highestScoringSuggestionId = highestScoringSuggestionIds[highestScoringSuggestionIndex]
+            let highestScoringSuggestion = suggestionIdToSuggestion[highestScoringSuggestionId]!
+            highestScoringSuggestion.votes = highestScore
+            print("best name: \(highestScoringSuggestion.name) and score: \(highestScore)")
+            
+            // notify the users that the highest rated suggestion was found
+            BluetoothPeripheralManager.sharedInstance.sendHighestRatedSuggestion(highestRatedSuggestion: highestScoringSuggestion)
 
-            showSuggestionWithHighestRating(highestRatedSuggestion: highestRatedSuggestion)
+            showSuggestionWithHighestRating(highestRatedSuggestion: highestScoringSuggestion)
         } else {
             print("could not find highest rated suggestion")
         }
