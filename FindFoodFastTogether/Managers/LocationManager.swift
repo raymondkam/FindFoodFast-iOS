@@ -41,7 +41,9 @@ class LocationManager: NSObject {
             let currentDate = Date()
             if currentDate < currentLocation.timestamp.addingTimeInterval(LocationCacheTimeInterval) {
                 // location was retrieved from less than 5 mins ago
+                print("saved location is still relevant, no need to fetch new location")
                 completion(currentLocation, nil)
+                return
             }
         }
         
@@ -53,6 +55,11 @@ class LocationManager: NSObject {
     }
     
     fileprivate func handlePendingRequestBlocks(location: CLLocation?, error: LocationError?) {
+        if pendingRequestsBlocks.count == 0 {
+            print("no location requests to fulfill")
+            return
+        }
+        print("location manager has \(pendingRequestsBlocks.count) pending requests")
         if location != nil {
             for pendingRequestBlock in pendingRequestsBlocks {
                 pendingRequestBlock(location, nil)
