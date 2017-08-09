@@ -20,6 +20,7 @@ enum LocationError: Error {
 class LocationManager: NSObject {
     
     private var locationManager = CLLocationManager()
+    private let locationCacheTimeInterval: TimeInterval = 300
     
     fileprivate var _currentLocation: CLLocation?
     fileprivate var pendingRequestsBlocks = [LocationRequestBlock]()
@@ -39,7 +40,7 @@ class LocationManager: NSObject {
         // if there is a fresh location, then use it
         if let currentLocation = _currentLocation {
             let currentDate = Date()
-            if currentDate < currentLocation.timestamp.addingTimeInterval(LocationCacheTimeInterval) {
+            if currentDate < currentLocation.timestamp.addingTimeInterval(locationCacheTimeInterval) {
                 // location was retrieved from less than 5 mins ago
                 print("saved location is still relevant, no need to fetch new location")
                 completion(currentLocation, nil)

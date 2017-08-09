@@ -61,8 +61,6 @@ let suggestionSearchResultReuseIdentifier = "suggestionSearchResultCell"
 let poweredByGoogleFooterViewReuseIdentifer = "poweredByGoogleFooter"
 let imageReuseIdentifier = "ImageCell"
 
-let LocationCacheTimeInterval: TimeInterval = 300
-
 struct UserDefaultsKeys {
     static let Username = "username"
     static let UserLocation = "userLocation"
