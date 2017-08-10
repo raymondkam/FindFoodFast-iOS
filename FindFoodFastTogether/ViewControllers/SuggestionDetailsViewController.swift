@@ -83,26 +83,30 @@ class SuggestionDetailsViewController: UIViewController {
             
             // get photos
             let widthString = String(Int(strongSelf.view.frame.width))
-            for photoId in suggestion.photoIds.prefix(GoogleAPIConstants.maxPhotosToFetch) {
-                strongSelf.searchClient.fetchSuggestionPhoto(using: photoId, maxWidth: widthString, maxHeight: nil, completion: { [weak self] (image, error) in
-                    guard error == nil else {
-                        print("error fetching photo \(photoId)")
-                        return
-                    }
-                    guard let image = image else {
-                        print("could not fetch image for suggestion for photo id: \(photoId)")
-                        return
-                    }
-                    
-                    if suggestion.thumbnail == nil {
-                        suggestion.thumbnail = image
-                    }
-                    
-                    let insPhoto = INSPhoto(image: image, thumbnailImage: image)
-                    self?.pagedImageCollectionViewController.dataSource.append(insPhoto)
-                    self?.pagedImageCollectionViewController.collectionView?.reloadData()
-                })
-            }
+            let photoIds = suggestion.photoIds.prefix(GoogleAPIConstants.maxPhotosToFetch)
+            strongSelf.pagedImageCollectionViewController.dataSource = Array(photoIds)
+            strongSelf.pagedImageCollectionViewController.collectionView?.reloadData()
+            
+//            for photoId in photoIds {
+//                strongSelf.searchClient.fetchSuggestionPhoto(using: photoId, maxWidth: widthString, maxHeight: nil, completion: { [weak self] (image, error) in
+//                    guard error == nil else {
+//                        print("error fetching photo \(photoId)")
+//                        return
+//                    }
+//                    guard let image = image else {
+//                        print("could not fetch image for suggestion for photo id: \(photoId)")
+//                        return
+//                    }
+//                    
+//                    if suggestion.thumbnail == nil {
+//                        suggestion.thumbnail = image
+//                    }
+//                    
+//                    let insPhoto = INSPhoto(image: image, thumbnailImage: image)
+//                    self?.pagedImageCollectionViewController.dataSource.append(insPhoto)
+//                    self?.pagedImageCollectionViewController.collectionView?.reloadData()
+//                })
+//            }
         }
     }
     
@@ -144,6 +148,7 @@ class SuggestionDetailsViewController: UIViewController {
         case Segues.EmbedSuggestionImages:
             pagedImageCollectionViewController = segue.destination as! PagedImageCollectionViewController
             pagedImageCollectionViewController.delegate = self
+            pagedImageCollectionViewController.searchClient = searchClient
         case Segues.UnwindToHostViewAfterAddingSuggestion:
             restoreNavigationBarAppearance()
         case Segues.PresentMap:

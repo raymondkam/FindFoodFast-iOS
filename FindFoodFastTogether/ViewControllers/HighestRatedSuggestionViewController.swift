@@ -53,6 +53,7 @@ class HighestRatedSuggestionViewController: UIViewController {
         if let thumbnail = highestRatedSuggestion.thumbnail {
             imageView.image = thumbnail
         } else {
+            imageView.image = #imageLiteral(resourceName: "placeholderImage")
             if let firstPhotoId = highestRatedSuggestion.photoIds.first {
                 let widthString = String(Int(imageView.frame.width))
                 searchClient.fetchSuggestionPhoto(using: firstPhotoId, maxWidth: widthString, maxHeight: nil, completion: { [weak self] (image, error) in
@@ -64,7 +65,17 @@ class HighestRatedSuggestionViewController: UIViewController {
                         print("suggestion cell image is nil")
                         return
                     }
-                    self?.imageView.image = image
+                    guard let strongSelf = self else {
+                        print("no reference to self")
+                        return
+                    }
+                    UIView.transition(with: strongSelf.imageView,
+                                      duration: 0.3,
+                                      options: .transitionCrossDissolve,
+                                      animations: {
+                                        strongSelf.imageView.image = image
+                    },
+                                      completion: nil)
                     
                     // update data source as well
                     self?.highestRatedSuggestion.thumbnail = image

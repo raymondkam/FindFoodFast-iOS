@@ -462,7 +462,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pnc-hj-Z40">
                                                     <rect key="frame" x="0.0" y="0.0" width="337" height="224.5"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6bM-Ht-bHp">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholderImage" translatesAutoresizingMaskIntoConstraints="NO" id="6bM-Ht-bHp">
                                                             <rect key="frame" x="0.0" y="0.0" width="337" height="224.5"/>
                                                         </imageView>
                                                     </subviews>
@@ -670,8 +670,9 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="vgt-w2-mHb">
                                                         <rect key="frame" x="0.0" y="0.0" width="317" height="281"/>
                                                         <subviews>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Wcg-bn-8LQ">
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholderImage" translatesAutoresizingMaskIntoConstraints="NO" id="Wcg-bn-8LQ">
                                                                 <rect key="frame" x="0.0" y="0.0" width="317" height="211"/>
+                                                                <color key="tintColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="Wcg-bn-8LQ" secondAttribute="height" multiplier="3:2" id="MGy-Uf-6Pu"/>
                                                                 </constraints>
@@ -757,7 +758,7 @@
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eXG-vr-yHe">
                                                         <rect key="frame" x="0.0" y="0.0" width="168.5" height="50"/>
-                                                        <color key="backgroundColor" red="0.79525351519999998" green="0.77676600529999995" blue="0.72383810790000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" red="0.79607843137254897" green="0.77647058823529413" blue="0.72549019607843135" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <state key="normal" title="Return to Home">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
@@ -939,7 +940,7 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="VTl-Wl-XlH">
                                             <rect key="frame" x="0.0" y="0.0" width="240" height="240"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lcf-n6-Bhq">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholderImage" translatesAutoresizingMaskIntoConstraints="NO" id="lcf-n6-Bhq">
                                                     <rect key="frame" x="0.0" y="0.0" width="240" height="160"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="lcf-n6-Bhq" secondAttribute="height" multiplier="3:2" id="dHL-y2-qE3"/>
@@ -1652,7 +1653,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="42q-Zz-sc8">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholderImage" translatesAutoresizingMaskIntoConstraints="NO" id="42q-Zz-sc8">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
                                         </imageView>
                                     </subviews>
@@ -1947,6 +1948,7 @@
         <image name="crown" width="64" height="36"/>
         <image name="noun_1013879_cc_active" width="25" height="25"/>
         <image name="noun_1013879_cc_inactive" width="25" height="25"/>
+        <image name="placeholderImage" width="375" height="250"/>
         <image name="powered_by_google_on_white" width="144" height="18"/>
     </resources>
     <inferredMetricsTieBreakers>

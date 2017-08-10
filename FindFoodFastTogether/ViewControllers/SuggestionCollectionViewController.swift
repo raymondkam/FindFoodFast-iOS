@@ -139,6 +139,7 @@ class SuggestionCollectionViewController: UICollectionViewController {
             if let thumbnail = suggestion.thumbnail {
                 suggestionCell.image = thumbnail
             } else {
+                suggestionCell.imageView.image = #imageLiteral(resourceName: "placeholderImage")
                 if let firstPhotoId = suggestion.photoIds.first {
                     let widthString = String(Int(suggestionCell.frame.width))
                     searchClient.fetchSuggestionPhoto(using: firstPhotoId, maxWidth: widthString, maxHeight: nil, completion: { [weak self] (image, error) in

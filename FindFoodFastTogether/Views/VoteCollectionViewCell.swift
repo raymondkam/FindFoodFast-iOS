@@ -22,7 +22,13 @@ class VoteCollectionViewCell: UICollectionViewCell {
             return imageView.image
         }
         set(newImage) {
-            imageView.image = newImage
+            UIView.transition(with: imageView,
+                              duration: 0.3,
+                              options: .transitionCrossDissolve,
+                              animations: {
+                                self.imageView.image = newImage
+            },
+                              completion: nil)
         }
     }
     

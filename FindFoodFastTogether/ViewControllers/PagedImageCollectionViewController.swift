@@ -16,15 +16,15 @@ protocol PagedImageCollectionViewControllerDelegate: class {
 
 class PagedImageCollectionViewController: UICollectionViewController {
 
-    var dataSource = [INSPhoto]()
+    var dataSource = [String]()
+    var insPhotos = [INSPhoto]()
+    var searchClient: SearchClient!
     var attributions = [NSAttributedString?]()
     var currentIndex = -1
     weak var delegate: PagedImageCollectionViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -52,7 +52,28 @@ class PagedImageCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: imageReuseIdentifier, for: indexPath)
         if let imageCell = cell as? ImageCollectionViewCell {
-            imageCell.imageView.image = dataSource[indexPath.item].image
+            let widthString = String(Int(self.view.frame.size.width))
+            let photoId = dataSource[indexPath.item]
+            searchClient.fetchSuggestionPhoto(using: photoId, maxWidth: widthString, maxHeight: nil, completion: { [weak self] (image, error) in
+                guard error == nil else {
+                    print("error fetching suggestion image")
+                    return
+                }
+                guard let image = image else {
+                    print("suggestion image returned is nil")
+                    return
+                }
+                UIView.transition(with: imageCell.imageView,
+                                  duration: 0.3,
+                                  options: .transitionCrossDissolve,
+                                  animations: {
+                                    imageCell.imageView.image = image
+                                  },
+                                  completion: nil)
+                
+                let insPhoto = INSPhoto(image: image, thumbnailImage: image)
+                self?.insPhotos.append(insPhoto)
+            })
         }
         
         return cell
@@ -62,13 +83,13 @@ class PagedImageCollectionViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)
-        let galleryViewController = INSPhotosViewController(photos: dataSource, initialPhoto: dataSource[indexPath.item], referenceView: cell)
+        let galleryViewController = INSPhotosViewController(photos: insPhotos, initialPhoto: insPhotos[indexPath.item], referenceView: cell)
         galleryViewController.navigateToPhotoHandler = { [weak self] photo in
             guard let insPhoto = photo as? INSPhoto else {
                 print("not an ins photo")
                 return
             }
-            if let index = self?.dataSource.index(of: insPhoto) {
+            if let index = self?.insPhotos.index(of: insPhoto) {
                 let indexPath = IndexPath(item: index, section: 0)
                 collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
             }
@@ -78,7 +99,7 @@ class PagedImageCollectionViewController: UICollectionViewController {
                 print("not an ins photo")
                 return nil
             }
-            if let index = self?.dataSource.index(of: insPhoto) {
+            if let index = self?.insPhotos.index(of: insPhoto) {
                 let indexPath = IndexPath(item: index, section: 0)
                 return collectionView.cellForItem(at: indexPath)
             }
