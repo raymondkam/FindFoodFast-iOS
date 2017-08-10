@@ -17,8 +17,9 @@ class HighestRatedSuggestionViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var voteCountLabel: UILabel!
     @IBOutlet weak var backgroundLabel: UILabel!
-    @IBOutlet weak var cardTitle: UILabel!
-    @IBOutlet weak var cardSubtitle: UILabel!
+    @IBOutlet weak var cardTitleLabel: UILabel!
+    @IBOutlet weak var cardSubtitleLabel: UILabel!
+    @IBOutlet weak var cardDistanceLabel: UILabel!
     
     var highestRatedSuggestion: Suggestion!
     var isHosting: Bool!
@@ -26,9 +27,29 @@ class HighestRatedSuggestionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        LocationManager.sharedInstance.requestLocation { [weak self] (userLocation, error) in
+            guard error == nil else {
+                print("error requesting location in highest rated suggestion")
+                return
+            }
+            guard let strongSelf = self else {
+                print("highest rated suggestion: no strong reference to self")
+                return
+            }
+            guard let userLocation = userLocation else {
+                print("highest rated suggestion: location returned is nil")
+                return
+            }
+            let suggestionLocation = CLLocation(latitude: strongSelf.highestRatedSuggestion.latitude, longitude: strongSelf.highestRatedSuggestion.longitude)
+            let distanceInMeters = suggestionLocation.distance(from: userLocation) / 1000
+            strongSelf.cardDistanceLabel.text = String(format: "%.1f km", distanceInMeters)
+            strongSelf.cardDistanceLabel.isHidden = false
+        }
+        
         voteCountLabel.text = String(highestRatedSuggestion.votes)
-        cardTitle.text = highestRatedSuggestion.name
-        cardSubtitle.text = highestRatedSuggestion.type
+        cardTitleLabel.text = highestRatedSuggestion.name
+        cardSubtitleLabel.text = highestRatedSuggestion.type
         if let thumbnail = highestRatedSuggestion.thumbnail {
             imageView.image = thumbnail
         } else {
