@@ -46,34 +46,36 @@ class PagedImageCollectionViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         delegate?.pagedImageCollectionViewControllerUpdatedNumberOfImages(numberOfImages: dataSource.count)
-        return dataSource.count
+        return dataSource.count > 0 ? dataSource.count : 1
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: imageReuseIdentifier, for: indexPath)
         if let imageCell = cell as? ImageCollectionViewCell {
-            let widthString = String(Int(self.view.frame.size.width))
-            let photoId = dataSource[indexPath.item]
-            searchClient.fetchSuggestionPhoto(using: photoId, maxWidth: widthString, maxHeight: nil, completion: { [weak self] (image, error) in
-                guard error == nil else {
-                    print("error fetching suggestion image")
-                    return
-                }
-                guard let image = image else {
-                    print("suggestion image returned is nil")
-                    return
-                }
-                UIView.transition(with: imageCell.imageView,
-                                  duration: 0.3,
-                                  options: .transitionCrossDissolve,
-                                  animations: {
-                                    imageCell.imageView.image = image
-                                  },
-                                  completion: nil)
-                
-                let insPhoto = INSPhoto(image: image, thumbnailImage: image)
-                self?.insPhotos.append(insPhoto)
-            })
+            
+            if dataSource.count == 0 {
+                imageCell.imageView.image = #imageLiteral(resourceName: "placeholderImage")
+            } else {
+                let widthString = String(Int(self.view.frame.size.width))
+                let photoId = dataSource[indexPath.item]
+                searchClient.fetchSuggestionPhoto(using: photoId, maxWidth: widthString, maxHeight: nil, completion: { (image, error) in
+                    guard error == nil else {
+                        print("error fetching suggestion image")
+                        return
+                    }
+                    guard let image = image else {
+                        print("suggestion image returned is nil")
+                        return
+                    }
+                    UIView.transition(with: imageCell.imageView,
+                                      duration: 0.3,
+                                      options: .transitionCrossDissolve,
+                                      animations: {
+                                        imageCell.imageView.image = image
+                    },
+                                      completion: nil)
+                })
+            }
         }
         
         return cell
@@ -82,6 +84,9 @@ class PagedImageCollectionViewController: UICollectionViewController {
     // MARK: UICollectionViewDelegate
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if dataSource.count == 0 {
+            return
+        }
         let cell = collectionView.cellForItem(at: indexPath)
         let galleryViewController = INSPhotosViewController(photos: insPhotos, initialPhoto: insPhotos[indexPath.item], referenceView: cell)
         galleryViewController.navigateToPhotoHandler = { [weak self] photo in
