@@ -14,6 +14,7 @@ class VoteCollectionViewCell: UICollectionViewCell {
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var titlelabel: UILabel!
     @IBOutlet private weak var subtitleLabel: UILabel!
+    @IBOutlet private weak var distanceLabel: UILabel!
     @IBOutlet weak var cosmoView: CosmosView!
     
     var image: UIImage? {
@@ -40,6 +41,20 @@ class VoteCollectionViewCell: UICollectionViewCell {
         }
         set(newSubtitle) {
             subtitleLabel.text = newSubtitle
+        }
+    }
+    
+    var distance: String? {
+        get {
+            return distanceLabel.text
+        }
+        set {
+            if let newDistance = newValue {
+                distanceLabel.text = newDistance
+                distanceLabel.isHidden = false
+            } else {
+                distanceLabel.isHidden = true
+            }
         }
     }
 }

@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreBluetooth
+import CoreLocation
 
 class VoteViewController: UIViewController {
     
@@ -22,6 +23,7 @@ class VoteViewController: UIViewController {
     fileprivate var finalSuggestionIdToScore = [String: Int]()
     fileprivate var suggestionIdToSuggestion = [String: Suggestion]()
     
+    fileprivate var userLocation: CLLocation?
     fileprivate var pendingVotesFromCentrals: Set<CBCentral>!
     fileprivate var submittedHostVotes = false
     fileprivate var timer: Timer!
@@ -53,6 +55,16 @@ class VoteViewController: UIViewController {
         if isHosting {
             // note down the centrals we will need to collect votes from later
             pendingVotesFromCentrals = Set(BluetoothPeripheralManager.sharedInstance.subscribedCentrals)
+        }
+        
+        LocationManager.sharedInstance.requestLocation { [weak self] (location, error) in
+            guard error == nil else {
+                return
+            }
+            guard let location = location else {
+                return
+            }
+            self?.userLocation = location
         }
         
         // hide the nav bar for the voting process until done
@@ -230,6 +242,11 @@ extension VoteViewController: UICollectionViewDataSource {
         
         cell.title = suggestion.name
         cell.subtitle = suggestion.type
+        if let userLocation = userLocation {
+            let suggestionLocation = CLLocation(latitude: suggestion.latitude, longitude: suggestion.longitude)
+            let distance = suggestionLocation.distance(from: userLocation) / 1000
+            cell.distance = String(format: "%.1f km", distance)
+        }
         if let thumbnail = suggestion.thumbnail {
             cell.image = thumbnail
         }
