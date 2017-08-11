@@ -20,6 +20,12 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>We use bluetooth to help you find other people to eat with.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>We use your location to find suggestions near you.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We use your location to find suggestions near you.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>bluetooth-central</string>
@@ -36,11 +42,7 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>We use bluetooth to help you find other people to eat with.</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -48,9 +50,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We use your location to find suggestions near you.</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>We use your location to find suggestions near you.</string>
 </dict>
 </plist>
