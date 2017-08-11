@@ -70,7 +70,7 @@ class HighestRatedSuggestionViewController: UIViewController {
             imageView.image = thumbnail
         } else {
             imageView.image = #imageLiteral(resourceName: "placeholderImage")
-            if let firstPhotoId = highestRatedSuggestion.photoIds.first {
+            if let firstPhotoId = highestRatedSuggestion.photos.first?.id {
                 let widthString = String(Int(imageView.frame.width))
                 searchClient.fetchSuggestionPhoto(using: firstPhotoId, maxWidth: widthString, maxHeight: nil, completion: { [weak self] (image, error) in
                     guard error == nil else {

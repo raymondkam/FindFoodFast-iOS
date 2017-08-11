@@ -16,7 +16,7 @@ protocol PagedImageCollectionViewControllerDelegate: class {
 
 class PagedImageCollectionViewController: UICollectionViewController {
 
-    var dataSource = [String]()
+    var dataSource = [Photo]()
     var insPhotos: [INSPhoto]!
     var searchClient: SearchClient!
     var attributions = [NSAttributedString?]()
@@ -57,7 +57,7 @@ class PagedImageCollectionViewController: UICollectionViewController {
                 imageCell.imageView.image = #imageLiteral(resourceName: "placeholderImage")
             } else {
                 let widthString = String(Int(self.view.frame.size.width))
-                let photoId = dataSource[indexPath.item]
+                let photoId = dataSource[indexPath.item].id
                 searchClient.fetchSuggestionPhoto(using: photoId, maxWidth: widthString, maxHeight: nil, completion: { (image, error) in
                     guard error == nil else {
                         print("error fetching suggestion image")

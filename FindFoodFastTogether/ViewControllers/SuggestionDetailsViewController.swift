@@ -83,12 +83,13 @@ class SuggestionDetailsViewController: UIViewController {
             
             // get photos
             let widthString = String(Int(strongSelf.view.frame.width))
-            let photoIds = suggestion.photoIds.prefix(GoogleAPIConstants.maxPhotosToFetch)
-            strongSelf.pagedImageCollectionViewController.dataSource = Array(photoIds)
+            let photos = suggestion.photos.prefix(GoogleAPIConstants.maxPhotosToFetch)
+            strongSelf.pagedImageCollectionViewController.dataSource = Array(photos)
             strongSelf.pagedImageCollectionViewController.collectionView?.reloadData()
-            strongSelf.pagedImageCollectionViewController.insPhotos = [INSPhoto](repeating: INSPhoto(image: nil, thumbnailImage: nil), count: photoIds.count)
+            strongSelf.pagedImageCollectionViewController.insPhotos = [INSPhoto](repeating: INSPhoto(image: nil, thumbnailImage: nil), count: photos.count)
             
-            for (index, photoId) in photoIds.enumerated() {
+            for (index, photo) in photos.enumerated() {
+                let photoId = photo.id
                 strongSelf.searchClient.fetchSuggestionPhoto(using: photoId, maxWidth: widthString, maxHeight: nil, completion: { [weak self] (image, error) in
                     guard error == nil else {
                         print("error fetching photo \(photoId)")
@@ -104,6 +105,10 @@ class SuggestionDetailsViewController: UIViewController {
                     }
                     
                     let insPhoto = INSPhoto(image: image, thumbnailImage: image)
+                    if let htmlAttributionString = photo.htmlAttributions.first {
+                        let htmlAttributedString = htmlAttributionString.htmlAttributedString
+                        insPhoto.attributedTitle = htmlAttributedString
+                    }
                     self?.pagedImageCollectionViewController.insPhotos[index] = insPhoto
                 })
             }

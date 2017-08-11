@@ -36,6 +36,7 @@ extension JSONKeys {
     static let suggestionIsOpenNow = JSONKey<Bool>(path: "opening_hours", "open_now")
     static let suggestionPhotos = JSONKey<[JSON]>(path: "photos")
     static let suggestionPhotosPhotoReference = JSONKey<String>("photo_reference")
+    static let suggestionHtmlAttributions = JSONKey<[String]>(path: "html_attributions")
 }
 
 class Suggestion: NSObject, NSCoding {
@@ -51,7 +52,7 @@ class Suggestion: NSObject, NSCoding {
     var website: URL?
     var sourceUrl: URL? // source of info
     var isOpenNow: Bool
-    var photoIds: [String]
+    var photos: [Photo]
     var votes = 0
     var thumbnail: UIImage?
     
@@ -66,7 +67,7 @@ class Suggestion: NSObject, NSCoding {
          website: URL?,
          sourceUrl: URL?,
          isOpenNow: Bool,
-         photoIds: [String]) {
+         photos: [Photo]) {
         self.id = id
         self.name = name
         self.address = address
@@ -78,7 +79,7 @@ class Suggestion: NSObject, NSCoding {
         self.website = website
         self.sourceUrl = sourceUrl
         self.isOpenNow = isOpenNow
-        self.photoIds = photoIds
+        self.photos = photos
     }
     
     init(_ json: JSON) {
@@ -94,9 +95,7 @@ class Suggestion: NSObject, NSCoding {
         sourceUrl = json[.suggestionSourceUrl]
         isOpenNow = json[.suggestionIsOpenNow]
         let photosJson = json[.suggestionPhotos].prefix(GoogleAPIConstants.maxPhotosToFetch)
-        photoIds = photosJson.map { (json) -> String in
-            return json[.suggestionPhotosPhotoReference]
-        }
+        photos = photosJson.map(Photo.init)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -115,7 +114,7 @@ class Suggestion: NSObject, NSCoding {
         guard let phoneNumber = aDecoder.decodeObject(forKey: "phoneNumber") as? String else {
             return nil
         }
-        guard let photoIds = aDecoder.decodeObject(forKey: "photoIds") as? [String] else {
+        guard let photos = aDecoder.decodeObject(forKey: "photos") as? [Photo] else {
             return nil
         }
         
@@ -136,7 +135,7 @@ class Suggestion: NSObject, NSCoding {
         self.address = address
         self.type = type
         self.phoneNumber = phoneNumber
-        self.photoIds = photoIds
+        self.photos = photos
     }
     
     func encode(with aCoder: NSCoder) {
@@ -155,7 +154,7 @@ class Suggestion: NSObject, NSCoding {
             aCoder.encode(sourceUrl, forKey: "sourceUrl")
         }
         aCoder.encode(isOpenNow, forKey: "isOpenNow")
-        aCoder.encode(photoIds, forKey: "photoIds")
+        aCoder.encode(photos, forKey: "photos")
         aCoder.encode(votes, forKey: "votes")
     }
     
