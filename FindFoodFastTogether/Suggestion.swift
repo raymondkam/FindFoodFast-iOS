@@ -36,7 +36,6 @@ extension JSONKeys {
     static let suggestionIsOpenNow = JSONKey<Bool>(path: "opening_hours", "open_now")
     static let suggestionPhotos = JSONKey<[JSON]>(path: "photos")
     static let suggestionPhotosPhotoReference = JSONKey<String>("photo_reference")
-    static let suggestionHtmlAttributions = JSONKey<[String]>(path: "html_attributions")
 }
 
 class Suggestion: NSObject, NSCoding {
@@ -55,6 +54,7 @@ class Suggestion: NSObject, NSCoding {
     var photos: [Photo]
     var votes = 0
     var thumbnail: UIImage?
+    var htmlAttributions: [String]
     
     init(id: String,
          name: String,
@@ -67,7 +67,8 @@ class Suggestion: NSObject, NSCoding {
          website: URL?,
          sourceUrl: URL?,
          isOpenNow: Bool,
-         photos: [Photo]) {
+         photos: [Photo],
+         htmlAttributions: [String]) {
         self.id = id
         self.name = name
         self.address = address
@@ -80,6 +81,7 @@ class Suggestion: NSObject, NSCoding {
         self.sourceUrl = sourceUrl
         self.isOpenNow = isOpenNow
         self.photos = photos
+        self.htmlAttributions = htmlAttributions
     }
     
     init(_ json: JSON) {
@@ -96,6 +98,7 @@ class Suggestion: NSObject, NSCoding {
         isOpenNow = json[.suggestionIsOpenNow]
         let photosJson = json[.suggestionPhotos].prefix(GoogleAPIConstants.maxPhotosToFetch)
         photos = photosJson.map(Photo.init)
+        htmlAttributions = json["html_attributions"].arrayValue as! [String]
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -117,6 +120,9 @@ class Suggestion: NSObject, NSCoding {
         guard let photos = aDecoder.decodeObject(forKey: "photos") as? [Photo] else {
             return nil
         }
+        guard let htmlAttributions = aDecoder.decodeObject(forKey: "htmlAttributions") as? [String] else {
+            return nil
+        }
         
         rating = aDecoder.decodeDouble(forKey: "rating")
         latitude = aDecoder.decodeDouble(forKey: "latitude")
@@ -136,6 +142,7 @@ class Suggestion: NSObject, NSCoding {
         self.type = type
         self.phoneNumber = phoneNumber
         self.photos = photos
+        self.htmlAttributions = htmlAttributions
     }
     
     func encode(with aCoder: NSCoder) {
@@ -156,6 +163,7 @@ class Suggestion: NSObject, NSCoding {
         aCoder.encode(isOpenNow, forKey: "isOpenNow")
         aCoder.encode(photos, forKey: "photos")
         aCoder.encode(votes, forKey: "votes")
+        aCoder.encode(htmlAttributions, forKey: "htmlAttributions")
     }
     
     override func isEqual(_ object: Any?) -> Bool {

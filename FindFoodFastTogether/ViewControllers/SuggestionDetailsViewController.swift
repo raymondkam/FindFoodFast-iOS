@@ -26,7 +26,9 @@ class SuggestionDetailsViewController: UIViewController {
     @IBOutlet weak var openNowButton: UIButton!
     @IBOutlet weak var openNowView: UIView!
     @IBOutlet weak var phoneNumberButton: UIButton!
+    @IBOutlet weak var phoneNumberView: UIView!
     @IBOutlet weak var websiteButton: UIButton!
+    @IBOutlet weak var websiteView: UIView!
     @IBOutlet weak var addSuggestionStackView: UIStackView!
     @IBOutlet weak var addSuggestionShadowView: UIView!
     @IBOutlet weak var attributionsView: UIView!
@@ -210,12 +212,26 @@ class SuggestionDetailsViewController: UIViewController {
             openNowButton.setTitle("Closed", for: .normal)
         }
         
-        phoneNumberButton.setTitle(suggestion.phoneNumber, for: .normal)
+        if suggestion.phoneNumber.characters.count > 0 {
+            phoneNumberButton.setTitle(suggestion.phoneNumber, for: .normal)
+            phoneNumberView.isHidden = false
+        } else {
+            phoneNumberView.isHidden = true
+        }
         
         if let website = suggestion.website {
             websiteButton.setTitle(website.absoluteString, for: .normal)
+            websiteView.isHidden = false
+        } else {
+            websiteView.isHidden = true
         }
         
+        if let attributionString = suggestion.htmlAttributions.first {
+            attributionsTextView.attributedText = attributionString.htmlAttributedString
+            attributionsView.isHidden = false
+        } else {
+            attributionsView.isHidden = true
+        }
     }
     
     // MARK: - Handle button presses
