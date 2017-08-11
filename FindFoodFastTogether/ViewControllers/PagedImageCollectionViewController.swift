@@ -17,7 +17,7 @@ protocol PagedImageCollectionViewControllerDelegate: class {
 class PagedImageCollectionViewController: UICollectionViewController {
 
     var dataSource = [String]()
-    var insPhotos = [INSPhoto]()
+    var insPhotos: [INSPhoto]!
     var searchClient: SearchClient!
     var attributions = [NSAttributedString?]()
     var currentIndex = -1

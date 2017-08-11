@@ -86,8 +86,9 @@ class SuggestionDetailsViewController: UIViewController {
             let photoIds = suggestion.photoIds.prefix(GoogleAPIConstants.maxPhotosToFetch)
             strongSelf.pagedImageCollectionViewController.dataSource = Array(photoIds)
             strongSelf.pagedImageCollectionViewController.collectionView?.reloadData()
+            strongSelf.pagedImageCollectionViewController.insPhotos = [INSPhoto](repeating: INSPhoto(image: nil, thumbnailImage: nil), count: photoIds.count)
             
-            for photoId in photoIds {
+            for (index, photoId) in photoIds.enumerated() {
                 strongSelf.searchClient.fetchSuggestionPhoto(using: photoId, maxWidth: widthString, maxHeight: nil, completion: { [weak self] (image, error) in
                     guard error == nil else {
                         print("error fetching photo \(photoId)")
@@ -103,7 +104,7 @@ class SuggestionDetailsViewController: UIViewController {
                     }
                     
                     let insPhoto = INSPhoto(image: image, thumbnailImage: image)
-                    self?.pagedImageCollectionViewController.insPhotos.append(insPhoto)
+                    self?.pagedImageCollectionViewController.insPhotos[index] = insPhoto
                 })
             }
         }
