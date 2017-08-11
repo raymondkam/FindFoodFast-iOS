@@ -291,19 +291,26 @@ extension VoteViewController: UICollectionViewDelegate {
 
 extension VoteViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 337, height: 345)
+        let width = min(337, view.frame.size.width - 20)
+        // the amount of height the image loses by maintaining its 3:2 ratio 
+        // if the width is less than normal
+        let heightLostFromImage = (337 - width) * 2 / 3
+        return CGSize(width: width, height: 345 - heightLostFromImage)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return (self.view.frame.size.width - 337) / 2
+        let width = min(337, view.frame.size.width - 20)
+        return (self.view.frame.size.width - width) / 2
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return (self.view.frame.size.width - 337) / 2
+        let width = min(337, view.frame.size.width - 20)
+        return (self.view.frame.size.width - width) / 2
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        let inset = (self.view.frame.size.width - 337) / 2
+        let width = min(337, view.frame.size.width - 20)
+        let inset = (self.view.frame.size.width - width) / 2
         return UIEdgeInsetsMake(0, inset, 0, inset)
     }
 }

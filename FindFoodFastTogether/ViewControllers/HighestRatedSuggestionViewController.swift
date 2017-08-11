@@ -21,12 +21,28 @@ class HighestRatedSuggestionViewController: UIViewController {
     @IBOutlet weak var cardSubtitleLabel: UILabel!
     @IBOutlet weak var cardDistanceLabel: UILabel!
     
+    // used for fixing the size of card
+    @IBOutlet weak var scoreLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var scoreTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imageViewLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imageViewTrailingConstraint: NSLayoutConstraint!
+    
     var highestRatedSuggestion: Suggestion!
     var isHosting: Bool!
     var searchClient = GoogleSearchClient()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // calculate correct margins for card
+        let width = min(337, view.frame.size.width - 20)
+        let cardLeftRightMargins = (view.frame.size.width - width) / 2
+        let photoLeftRightMargins = cardLeftRightMargins + 10
+        
+        scoreLeadingConstraint.constant = cardLeftRightMargins
+        scoreTrailingConstraint.constant = cardLeftRightMargins
+        imageViewLeadingConstraint.constant = photoLeftRightMargins
+        imageViewTrailingConstraint.constant = photoLeftRightMargins
         
         LocationManager.sharedInstance.requestLocation { [weak self] (userLocation, error) in
             guard error == nil else {
@@ -87,12 +103,17 @@ class HighestRatedSuggestionViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         UIView.animate(withDuration: 0.4, delay: 1, options: .curveEaseInOut, animations: { [weak self] in
-            self?.widthConstraint.constant = 337
-            self?.heightConstraint.constant = (self?.stackView.frame.size.height)!
+            guard let strongSelf = self else {
+                print("no reference to self")
+                return
+            }
+            let width = min(337, strongSelf.view.frame.width - 20)
+            strongSelf.widthConstraint.constant = width
+            strongSelf.heightConstraint.constant = strongSelf.stackView.frame.size.height
     
-            self?.view.layoutIfNeeded()
-            self?.suggestionCardView.alpha = 1
-            self?.backgroundLabel.alpha = 0
+            strongSelf.view.layoutIfNeeded()
+            strongSelf.suggestionCardView.alpha = 1
+            strongSelf.backgroundLabel.alpha = 0
         }) { (completed) in
             if completed {
                 print("animation complete")
