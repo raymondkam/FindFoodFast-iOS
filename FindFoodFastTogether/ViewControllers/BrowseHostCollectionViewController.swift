@@ -18,6 +18,7 @@ class BrowseHostCollectionViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionView?.delegate = self
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -88,6 +89,12 @@ class BrowseHostCollectionViewController: UICollectionViewController {
     }
     */
 
+}
+
+extension BrowseHostCollectionViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: view.frame.width, height: 80)
+    }
 }
 
 extension BrowseHostCollectionViewController : BluetoothCentralManagerDelegate {
