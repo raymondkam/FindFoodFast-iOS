@@ -44,6 +44,7 @@ final class BluetoothCentralManager : NSObject {
             dataToSend = nextOperation?.dataToSend
             sendToCharacteristic = nextOperation?.targetCharacteristic
             sendDataIndex = 0
+            sendingEOM = false
         }
     }
     fileprivate var dataToSend: Data?
@@ -361,18 +362,49 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
      * payloads to a characteristic
      */
     func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
-        if (error != nil) {
-            if (retryNumber < maxRetryNumber) {
-                // retry packet if there is an error
-                print("peripheral did write value failed, error: \(String(describing: error?.localizedDescription)), retry number \(retryNumber) in 1 second...")
-                // retry after 1 second
-                DispatchQueue.global().asyncAfter(deadline: .now() + 1 , execute: { [weak self] () in
-                    print("retry sending data")
-                    self?.sendData()
-                })
-                retryNumber += 1
+        if let error = error as? CBATTError {
+            
+            switch error.errorCode {
+            case CBATTError.invalidAttributeValueLength.rawValue:
+                // resend the last packet
+                if (retryNumber < maxRetryNumber) {
+                    // retry packet if there is an error
+                    print("peripheral did write value failed, error: \(String(describing: error.localizedDescription)), retry number \(retryNumber) in 1 second...")
+                    // retry after 1 second
+                    DispatchQueue.global().asyncAfter(deadline: .now() + 1 , execute: { [weak self] () in
+                        guard let strongSelf = self else {
+                            return
+                        }
+                        print("retry #\(strongSelf.retryNumber) sending \(strongSelf.sendDataIndex!)/\(strongSelf.dataToSend!.count) bytes")
+                        strongSelf.sendData()
+                    })
+                    retryNumber += 1
+                }
+            case CBATTError.unlikelyError.rawValue:
+                // resend the whole payload 
+                guard var retryOperation = currentOperation else {
+                    print("no current operation to retry")
+                    return
+                }
+                guard retryOperation.retry == false else {
+                    print("already retried to send this operation, move onto the next")
+                    currentOperation = nil
+                    if !operationQueue.isEmpty {
+                        sendData()
+                    }
+                    return
+                }
+                print("retry sending whole payload")
+                retryOperation.retry = true
+                // reset the current operation
+                currentOperation = retryOperation
+                sendData()
+                return
+            default:
+                print("unexpected error code")
+                return
             }
-            return
+            
         }
         
         // success, reset retry number

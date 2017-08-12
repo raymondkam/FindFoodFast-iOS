@@ -16,7 +16,7 @@ class VoteViewController: UIViewController {
     var votes = [Vote]()
     var isHosting: Bool!
 
-    fileprivate static let InitialCountdown: UInt = 5
+    fileprivate let initialCountdown: UInt = 5
     fileprivate let reuseIdentifier = "voteCell"
     fileprivate var totalRatingSuggestions = Set<Suggestion>()
     
@@ -44,6 +44,7 @@ class VoteViewController: UIViewController {
             }
         }
     }
+    fileprivate var handleCollectVotesTimeout: DispatchWorkItem?
     
     @IBOutlet weak var votesProcessingView: UIStackView!
     @IBOutlet weak var countdownLabel: UILabel!
@@ -135,13 +136,25 @@ class VoteViewController: UIViewController {
         currentIndex += 1
         let indexPath = IndexPath(item: currentIndex, section: 0)
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-        countdown = VoteViewController.InitialCountdown
+        countdown = initialCountdown
     }
     
     fileprivate func collectVotes() {
         // save your own votes
         submittedHostVotes = true
         processRatingsFromVotes(votes: votes)
+        
+        // have a timeout incase a client disconnects
+        handleCollectVotesTimeout = DispatchWorkItem(block: { [weak self] in
+            print("did not receive all users' votes in time, process whatever votes that were received")
+            guard let strongSelf = self else {
+                return
+            }
+            strongSelf.findSuggestionWithHighestRating()
+        })
+        // 5 seconds for each suggestion + 5 seconds to send the votes
+        let timeout = (dataSource.count * Int(initialCountdown) + 5)
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(timeout), execute: handleCollectVotesTimeout!)
     }
     
     fileprivate func sendVotes() {
@@ -180,6 +193,9 @@ class VoteViewController: UIViewController {
         
         if pendingVotesFromCentrals.count == 0 && submittedHostVotes {
             // DONE COLLECTING
+            if let handleCollectVotesTimeout = handleCollectVotesTimeout {
+                handleCollectVotesTimeout.cancel()
+            }
             print("done collecting all votes")
             findSuggestionWithHighestRating()
         }

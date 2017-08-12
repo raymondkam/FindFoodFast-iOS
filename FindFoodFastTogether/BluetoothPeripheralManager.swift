@@ -431,7 +431,7 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
                 // MARK: Handle suggestion operation sent by user
                 guard let data = request.value else {
                     print("request for suggestion has nil data")
-                    peripheral.respond(to: request, withResult: .requestNotSupported)
+                    peripheral.respond(to: request, withResult: .invalidAttributeValueLength)
                     return
                 }
                 guard receivedData[centralUuidString] != nil else {
@@ -451,7 +451,7 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
                     
                     guard let suggestionOperation = NSKeyedUnarchiver.unarchiveObject(with: decompressedData) as? SuggestionOperation else {
                         print("invalid suggestion unarchived")
-                        peripheral.respond(to: request, withResult: .requestNotSupported)
+                        peripheral.respond(to: request, withResult: .unlikelyError)
                         clearReceivedData(fromCentralUuid: centralUuidString)
                         return
                     }
@@ -460,6 +460,7 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
                         print("received add suggestion operation")
                         guard let suggestion = NSKeyedUnarchiver.unarchiveObject(with: suggestionOperation.data) as? Suggestion else {
                             print("could not unarchive added suggestion data")
+                            peripheral.respond(to: request, withResult: .unlikelyError)
                             clearReceivedData(fromCentralUuid: centralUuidString)
                             return
                         }
@@ -468,6 +469,7 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
                         print("received remove suggestion operation")
                         guard let suggestionIds = NSKeyedUnarchiver.unarchiveObject(with: suggestionOperation.data) as? [String] else {
                             print("could not unarchive suggestion ids to remove")
+                            peripheral.respond(to: request, withResult: .unlikelyError)
                             clearReceivedData(fromCentralUuid: centralUuidString)
                             return
                         }
@@ -487,6 +489,7 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
                 // MARK: Handle votes received from user
                 guard let data = request.value else {
                     print("voting request has nil data")
+                    peripheral.respond(to: request, withResult: .invalidAttributeValueLength)
                     return
                 }
                 guard receivedData[centralUuidString] != nil else {
@@ -506,7 +509,8 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
                     print("received votes from central")
                     guard let votes = NSKeyedUnarchiver.unarchiveObject(with: decompressedData) as? [Vote] else {
                         print("invalid voted suggestions unarchived")
-                        peripheral.respond(to: request, withResult: .requestNotSupported)
+                        peripheral.respond(to: request, withResult: .unlikelyError)
+                        clearReceivedData(fromCentralUuid: centralUuidString)
                         return
                     }
                     delegate?.bluetoothPeripheralManagerDidReceiveVotes(self, votes: votes, from: request.central)
