@@ -87,6 +87,12 @@ class VoteViewController: UIViewController {
                     print("vote vc: data source or self is nil")
                     return
                 }
+                
+                // add a vote of 0 if time runs out
+                let suggestion = dataSource[currentIndex]
+                let vote = Vote(suggestionId: suggestion.id, score: 0)
+                self?.votes.append(vote)
+                
                 if currentIndex < dataSource.count - 1 {
                     self?.scrollToNextCell()
                 } else {
@@ -223,7 +229,7 @@ class VoteViewController: UIViewController {
 
             showSuggestionWithHighestRating(highestRatedSuggestion: highestScoringSuggestion)
         } else {
-            print("could not find highest rated suggestion")
+            assert(false, "should never not have a highest rated suggestion")
         }
     }
     
