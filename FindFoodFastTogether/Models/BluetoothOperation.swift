@@ -13,6 +13,7 @@ struct BluetoothOperation {
     
     var dataToSend: Data
     var targetCharacteristic: CBCharacteristic
+    var retry = false
     
     init(dataToSend: Data, targetCharacteristic: CBCharacteristic) {
         self.dataToSend = dataToSend
