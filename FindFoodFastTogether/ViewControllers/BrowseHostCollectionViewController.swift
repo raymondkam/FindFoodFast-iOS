@@ -105,6 +105,7 @@ extension BrowseHostCollectionViewController : BluetoothCentralManagerDelegate {
     
     // unused
     func bluetoothCentralManagerDidConnectToHost(_: BluetoothCentralManager, users: [User]) {}
+    func bluetoothCentralManagerDidDisconnectFromHost(_: BluetoothCentralManager) {}
     func bluetoothCentralManagerDidReceiveSuggestions(_: BluetoothCentralManager, suggestions: [Suggestion]) {}
     func bluetoothCentralManagerDidStartVoting(_: BluetoothCentralManager) {}
     func bluetoothCentralManagerDidReceiveHighestRatedSuggestion(_: BluetoothCentralManager, highestRatedSuggestion: Suggestion) {}

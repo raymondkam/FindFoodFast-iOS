@@ -14,6 +14,7 @@ import Gzip
 protocol BluetoothCentralManagerDelegate : class {
     func bluetoothCentralManagerDidDiscoverHost(_: BluetoothCentralManager, host: Host)
     func bluetoothCentralManagerDidConnectToHost(_: BluetoothCentralManager, users: [User])
+    func bluetoothCentralManagerDidDisconnectFromHost(_: BluetoothCentralManager)
     func bluetoothCentralManagerDidReceiveAddedSuggestion(_: BluetoothCentralManager, suggestion: Suggestion)
     func bluetoothCentralManagerDidReceiveSuggestions(_: BluetoothCentralManager, suggestions: [Suggestion])
     func bluetoothCentralManagerDidReceiveSuggestionIdsToRemove(_: BluetoothCentralManager, suggestionIds: [String])
@@ -239,6 +240,10 @@ extension BluetoothCentralManager : CBCentralManagerDelegate {
     }
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
+        if subscribedCharacteristics.count > 0 {
+            disconnectFromPeripheral()
+        }
+        self.delegate?.bluetoothCentralManagerDidDisconnectFromHost(self)
         
     }
     

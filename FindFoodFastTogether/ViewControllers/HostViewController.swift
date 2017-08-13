@@ -162,6 +162,17 @@ class HostViewController: UIViewController {
 }
 
 extension HostViewController : BluetoothCentralManagerDelegate {
+    func bluetoothCentralManagerDidDisconnectFromHost(_: BluetoothCentralManager) {
+        let alert = UIAlertController(title: nil, message: "Disconnected from Host", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] (alert) in
+            guard let strongSelf = self else {
+                return
+            }
+            strongSelf.performSegue(withIdentifier: Segues.UnwindToBrowse, sender: strongSelf)
+        }))
+        present(alert, animated: true, completion: nil)
+    }
+
     func bluetoothCentralManagerDidDiscoverHost(_: BluetoothCentralManager, host: Host) {}
     
     func bluetoothCentralManagerDidConnectToHost(_: BluetoothCentralManager, users: [User]) {

@@ -30,6 +30,18 @@ class BrowseHostViewController: UIViewController {
         scanHosts()
     }
     
+    @IBAction func unwindToBrowse(segue: UIStoryboardSegue) {
+        // restore appearance of navigation for when unwinding 
+        // from suggestion details
+        navigationController?.isNavigationBarHidden = false
+        if let navigationBar = navigationController?.navigationBar {
+            navigationBar.setBackgroundImage(nil, for: UIBarMetrics.default)
+            navigationBar.shadowImage = nil
+            navigationBar.tintColor = FindFoodFastColor.MainColor
+            navigationBar.barStyle = .default
+        }
+    }
+    
     deinit {
         NotificationCenter.default.removeObserver(self, name: NotificationNames.CentralBluetoothPoweredOn, object: nil)
     }

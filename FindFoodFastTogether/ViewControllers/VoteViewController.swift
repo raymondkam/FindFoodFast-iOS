@@ -354,6 +354,17 @@ extension VoteViewController: BluetoothPeripheralManagerDelegate {
 }
 
 extension VoteViewController: BluetoothCentralManagerDelegate {
+    func bluetoothCentralManagerDidDisconnectFromHost(_: BluetoothCentralManager) {
+        let alert = UIAlertController(title: nil, message: "Disconnected from Host", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] (alert) in
+            guard let strongSelf = self else {
+                return
+            }
+            strongSelf.performSegue(withIdentifier: Segues.UnwindToBrowse, sender: strongSelf)
+        }))
+        present(alert, animated: true, completion: nil)
+    }
+
     func bluetoothCentralManagerDidReceiveHighestRatedSuggestion(_: BluetoothCentralManager, highestRatedSuggestion: Suggestion) {
         performSegue(withIdentifier: Segues.ShowHighestRatedSuggestion, sender: highestRatedSuggestion)
     }
