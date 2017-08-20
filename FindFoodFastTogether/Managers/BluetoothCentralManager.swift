@@ -53,7 +53,8 @@ final class BluetoothCentralManager : NSObject {
     fileprivate var sendingEOM = false
     fileprivate var sendToCharacteristic: CBCharacteristic?
     fileprivate let BLEWriteToCharacteristicMaxSize = 20
-    fileprivate var retryNumber = 0
+    fileprivate var packetRetryNumber = 0
+    fileprivate var operationRetryNumber = 0
     fileprivate let maxRetryNumber = 5
     
     weak var delegate: BluetoothCentralManagerDelegate?
@@ -137,7 +138,8 @@ final class BluetoothCentralManager : NSObject {
             print("suggestion characteristic not saved")
             return
         }
-        let suggestionData = NSKeyedArchiver.archivedData(withRootObject: suggestion)
+        var suggestionData = NSKeyedArchiver.archivedData(withRootObject: suggestion)
+        suggestionData.append("bad data".data(using: .utf8)!)
         let suggestionOperation = SuggestionOperation(type: SuggestionOperationType.Add, data: suggestionData)
         send(suggestionOperation, to: suggestionCharacteristic)
     }
@@ -360,7 +362,7 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
         
     }
     
-    // MARK: Handle writing data to Host
+    // MARK: Handle writing data to Host callback
     
     /*
      * Callback for successful write to characteristic, used for writing large
@@ -368,52 +370,48 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
      */
     func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
         if let error = error as? CBATTError {
-            
+            guard packetRetryNumber < maxRetryNumber && operationRetryNumber < maxRetryNumber else {
+                print("already retried to send this packet/operation too many times, move onto the next operation")
+                currentOperation = nil
+                if !operationQueue.isEmpty {
+                    sendData()
+                }
+                packetRetryNumber = 0
+                operationRetryNumber = 0
+                return
+            }
             switch error.errorCode {
             case CBATTError.invalidAttributeValueLength.rawValue:
-                // resend the last packet
-                if (retryNumber < maxRetryNumber) {
-                    // retry packet if there is an error
-                    print("peripheral did write value failed, error: \(String(describing: error.localizedDescription)), retry number \(retryNumber) in 1 second...")
-                    // retry after 1 second
-                    DispatchQueue.global().asyncAfter(deadline: .now() + 1 , execute: { [weak self] () in
-                        guard let strongSelf = self else {
-                            return
-                        }
-                        print("retry #\(strongSelf.retryNumber) sending \(strongSelf.sendDataIndex!)/\(strongSelf.dataToSend!.count) bytes")
-                        strongSelf.sendData()
-                    })
-                    retryNumber += 1
-                }
+
+                // retry after 1 second
+                DispatchQueue.global().asyncAfter(deadline: .now() + 1 , execute: { [weak self] () in
+                    guard let strongSelf = self else {
+                        return
+                    }
+                    print("retry #\(strongSelf.packetRetryNumber + 1)/\(strongSelf.maxRetryNumber), sending \(strongSelf.sendDataIndex!)/\(strongSelf.dataToSend!.count) bytes")
+                    strongSelf.sendData()
+                    strongSelf.packetRetryNumber += 1
+                })
             case CBATTError.unlikelyError.rawValue:
                 // resend the whole payload 
-                guard var retryOperation = currentOperation else {
+                guard let retryOperation = currentOperation else {
                     print("no current operation to retry")
                     return
                 }
-                guard retryOperation.retry == false else {
-                    print("already retried to send this operation, move onto the next")
-                    currentOperation = nil
-                    if !operationQueue.isEmpty {
-                        sendData()
-                    }
-                    return
-                }
-                print("retry sending whole payload")
-                retryOperation.retry = true
+                print("retry #\(operationRetryNumber + 1)/\(maxRetryNumber), sending whole payload")
                 // reset the current operation
                 currentOperation = retryOperation
                 sendData()
-                return
+                operationRetryNumber += 1
             default:
                 print("unexpected error code")
                 return
             }
-            
+            return
         }
         
         // success, reset retry number
-        retryNumber = 0
+        packetRetryNumber = 0
         
         print("Sent: \(sendDataIndex!)/\(dataToSend!.count) bytes")
         
@@ -422,6 +420,7 @@ extension BluetoothCentralManager : CBPeripheralDelegate {
             sendingEOM = false
             print("EOM successfully sent")
             currentOperation = nil
+            operationRetryNumber = 0
             
             // fetch next operation if queue is still not empty
             if !operationQueue.isEmpty {
