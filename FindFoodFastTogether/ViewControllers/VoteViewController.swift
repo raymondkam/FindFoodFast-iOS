@@ -142,7 +142,6 @@ class VoteViewController: UIViewController {
     fileprivate func collectVotes() {
         // save your own votes
         submittedHostVotes = true
-        processRatingsFromVotes(votes: votes)
         
         // have a timeout incase a client disconnects
         handleCollectVotesTimeout = DispatchWorkItem(block: { [weak self] in
@@ -155,6 +154,8 @@ class VoteViewController: UIViewController {
         // 5 seconds for each suggestion + 5 seconds to send the votes
         let timeout = (dataSource.count * Int(initialCountdown) + 5)
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(timeout), execute: handleCollectVotesTimeout!)
+        
+        processRatingsFromVotes(votes: votes)
     }
     
     fileprivate func sendVotes() {
