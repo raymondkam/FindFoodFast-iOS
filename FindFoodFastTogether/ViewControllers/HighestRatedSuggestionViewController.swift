@@ -81,20 +81,23 @@ class HighestRatedSuggestionViewController: UIViewController {
                         print("suggestion cell image is nil")
                         return
                     }
-                    guard let strongSelf = self else {
-                        print("no reference to self")
-                        return
-                    }
-                    UIView.transition(with: strongSelf.imageView,
-                                      duration: 0.3,
-                                      options: .transitionCrossDissolve,
-                                      animations: {
-                                        strongSelf.imageView.image = image
-                    },
-                                      completion: nil)
                     
-                    // update data source as well
-                    self?.highestRatedSuggestion.thumbnail = image
+                    DispatchQueue.main.async { [weak self] in
+                        guard let strongSelf = self else {
+                            print("no reference to self")
+                            return
+                        }
+                        UIView.transition(with: strongSelf.imageView,
+                                          duration: 0.3,
+                                          options: .transitionCrossDissolve,
+                                          animations: {
+                                            strongSelf.imageView.image = image
+                        },
+                                          completion: nil)
+                        
+                        // update data source as well
+                        strongSelf.highestRatedSuggestion.thumbnail = image
+                    }
                 })
             }
 

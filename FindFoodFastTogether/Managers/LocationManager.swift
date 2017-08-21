@@ -42,7 +42,7 @@ class LocationManager: NSObject {
             let currentDate = Date()
             if currentDate < currentLocation.timestamp.addingTimeInterval(locationCacheTimeInterval) {
                 // location was retrieved from less than 5 mins ago
-                print("saved location is still relevant, no need to fetch new location")
+                print("cached location is still relevant, no need to fetch new location")
                 completion(currentLocation, nil)
                 return
             }

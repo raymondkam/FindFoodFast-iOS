@@ -81,15 +81,21 @@ class SuggestionDetailsViewController: UIViewController {
                 return
             }
             strongSelf.suggestion = suggestion
-            strongSelf.updateUI(with: suggestion)
-            
-            // get photos
             let widthString = String(Int(strongSelf.view.frame.width))
             let photos = suggestion.photos.prefix(GoogleAPIConstants.maxPhotosToFetch)
-            strongSelf.pagedImageCollectionViewController.dataSource = Array(photos)
-            strongSelf.pagedImageCollectionViewController.collectionView?.reloadData()
-            strongSelf.pagedImageCollectionViewController.insPhotos = [INSPhoto](repeating: INSPhoto(image: nil, thumbnailImage: nil), count: photos.count)
             
+            // update UI
+            DispatchQueue.main.async(execute: { [weak self] in
+                guard let strongSelf = self else {
+                    return
+                }
+                strongSelf.updateUI(with: suggestion)
+                strongSelf.pagedImageCollectionViewController.dataSource = Array(photos)
+                strongSelf.pagedImageCollectionViewController.collectionView?.reloadData()
+                strongSelf.pagedImageCollectionViewController.insPhotos = [INSPhoto](repeating: INSPhoto(image: nil, thumbnailImage: nil), count: photos.count)
+            })
+            
+            // fetch photos
             for (index, photo) in photos.enumerated() {
                 let photoId = photo.id
                 strongSelf.searchClient.fetchSuggestionPhoto(using: photoId, maxWidth: widthString, maxHeight: nil, completion: { [weak self] (image, error) in
@@ -102,16 +108,18 @@ class SuggestionDetailsViewController: UIViewController {
                         return
                     }
                     
-                    if suggestion.thumbnail == nil {
-                        suggestion.thumbnail = image
+                    DispatchQueue.main.async { [weak self] in
+                        if suggestion.thumbnail == nil {
+                            suggestion.thumbnail = image
+                        }
+                        
+                        let insPhoto = INSPhoto(image: image, thumbnailImage: image)
+                        if let htmlAttributionString = photo.htmlAttributions.first {
+                            let htmlAttributedString = htmlAttributionString.htmlAttributedString
+                            insPhoto.attributedTitle = htmlAttributedString
+                        }
+                        self?.pagedImageCollectionViewController.insPhotos[index] = insPhoto
                     }
-                    
-                    let insPhoto = INSPhoto(image: image, thumbnailImage: image)
-                    if let htmlAttributionString = photo.htmlAttributions.first {
-                        let htmlAttributedString = htmlAttributionString.htmlAttributedString
-                        insPhoto.attributedTitle = htmlAttributedString
-                    }
-                    self?.pagedImageCollectionViewController.insPhotos[index] = insPhoto
                 })
             }
         }

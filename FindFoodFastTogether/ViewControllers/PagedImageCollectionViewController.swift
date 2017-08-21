@@ -67,13 +67,15 @@ class PagedImageCollectionViewController: UICollectionViewController {
                         print("suggestion image returned is nil")
                         return
                     }
-                    UIView.transition(with: imageCell.imageView,
-                                      duration: 0.3,
-                                      options: .transitionCrossDissolve,
-                                      animations: {
-                                        imageCell.imageView.image = image
-                    },
-                                      completion: nil)
+                    DispatchQueue.main.async {
+                        UIView.transition(with: imageCell.imageView,
+                                          duration: 0.3,
+                                          options: .transitionCrossDissolve,
+                                          animations: {
+                                            imageCell.imageView.image = image
+                        },
+                                          completion: nil)
+                    }
                 })
             }
         }

@@ -151,10 +151,15 @@ class SuggestionCollectionViewController: UICollectionViewController {
                             print("suggestion cell image is nil")
                             return
                         }
-                        suggestionCell.image = image
-                        
-                        // update data source as well
-                        self?.dataSource[indexPath.item].thumbnail = image
+                        DispatchQueue.main.async { [weak self] in
+                            guard let strongSelf = self else {
+                                return
+                            }
+                            suggestionCell.image = image
+                            
+                            // update data source as well
+                            strongSelf.dataSource[indexPath.item].thumbnail = image
+                        }
                     })
                 }
             }
