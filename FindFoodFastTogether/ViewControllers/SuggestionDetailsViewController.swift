@@ -29,6 +29,7 @@ class SuggestionDetailsViewController: UIViewController {
     @IBOutlet weak var phoneNumberView: UIView!
     @IBOutlet weak var websiteButton: UIButton!
     @IBOutlet weak var websiteView: UIView!
+    @IBOutlet weak var addSuggestionButton: UIButton!
     @IBOutlet weak var addSuggestionStackView: UIStackView!
     @IBOutlet weak var addSuggestionShadowView: UIView!
     @IBOutlet weak var attributionsView: UIView!
@@ -39,6 +40,9 @@ class SuggestionDetailsViewController: UIViewController {
     var userLocation: CLLocation?
     var searchClient = GoogleSearchClient()
     var pagedImageCollectionViewController: PagedImageCollectionViewController!
+    
+    // needed when coming from host view
+    var isSuggestionAdded = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,60 +72,86 @@ class SuggestionDetailsViewController: UIViewController {
         // set textview delegate to handle URLs
         attributionsTextView.delegate = self
 
-        // get suggestion details
-        searchClient.fetchSuggestionDetails(using: partialSuggestion.placeId) { [weak self] (suggestion, error) in
-            guard error == nil, let suggestion = suggestion else {
-                print("error fetching suggestion details")
-                // pop view controller if details fail to load
-                self?.navigationController?.popViewController(animated: true)
-                return
-            }
-            guard let strongSelf = self else {
-                print("self is nil")
-                return
-            }
-            strongSelf.suggestion = suggestion
-            let widthString = String(Int(strongSelf.view.frame.width))
-            let photos = suggestion.photos.prefix(GoogleAPIConstants.maxPhotosToFetch)
+        if isSuggestionAdded {
+            // change button to 'remove suggestion'
+            addSuggestionButton.setTitle("Remove Suggestion", for: .normal)
+            addSuggestionButton.backgroundColor = FindFoodFastColor.RedColor
+        } else {
+            addSuggestionButton.setTitle("Add Suggestion", for: .normal)
+            addSuggestionButton.backgroundColor = FindFoodFastColor.MainColor
+        }
+        
+        if suggestion != nil {
+            // full details were already passed in no need to fetch from partial suggestion details
+            updateUI(with: suggestion)
             
-            // update UI
-            DispatchQueue.main.async(execute: { [weak self] in
-                guard let strongSelf = self else {
+            // get images
+            let widthString = String(Int(view.frame.width))
+            let photos = suggestion.photos
+            pagedImageCollectionViewController.dataSource = photos
+            pagedImageCollectionViewController.collectionView?.reloadData()
+            pagedImageCollectionViewController.insPhotos = [INSPhoto](repeating: INSPhoto(image: nil, thumbnailImage: nil), count: photos.count)
+            fetchPhotosInOrder(widthString: widthString, photos: photos)
+        } else {
+            // get suggestion details
+            searchClient.fetchSuggestionDetails(using: partialSuggestion.placeId) { [weak self] (suggestion, error) in
+                guard error == nil, let suggestion = suggestion else {
+                    print("error fetching suggestion details")
+                    // pop view controller if details fail to load
+                    self?.navigationController?.popViewController(animated: true)
                     return
                 }
-                strongSelf.updateUI(with: suggestion)
-                strongSelf.pagedImageCollectionViewController.dataSource = Array(photos)
-                strongSelf.pagedImageCollectionViewController.collectionView?.reloadData()
-                strongSelf.pagedImageCollectionViewController.insPhotos = [INSPhoto](repeating: INSPhoto(image: nil, thumbnailImage: nil), count: photos.count)
-            })
-            
-            // fetch photos
-            for (index, photo) in photos.enumerated() {
-                let photoId = photo.id
-                strongSelf.searchClient.fetchSuggestionPhoto(using: photoId, maxWidth: widthString, maxHeight: nil, completion: { [weak self] (image, error) in
-                    guard error == nil else {
-                        print("error fetching photo \(photoId)")
+                guard let strongSelf = self else {
+                    print("self is nil")
+                    return
+                }
+                strongSelf.suggestion = suggestion
+                let widthString = String(Int(strongSelf.view.frame.width))
+                let photos = suggestion.photos.prefix(GoogleAPIConstants.maxPhotosToFetch)
+                
+                // update UI
+                DispatchQueue.main.async(execute: { [weak self] in
+                    guard let strongSelf = self else {
                         return
                     }
-                    guard let image = image else {
-                        print("could not fetch image for suggestion for photo id: \(photoId)")
-                        return
+                    strongSelf.updateUI(with: suggestion)
+                    strongSelf.pagedImageCollectionViewController.dataSource = Array(photos)
+                    strongSelf.pagedImageCollectionViewController.collectionView?.reloadData()
+                    strongSelf.pagedImageCollectionViewController.insPhotos = [INSPhoto](repeating: INSPhoto(image: nil, thumbnailImage: nil), count: photos.count)
+                })
+                
+                // fetch photos
+                strongSelf.fetchPhotosInOrder(widthString: widthString, photos: Array(photos))
+            }
+        }
+    }
+    
+    func fetchPhotosInOrder(widthString: String, photos: [Photo]) {
+        for (index, photo) in photos.enumerated() {
+            let photoId = photo.id
+            searchClient.fetchSuggestionPhoto(using: photoId, maxWidth: widthString, maxHeight: nil, completion: { [weak self] (image, error) in
+                guard error == nil else {
+                    print("error fetching photo \(photoId)")
+                    return
+                }
+                guard let image = image else {
+                    print("could not fetch image for suggestion for photo id: \(photoId)")
+                    return
+                }
+                
+                DispatchQueue.main.async { [weak self] in
+                    if self?.suggestion.thumbnail == nil {
+                        self?.suggestion.thumbnail = image
                     }
                     
-                    DispatchQueue.main.async { [weak self] in
-                        if suggestion.thumbnail == nil {
-                            suggestion.thumbnail = image
-                        }
-                        
-                        let insPhoto = INSPhoto(image: image, thumbnailImage: image)
-                        if let htmlAttributionString = photo.htmlAttributions.first {
-                            let htmlAttributedString = htmlAttributionString.htmlAttributedString
-                            insPhoto.attributedTitle = htmlAttributedString
-                        }
-                        self?.pagedImageCollectionViewController.insPhotos[index] = insPhoto
+                    let insPhoto = INSPhoto(image: image, thumbnailImage: image)
+                    if let htmlAttributionString = photo.htmlAttributions.first {
+                        let htmlAttributedString = htmlAttributionString.htmlAttributedString
+                        insPhoto.attributedTitle = htmlAttributedString
                     }
-                })
-            }
+                    self?.pagedImageCollectionViewController.insPhotos[index] = insPhoto
+                }
+            })
         }
     }
     
@@ -165,6 +195,8 @@ class SuggestionDetailsViewController: UIViewController {
             pagedImageCollectionViewController.delegate = self
             pagedImageCollectionViewController.searchClient = searchClient
         case Segues.UnwindToHostViewAfterAddingSuggestion:
+            restoreNavigationBarAppearance()
+        case Segues.UnwindToHostViewAfterRemovingSuggestion:
             restoreNavigationBarAppearance()
         case Segues.PresentMap:
             let mapViewController = segue.destination as! MapViewController
@@ -243,6 +275,14 @@ class SuggestionDetailsViewController: UIViewController {
     }
     
     // MARK: - Handle button presses
+    @IBAction func handleAddOrRemoveSuggestion(_ sender: UIButton) {
+        if isSuggestionAdded {
+            // remove suggestion
+            performSegue(withIdentifier: Segues.UnwindToHostViewAfterRemovingSuggestion, sender: self)
+        } else {
+            performSegue(withIdentifier: Segues.UnwindToHostViewAfterAddingSuggestion, sender: self)
+        }
+    }
     @IBAction func handlePhoneNumber(_ sender: UIButton) {
         let formattedNumber = self.suggestion.phoneNumber.replacingOccurrences(of: "[ |()-]", with: "", options: [.regularExpression])
         guard let number = URL(string: "tel://" + formattedNumber) else {

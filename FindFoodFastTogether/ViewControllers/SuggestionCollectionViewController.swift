@@ -9,9 +9,14 @@
 import UIKit
 import CoreLocation
 
+protocol SuggestionCollectionViewControllerDelegate: class {
+    func didSelectSuggestionCell(suggestion: Suggestion, index: Int)
+}
+
 class SuggestionCollectionViewController: UICollectionViewController {
 
     dynamic var dataSource = [Suggestion]()
+    weak var delegate: SuggestionCollectionViewControllerDelegate?
     var uniqueSuggestions = Set<Suggestion>()
     var isHosting: Bool!
     var searchClient = GoogleSearchClient()
@@ -73,8 +78,15 @@ class SuggestionCollectionViewController: UICollectionViewController {
         }
     }
 
-    @IBAction func removeSuggestion(_ sender: UIButton) {
-        let index = sender.tag
+    func searchAndRemoveSuggestion(suggestionToRemove: Suggestion) {
+        for (index, suggestion) in dataSource.enumerated() {
+            if suggestion == suggestionToRemove {
+                removeSuggestion(at: index)
+            }
+        }
+    }
+    
+    func removeSuggestion(at index: Int) {
         let suggestionToRemove = dataSource[index]
         let suggestionIdToRemove = suggestionToRemove.id
         uniqueSuggestions.remove(suggestionToRemove)
@@ -87,6 +99,11 @@ class SuggestionCollectionViewController: UICollectionViewController {
         } else {
             BluetoothCentralManager.sharedInstance.sendHostRemoveSuggestionIds([suggestionIdToRemove])
         }
+    }
+    
+    @IBAction func removeSuggestion(_ sender: UIButton) {
+        let index = sender.tag
+        removeSuggestion(at: index)
     }
     
     // MARK: UICollectionViewDataSource
@@ -166,5 +183,14 @@ class SuggestionCollectionViewController: UICollectionViewController {
         }
     
         return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // check that it's not the add suggestion prompt cell
+        guard let _ = collectionView.cellForItem(at: indexPath) as? SuggestionCollectionViewCell else {
+            return
+        }
+        let index = indexPath.item
+        delegate?.didSelectSuggestionCell(suggestion: dataSource[index], index: index)
     }
 }

@@ -20,6 +20,7 @@ class HostViewController: UIViewController {
     
     fileprivate var suggestionCollectionViewController: SuggestionCollectionViewController!
     fileprivate var userCollectionViewController: UserCollectionViewController!
+    fileprivate var suggestionDetailsViewController: SuggestionDetailsViewController!
     
     @IBOutlet weak var userContainerViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var startButton: UIBarButtonItem!
@@ -124,6 +125,7 @@ class HostViewController: UIViewController {
             }
         case Segues.EmbedSuggestionCollection:
             suggestionCollectionViewController = segue.destination as! SuggestionCollectionViewController
+            suggestionCollectionViewController.delegate = self
             suggestionCollectionViewController.isHosting = isHosting
             if isHosting {
                 suggestionCollectionViewController.addObserver(self, forKeyPath: "dataSource", options: .new, context: nil)
@@ -158,6 +160,34 @@ class HostViewController: UIViewController {
         }
         suggestionCollectionViewController.addSuggestion(suggestion)
         suggestionCollectionViewController.sendAddedSuggestion(suggestion)
+    }
+    
+    @IBAction func unwindToHostViewAfterRemovingSuggestion(segue: UIStoryboardSegue) {
+        guard let suggestionDetailsViewController = segue.source as? SuggestionDetailsViewController else {
+            return
+        }
+        guard let suggestion = suggestionDetailsViewController.suggestion else {
+            print("cannot get suggestion from suggestion details vc")
+            return
+        }
+        // remove suggestion
+        suggestionCollectionViewController.searchAndRemoveSuggestion(suggestionToRemove: suggestion)
+    }
+}
+
+extension HostViewController: SuggestionCollectionViewControllerDelegate {
+    func didSelectSuggestionCell(suggestion: Suggestion, index: Int) {
+        guard let storyboardSuggestionDetailsViewController = storyboard?.instantiateViewController(withIdentifier: StoryboardIds.SuggestionDetails) as? SuggestionDetailsViewController else {
+            print("could not create suggestion details vc with storyboard id")
+            return
+        }
+        suggestionDetailsViewController = storyboardSuggestionDetailsViewController
+        suggestionDetailsViewController.suggestion = suggestion
+        suggestionDetailsViewController.isSuggestionAdded = true
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        navigationItem.backBarButtonItem = backItem
+        navigationController?.pushViewController(suggestionDetailsViewController, animated: true)
     }
 }
 

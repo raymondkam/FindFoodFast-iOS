@@ -22,6 +22,7 @@ struct FindFoodFastColor {
     static let MainColor = UIColor(red: 29/255, green: 188/255, blue: 213/255, alpha: 1)
     static let DisabledColor = UIColor(red: 203/255, green: 198/255, blue: 185/255, alpha: 1)
     static let ErrorColor = UIColor(red: 255/255, green: 60/255, blue: 60/255, alpha: 1)
+    static let RedColor = UIColor(red: 255/255, green: 102/255, blue: 105/255, alpha: 1)
 }
 
 struct Segues {
@@ -41,6 +42,7 @@ struct Segues {
     static let EmbedSuggestionSearchResults = "embedSuggestionSearchResults"
     static let EmbedSuggestionImages = "embedSuggestionImages"
     static let UnwindToHostViewAfterAddingSuggestion = "unwindToHostViewAfterAddingSuggestion"
+    static let UnwindToHostViewAfterRemovingSuggestion = "unwindToHostViewAfterRemovingSuggestion"
     static let PresentMap = "presentMap"
     static let UnwindToBrowse = "unwindToBrowse"
 }
