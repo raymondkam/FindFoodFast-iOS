@@ -138,8 +138,7 @@ final class BluetoothCentralManager : NSObject {
             print("suggestion characteristic not saved")
             return
         }
-        var suggestionData = NSKeyedArchiver.archivedData(withRootObject: suggestion)
-        suggestionData.append("bad data".data(using: .utf8)!)
+        let suggestionData = NSKeyedArchiver.archivedData(withRootObject: suggestion)
         let suggestionOperation = SuggestionOperation(type: SuggestionOperationType.Add, data: suggestionData)
         send(suggestionOperation, to: suggestionCharacteristic)
     }
