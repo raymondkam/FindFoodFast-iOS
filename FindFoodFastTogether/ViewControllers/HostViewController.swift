@@ -15,6 +15,9 @@ class HostViewController: UIViewController {
     var hostname: String? // only set if you are hosting
     var username: String?
     
+    @IBOutlet weak var numberOfSuggestionsLabel: UILabel!
+    @IBOutlet weak var numberOfUsersLabel: UILabel!
+    
     private var hasEnoughUsers = false
     private var hasEnoughSuggestions = false
     
@@ -57,8 +60,12 @@ class HostViewController: UIViewController {
         }
         if object as? UserCollectionViewController == userCollectionViewController {
             if keyPath == "dataSource" {
-                if let connectedUsers = change?[.newKey] as? [User], connectedUsers.count > 1 {
-                    hasEnoughUsers = true
+                if let connectedUsers = change?[.newKey] as? [User] {
+                    numberOfUsersLabel.text = String(format: "(%i)", connectedUsers.count)
+                    
+                    if connectedUsers.count > 1 {
+                        hasEnoughUsers = true
+                    }
                 } else {
                     #if DEBUG
                         hasEnoughUsers = true
@@ -69,8 +76,16 @@ class HostViewController: UIViewController {
             }
         } else if object as? SuggestionCollectionViewController == suggestionCollectionViewController {
             if keyPath == "dataSource" {
-                if let suggestions = change?[.newKey] as? [Suggestion], suggestions.count > 1 {
-                    hasEnoughSuggestions = true
+                if let suggestions = change?[.newKey] as? [Suggestion] {
+                    if suggestions.count > 0 {
+                        numberOfSuggestionsLabel.text = String(format: "(%i)", suggestions.count)
+                    } else {
+                        numberOfSuggestionsLabel.text = ""
+                    }
+                    
+                    if suggestions.count > 1 {
+                        hasEnoughSuggestions = true
+                    }
                 } else {
                     hasEnoughSuggestions = false
                 }
