@@ -865,7 +865,7 @@
         <scene sceneID="jpG-92-CkR">
             <objects>
                 <collectionViewController id="t3W-YA-ni4" customClass="SuggestionCollectionViewController" customModule="FindFoodFastTogether" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="Jec-7v-SJZ">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="Jec-7v-SJZ">
                         <rect key="frame" x="0.0" y="0.0" width="375.5" height="240"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1417,12 +1417,18 @@
                                             <constraint firstAttribute="height" constant="100" id="Rog-Y7-KWa"/>
                                         </constraints>
                                     </view>
-                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="hG7-39-vv1">
+                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" mapType="standard" zoomEnabled="NO" scrollEnabled="NO" rotateEnabled="NO" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hG7-39-vv1">
                                         <rect key="frame" x="0.0" y="350" width="375" height="150"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="hG7-39-vv1" secondAttribute="height" multiplier="5:2" id="gzs-by-yoh"/>
                                         </constraints>
                                     </mapView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IPf-5f-CJV">
+                                        <rect key="frame" x="0.0" y="350" width="375" height="150"/>
+                                        <connections>
+                                            <segue destination="jzj-2e-OHe" kind="presentation" identifier="presentMapFromMapView" id="WVe-EJ-7cU"/>
+                                        </connections>
+                                    </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="urp-ab-p6A">
                                         <rect key="frame" x="0.0" y="500" width="375" height="248"/>
                                         <subviews>
@@ -1585,7 +1591,10 @@
                                     <constraint firstItem="IL6-GR-3n6" firstAttribute="leading" secondItem="Si2-LH-sn3" secondAttribute="leading" id="1q3-SZ-clV"/>
                                     <constraint firstAttribute="trailing" secondItem="UoI-KR-Q6a" secondAttribute="trailing" constant="16" id="6SC-mZ-PJr"/>
                                     <constraint firstItem="UoI-KR-Q6a" firstAttribute="leading" secondItem="Si2-LH-sn3" secondAttribute="leading" constant="16" id="6pi-vC-RAr"/>
+                                    <constraint firstItem="IPf-5f-CJV" firstAttribute="width" secondItem="hG7-39-vv1" secondAttribute="width" id="BJV-bU-4ef"/>
+                                    <constraint firstItem="IPf-5f-CJV" firstAttribute="centerX" secondItem="hG7-39-vv1" secondAttribute="centerX" id="EQK-Hy-enm"/>
                                     <constraint firstAttribute="trailing" secondItem="gq1-1K-vbN" secondAttribute="trailing" id="Evq-HE-q5d"/>
+                                    <constraint firstItem="IPf-5f-CJV" firstAttribute="centerY" secondItem="hG7-39-vv1" secondAttribute="centerY" id="HlH-e5-0Od"/>
                                     <constraint firstAttribute="bottom" secondItem="urp-ab-p6A" secondAttribute="bottom" id="KsB-Xy-eXx"/>
                                     <constraint firstItem="hG7-39-vv1" firstAttribute="leading" secondItem="Si2-LH-sn3" secondAttribute="leading" id="MBZ-oN-ggY"/>
                                     <constraint firstAttribute="trailing" secondItem="IL6-GR-3n6" secondAttribute="trailing" id="QQJ-Dj-nAW"/>
@@ -1601,6 +1610,7 @@
                                     <constraint firstItem="gq1-1K-vbN" firstAttribute="leading" secondItem="Si2-LH-sn3" secondAttribute="leading" id="r4K-oC-xft"/>
                                     <constraint firstItem="T8u-Am-jQD" firstAttribute="leading" secondItem="Si2-LH-sn3" secondAttribute="leading" id="tQt-Ej-qOs"/>
                                     <constraint firstItem="AT8-PL-YXc" firstAttribute="leading" secondItem="Si2-LH-sn3" secondAttribute="leading" id="tRt-Hi-Gvx"/>
+                                    <constraint firstItem="IPf-5f-CJV" firstAttribute="height" secondItem="hG7-39-vv1" secondAttribute="height" id="udF-Tl-kFc"/>
                                     <constraint firstItem="hG7-39-vv1" firstAttribute="top" secondItem="gq1-1K-vbN" secondAttribute="bottom" id="yRS-h8-buU"/>
                                 </constraints>
                             </scrollView>
@@ -1720,7 +1730,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RaP-HQ-WlQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5413.6000000000004" y="-154.27286356821591"/>
+            <point key="canvasLocation" x="5516" y="-193"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="MW0-7I-UPh">
@@ -1995,8 +2005,9 @@
         <image name="powered_by_google_on_white" width="144" height="18"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Qao-oM-Ssd"/>
         <segue reference="VF0-3U-Zsi"/>
+        <segue reference="Qao-oM-Ssd"/>
+        <segue reference="WVe-EJ-7cU"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.11339322120000001" green="0.73802603239999998" blue="0.83719235749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

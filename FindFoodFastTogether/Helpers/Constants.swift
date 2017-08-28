@@ -44,6 +44,7 @@ struct Segues {
     static let UnwindToHostViewAfterAddingSuggestion = "unwindToHostViewAfterAddingSuggestion"
     static let UnwindToHostViewAfterRemovingSuggestion = "unwindToHostViewAfterRemovingSuggestion"
     static let PresentMap = "presentMap"
+    static let PresentMapFromMapView = "presentMapFromMapView"
     static let UnwindToBrowse = "unwindToBrowse"
 }
 

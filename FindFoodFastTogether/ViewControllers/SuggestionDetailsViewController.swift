@@ -199,6 +199,8 @@ class SuggestionDetailsViewController: UIViewController {
         case Segues.UnwindToHostViewAfterRemovingSuggestion:
             restoreNavigationBarAppearance()
         case Segues.PresentMap:
+            fallthrough
+        case Segues.PresentMapFromMapView:
             let mapViewController = segue.destination as! MapViewController
             mapViewController.coordinate = CLLocationCoordinate2D(latitude: suggestion.latitude, longitude: suggestion.longitude)
             mapViewController.annotations = mapView.annotations
@@ -230,7 +232,6 @@ class SuggestionDetailsViewController: UIViewController {
         placeAnnotation.coordinate = coordinate
         mapView.addAnnotation(placeAnnotation)
         let region = MKCoordinateRegionMakeWithDistance(coordinate, 500, 500)
-        mapView.showsUserLocation = true
         mapView.setRegion(region, animated: false)
         
         // calculate distance
