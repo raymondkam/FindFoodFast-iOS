@@ -12,6 +12,7 @@ target 'FindFoodFastTogether' do
   pod 'Alamofire'  
   pod 'JASON'
   pod 'GzipSwift'
+  pod 'GoogleMaps'
 
   target 'FindFoodFastTogetherTests' do
     inherit! :search_paths

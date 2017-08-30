@@ -1,6 +1,11 @@
 PODS:
   - Alamofire (4.5.0)
   - Cosmos (11.0.3)
+  - GoogleMaps (2.3.1):
+    - GoogleMaps/Maps (= 2.3.1)
+  - GoogleMaps/Base (2.3.1)
+  - GoogleMaps/Maps (2.3.1):
+    - GoogleMaps/Base
   - GzipSwift (3.1.4)
   - IGIdenticon (0.4)
   - INSPhotoGallery (1.1.0)
@@ -9,6 +14,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire
   - Cosmos (~> 11.0)
+  - GoogleMaps
   - GzipSwift
   - IGIdenticon
   - INSPhotoGallery
@@ -17,11 +23,12 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
   Cosmos: eb506859929f4add2d2aec822a27efb2f718a95d
+  GoogleMaps: c66a71058b9b1294bcdd5463a68e357fa50c079f
   GzipSwift: 11ddb2bf253b1cd7b60bb169da20f62ac4348769
   IGIdenticon: f9bbe354e8a3583f71c391395689a03115fe58c4
   INSPhotoGallery: 81056815e82fb7ee6f271ca017db5985b4f96d0a
   JASON: c1204b01c9979eef35b6948ca939aac5e7bef081
 
-PODFILE CHECKSUM: ee157bc217ab31cf10603f8d59f771307d257c7a
+PODFILE CHECKSUM: 47c4839e1450bd50b222352cfac9fc47b524cb0d
 
 COCOAPODS: 1.2.1
