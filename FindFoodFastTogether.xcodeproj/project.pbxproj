@@ -35,6 +35,7 @@
 		9C7ACD9A1F104E260086157E /* SuggestionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7ACD991F104E260086157E /* SuggestionCollectionViewCell.swift */; };
 		9C7ACD9C1F106F990086157E /* AddSuggestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7ACD9B1F106F990086157E /* AddSuggestionViewController.swift */; };
 		9C8D0E8B1F2AABF800CFD481 /* SuggestionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8D0E8A1F2AABF800CFD481 /* SuggestionDetailsViewController.swift */; };
+		9C977D101F565AEB00A47235 /* GoogleMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C977D0F1F565AEB00A47235 /* GoogleMapView.swift */; };
 		9CA76E5D1F1E778300208BB3 /* VoteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA76E5C1F1E778300208BB3 /* VoteCollectionViewCell.swift */; };
 		9CA76E641F216D4900208BB3 /* HighestRatedSuggestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA76E631F216D4900208BB3 /* HighestRatedSuggestionViewController.swift */; };
 		9CB181021EFAC7A40085517A /* BluetoothCentralManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB181011EFAC7A40085517A /* BluetoothCentralManager.swift */; };
@@ -115,6 +116,7 @@
 		9C7ACD9B1F106F990086157E /* AddSuggestionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddSuggestionViewController.swift; path = ViewControllers/AddSuggestionViewController.swift; sourceTree = "<group>"; };
 		9C8177201C3FA285B77819D3 /* Pods-FindFoodFastTogetherTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FindFoodFastTogetherTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FindFoodFastTogetherTests/Pods-FindFoodFastTogetherTests.release.xcconfig"; sourceTree = "<group>"; };
 		9C8D0E8A1F2AABF800CFD481 /* SuggestionDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SuggestionDetailsViewController.swift; path = ViewControllers/SuggestionDetailsViewController.swift; sourceTree = "<group>"; };
+		9C977D0F1F565AEB00A47235 /* GoogleMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GoogleMapView.swift; path = Views/GoogleMapView.swift; sourceTree = "<group>"; };
 		9CA76E5C1F1E778300208BB3 /* VoteCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VoteCollectionViewCell.swift; path = Views/VoteCollectionViewCell.swift; sourceTree = "<group>"; };
 		9CA76E631F216D4900208BB3 /* HighestRatedSuggestionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HighestRatedSuggestionViewController.swift; path = ViewControllers/HighestRatedSuggestionViewController.swift; sourceTree = "<group>"; };
 		9CB181011EFAC7A40085517A /* BluetoothCentralManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BluetoothCentralManager.swift; path = Managers/BluetoothCentralManager.swift; sourceTree = "<group>"; };
@@ -303,6 +305,7 @@
 				9C6266F31F2962E5009E7C77 /* SuggestionSearchResultCollectionReusableView.swift */,
 				9C6266FB1F2A9EA1009E7C77 /* ImageCollectionViewCell.swift */,
 				9C3B54C71F328B2E00CD4550 /* VerticallyCenteredTextView.swift */,
+				9C977D0F1F565AEB00A47235 /* GoogleMapView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -641,6 +644,7 @@
 			files = (
 				9C3B54F61F3E366C00CD4550 /* Data+Helpers.swift in Sources */,
 				9C3B54D41F339CAF00CD4550 /* GoogleAPIKey.swift in Sources */,
+				9C977D101F565AEB00A47235 /* GoogleMapView.swift in Sources */,
 				9C3B54EA1F364B1300CD4550 /* BluetoothOperation.swift in Sources */,
 				9C3B54C81F328B2E00CD4550 /* VerticallyCenteredTextView.swift in Sources */,
 				9C6266FE1F2A9F6D009E7C77 /* PagedImageCollectionViewController.swift in Sources */,

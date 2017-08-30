@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 import Cosmos
 import INSPhotoGallery
+import GoogleMaps
 
 class SuggestionDetailsViewController: UIViewController {
     
@@ -21,7 +22,7 @@ class SuggestionDetailsViewController: UIViewController {
     @IBOutlet weak var suggestionTitlesView: UIStackView!
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var pageImageControl: UIPageControl!
-    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var mapView: GoogleMapView!
     @IBOutlet weak var addressButton: UIButton!
     @IBOutlet weak var openNowButton: UIButton!
     @IBOutlet weak var openNowView: UIView!
@@ -202,8 +203,8 @@ class SuggestionDetailsViewController: UIViewController {
             fallthrough
         case Segues.PresentMapFromMapView:
             let mapViewController = segue.destination as! MapViewController
-            mapViewController.coordinate = CLLocationCoordinate2D(latitude: suggestion.latitude, longitude: suggestion.longitude)
-            mapViewController.annotations = mapView.annotations
+            mapViewController.targetLocation = CLLocation(latitude: suggestion.latitude, longitude: suggestion.longitude)
+            mapViewController.userLocation = userLocation
             
         default:
             assert(false, "unexpected segue identifier \(segueIdentifier)")
@@ -227,12 +228,8 @@ class SuggestionDetailsViewController: UIViewController {
         suggestionTitlesView.isHidden = false
         
         // set up map view
-        let coordinate = CLLocationCoordinate2D(latitude: suggestion.latitude, longitude: suggestion.longitude)
-        let placeAnnotation = MKPointAnnotation()
-        placeAnnotation.coordinate = coordinate
-        mapView.addAnnotation(placeAnnotation)
-        let region = MKCoordinateRegionMakeWithDistance(coordinate, 500, 500)
-        mapView.setRegion(region, animated: false)
+        let suggestionLocation = CLLocation(latitude: suggestion.latitude, longitude: suggestion.longitude)
+        mapView.setupMapView(at: suggestionLocation, userLocation: userLocation)
         
         // calculate distance
         if let userLocation = userLocation {

@@ -11,7 +11,7 @@ import CoreLocation
 import Alamofire
 
 struct GoogleAPIConstants {
-    static let apiKey = GoogleWebAPIKey
+    static let apiKey = GoogleAPIKey
     static let baseUrl = "https://maps.googleapis.com/maps/api/place/"
     static let textSearchUrl = baseUrl + "textsearch/json"
     static let nearbySearchUrl = baseUrl + "nearbysearch/json"
