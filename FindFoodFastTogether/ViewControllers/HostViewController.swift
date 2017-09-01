@@ -57,7 +57,11 @@ class HostViewController: UIViewController {
         if object as? UserCollectionViewController == userCollectionViewController {
             if keyPath == "dataSource" {
                 if let connectedUsers = change?[.newKey] as? [User] {
-                    numberOfUsersLabel.text = String(format: "(%i)", connectedUsers.count)
+                    if connectedUsers.count > 0 {
+                        numberOfUsersLabel.text = String(format: "(%i)", connectedUsers.count)
+                    } else {
+                        numberOfUsersLabel.text = ""
+                    }
                     
                     if connectedUsers.count > 1 {
                         hasEnoughUsers = true
@@ -130,12 +134,12 @@ class HostViewController: UIViewController {
         case Segues.EmbedUserCollection:
             userCollectionViewController = (segue.destination as! UserCollectionViewController)
             userCollectionViewController.userContainerViewHeightConstraint = self.userContainerViewHeightConstraint
+            // watch for changes to update ui count of users
+            userCollectionViewController.addObserver(self, forKeyPath: "dataSource", options: .new, context: nil)
             if isHosting {
                 let newUser = User(name: username!, uuidString: Bluetooth.deviceUuidString!)
                 userCollectionViewController.dataSource.append(newUser)
             }
-            // watch for changes to update ui count of users
-            userCollectionViewController.addObserver(self, forKeyPath: "dataSource", options: .new, context: nil)
         case Segues.EmbedSuggestionCollection:
             suggestionCollectionViewController = segue.destination as! SuggestionCollectionViewController
             suggestionCollectionViewController.delegate = self
