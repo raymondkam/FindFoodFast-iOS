@@ -54,10 +54,6 @@ class HostViewController: UIViewController {
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        guard isHosting else {
-            print("should not get here if not hosting")
-            return
-        }
         if object as? UserCollectionViewController == userCollectionViewController {
             if keyPath == "dataSource" {
                 if let connectedUsers = change?[.newKey] as? [User] {
@@ -91,18 +87,19 @@ class HostViewController: UIViewController {
                 }
             }
         }
-        if hasEnoughUsers && hasEnoughSuggestions {
-            startButton.isEnabled = true
-        } else {
-            startButton.isEnabled = false
+        
+        if isHosting {
+            if hasEnoughUsers && hasEnoughSuggestions {
+                startButton.isEnabled = true
+            } else {
+                startButton.isEnabled = false
+            }
         }
     }
     
     deinit {
-        if isHosting {
-            userCollectionViewController.removeObserver(self, forKeyPath: "dataSource")
-            suggestionCollectionViewController.removeObserver(self, forKeyPath: "dataSource")
-        }
+        userCollectionViewController.removeObserver(self, forKeyPath: "dataSource")
+        suggestionCollectionViewController.removeObserver(self, forKeyPath: "dataSource")
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -136,15 +133,15 @@ class HostViewController: UIViewController {
             if isHosting {
                 let newUser = User(name: username!, uuidString: Bluetooth.deviceUuidString!)
                 userCollectionViewController.dataSource.append(newUser)
-                userCollectionViewController.addObserver(self, forKeyPath: "dataSource", options: .new, context: nil)
             }
+            // watch for changes to update ui count of users
+            userCollectionViewController.addObserver(self, forKeyPath: "dataSource", options: .new, context: nil)
         case Segues.EmbedSuggestionCollection:
             suggestionCollectionViewController = segue.destination as! SuggestionCollectionViewController
             suggestionCollectionViewController.delegate = self
             suggestionCollectionViewController.isHosting = isHosting
-            if isHosting {
-                suggestionCollectionViewController.addObserver(self, forKeyPath: "dataSource", options: .new, context: nil)
-            }
+            // watch for changes to update ui count of suggestion
+            suggestionCollectionViewController.addObserver(self, forKeyPath: "dataSource", options: .new, context: nil)
         case Segues.StartVoting:
             guard let voteViewController = segue.destination as? VoteViewController else {
                 print("destination controller is not a vote view controller")
