@@ -27,6 +27,8 @@ class HostViewController: UIViewController {
     
     @IBOutlet weak var userContainerViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var startButton: UIBarButtonItem!
+    @IBOutlet weak var suggestionsLoadingIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var usersLoadingIndicator: UIActivityIndicatorView!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -44,6 +46,10 @@ class HostViewController: UIViewController {
                 BluetoothPeripheralManager.sharedInstance.startAdvertising(hostname: hostname!)
             }
         } else {
+            // show loading indicators
+            suggestionsLoadingIndicator.isHidden = false
+            usersLoadingIndicator.isHidden = false
+            
             // remove the start button if not host
             navigationItem.rightBarButtonItem = nil
         }
@@ -222,11 +228,13 @@ extension HostViewController : BluetoothCentralManagerDelegate {
     func bluetoothCentralManagerDidDiscoverHost(_: BluetoothCentralManager, host: Host) {}
     
     func bluetoothCentralManagerDidConnectToHost(_: BluetoothCentralManager, users: [User]) {
+        usersLoadingIndicator.isHidden = true
         userCollectionViewController.dataSource = users
         userCollectionViewController.collectionView?.reloadData()
     }
     
     func bluetoothCentralManagerDidReceiveSuggestions(_: BluetoothCentralManager, suggestions: [Suggestion]) {
+        suggestionsLoadingIndicator.isHidden = true
         suggestionCollectionViewController.dataSource = suggestions
         suggestionCollectionViewController.uniqueSuggestions = Set(suggestions)
         suggestionCollectionViewController.collectionView?.reloadData()

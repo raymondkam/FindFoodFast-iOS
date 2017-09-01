@@ -545,11 +545,7 @@ extension BluetoothPeripheralManager : CBPeripheralManagerDelegate {
             uuidStringToUsername.updateValue("", forKey: central.identifier.uuidString)
         case FindFoodFastService.CharacteristicUUIDSuggestion:
             // send central the list of current suggestions
-            if (suggestions.count > 0) {
-                sendSuggestions()
-            } else {
-                print("session has no suggestions, nothing to send")
-            }
+            sendSuggestions()
         case FindFoodFastService.CharacteristicUUIDVoting:
             print("user subscribed to voting characteristic")
         case FindFoodFastService.CharacteristicUUIDHighestRatedSuggestion:

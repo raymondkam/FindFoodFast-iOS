@@ -16,7 +16,7 @@
         <scene sceneID="Eym-IH-bGV">
             <objects>
                 <navigationController id="P8H-UM-INm" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="gjd-Ya-3zi">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gjd-Ya-3zi">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -273,8 +273,8 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6gp-kl-lMp">
                                                 <rect key="frame" x="0.0" y="0.0" width="375.5" height="40"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QOY-rq-UV0">
-                                                        <rect key="frame" x="16" y="0.5" width="305.5" height="40"/>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G7i-is-uNK">
+                                                        <rect key="frame" x="16" y="0.0" width="305.5" height="40"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Suggestions " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="alt-91-bMt">
                                                                 <rect key="frame" x="0.0" y="0.0" width="99.5" height="40"/>
@@ -294,8 +294,22 @@
                                                                 <color key="textColor" red="0.11339322120000001" green="0.73802603239999998" blue="0.83719235749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
+                                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="gSY-pM-jZo">
+                                                                <rect key="frame" x="103.5" y="10" width="20" height="20"/>
+                                                            </activityIndicatorView>
                                                         </subviews>
-                                                    </stackView>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="trailing" secondItem="2cE-4s-XxE" secondAttribute="trailing" id="6IP-EY-SCJ"/>
+                                                            <constraint firstAttribute="height" constant="40" id="B2u-cY-w6W"/>
+                                                            <constraint firstItem="2cE-4s-XxE" firstAttribute="leading" secondItem="alt-91-bMt" secondAttribute="trailing" id="HIz-gY-zU4"/>
+                                                            <constraint firstItem="gSY-pM-jZo" firstAttribute="centerY" secondItem="G7i-is-uNK" secondAttribute="centerY" id="T1Q-N1-nmh"/>
+                                                            <constraint firstItem="alt-91-bMt" firstAttribute="leading" secondItem="G7i-is-uNK" secondAttribute="leading" id="YK1-12-kSK"/>
+                                                            <constraint firstItem="2cE-4s-XxE" firstAttribute="centerY" secondItem="G7i-is-uNK" secondAttribute="centerY" id="a05-Up-d9M"/>
+                                                            <constraint firstItem="alt-91-bMt" firstAttribute="centerY" secondItem="G7i-is-uNK" secondAttribute="centerY" id="fA8-wi-3fq"/>
+                                                            <constraint firstItem="gSY-pM-jZo" firstAttribute="leading" secondItem="alt-91-bMt" secondAttribute="trailing" constant="4" id="fbq-Jh-kIy"/>
+                                                        </constraints>
+                                                    </view>
                                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MW0-aK-g1g">
                                                         <rect key="frame" x="337.5" y="9" width="22" height="22"/>
                                                         <color key="tintColor" red="0.11339322120000001" green="0.73802603239999998" blue="0.83719235749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -307,11 +321,11 @@
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="MW0-aK-g1g" secondAttribute="trailing" constant="16" id="2OD-TJ-dPQ"/>
-                                                    <constraint firstItem="QOY-rq-UV0" firstAttribute="leading" secondItem="6gp-kl-lMp" secondAttribute="leading" constant="16" id="4Yn-im-g17"/>
                                                     <constraint firstAttribute="height" constant="40" id="LlO-m5-mmt"/>
-                                                    <constraint firstItem="QOY-rq-UV0" firstAttribute="centerY" secondItem="6gp-kl-lMp" secondAttribute="centerY" id="ft8-7P-YnC"/>
+                                                    <constraint firstItem="G7i-is-uNK" firstAttribute="centerY" secondItem="6gp-kl-lMp" secondAttribute="centerY" id="OXx-hc-cHy"/>
+                                                    <constraint firstItem="G7i-is-uNK" firstAttribute="leading" secondItem="6gp-kl-lMp" secondAttribute="leading" constant="16" id="c3v-Ej-Pkj"/>
+                                                    <constraint firstItem="MW0-aK-g1g" firstAttribute="leading" secondItem="G7i-is-uNK" secondAttribute="trailing" constant="16" id="mSY-td-iTo"/>
                                                     <constraint firstItem="MW0-aK-g1g" firstAttribute="centerY" secondItem="6gp-kl-lMp" secondAttribute="centerY" id="uez-5E-FCN"/>
-                                                    <constraint firstItem="MW0-aK-g1g" firstAttribute="leading" secondItem="QOY-rq-UV0" secondAttribute="trailing" constant="16" id="zlM-GT-sQa"/>
                                                 </constraints>
                                             </view>
                                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dV6-k9-zxu">
@@ -354,13 +368,18 @@
                                                         <color key="textColor" red="0.11339322120000001" green="0.73802603239999998" blue="0.83719235749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="EZL-os-ZfA">
+                                                        <rect key="frame" x="53" y="10" width="20" height="20"/>
+                                                    </activityIndicatorView>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstItem="vlQ-MN-A10" firstAttribute="centerY" secondItem="0VT-hc-QAa" secondAttribute="centerY" id="8By-It-Nhs"/>
                                                     <constraint firstAttribute="trailing" secondItem="vlQ-MN-A10" secondAttribute="trailing" id="9S4-MU-a5B"/>
+                                                    <constraint firstItem="EZL-os-ZfA" firstAttribute="leading" secondItem="tB5-K0-9Dd" secondAttribute="trailing" constant="4" id="TqY-wx-xh7"/>
                                                     <constraint firstItem="tB5-K0-9Dd" firstAttribute="leading" secondItem="0VT-hc-QAa" secondAttribute="leading" id="ZSZ-73-llR"/>
                                                     <constraint firstItem="vlQ-MN-A10" firstAttribute="leading" secondItem="tB5-K0-9Dd" secondAttribute="trailing" id="nYA-jp-xqh"/>
+                                                    <constraint firstItem="EZL-os-ZfA" firstAttribute="centerY" secondItem="tB5-K0-9Dd" secondAttribute="centerY" id="pj6-M8-Znr"/>
                                                     <constraint firstAttribute="height" constant="40" id="rFx-c8-GTT"/>
                                                     <constraint firstItem="tB5-K0-9Dd" firstAttribute="centerY" secondItem="0VT-hc-QAa" secondAttribute="centerY" id="uTz-lw-neM"/>
                                                 </constraints>
@@ -417,7 +436,9 @@
                         <outlet property="numberOfSuggestionsLabel" destination="2cE-4s-XxE" id="ye2-lz-5yq"/>
                         <outlet property="numberOfUsersLabel" destination="vlQ-MN-A10" id="7be-k0-Xs2"/>
                         <outlet property="startButton" destination="Lc8-RC-CQi" id="s10-uZ-lGL"/>
+                        <outlet property="suggestionsLoadingIndicator" destination="gSY-pM-jZo" id="I15-v0-epX"/>
                         <outlet property="userContainerViewHeightConstraint" destination="Sm3-Ro-vqB" id="ERv-fp-gmx"/>
+                        <outlet property="usersLoadingIndicator" destination="EZL-os-ZfA" id="yRT-qt-80s"/>
                         <segue destination="qGi-sv-Ddh" kind="unwind" identifier="unwindToBrowse" unwindAction="unwindToBrowseWithSegue:" id="djp-ce-BqF"/>
                     </connections>
                 </viewController>
@@ -904,7 +925,7 @@
         <scene sceneID="jpG-92-CkR">
             <objects>
                 <collectionViewController id="t3W-YA-ni4" customClass="SuggestionCollectionViewController" customModule="FindFoodFastTogether" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="Jec-7v-SJZ">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="Jec-7v-SJZ">
                         <rect key="frame" x="0.0" y="0.0" width="375.5" height="240"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1231,7 +1252,7 @@
         <scene sceneID="Ibb-nB-vje">
             <objects>
                 <collectionViewController id="mLn-tw-oPV" customClass="SuggestionSearchResultsCollectionViewController" customModule="FindFoodFastTogether" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="NQN-Jj-5aw">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="NQN-Jj-5aw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="513"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1728,7 +1749,7 @@
         <scene sceneID="36T-SW-SEM">
             <objects>
                 <collectionViewController id="mbN-D9-oQZ" customClass="PagedImageCollectionViewController" customModule="FindFoodFastTogether" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="rzr-R9-m4j">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="rzr-R9-m4j">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -1823,7 +1844,7 @@
         <scene sceneID="UE1-OP-pGg">
             <objects>
                 <collectionViewController id="q9f-dt-1Hh" customClass="UserCollectionViewController" customModule="FindFoodFastTogether" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" scrollEnabled="NO" dataMode="prototypes" id="gSx-BZ-kau">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" dataMode="prototypes" id="gSx-BZ-kau">
                         <rect key="frame" x="0.0" y="0.0" width="375.5" height="375.5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1967,7 +1988,7 @@
         <scene sceneID="7SJ-vg-LAl">
             <objects>
                 <collectionViewController id="lTi-Cc-CS8" customClass="BrowseHostCollectionViewController" customModule="FindFoodFastTogether" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" id="CYh-Jw-9Mu">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" id="CYh-Jw-9Mu">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
