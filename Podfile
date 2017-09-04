@@ -13,6 +13,7 @@ target 'FindFoodFastTogether' do
   pod 'JASON'
   pod 'GzipSwift'
   pod 'GoogleMaps'
+  pod 'IQKeyboardManager'
 
   target 'FindFoodFastTogetherTests' do
     inherit! :search_paths

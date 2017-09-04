@@ -9,6 +9,7 @@ PODS:
   - GzipSwift (3.1.4)
   - IGIdenticon (0.4)
   - INSPhotoGallery (1.1.0)
+  - IQKeyboardManager (4.0.10)
   - JASON (3.1)
 
 DEPENDENCIES:
@@ -18,6 +19,7 @@ DEPENDENCIES:
   - GzipSwift
   - IGIdenticon
   - INSPhotoGallery
+  - IQKeyboardManager
   - JASON
 
 SPEC CHECKSUMS:
@@ -27,8 +29,9 @@ SPEC CHECKSUMS:
   GzipSwift: 11ddb2bf253b1cd7b60bb169da20f62ac4348769
   IGIdenticon: f9bbe354e8a3583f71c391395689a03115fe58c4
   INSPhotoGallery: 81056815e82fb7ee6f271ca017db5985b4f96d0a
+  IQKeyboardManager: 593ee99b88381f4b9ccb22bd680f22606351bd41
   JASON: c1204b01c9979eef35b6948ca939aac5e7bef081
 
-PODFILE CHECKSUM: 47c4839e1450bd50b222352cfac9fc47b524cb0d
+PODFILE CHECKSUM: 087e8e1152ec36441a072c451bdbd5fe2429f0a4
 
 COCOAPODS: 1.2.1
