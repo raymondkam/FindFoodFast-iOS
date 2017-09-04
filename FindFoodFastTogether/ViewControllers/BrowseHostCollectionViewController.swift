@@ -9,6 +9,7 @@
 import UIKit
 import CoreBluetooth
 import IGIdenticon
+import PullToRefresh
 
 private let reuseIdentifier = "BrowseHostCell"
 
@@ -16,9 +17,18 @@ class BrowseHostCollectionViewController: UICollectionViewController {
 
     var dataSource = [Host]()
     
+    private let refreshView = PullToRefresh(height: 64, position: .top)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView?.delegate = self
+        collectionView?.addPullToRefresh(refreshView, action: { [weak self] in
+            self?.dataSource.removeAll()
+            self?.collectionView?.reloadData()
+            BluetoothCentralManager.sharedInstance.scanWithAutoStop(for: 30.0, completion: { [weak self] in
+                self?.collectionView?.endRefreshing(at: .top)
+            })
+        })
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -30,6 +40,10 @@ class BrowseHostCollectionViewController: UICollectionViewController {
         default:
             print("segue identifier not recognized")
         }
+    }
+    
+    deinit {
+        collectionView?.removePullToRefresh(refreshView)
     }
 
     // MARK: UICollectionViewDataSource
@@ -59,35 +73,6 @@ class BrowseHostCollectionViewController: UICollectionViewController {
         let host = dataSource[indexPath.item]
         BluetoothCentralManager.sharedInstance.connectToPeripheral(peripheral: host.peripheral)
     }
-    
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-    
-    }
-    */
 
 }
 

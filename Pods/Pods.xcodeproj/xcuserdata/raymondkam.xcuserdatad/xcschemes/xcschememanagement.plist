@@ -59,6 +59,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>PullToRefresher.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
@@ -97,17 +102,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>69AD2477EC954384868070089776F856</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>88E9EC28B8B46C3631E6B242B50F4442</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>8AC44F5CA9BBA118155AB80CDC849845</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D6702CF23D5E52F80F33318A07EAE816</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DC45A9A333607F2B5B93C70CF46549D0</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -68,7 +68,7 @@ final class BluetoothCentralManager : NSObject {
         return instance
     }()
     
-    func scanWithAutoStop(for scanDuration: Double) {
+    func scanWithAutoStop(for scanDuration: Double, completion: @escaping () -> Void) {
         guard centralManager.state == CBManagerState.poweredOn else {
             print("bluetooth central manager not powered on")
             return
@@ -81,6 +81,7 @@ final class BluetoothCentralManager : NSObject {
         scanTimer = Timer.scheduledTimer(withTimeInterval: scanDuration, repeats: false) { (timer) in
             print("\(scanDuration) seconds has passed, stop scanning for peripherals")
             self.stopScan()
+            completion()
         }
         centralManager.scanForPeripherals(withServices: [FindFoodFastService.ServiceUUID], options: nil)
     }

@@ -14,6 +14,7 @@ target 'FindFoodFastTogether' do
   pod 'GzipSwift'
   pod 'GoogleMaps'
   pod 'IQKeyboardManager'
+  pod 'PullToRefresher'
 
   target 'FindFoodFastTogetherTests' do
     inherit! :search_paths

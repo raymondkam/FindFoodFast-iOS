@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DC45A9A333607F2B5B93C70CF46549D0"
-               BuildableName = "Pods_FindFoodFastTogether.framework"
-               BlueprintName = "Pods-FindFoodFastTogether"
+               BlueprintIdentifier = "D6702CF23D5E52F80F33318A07EAE816"
+               BuildableName = "PullToRefresh.framework"
+               BlueprintName = "PullToRefresher"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DC45A9A333607F2B5B93C70CF46549D0"
-            BuildableName = "Pods_FindFoodFastTogether.framework"
-            BlueprintName = "Pods-FindFoodFastTogether"
+            BlueprintIdentifier = "D6702CF23D5E52F80F33318A07EAE816"
+            BuildableName = "PullToRefresh.framework"
+            BlueprintName = "PullToRefresher"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
