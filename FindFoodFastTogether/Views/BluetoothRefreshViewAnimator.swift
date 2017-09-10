@@ -28,7 +28,7 @@ class BluetoothRefreshViewAnimator: RefreshViewAnimator {
         case .loading: // start loading animations
             refreshView.activityIndicator.startAnimating()
         case .finished: // show some finished state if needed
-            refreshView.activityIndicator.startAnimating()
+            refreshView.activityIndicator.stopAnimating()
         }
     }
 }
