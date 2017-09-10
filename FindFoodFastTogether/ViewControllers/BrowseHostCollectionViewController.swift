@@ -17,12 +17,13 @@ class BrowseHostCollectionViewController: UICollectionViewController {
 
     var dataSource = [Host]()
     
-    private let refreshView = BluetoothPullToRefresh(height: 80, position: .top)
+    private let pullToRefreshView = BluetoothPullToRefresh(height: 100, position: .top)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView?.delegate = self
-        collectionView?.addPullToRefresh(refreshView, action: { [weak self] in
+        collectionView?.addPullToRefresh(pullToRefreshView, action: { [weak self] in
+            
             self?.dataSource.removeAll()
             self?.collectionView?.reloadData()
             BluetoothCentralManager.sharedInstance.scanWithAutoStop(for: 30.0, completion: { [weak self] in
@@ -43,7 +44,7 @@ class BrowseHostCollectionViewController: UICollectionViewController {
     }
     
     deinit {
-        collectionView?.removePullToRefresh(refreshView)
+        collectionView?.removePullToRefresh(pullToRefreshView)
     }
 
     // MARK: UICollectionViewDataSource

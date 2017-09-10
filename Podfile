@@ -15,6 +15,7 @@ target 'FindFoodFastTogether' do
   pod 'GoogleMaps'
   pod 'IQKeyboardManager'
   pod 'PullToRefresher'
+  pod 'NVActivityIndicatorView'
 
   target 'FindFoodFastTogetherTests' do
     inherit! :search_paths

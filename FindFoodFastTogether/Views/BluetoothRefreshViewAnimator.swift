@@ -11,9 +11,9 @@ import PullToRefresh
 
 class BluetoothRefreshViewAnimator: RefreshViewAnimator {
     
-    private let refreshView: UIView
+    private let refreshView: BluetoothRefreshView
     
-    init(refreshView: UIView) {
+    init(refreshView: BluetoothRefreshView) {
         self.refreshView = refreshView
     }
     
@@ -26,9 +26,9 @@ class BluetoothRefreshViewAnimator: RefreshViewAnimator {
             // animate elements according to progress
             break
         case .loading: // start loading animations
-            break
+            refreshView.activityIndicator.startAnimating()
         case .finished: // show some finished state if needed
-            break
+            refreshView.activityIndicator.startAnimating()
         }
     }
 }

@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
 class BluetoothRefreshView: UIView {
 
     @IBOutlet var contentView: UIView!
     @IBOutlet weak var topShadowView: UIView!
     @IBOutlet weak var bottomShadowView: UIView!
+    @IBOutlet weak var activityIndicator: NVActivityIndicatorView!
 
     override init(frame: CGRect) {
         super.init(frame: frame)

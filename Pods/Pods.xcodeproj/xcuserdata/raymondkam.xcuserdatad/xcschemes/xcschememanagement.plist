@@ -44,6 +44,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>NVActivityIndicatorView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-FindFoodFastTogether.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -92,6 +97,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>3EDFE4052B5DE7D509935AC0774CB135</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>4FDC533A4360A68ABDCE852F04B30927</key>
 		<dict>
 			<key>primary</key>
@@ -112,12 +122,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D6702CF23D5E52F80F33318A07EAE816</key>
+		<key>8F36D9D3E667D7FFB6BCAE50C01E3BB3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DC45A9A333607F2B5B93C70CF46549D0</key>
+		<key>B50D975EB9604E405588AC0F2E465992</key>
 		<dict>
 			<key>primary</key>
 			<true/>
