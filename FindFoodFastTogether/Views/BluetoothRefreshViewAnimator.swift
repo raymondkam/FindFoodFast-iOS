@@ -21,11 +21,12 @@ class BluetoothRefreshViewAnimator: RefreshViewAnimator {
         switch state {
         case .initial:
             // do inital layout for elements
-            refreshView.backgroundColor = UIColor.gray
+            refreshView.messageLabel.text = "Pull to search for nearby hosts"
         case .releasing(let progress):
             // animate elements according to progress
             break
         case .loading: // start loading animations
+            refreshView.messageLabel.text = "Searching for nearby hosts..."
             refreshView.activityIndicator.startAnimating()
         case .finished: // show some finished state if needed
             refreshView.activityIndicator.stopAnimating()

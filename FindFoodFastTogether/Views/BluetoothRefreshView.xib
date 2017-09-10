@@ -15,6 +15,7 @@
                 <outlet property="activityIndicator" destination="kmz-Hn-OBa" id="fav-vM-GVi"/>
                 <outlet property="bottomShadowView" destination="GlY-aL-2zv" id="5Z4-ke-xkf"/>
                 <outlet property="contentView" destination="iN0-l3-epB" id="91y-9e-yFu"/>
+                <outlet property="messageLabel" destination="6Vd-Bv-1TG" id="UDq-Uu-2GW"/>
                 <outlet property="topShadowView" destination="FUU-v9-Soj" id="Mj7-ZF-EyU"/>
             </connections>
         </placeholder>
