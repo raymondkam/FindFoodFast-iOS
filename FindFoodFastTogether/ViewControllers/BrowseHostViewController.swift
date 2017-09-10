@@ -32,6 +32,19 @@ class BrowseHostViewController: UIViewController {
         scanHosts()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        /* 
+         * Make sure the bluetooth central manager delegate
+         * is set for the collection view otherwise it does
+         * not populate the hosts collection. The central
+         * manager changes its delegate when a user joins a 
+         * host.
+        */
+        if BluetoothCentralManager.sharedInstance.delegate == nil {
+            BluetoothCentralManager.sharedInstance.delegate = browseHostCollectionViewController
+        }
+    }
+    
     @IBAction func unwindToBrowse(segue: UIStoryboardSegue) {
         // restore appearance of navigation for when unwinding 
         // from suggestion details

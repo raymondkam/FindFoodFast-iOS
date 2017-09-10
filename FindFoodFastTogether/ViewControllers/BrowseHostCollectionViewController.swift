@@ -23,7 +23,6 @@ class BrowseHostCollectionViewController: UICollectionViewController {
         super.viewDidLoad()
         collectionView?.delegate = self
         collectionView?.addPullToRefresh(pullToRefreshView, action: { [weak self] in
-            
             self?.dataSource.removeAll()
             self?.collectionView?.reloadData()
             BluetoothCentralManager.sharedInstance.scanWithAutoStop(for: 30.0, completion: { [weak self] in
@@ -71,7 +70,9 @@ class BrowseHostCollectionViewController: UICollectionViewController {
     // MARK: UICollectionViewDelegate
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.endRefreshing(at: .top)
         let host = dataSource[indexPath.item]
+        // connecting to a peripheral also stops the scan
         BluetoothCentralManager.sharedInstance.connectToPeripheral(peripheral: host.peripheral)
     }
 
