@@ -37,4 +37,13 @@ extension UIView {
             layer.borderColor = newValue?.cgColor
         }
     }
+    
+    func addShadow(with offset: CGSize, opacity: Float?, masksToBounds: Bool?) {
+        let shadowPath = UIBezierPath(rect: bounds)
+        layer.masksToBounds = masksToBounds ?? false
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOffset = offset
+        layer.shadowOpacity = opacity ?? Float(0.3)
+        layer.shadowPath = shadowPath.cgPath
+    }
 }

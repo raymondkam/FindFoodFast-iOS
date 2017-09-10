@@ -17,7 +17,7 @@ class BrowseHostCollectionViewController: UICollectionViewController {
 
     var dataSource = [Host]()
     
-    private let refreshView = PullToRefresh(height: 64, position: .top)
+    private let refreshView = BluetoothPullToRefresh(height: 80, position: .top)
     
     override func viewDidLoad() {
         super.viewDidLoad()
