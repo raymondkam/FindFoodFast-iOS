@@ -31,6 +31,7 @@
 		9C6266F41F2962E5009E7C77 /* SuggestionSearchResultCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6266F31F2962E5009E7C77 /* SuggestionSearchResultCollectionReusableView.swift */; };
 		9C6266FC1F2A9EA1009E7C77 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6266FB1F2A9EA1009E7C77 /* ImageCollectionViewCell.swift */; };
 		9C6266FE1F2A9F6D009E7C77 /* PagedImageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6266FD1F2A9F6D009E7C77 /* PagedImageCollectionViewController.swift */; };
+		9C7799C01F5E1DEF008B757A /* BluetoothPullToRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7799BF1F5E1DEF008B757A /* BluetoothPullToRefresh.swift */; };
 		9C7ACD981F104C940086157E /* Suggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7ACD971F104C940086157E /* Suggestion.swift */; };
 		9C7ACD9A1F104E260086157E /* SuggestionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7ACD991F104E260086157E /* SuggestionCollectionViewCell.swift */; };
 		9C7ACD9C1F106F990086157E /* AddSuggestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7ACD9B1F106F990086157E /* AddSuggestionViewController.swift */; };
@@ -39,6 +40,9 @@
 		9CA76E5D1F1E778300208BB3 /* VoteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA76E5C1F1E778300208BB3 /* VoteCollectionViewCell.swift */; };
 		9CA76E641F216D4900208BB3 /* HighestRatedSuggestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA76E631F216D4900208BB3 /* HighestRatedSuggestionViewController.swift */; };
 		9CB181021EFAC7A40085517A /* BluetoothCentralManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB181011EFAC7A40085517A /* BluetoothCentralManager.swift */; };
+		9CB864B51F5E18D4003D3441 /* BluetoothRefreshView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CB864B41F5E18D4003D3441 /* BluetoothRefreshView.xib */; };
+		9CB864B91F5E1A67003D3441 /* BluetoothRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB864B81F5E1A67003D3441 /* BluetoothRefreshView.swift */; };
+		9CB864BB1F5E1C24003D3441 /* BluetoothRefreshViewAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB864BA1F5E1C24003D3441 /* BluetoothRefreshViewAnimator.swift */; };
 		9CC2B8011EEE407A0049E269 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC2B8001EEE407A0049E269 /* AppDelegate.swift */; };
 		9CC2B8031EEE407A0049E269 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC2B8021EEE407A0049E269 /* ViewController.swift */; };
 		9CC2B8061EEE407A0049E269 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CC2B8041EEE407A0049E269 /* Main.storyboard */; };
@@ -111,6 +115,7 @@
 		9C6266F31F2962E5009E7C77 /* SuggestionSearchResultCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SuggestionSearchResultCollectionReusableView.swift; path = Views/SuggestionSearchResultCollectionReusableView.swift; sourceTree = "<group>"; };
 		9C6266FB1F2A9EA1009E7C77 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageCollectionViewCell.swift; path = Views/ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		9C6266FD1F2A9F6D009E7C77 /* PagedImageCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PagedImageCollectionViewController.swift; path = ViewControllers/PagedImageCollectionViewController.swift; sourceTree = "<group>"; };
+		9C7799BF1F5E1DEF008B757A /* BluetoothPullToRefresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BluetoothPullToRefresh.swift; path = Views/BluetoothPullToRefresh.swift; sourceTree = "<group>"; };
 		9C7ACD971F104C940086157E /* Suggestion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Suggestion.swift; sourceTree = "<group>"; };
 		9C7ACD991F104E260086157E /* SuggestionCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SuggestionCollectionViewCell.swift; path = Views/SuggestionCollectionViewCell.swift; sourceTree = "<group>"; };
 		9C7ACD9B1F106F990086157E /* AddSuggestionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddSuggestionViewController.swift; path = ViewControllers/AddSuggestionViewController.swift; sourceTree = "<group>"; };
@@ -120,6 +125,9 @@
 		9CA76E5C1F1E778300208BB3 /* VoteCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VoteCollectionViewCell.swift; path = Views/VoteCollectionViewCell.swift; sourceTree = "<group>"; };
 		9CA76E631F216D4900208BB3 /* HighestRatedSuggestionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HighestRatedSuggestionViewController.swift; path = ViewControllers/HighestRatedSuggestionViewController.swift; sourceTree = "<group>"; };
 		9CB181011EFAC7A40085517A /* BluetoothCentralManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BluetoothCentralManager.swift; path = Managers/BluetoothCentralManager.swift; sourceTree = "<group>"; };
+		9CB864B41F5E18D4003D3441 /* BluetoothRefreshView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BluetoothRefreshView.xib; path = Views/BluetoothRefreshView.xib; sourceTree = "<group>"; };
+		9CB864B81F5E1A67003D3441 /* BluetoothRefreshView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BluetoothRefreshView.swift; path = Views/BluetoothRefreshView.swift; sourceTree = "<group>"; };
+		9CB864BA1F5E1C24003D3441 /* BluetoothRefreshViewAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BluetoothRefreshViewAnimator.swift; path = Views/BluetoothRefreshViewAnimator.swift; sourceTree = "<group>"; };
 		9CC2B7FD1EEE407A0049E269 /* FindFoodFastTogether.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FindFoodFastTogether.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CC2B8001EEE407A0049E269 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9CC2B8021EEE407A0049E269 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -222,6 +230,17 @@
 			name = Lobby;
 			sourceTree = "<group>";
 		};
+		9C7799C71F64DDC7008B757A /* BluetoothPullToRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				9CB864B41F5E18D4003D3441 /* BluetoothRefreshView.xib */,
+				9CB864B81F5E1A67003D3441 /* BluetoothRefreshView.swift */,
+				9CB864BA1F5E1C24003D3441 /* BluetoothRefreshViewAnimator.swift */,
+				9C7799BF1F5E1DEF008B757A /* BluetoothPullToRefresh.swift */,
+			);
+			name = BluetoothPullToRefresh;
+			sourceTree = "<group>";
+		};
 		9CC2B7F41EEE407A0049E269 = {
 			isa = PBXGroup;
 			children = (
@@ -298,6 +317,7 @@
 		9CC2B8311EF065C70049E269 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9C7799C71F64DDC7008B757A /* BluetoothPullToRefresh */,
 				9CC2B8321EF065DA0049E269 /* BrowseHostCollectionViewCell.swift */,
 				9C7ACD991F104E260086157E /* SuggestionCollectionViewCell.swift */,
 				9CA76E5C1F1E778300208BB3 /* VoteCollectionViewCell.swift */,
@@ -478,6 +498,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9CC2B80B1EEE407A0049E269 /* LaunchScreen.storyboard in Resources */,
+				9CB864B51F5E18D4003D3441 /* BluetoothRefreshView.xib in Resources */,
 				9CC2B8081EEE407A0049E269 /* Assets.xcassets in Resources */,
 				9CC2B8061EEE407A0049E269 /* Main.storyboard in Resources */,
 			);
@@ -646,10 +667,12 @@
 				9C3B54D41F339CAF00CD4550 /* GoogleAPIKey.swift in Sources */,
 				9C977D101F565AEB00A47235 /* GoogleMapView.swift in Sources */,
 				9C3B54EA1F364B1300CD4550 /* BluetoothOperation.swift in Sources */,
+				9C7799C01F5E1DEF008B757A /* BluetoothPullToRefresh.swift in Sources */,
 				9C3B54C81F328B2E00CD4550 /* VerticallyCenteredTextView.swift in Sources */,
 				9C6266FE1F2A9F6D009E7C77 /* PagedImageCollectionViewController.swift in Sources */,
 				9C3B54E81F36447500CD4550 /* Queue.swift in Sources */,
 				9CF38B971F02F54C00A736B0 /* BluetoothPeripheralManager.swift in Sources */,
+				9CB864BB1F5E1C24003D3441 /* BluetoothRefreshViewAnimator.swift in Sources */,
 				9CC2B8331EF065DA0049E269 /* BrowseHostCollectionViewCell.swift in Sources */,
 				9CF38B9B1F05AF4300A736B0 /* SuggestionCollectionViewController.swift in Sources */,
 				9CC2B83A1EF18A370049E269 /* HostViewController.swift in Sources */,
@@ -686,6 +709,7 @@
 				9C3B54D01F33999A00CD4550 /* SearchClient.swift in Sources */,
 				9C7ACD981F104C940086157E /* Suggestion.swift in Sources */,
 				9C7ACD9C1F106F990086157E /* AddSuggestionViewController.swift in Sources */,
+				9CB864B91F5E1A67003D3441 /* BluetoothRefreshView.swift in Sources */,
 				9CC2B8301EF064A90049E269 /* BrowseHostCollectionViewController.swift in Sources */,
 				9CC2B83D1EF18CDE0049E269 /* Constants.swift in Sources */,
 			);

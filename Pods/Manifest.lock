@@ -11,6 +11,10 @@ PODS:
   - INSPhotoGallery (1.1.0)
   - IQKeyboardManager (4.0.10)
   - JASON (3.1)
+  - NVActivityIndicatorView (3.7.0):
+    - NVActivityIndicatorView/Presenter (= 3.7.0)
+  - NVActivityIndicatorView/Presenter (3.7.0)
+  - PullToRefresher (2.0.2)
 
 DEPENDENCIES:
   - Alamofire
@@ -21,6 +25,8 @@ DEPENDENCIES:
   - INSPhotoGallery
   - IQKeyboardManager
   - JASON
+  - NVActivityIndicatorView
+  - PullToRefresher
 
 SPEC CHECKSUMS:
   Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
@@ -31,7 +37,9 @@ SPEC CHECKSUMS:
   INSPhotoGallery: 81056815e82fb7ee6f271ca017db5985b4f96d0a
   IQKeyboardManager: 593ee99b88381f4b9ccb22bd680f22606351bd41
   JASON: c1204b01c9979eef35b6948ca939aac5e7bef081
+  NVActivityIndicatorView: d3738df7e2e476aca0ba6bf32a8c9fbcfc33d64b
+  PullToRefresher: 5e101a8c3523e67ee0291375ba932ef59e0853c2
 
-PODFILE CHECKSUM: 087e8e1152ec36441a072c451bdbd5fe2429f0a4
+PODFILE CHECKSUM: 7aa23a2ea0ed426b08b0195779391fdd4f9616b7
 
 COCOAPODS: 1.2.1

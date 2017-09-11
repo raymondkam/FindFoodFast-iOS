@@ -8,13 +8,15 @@
 
 import UIKit
 import CoreBluetooth
+import PullToRefresh
 
 class BrowseHostViewController: UIViewController {
     
-    @IBOutlet weak var loadingView: UIView!
     @IBOutlet weak var containerView: UIView!
     
     var username: String?
+    
+    private var browseHostCollectionViewController: BrowseHostCollectionViewController!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -23,11 +25,24 @@ class BrowseHostViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = username
+        navigationItem.title = "Search"
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.scanHosts), name: NotificationNames.CentralBluetoothPoweredOn, object: nil)
         
         scanHosts()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        /* 
+         * Make sure the bluetooth central manager delegate
+         * is set for the collection view otherwise it does
+         * not populate the hosts collection. The central
+         * manager changes its delegate when a user joins a 
+         * host.
+        */
+        if BluetoothCentralManager.sharedInstance.delegate == nil {
+            BluetoothCentralManager.sharedInstance.delegate = browseHostCollectionViewController
+        }
     }
     
     @IBAction func unwindToBrowse(segue: UIStoryboardSegue) {
@@ -49,24 +64,19 @@ class BrowseHostViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier! {
         case Segues.EmbedBrowseHostCollection:
-            BluetoothCentralManager.sharedInstance.delegate = segue.destination as! BrowseHostCollectionViewController
+            browseHostCollectionViewController = segue.destination as! BrowseHostCollectionViewController
+            BluetoothCentralManager.sharedInstance.delegate = browseHostCollectionViewController
         default:
             print("unrecognized segue identifier")
         }
     }
     
     func scanHosts() {
-        BluetoothCentralManager.sharedInstance.scanWithAutoStop(for: 30.0)
-    }
-    
-    func showLoadingView() {
-        self.loadingView.isHidden = false
-        self.containerView.isHidden = true
-    }
-    
-    func hideLoadingView() {
-        self.loadingView.isHidden = true
-        self.containerView.isHidden = false
+        browseHostCollectionViewController.collectionView?.startRefreshing(at: .top)
+        BluetoothCentralManager.sharedInstance.scanWithAutoStop(for: 30.0, completion: { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.browseHostCollectionViewController.collectionView?.endRefreshing(at: .top)
+        })
     }
 }
 

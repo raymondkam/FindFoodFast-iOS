@@ -14,6 +14,7 @@ import GoogleMaps
 
 class SuggestionDetailsViewController: UIViewController {
     
+    // TODO: Refactor this into a view
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var ratingView: UIStackView!
