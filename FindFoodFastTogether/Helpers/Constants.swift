@@ -73,3 +73,8 @@ struct UserDefaultsKeys {
 struct Bluetooth {
     static let deviceUuidString = UIDevice.current.identifierForVendor?.uuidString
 }
+
+struct NavigationAppScheme {
+    static let googleMaps = "comgooglemaps://"
+    static let waze = "waze://"
+}

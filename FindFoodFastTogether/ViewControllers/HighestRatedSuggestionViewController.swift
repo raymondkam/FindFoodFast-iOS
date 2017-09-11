@@ -31,18 +31,13 @@ class HighestRatedSuggestionViewController: UIViewController {
     var isHosting: Bool!
     var searchClient = GoogleSearchClient()
     
+    private var installedNavigationApps = ["Apple Maps"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // calculate correct margins for card
-        let width = min(337, view.frame.size.width - 20)
-        let cardLeftRightMargins = (view.frame.size.width - width) / 2
-        let photoLeftRightMargins = cardLeftRightMargins + 10
-        
-        scoreLeadingConstraint.constant = cardLeftRightMargins
-        scoreTrailingConstraint.constant = cardLeftRightMargins
-        imageViewLeadingConstraint.constant = photoLeftRightMargins
-        imageViewTrailingConstraint.constant = photoLeftRightMargins
+        setupCardMargins()
+        checkInstalledNavigationApps()
         
         LocationManager.sharedInstance.requestLocation { [weak self] (userLocation, error) in
             guard error == nil else {
@@ -138,12 +133,58 @@ class HighestRatedSuggestionViewController: UIViewController {
             }
         }
     }
+    
+    func setupCardMargins() {
+        // calculate correct margins for card
+        let width = min(337, view.frame.size.width - 20)
+        let cardLeftRightMargins = (view.frame.size.width - width) / 2
+        let photoLeftRightMargins = cardLeftRightMargins + 10
+        
+        scoreLeadingConstraint.constant = cardLeftRightMargins
+        scoreTrailingConstraint.constant = cardLeftRightMargins
+        imageViewLeadingConstraint.constant = photoLeftRightMargins
+        imageViewTrailingConstraint.constant = photoLeftRightMargins
+    }
+    
+    func checkInstalledNavigationApps() {
+        if UIApplication.shared.canOpenURL(URL(string: NavigationAppScheme.googleMaps)!) {
+            installedNavigationApps.append("Google Maps")
+        }
+        
+        if UIApplication.shared.canOpenURL(URL(string: NavigationAppScheme.waze)!) {
+            installedNavigationApps.append("Waze")
+        }
+    }
+    
+    func handleDirectionsActionSheet(action: UIAlertAction) {
+        let actionTitle = action.title!
+        let coordinate = CLLocationCoordinate2D(latitude: highestRatedSuggestion.latitude, longitude: highestRatedSuggestion.longitude)
+        switch actionTitle {
+        case "Apple Maps":
+            let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate, addressDictionary: nil))
+            mapItem.name = highestRatedSuggestion.name
+            mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])
+        case "Google Maps":
+            let googleURLString = String(format: "%@?directionsmode=driving&daddr=%f,%f", NavigationAppScheme.googleMaps, highestRatedSuggestion.latitude, highestRatedSuggestion.longitude)
+            let googleURL = URL(string: googleURLString)!
+            UIApplication.shared.open(googleURL, options: [:], completionHandler: nil)
+        case "Waze":
+            let wazeURLString = String(format: "%@?ll=%f,%f&navigate=yes", NavigationAppScheme.waze, highestRatedSuggestion.latitude, highestRatedSuggestion.longitude).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+            let wazeURL = URL(string: wazeURLString)!
+            UIApplication.shared.open(wazeURL, options: [:], completionHandler: nil)
+        default:
+            assert(false, "Unhandled directions action sheet action")
+        }
+    }
 
     @IBAction func handleDirectionsButtonPressed(_ sender: Any) {
-        let coordinate = CLLocationCoordinate2D(latitude: highestRatedSuggestion.latitude, longitude: highestRatedSuggestion.longitude)
-        let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate, addressDictionary: nil))
-        mapItem.name = highestRatedSuggestion.name
-        mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])
+        let actionController = UIAlertController(title: "Directions", message: "Which app would you like to use?", preferredStyle: .actionSheet)
+        actionController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        for navigationApp in installedNavigationApps {
+            let action = UIAlertAction(title: navigationApp, style: .default, handler: handleDirectionsActionSheet)
+            actionController.addAction(action)
+        }
+        present(actionController, animated: true, completion: nil)
     }
 
 }
