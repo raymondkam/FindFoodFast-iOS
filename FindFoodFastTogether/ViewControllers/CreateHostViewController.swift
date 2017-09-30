@@ -11,7 +11,8 @@ import UIKit
 class CreateHostViewController: UIViewController {
 
     @IBOutlet weak var hostnameTextField: UITextField!
-    @IBOutlet weak var goButton: UIButton!
+    @IBOutlet weak var goButton: UIBarButtonItem!
+    @IBOutlet weak var contentView: UIView!
 
     var username: String?
     
@@ -23,32 +24,35 @@ class CreateHostViewController: UIViewController {
         } else {
             enableButtons()
         }
-
+        
         hostnameTextField.delegate = self
         hostnameTextField.becomeFirstResponder()
-        navigationItem.title = username
+        
+        contentView.addGradientLayer(colors: FindFoodFastColor.roseannaGradient.reversed(), at: 0)
     }
     
     func disableButtons() {
-        DispatchQueue.main.async {
-            self.goButton.isEnabled = false
-            self.goButton.backgroundColor = FindFoodFastColor.DisabledColor
-        }
+        goButton.isEnabled = false
     }
     
     func enableButtons() {
-        DispatchQueue.main.async {
-            self.goButton.isEnabled = true
-            self.goButton.backgroundColor = FindFoodFastColor.MainColor
-        }
+        goButton.isEnabled = true
     }
 
     @IBAction func handleHostNameTextFieldEditingChanged(_ sender: Any) {
-        if let count = (sender as! UITextField).text?.characters.count, count > 2 && count <= 29 {
+        if let count = (sender as! UITextField).text?.characters.count, count > 0 && count <= 40 {
             enableButtons()
         } else {
             disableButtons()
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.tintColor = FindFoodFastColor.pinkColor
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.navigationBar.tintColor = FindFoodFastColor.greenColor
     }
     
     // MARK: - Navigation
@@ -71,6 +75,7 @@ class CreateHostViewController: UIViewController {
 extension CreateHostViewController : UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        performSegue(withIdentifier: Segues.HostSession, sender: self)
         textField.resignFirstResponder()
         return true
     }

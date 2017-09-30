@@ -32,6 +32,7 @@
 		9C6266FC1F2A9EA1009E7C77 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6266FB1F2A9EA1009E7C77 /* ImageCollectionViewCell.swift */; };
 		9C6266FE1F2A9F6D009E7C77 /* PagedImageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6266FD1F2A9F6D009E7C77 /* PagedImageCollectionViewController.swift */; };
 		9C7799C01F5E1DEF008B757A /* BluetoothPullToRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7799BF1F5E1DEF008B757A /* BluetoothPullToRefresh.swift */; };
+		9C7799CB1F6B7627008B757A /* UIColor+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7799CA1F6B7627008B757A /* UIColor+Helpers.swift */; };
 		9C7ACD981F104C940086157E /* Suggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7ACD971F104C940086157E /* Suggestion.swift */; };
 		9C7ACD9A1F104E260086157E /* SuggestionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7ACD991F104E260086157E /* SuggestionCollectionViewCell.swift */; };
 		9C7ACD9C1F106F990086157E /* AddSuggestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7ACD9B1F106F990086157E /* AddSuggestionViewController.swift */; };
@@ -116,6 +117,7 @@
 		9C6266FB1F2A9EA1009E7C77 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageCollectionViewCell.swift; path = Views/ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		9C6266FD1F2A9F6D009E7C77 /* PagedImageCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PagedImageCollectionViewController.swift; path = ViewControllers/PagedImageCollectionViewController.swift; sourceTree = "<group>"; };
 		9C7799BF1F5E1DEF008B757A /* BluetoothPullToRefresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BluetoothPullToRefresh.swift; path = Views/BluetoothPullToRefresh.swift; sourceTree = "<group>"; };
+		9C7799CA1F6B7627008B757A /* UIColor+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Helpers.swift"; sourceTree = "<group>"; };
 		9C7ACD971F104C940086157E /* Suggestion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Suggestion.swift; sourceTree = "<group>"; };
 		9C7ACD991F104E260086157E /* SuggestionCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SuggestionCollectionViewCell.swift; path = Views/SuggestionCollectionViewCell.swift; sourceTree = "<group>"; };
 		9C7ACD9B1F106F990086157E /* AddSuggestionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddSuggestionViewController.swift; path = ViewControllers/AddSuggestionViewController.swift; sourceTree = "<group>"; };
@@ -354,6 +356,7 @@
 				9C3B54EB1F3918F800CD4550 /* Data+Gzip.swift */,
 				9C3B54F51F3E366C00CD4550 /* Data+Helpers.swift */,
 				9C3B54F31F3E33D200CD4550 /* String+Helpers.swift */,
+				9C7799CA1F6B7627008B757A /* UIColor+Helpers.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -670,6 +673,7 @@
 				9C7799C01F5E1DEF008B757A /* BluetoothPullToRefresh.swift in Sources */,
 				9C3B54C81F328B2E00CD4550 /* VerticallyCenteredTextView.swift in Sources */,
 				9C6266FE1F2A9F6D009E7C77 /* PagedImageCollectionViewController.swift in Sources */,
+				9C7799CB1F6B7627008B757A /* UIColor+Helpers.swift in Sources */,
 				9C3B54E81F36447500CD4550 /* Queue.swift in Sources */,
 				9CF38B971F02F54C00A736B0 /* BluetoothPeripheralManager.swift in Sources */,
 				9CB864BB1F5E1C24003D3441 /* BluetoothRefreshViewAnimator.swift in Sources */,

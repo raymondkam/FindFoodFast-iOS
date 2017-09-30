@@ -14,6 +14,9 @@ class StartViewController: UIViewController {
     @IBOutlet weak var searchButton: UIButton!
     @IBOutlet weak var hostButton: UIButton!
     
+    var searchGradientLayer: CAGradientLayer!
+    var hostGradientLayer: CAGradientLayer!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,6 +27,10 @@ class StartViewController: UIViewController {
             nameTextField.text = savedUsername
         }
         
+        // setup name textfield
+        if nameTextField.text?.characters.count == 0 {
+            nameTextField.becomeFirstResponder()
+        }
         nameTextField.delegate = self
         if (nameTextField.text == nil || nameTextField.text == "") {
             disableButtons()
@@ -31,7 +38,20 @@ class StartViewController: UIViewController {
             enableButtons()
         }
     }
-
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if searchButton.layer.sublayers == nil {
+            searchGradientLayer = searchButton.addGradientLayer(colors:FindFoodFastColor.seaweedGradient.reversed(), at: nil)
+        }
+        if hostButton.layer.sublayers == nil {
+            hostGradientLayer = hostButton.addGradientLayer(colors: FindFoodFastColor.roseannaGradient.reversed(), at: nil)
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -47,22 +67,28 @@ class StartViewController: UIViewController {
         DispatchQueue.main.async {
             self.searchButton.isEnabled = false
             self.hostButton.isEnabled = false
+            self.searchGradientLayer.removeFromSuperlayer()
             self.searchButton.backgroundColor = FindFoodFastColor.DisabledColor
+            self.searchButton.setTitleColor(FindFoodFastColor.DisabledTextColor, for: .normal)
+            self.hostGradientLayer.removeFromSuperlayer()
             self.hostButton.backgroundColor = FindFoodFastColor.DisabledColor
+            self.hostButton.setTitleColor(FindFoodFastColor.DisabledTextColor, for: .normal)
         }
     }
     
     func enableButtons() {
         DispatchQueue.main.async {
             self.searchButton.isEnabled = true
+            self.searchButton.layer.insertSublayer(self.searchGradientLayer, at: 0)
+            self.searchButton.setTitleColor(.white, for: .normal)
             self.hostButton.isEnabled = true
-            self.searchButton.backgroundColor = FindFoodFastColor.MainColor
-            self.hostButton.backgroundColor = FindFoodFastColor.MainColor
+            self.hostButton.layer.insertSublayer(self.hostGradientLayer, at: 0)
+            self.hostButton.setTitleColor(.white, for: .normal)
         }
     }
     
     @IBAction func handleUsernameTextFieldEditingChanged(_ sender: Any) {
-        if let count = (sender as! UITextField).text?.characters.count, count > 2 && count <= 29 {
+        if let count = (sender as! UITextField).text?.characters.count, count > 0 && count <= 40 {
             enableButtons()
         } else {
             disableButtons()

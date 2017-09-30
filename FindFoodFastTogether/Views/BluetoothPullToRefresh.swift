@@ -16,6 +16,8 @@ class BluetoothPullToRefresh: PullToRefresh {
         refreshView.frame.size.height = height
         let animator = BluetoothRefreshViewAnimator(refreshView: refreshView)
         self.init(refreshView: refreshView, animator: animator, height: height, position: position)
+        refreshView.gradientView.frame.size.height = height
+        refreshView.gradientView.addGradientLayer(colors: FindFoodFastColor.seaweedGradient.reversed(), at: nil)
         refreshView.topShadowView.addShadow(with: CGSize(width: 0, height: 0.5), opacity: nil, masksToBounds: true)
         refreshView.bottomShadowView.addShadow(with: CGSize(width: 0, height: -0.5), opacity: nil, masksToBounds: true)
     }

@@ -8,11 +8,14 @@
 
 import UIKit
 import CoreLocation
+import NVActivityIndicatorView
 
 class AddSuggestionViewController: UIViewController {
     
-    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var searchContainerView: UIView!
+    @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var loadingView: UIView!
+    @IBOutlet weak var activityIndicatorView: NVActivityIndicatorView!
     
     var suggestionSearchResultsCollectionViewController: SuggestionSearchResultsCollectionViewController!
     var suggestionDetailsViewController: SuggestionDetailsViewController!
@@ -25,9 +28,11 @@ class AddSuggestionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        searchBar.delegate = self
-        searchBar.becomeFirstResponder()
+        
+        searchTextField.delegate = self
+        searchTextField.becomeFirstResponder()
+        searchContainerView.addGradientLayer(colors: FindFoodFastColor.seaweedGradient.reversed(), at: 0)
+        loadingView.addGradientLayer(colors: FindFoodFastColor.seaweedGradient.reversed(), at: 0)
         
         LocationManager.sharedInstance.requestLocation { [weak self] (userLocation, error) in
             guard error == nil else {
@@ -66,45 +71,10 @@ class AddSuggestionViewController: UIViewController {
         }
     }
     
-    func searchNearbySuggestions(with keyword: String) {
-        // show indicator
-        DispatchQueue.main.async { [weak self] in
-            self?.loadingView.isHidden = false
+    @IBAction func handleSearchTextFieldChanged(_ sender: UITextField) {
+        guard let searchText = sender.text else {
+            return
         }
-        
-        print("search keyword: \(keyword)")
-        var coordinate: CLLocationCoordinate2D
-        if let userLocation = userLocation {
-            coordinate = userLocation.coordinate
-            suggestionSearchResultsCollectionViewController.userLocation = userLocation
-            
-            searchClient.searchForNearbySuggestions(using: keyword, location: coordinate, radiusInMeters: "50000", completion: { [weak self] (partialSuggestions, error) in
-                guard keyword == self?.searchBar.text else {
-                    print("current search bar text not the same current search term")
-                    return
-                }
-                DispatchQueue.main.async { [weak self] in
-                    self?.loadingView.isHidden = true
-                }
-                guard error == nil else {
-                    print("error searching for nearby suggestions")
-                    return
-                }
-                guard let partialSuggestions = partialSuggestions else {
-                    print("suggestions from nearby search are nil")
-                    return
-                }
-                self?.suggestionSearchResultsCollectionViewController.dataSource = partialSuggestions
-                self?.suggestionSearchResultsCollectionViewController.collectionView?.reloadData()
-            })
-        }
-    }
-}
-
-extension AddSuggestionViewController: UISearchBarDelegate {
-
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print("change in search text")
         // to limit network activity, reload half a second after last key press.
         if let searchWorkItem = searchWorkItem {
             searchWorkItem.cancel()
@@ -121,6 +91,51 @@ extension AddSuggestionViewController: UISearchBarDelegate {
             suggestionSearchResultsCollectionViewController.collectionView?.reloadData()
         }
     }
+    
+    func searchNearbySuggestions(with keyword: String) {
+        // show indicator
+        DispatchQueue.main.async { [weak self] in
+            self?.activityIndicatorView.startAnimating()
+            self?.loadingView.isHidden = false
+        }
+        
+        print("search keyword: \(keyword)")
+        var coordinate: CLLocationCoordinate2D
+        if let userLocation = userLocation {
+            coordinate = userLocation.coordinate
+            suggestionSearchResultsCollectionViewController.userLocation = userLocation
+            
+            searchClient.searchForNearbySuggestions(using: keyword, location: coordinate, radiusInMeters: "50000", completion: { [weak self] (partialSuggestions, error) in
+                guard keyword.lowercased() == self?.searchTextField.text?.lowercased() else {
+                    print("current search bar text not the same current search term")
+                    return
+                }
+                DispatchQueue.main.async { [weak self] in
+                    self?.loadingView.isHidden = true
+                    self?.activityIndicatorView.stopAnimating()
+                }
+                guard error == nil else {
+                    print("error searching for nearby suggestions")
+                    return
+                }
+                guard let partialSuggestions = partialSuggestions else {
+                    print("suggestions from nearby search are nil")
+                    return
+                }
+                self?.suggestionSearchResultsCollectionViewController.dataSource = partialSuggestions
+                self?.suggestionSearchResultsCollectionViewController.collectionView?.reloadData()
+            })
+        }
+    }
+}
+
+extension AddSuggestionViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
 }
 
 extension AddSuggestionViewController: SuggestionSearchResultsDelegate {

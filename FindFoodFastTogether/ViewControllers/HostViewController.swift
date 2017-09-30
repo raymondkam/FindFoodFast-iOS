@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreBluetooth
+import NVActivityIndicatorView
 
 class HostViewController: UIViewController {
     
@@ -27,8 +28,8 @@ class HostViewController: UIViewController {
     
     @IBOutlet weak var userContainerViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var startButton: UIBarButtonItem!
-    @IBOutlet weak var suggestionsLoadingIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var usersLoadingIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var suggestionsLoadingIndicator: NVActivityIndicatorView!
+    @IBOutlet weak var usersLoadingIndicator: NVActivityIndicatorView!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -47,8 +48,8 @@ class HostViewController: UIViewController {
             }
         } else {
             // show loading indicators
-            suggestionsLoadingIndicator.isHidden = false
-            usersLoadingIndicator.isHidden = false
+            suggestionsLoadingIndicator.startAnimating()
+            usersLoadingIndicator.startAnimating()
             
             // remove the start button if not host
             navigationItem.rightBarButtonItem = nil
@@ -228,13 +229,13 @@ extension HostViewController : BluetoothCentralManagerDelegate {
     func bluetoothCentralManagerDidDiscoverHost(_: BluetoothCentralManager, host: Host) {}
     
     func bluetoothCentralManagerDidConnectToHost(_: BluetoothCentralManager, users: [User]) {
-        usersLoadingIndicator.isHidden = true
+        usersLoadingIndicator.stopAnimating()
         userCollectionViewController.dataSource = users
         userCollectionViewController.collectionView?.reloadData()
     }
     
     func bluetoothCentralManagerDidReceiveSuggestions(_: BluetoothCentralManager, suggestions: [Suggestion]) {
-        suggestionsLoadingIndicator.isHidden = true
+        suggestionsLoadingIndicator.stopAnimating()
         suggestionCollectionViewController.dataSource = suggestions
         suggestionCollectionViewController.uniqueSuggestions = Set(suggestions)
         suggestionCollectionViewController.collectionView?.reloadData()

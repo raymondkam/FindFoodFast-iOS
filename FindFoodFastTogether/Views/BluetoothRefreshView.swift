@@ -16,6 +16,7 @@ class BluetoothRefreshView: UIView {
     @IBOutlet weak var bottomShadowView: UIView!
     @IBOutlet weak var activityIndicator: NVActivityIndicatorView!
     @IBOutlet weak var messageLabel: UILabel!
+    @IBOutlet weak var gradientView: UIView!
 
     override init(frame: CGRect) {
         super.init(frame: frame)

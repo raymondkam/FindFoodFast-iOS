@@ -36,12 +36,15 @@ class SuggestionDetailsViewController: UIViewController {
     @IBOutlet weak var addSuggestionShadowView: UIView!
     @IBOutlet weak var attributionsView: UIView!
     @IBOutlet weak var attributionsTextView: UITextView!
+    @IBOutlet weak var titleContainer: UIView!
     
     var partialSuggestion: PartialSuggestion!
     var suggestion: Suggestion!
     var userLocation: CLLocation?
     var searchClient = GoogleSearchClient()
     var pagedImageCollectionViewController: PagedImageCollectionViewController!
+    
+    var addSuggestionButtonGradient: CAGradientLayer!
     
     // needed when coming from host view
     var isSuggestionAdded = false
@@ -71,16 +74,21 @@ class SuggestionDetailsViewController: UIViewController {
             self?.userLocation = userLocation
         }
         
+        // add gradient
+        titleContainer.addGradientLayer(colors: FindFoodFastColor.seaweedGradient.reversed(), at: 0)
+        addSuggestionButtonGradient = addSuggestionButton.addGradientLayer(colors: FindFoodFastColor.seaweedGradient.reversed(), at: 0)
+        
         // set textview delegate to handle URLs
         attributionsTextView.delegate = self
 
+        addSuggestionButtonGradient.removeFromSuperlayer()
         if isSuggestionAdded {
             // change button to 'remove suggestion'
             addSuggestionButton.setTitle("Remove Suggestion", for: .normal)
-            addSuggestionButton.backgroundColor = FindFoodFastColor.RedColor
+            addSuggestionButtonGradient = addSuggestionButton.addGradientLayer(colors: FindFoodFastColor.roseannaGradient.reversed(), at: 0)
         } else {
             addSuggestionButton.setTitle("Add Suggestion", for: .normal)
-            addSuggestionButton.backgroundColor = FindFoodFastColor.MainColor
+            addSuggestionButton.addGradientLayer(colors: FindFoodFastColor.seaweedGradient.reversed(), at: 0)
         }
         
         if suggestion != nil {

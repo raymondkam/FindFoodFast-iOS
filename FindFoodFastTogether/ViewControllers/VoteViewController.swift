@@ -52,6 +52,8 @@ class VoteViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.addGradientLayer(colors: FindFoodFastColor.seaweedGradient.reversed(), at: 0)
     
         if isHosting {
             // note down the centrals we will need to collect votes from later

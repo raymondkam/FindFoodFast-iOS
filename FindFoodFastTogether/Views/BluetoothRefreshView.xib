@@ -15,6 +15,7 @@
                 <outlet property="activityIndicator" destination="kmz-Hn-OBa" id="fav-vM-GVi"/>
                 <outlet property="bottomShadowView" destination="GlY-aL-2zv" id="5Z4-ke-xkf"/>
                 <outlet property="contentView" destination="iN0-l3-epB" id="91y-9e-yFu"/>
+                <outlet property="gradientView" destination="cKz-5J-yJF" id="pOO-VR-vqt"/>
                 <outlet property="messageLabel" destination="6Vd-Bv-1TG" id="UDq-Uu-2GW"/>
                 <outlet property="topShadowView" destination="FUU-v9-Soj" id="Mj7-ZF-EyU"/>
             </connections>
@@ -24,6 +25,9 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cKz-5J-yJF">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                </view>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="Yb6-10-oMS">
                     <rect key="frame" x="89.5" y="300.5" width="197" height="66"/>
                     <subviews>
@@ -58,16 +62,19 @@
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" red="0.11339322120000001" green="0.73802603239999998" blue="0.83719235749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="GlY-aL-2zv" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="bottom" id="1ie-kO-6zD"/>
                 <constraint firstItem="GlY-aL-2zv" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="5ND-u7-fr2"/>
+                <constraint firstItem="cKz-5J-yJF" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="DxB-na-sWn"/>
+                <constraint firstAttribute="bottom" secondItem="cKz-5J-yJF" secondAttribute="bottom" id="HMy-0E-rzi"/>
                 <constraint firstItem="FUU-v9-Soj" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="Jyy-FA-3i5"/>
                 <constraint firstItem="Yb6-10-oMS" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="PNZ-bP-bJs"/>
                 <constraint firstItem="FUU-v9-Soj" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="QCd-1n-fju"/>
                 <constraint firstItem="GlY-aL-2zv" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="ctK-2n-uaQ"/>
                 <constraint firstItem="Yb6-10-oMS" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="dQl-fY-XgU"/>
+                <constraint firstItem="cKz-5J-yJF" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="kEM-m2-FEt"/>
                 <constraint firstItem="FUU-v9-Soj" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="u61-zV-WAZ"/>
+                <constraint firstItem="cKz-5J-yJF" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="u7T-fV-fG0"/>
             </constraints>
         </view>
     </objects>

@@ -46,4 +46,18 @@ extension UIView {
         layer.shadowOpacity = opacity ?? Float(0.3)
         layer.shadowPath = shadowPath.cgPath
     }
+    
+    func addGradientLayer(colors: [CGColor], at index:UInt32?) -> CAGradientLayer {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = bounds
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
+        gradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
+        gradientLayer.colors = colors
+        if let index = index {
+            layer.insertSublayer(gradientLayer, at: index)
+        } else {
+            layer.addSublayer(gradientLayer)
+        }
+        return gradientLayer
+    }
 }

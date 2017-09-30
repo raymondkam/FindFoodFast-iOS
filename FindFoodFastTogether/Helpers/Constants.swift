@@ -19,10 +19,24 @@ struct FindFoodFastService {
 }
 
 struct FindFoodFastColor {
-    static let MainColor = UIColor(red: 29/255, green: 188/255, blue: 213/255, alpha: 1)
+    static let MainColor = UIColor(0x3CD3AD)
     static let DisabledColor = UIColor(red: 203/255, green: 198/255, blue: 185/255, alpha: 1)
+    static let DisabledTextColor = UIColor(red: 223/255, green: 218/255, blue: 205/255, alpha: 1)
     static let ErrorColor = UIColor(red: 255/255, green: 60/255, blue: 60/255, alpha: 1)
     static let RedColor = UIColor(red: 255/255, green: 102/255, blue: 105/255, alpha: 1)
+    
+    static let blueColor = UIColor(0x4CB8C4)
+    static let greenColor = UIColor(0x3CD3AD)
+    static let pinkColor = UIColor(0xFFAFBD)
+    static let orangeColor = UIColor(0xffc3a0)
+    
+    static let roseannaGradient = [pinkColor.cgColor, orangeColor.cgColor]
+    static let seaweedGradient = [blueColor.cgColor, greenColor.cgColor]
+    
+    static let spanishPinkColor = UIColor(0xFFBFBF)
+    static let seaSerpentColor = UIColor(0x4FBDBE)
+    static let blueSapphireColor = UIColor(0x19647E)
+    static let bigFootFeetColor = UIColor(0xEE964B)
 }
 
 struct Segues {

@@ -36,6 +36,8 @@ class HighestRatedSuggestionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.addGradientLayer(colors: FindFoodFastColor.seaweedGradient.reversed(), at: 0)
+        
         setupCardMargins()
         checkInstalledNavigationApps()
         
